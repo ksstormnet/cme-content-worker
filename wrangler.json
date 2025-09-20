@@ -25,13 +25,40 @@
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
 	 */
 	/**
+	 * D1 Database binding
+	 */
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "cme-content-db",
+			"database_id": "TBD"
+		}
+	],
+	/**
+	 * R2 bucket for image storage
+	 */
+	"r2_buckets": [
+		{
+			"binding": "IMAGES",
+			"bucket_name": "cme-content-images"
+		}
+	],
+	/**
 	 * Environment Variables
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
-	// "vars": { "MY_VARIABLE": "production_value" }
+	"vars": { 
+		"ENVIRONMENT": "production",
+		"SESSION_SECRET": "change-this-secret-key",
+		"ADMIN_EMAIL": "admin@cruisemadeeasy.com"
+	}
 	/**
-	 * Note: Use secrets to store sensitive data.
-	 * https://developers.cloudflare.com/workers/configuration/secrets/
+	 * Secrets for API keys (set via wrangler secret put)
+	 * OPENAI_API_KEY - OpenAI API key
+	 * CLAUDE_API_KEY - Anthropic Claude API key  
+	 * DATAFORSEO_APIUSER - DataForSEO username
+	 * DATAFORSEO_APIKEY - DataForSEO API key
+	 * JWT_SECRET - JWT signing secret
 	 */
 	/**
 	 * Static Assets
