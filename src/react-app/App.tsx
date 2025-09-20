@@ -7,6 +7,7 @@ import LoginPage from './components/LoginPage';
 import CreateDashboard from './components/CreateDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import LoadingSpinner from './components/LoadingSpinner';
+import ChangePassword from './components/ChangePassword';
 
 // Types
 interface User {
@@ -37,6 +38,9 @@ function App() {
     return false;
   });
 
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
   // Check authentication status on app load
   useEffect(() => {
     checkAuthStatus();
@@ -52,6 +56,11 @@ function App() {
 
   const toggleDarkMode = () => {
     setDarkMode(prev => !prev);
+  };
+
+  const handlePasswordChanged = () => {
+    // Could show a success message here if needed
+    console.log('Password changed successfully');
   };
 
   const checkAuthStatus = async () => {
@@ -143,15 +152,41 @@ function App() {
             </h1>
             <div className="header-actions">
               <button onClick={toggleDarkMode} className="theme-toggle" title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>
-                {darkMode ? '☀️' : '🌙'}
+                {darkMode ? '🌙' : '☀️'}
               </button>
               {auth.user && (
-                <div className="user-info">
-                  <span className="user-name">{auth.user.name}</span>
-                  <span className="user-role">({auth.user.role})</span>
-                  <button onClick={handleLogout} className="logout-btn">
-                    Logout
+                <div className="user-menu-container">
+                  <button 
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="user-menu-trigger"
+                  >
+                    <span className="user-name">{auth.user.name}</span>
+                    <span className="user-role">({auth.user.role})</span>
+                    <span className="dropdown-arrow">▼</span>
                   </button>
+                  
+                  {showUserMenu && (
+                    <div className="user-menu">
+                      <button 
+                        onClick={() => {
+                          setShowChangePassword(true);
+                          setShowUserMenu(false);
+                        }}
+                        className="menu-item"
+                      >
+                        🔑 Change Password
+                      </button>
+                      <button 
+                        onClick={() => {
+                          handleLogout();
+                          setShowUserMenu(false);
+                        }}
+                        className="menu-item logout"
+                      >
+                        🚪 Logout
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -210,6 +245,14 @@ function App() {
             />
           </Routes>
         </main>
+
+        {/* Change Password Modal */}
+        {showChangePassword && (
+          <ChangePassword
+            onClose={() => setShowChangePassword(false)}
+            onPasswordChanged={handlePasswordChanged}
+          />
+        )}
       </div>
     </Router>
   );

@@ -123,11 +123,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error }) => {
           <p className="system-info">
             Powered by Cloudflare Workers • Secure & Fast
           </p>
-          <div className="initial-credentials">
-            <strong>Initial Login:</strong> admin@cruisemadeeasy.com / admin123
-            <br />
-            <small>(Change password immediately after first login)</small>
-          </div>
         </div>
       </div>
     </div>
