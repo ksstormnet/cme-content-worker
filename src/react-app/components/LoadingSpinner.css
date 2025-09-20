@@ -9,8 +9,8 @@
 
 .spinner {
   border-radius: 50%;
-  border: 3px solid #e2e8f0;
-  border-top: 3px solid #3b82f6;
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--primary);
   animation: spin 1s linear infinite;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .loading-text {
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 500;
   margin: 0;

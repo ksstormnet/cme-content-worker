@@ -6,7 +6,7 @@ import './PostList.css';
 interface Post {
   id: number;
   title: string;
-  status: 'draft' | 'approved' | 'scheduled' | 'published';
+  status: 'draft' | 'scheduled' | 'published';
   post_type: 'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter';
   persona?: 'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer';
   created_at: string;
@@ -37,7 +37,6 @@ const PostList: React.FC<PostListProps> = ({
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'draft': return '#6b7280';
-      case 'approved': return '#10b981';
       case 'scheduled': return '#f59e0b';
       case 'published': return '#3b82f6';
       default: return '#6b7280';
@@ -86,29 +85,11 @@ const PostList: React.FC<PostListProps> = ({
 
   return (
     <div className="post-list">
-      <div className="post-list-header">
-        <div className="header-info">
-          <h2>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Posts</h2>
-          <p className="post-count">{posts.length} posts</p>
-        </div>
-        <div className="header-actions">
-          <button onClick={onRefresh} className="refresh-btn">
-            🔄 Refresh
-          </button>
-          <Link to="/create/generate" className="generate-btn">
-            🤖 Generate New Post
-          </Link>
-        </div>
-      </div>
-
       {posts.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">📝</div>
           <h3>No {activeTab} posts yet</h3>
-          <p>Get started by generating your first piece of content</p>
-          <Link to="/create/generate" className="generate-btn-large">
-            Generate Content
-          </Link>
+          <p>Use the "+ New" button above to create your first piece of content</p>
         </div>
       ) : (
         <div className="posts-grid">

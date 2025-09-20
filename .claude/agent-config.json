@@ -1,0 +1,31 @@
+{
+  "required_agents": ["fullstack-developer", "ui-designer", "agent-organizer", "context-manager"],
+  "agent_policies": {
+    "fullstack-developer": {
+      "triggers": ["backend", "frontend", "api", "database", "full-stack", "authentication", "end-to-end"],
+      "mandatory": true,
+      "description": "Required for all full-stack development tasks"
+    },
+    "ui-designer": {
+      "triggers": ["ui", "design", "interface", "ux", "visual", "component", "styling", "responsive"],
+      "mandatory": true,
+      "description": "Required for all UI/UX design and interface development tasks"
+    },
+    "agent-organizer": {
+      "triggers": ["multi-step", "complex", "coordination", "workflow", "planning", "orchestration"],
+      "mandatory": true,
+      "description": "Required for all complex tasks requiring multi-agent coordination"
+    },
+    "context-manager": {
+      "triggers": ["context", "state", "memory", "storage", "persistence", "sync", "data"],
+      "mandatory": true,
+      "description": "Required for all context management and data persistence tasks"
+    }
+  },
+  "enforcement": {
+    "strict_mode": true,
+    "parallel_execution": true,
+    "context_sharing": true,
+    "failure_mode": "block"
+  }
+}

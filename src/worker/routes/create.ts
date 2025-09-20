@@ -24,7 +24,9 @@ createRoutes.post("/generate", async (c) => {
       post_type, 
       persona, 
       week_themes, 
-      model_preference = "standard" 
+      model_preference = "standard",
+      category_id = 1, // Default to 'General' category
+      tag_ids = []
     } = await c.req.json();
 
     if (!prompt) {
@@ -78,6 +80,21 @@ FORMAT OUTPUT AS JSON:
     let response: string;
     let tokensUsed = 0;
     let costCents = 0;
+
+    // Check for required API keys
+    if (model.includes('gpt') && !c.env.OPENAI_API_KEY) {
+      return c.json<APIResponse>({ 
+        success: false, 
+        error: "OpenAI API key not configured" 
+      }, 500);
+    }
+    
+    if (model.includes('claude') && !c.env.CLAUDE_API_KEY) {
+      return c.json<APIResponse>({ 
+        success: false, 
+        error: "Claude API key not configured" 
+      }, 500);
+    }
 
     try {
       // Try primary model first
@@ -191,9 +208,9 @@ FORMAT OUTPUT AS JSON:
     // Create draft post in database
     const postResult = await c.env.DB.prepare(`
       INSERT INTO posts (
-        slug, title, content, excerpt, status, post_type, persona, 
+        slug, title, content, excerpt, status, post_type, persona, category_id,
         author_id, keywords, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     `).bind(
       contentData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       contentData.title,
@@ -202,6 +219,7 @@ FORMAT OUTPUT AS JSON:
       'draft',
       post_type || 'monday',
       persona || null,
+      category_id || 1,
       user.id,
       JSON.stringify(contentData.keywords || [])
     ).run();
@@ -221,6 +239,16 @@ FORMAT OUTPUT AS JSON:
           i,
           JSON.stringify(block)
         ).run();
+      }
+    }
+
+    // Save post tags
+    if (tag_ids && Array.isArray(tag_ids) && tag_ids.length > 0) {
+      for (const tagId of tag_ids) {
+        await c.env.DB.prepare(`
+          INSERT INTO post_tags (post_id, tag_id, created_at)
+          VALUES (?, ?, CURRENT_TIMESTAMP)
+        `).bind(postId, tagId).run();
       }
     }
 
@@ -266,12 +294,12 @@ FORMAT OUTPUT AS JSON:
 createRoutes.put("/posts/:id", async (c) => {
   try {
     const postId = c.req.param("id");
-    const { title, excerpt, content_blocks, keywords, status } = await c.req.json();
+    const { title, excerpt, content_blocks, keywords, status, category_id, tag_ids } = await c.req.json();
 
     // Update post
     await c.env.DB.prepare(`
       UPDATE posts 
-      SET title = ?, excerpt = ?, content = ?, keywords = ?, 
+      SET title = ?, excerpt = ?, content = ?, keywords = ?, category_id = ?,
           status = COALESCE(?, status), updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).bind(
@@ -279,6 +307,7 @@ createRoutes.put("/posts/:id", async (c) => {
       excerpt || null,
       JSON.stringify(content_blocks),
       JSON.stringify(keywords || []),
+      category_id || 1,
       status || null,
       postId
     ).run();
@@ -304,6 +333,20 @@ createRoutes.put("/posts/:id", async (c) => {
       }
     }
 
+    // Update post tags
+    // First delete existing tags
+    await c.env.DB.prepare("DELETE FROM post_tags WHERE post_id = ?").bind(postId).run();
+    
+    // Insert new tags
+    if (tag_ids && Array.isArray(tag_ids) && tag_ids.length > 0) {
+      for (const tagId of tag_ids) {
+        await c.env.DB.prepare(`
+          INSERT INTO post_tags (post_id, tag_id, created_at)
+          VALUES (?, ?, CURRENT_TIMESTAMP)
+        `).bind(postId, tagId).run();
+      }
+    }
+
     return c.json<APIResponse>({
       success: true,
       message: "Post updated successfully"
@@ -324,18 +367,51 @@ createRoutes.get("/posts", async (c) => {
     const status = c.req.query("status") || "draft";
     const limit = parseInt(c.req.query("limit") || "10");
 
+    // Get posts with category info
     const posts = await c.env.DB.prepare(`
-      SELECT p.*, u.name as author_name
+      SELECT 
+        p.*, 
+        u.name as author_name,
+        c.name as category_name,
+        c.slug as category_slug,
+        c.color as category_color,
+        c.icon as category_icon
       FROM posts p
       LEFT JOIN users u ON p.author_id = u.id
+      LEFT JOIN categories c ON p.category_id = c.id
       WHERE p.status = ?
       ORDER BY p.updated_at DESC
       LIMIT ?
     `).bind(status, limit).all();
+    
+    // Get tags for each post
+    const postsWithTags = [];
+    for (const post of posts.results || []) {
+      const tags = await c.env.DB.prepare(`
+        SELECT t.id, t.name, t.slug, t.color
+        FROM post_tags pt
+        JOIN tags t ON pt.tag_id = t.id
+        WHERE pt.post_id = ?
+        ORDER BY t.name
+      `).bind(post.id).all();
+
+      postsWithTags.push({
+        ...post,
+        keywords: post.keywords ? JSON.parse(post.keywords) : [],
+        tags: tags.results || [],
+        category: {
+          id: post.category_id,
+          name: post.category_name,
+          slug: post.category_slug,
+          color: post.category_color,
+          icon: post.category_icon
+        }
+      });
+    }
 
     return c.json<APIResponse<Post[]>>({
       success: true,
-      data: posts.results || []
+      data: postsWithTags
     });
 
   } catch (error) {
@@ -376,7 +452,9 @@ createRoutes.get("/posts/:id", async (c) => {
       success: true,
       data: {
         ...post,
-        content_blocks: blocks.results || []
+        content_blocks: blocks.results || [],
+        keywords: post.keywords ? JSON.parse(post.keywords) : [],
+        tags: post.tags ? JSON.parse(post.tags) : []
       }
     });
 
@@ -385,6 +463,47 @@ createRoutes.get("/posts/:id", async (c) => {
     return c.json<APIResponse>({ 
       success: false, 
       error: "Failed to fetch post" 
+    }, 500);
+  }
+});
+
+// GET /api/create/stats - Get post counts by status
+createRoutes.get("/stats", async (c) => {
+  try {
+    const user = c.get("user");
+
+    // Get post counts by status
+    const statusCounts = await c.env.DB.prepare(`
+      SELECT status, COUNT(*) as count
+      FROM posts 
+      GROUP BY status
+    `).all();
+
+    // Initialize counts with default values
+    const counts = {
+      draft: 0,
+      approved: 0, 
+      scheduled: 0,
+      published: 0
+    };
+
+    // Update counts from database results
+    statusCounts.results.forEach((row: any) => {
+      if (counts.hasOwnProperty(row.status)) {
+        counts[row.status as keyof typeof counts] = row.count;
+      }
+    });
+
+    return c.json<APIResponse<any>>({
+      success: true,
+      data: counts
+    });
+
+  } catch (error) {
+    console.error("Stats fetch error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to fetch statistics" 
     }, 500);
   }
 });
@@ -426,6 +545,156 @@ createRoutes.delete("/posts/:id", async (c) => {
     return c.json<APIResponse>({ 
       success: false, 
       error: "Failed to delete post" 
+    }, 500);
+  }
+});
+
+// GET /api/create/categories - Get all categories
+createRoutes.get("/categories", async (c) => {
+  try {
+    const categories = await c.env.DB.prepare(`
+      SELECT category, COUNT(*) as count
+      FROM posts 
+      WHERE status != 'draft'
+      GROUP BY category
+      ORDER BY count DESC
+    `).all();
+
+    return c.json<APIResponse<any[]>>({
+      success: true,
+      data: categories.results || []
+    });
+
+  } catch (error) {
+    console.error("Categories fetch error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to fetch categories" 
+    }, 500);
+  }
+});
+
+// GET /api/create/posts/category/:category - Get posts by category
+createRoutes.get("/posts/category/:category", async (c) => {
+  try {
+    const category = c.req.param("category");
+    const limit = parseInt(c.req.query("limit") || "10");
+    const offset = parseInt(c.req.query("offset") || "0");
+
+    const posts = await c.env.DB.prepare(`
+      SELECT p.*, u.name as author_name
+      FROM posts p
+      LEFT JOIN users u ON p.author_id = u.id
+      WHERE p.category = ? AND p.status = 'published'
+      ORDER BY p.updated_at DESC
+      LIMIT ? OFFSET ?
+    `).bind(category, limit, offset).all();
+
+    // Parse JSON fields
+    const postsWithParsedFields = posts.results?.map(post => ({
+      ...post,
+      keywords: post.keywords ? JSON.parse(post.keywords) : [],
+      tags: post.tags ? JSON.parse(post.tags) : []
+    })) || [];
+
+    return c.json<APIResponse<Post[]>>({
+      success: true,
+      data: postsWithParsedFields
+    });
+
+  } catch (error) {
+    console.error("Category posts fetch error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to fetch category posts" 
+    }, 500);
+  }
+});
+
+// GET /api/create/stats - Get post counts by status
+createRoutes.get("/stats", async (c) => {
+  try {
+    const counts = await c.env.DB.prepare(`
+      SELECT 
+        status,
+        COUNT(*) as count
+      FROM posts 
+      GROUP BY status
+    `).all();
+
+    // Format the response as an object with status as keys
+    const statusCounts = {
+      draft: 0,
+      approved: 0,
+      scheduled: 0,
+      published: 0
+    };
+
+    // Map database results to the statusCounts object
+    if (counts.results) {
+      for (const row of counts.results) {
+        statusCounts[row.status as keyof typeof statusCounts] = row.count as number;
+      }
+    }
+
+    return c.json<APIResponse<typeof statusCounts>>({
+      success: true,
+      data: statusCounts
+    });
+
+  } catch (error) {
+    console.error("Stats fetch error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to fetch stats" 
+    }, 500);
+  }
+});
+
+// GET /api/create/categories - Get all categories for dropdowns
+createRoutes.get("/categories", async (c) => {
+  try {
+    const categories = await c.env.DB.prepare(`
+      SELECT id, name, slug, description, color, icon, post_count, active
+      FROM categories 
+      WHERE active = 1
+      ORDER BY name
+    `).all();
+
+    return c.json<APIResponse<any[]>>({
+      success: true,
+      data: categories.results || []
+    });
+
+  } catch (error) {
+    console.error("Categories fetch error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to fetch categories" 
+    }, 500);
+  }
+});
+
+// GET /api/create/tags - Get all tags for dropdowns
+createRoutes.get("/tags", async (c) => {
+  try {
+    const tags = await c.env.DB.prepare(`
+      SELECT id, name, slug, description, color, post_count, active
+      FROM tags 
+      WHERE active = 1
+      ORDER BY post_count DESC, name
+    `).all();
+
+    return c.json<APIResponse<any[]>>({
+      success: true,
+      data: tags.results || []
+    });
+
+  } catch (error) {
+    console.error("Tags fetch error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to fetch tags" 
     }, 500);
   }
 });

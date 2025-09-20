@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import './App.css';
 
 // Components
@@ -8,6 +8,8 @@ import CreateDashboard from './components/CreateDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import LoadingSpinner from './components/LoadingSpinner';
 import ChangePassword from './components/ChangePassword';
+import ContentCalendar from './components/ContentCalendar';
+import MainLayout from './components/MainLayout';
 
 // Types
 interface User {
@@ -40,6 +42,7 @@ function App() {
 
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Check authentication status on app load
   useEffect(() => {
@@ -207,10 +210,23 @@ function App() {
 
             {/* Protected routes */}
             <Route 
+              path="/calendar" 
+              element={
+                auth.user ? 
+                <MainLayout user={auth.user}>
+                  <ContentCalendar user={auth.user} />
+                </MainLayout> : 
+                <Navigate to="/login" replace />
+              } 
+            />
+
+            <Route 
               path="/create/*" 
               element={
                 auth.user ? 
-                <CreateDashboard user={auth.user} /> : 
+                <MainLayout user={auth.user}>
+                  <CreateDashboard user={auth.user} />
+                </MainLayout> : 
                 <Navigate to="/login" replace />
               } 
             />
@@ -219,7 +235,9 @@ function App() {
               path="/admin/*" 
               element={
                 auth.user && auth.user.role === 'admin' ? 
-                <AdminDashboard user={auth.user} /> : 
+                <MainLayout user={auth.user}>
+                  <AdminDashboard user={auth.user} />
+                </MainLayout> : 
                 <Navigate to="/create" replace />
               } 
             />

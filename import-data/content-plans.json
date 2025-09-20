@@ -1,0 +1,1458 @@
+[
+  {
+    "week_start_date": "2025-09-29",
+    "year": 2025,
+    "monday": {
+      "main": "Canada/NE (5) as the lead theme",
+      "secondary": "Industry: Q4 Push (5) as supporting context",
+      "tertiary": "Industry: Hurricane Filler (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Alaska (4) as explainer or practical angle",
+      "secondary": "Mediterranean (4) as contrast/comparison",
+      "tertiary": "Northern Europe & Baltic (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Repo: Alaska→Asia/SP (4) as milestone or forward-looking piece",
+      "secondary": "Canada/NE (5) revisited in deeper way",
+      "tertiary": "Industry: Hurricane Filler (5) or Mediterranean (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Industry: Q4 Push (5) or Industry: Hurricane Filler (5)",
+      "secondary": "Wow-factor from Alaska (4)",
+      "tertiary": "Quote, visual, or short story from Northern Europe & Baltic (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Canada/NE (5)', 'Industry: Q4 Push (5)', 'Industry: Hurricane Filler (5)', 'Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Repo: Alaska→Asia/SP (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-10-06",
+    "year": 2025,
+    "monday": {
+      "main": "Canada/NE (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Repo: Med→Caribbean (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Repo: Alaska→Asia/SP (5) as explainer or practical angle",
+      "secondary": "Repo: N. Europe→US (5) as contrast/comparison",
+      "tertiary": "Industry: Q4 Push (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Mediterranean (4) as milestone or forward-looking piece",
+      "secondary": "Canada/NE (5) revisited in deeper way",
+      "tertiary": "Repo: Med→Caribbean (5) or Repo: N. Europe→US (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Repo: Med→Caribbean (5)",
+      "secondary": "Wow-factor from Repo: Alaska→Asia/SP (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Q4 Push (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Canada/NE (5)', 'Mexican Riviera (5)', 'Repo: Med→Caribbean (5)', 'Repo: Alaska→Asia/SP (5)', 'Repo: N. Europe→US (5)', 'Industry: Q4 Push (5)', 'Mediterranean (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-10-13",
+    "year": 2025,
+    "monday": {
+      "main": "Canada/NE (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Repo: Med→Caribbean (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Repo: Alaska→Asia/SP (5) as explainer or practical angle",
+      "secondary": "Repo: N. Europe→US (5) as contrast/comparison",
+      "tertiary": "Industry: Q4 Push (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Mediterranean (4) as milestone or forward-looking piece",
+      "secondary": "Canada/NE (5) revisited in deeper way",
+      "tertiary": "Repo: Med→Caribbean (5) or Repo: N. Europe→US (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Repo: Med→Caribbean (5)",
+      "secondary": "Wow-factor from Repo: Alaska→Asia/SP (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Q4 Push (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Canada/NE (5)', 'Mexican Riviera (5)', 'Repo: Med→Caribbean (5)', 'Repo: Alaska→Asia/SP (5)', 'Repo: N. Europe→US (5)', 'Industry: Q4 Push (5)', 'Mediterranean (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-10-20",
+    "year": 2025,
+    "monday": {
+      "main": "Mexican Riviera (5) framed as *“the smart person’s Spring Break”* alternative.",
+      "secondary": "Industry: Spring Break / Family Travel cycle — why to book now (Oct/Nov).",
+      "tertiary": "Milestone: Graduation trips (9–12 months lead) tied to Spring Break 2026 planning."
+    },
+    "wednesday": {
+      "main": "Planning tips for Mexican Riviera vs Caribbean Spring Break (value, flights, ports).",
+      "secondary": "Hawaii (steady year-round, contrast with Mexico’s affordability).",
+      "tertiary": "Industry: Q4 Push urgency — cabins disappearing for Spring Break."
+    },
+    "friday": {
+      "main": "Spotlight: Norwegian Bliss and Norwegian Encore on the Mexican Riviera (ship-specific aspirational deep dive).",
+      "secondary": "Milestone: Anniversaries & retirements — why Mexico shoulder season is ideal.",
+      "tertiary": "Mediterranean shoulder season as a forward-looking contrast."
+    },
+    "saturday": {
+      "main": "Lifestyle angle — “Why smart travelers pick Mexican Riviera over the Spring Break crowd.”",
+      "secondary": "Quote/visual: Cabo sunsets, Mazatlán culture, Puerto Vallarta beaches.",
+      "tertiary": "Wow-factor callout to Asia (hinting at next week’s pivot)."
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": ""
+    }
+  },
+  {
+    "week_start_date": "2025-10-27",
+    "year": 2025,
+    "monday": {
+      "main": "*Reading the Tea Leaves: What 2027/28 Might Bring* — industry speculation on Norwegian’s future deployments (beyond 26/27).",
+      "secondary": "Anticipation content: “Why future deployment news matters to travelers.”",
+      "tertiary": "Early booking perks before Black Friday (CruiseFirst, Haven upgrades)."
+    },
+    "wednesday": {
+      "main": "How to interpret deployment announcements as a cruiser — what’s signal vs. noise.",
+      "secondary": "Planning tip: milestone trips (graduations/reunions/retirements 2026–27) → best to book before holiday chaos.",
+      "tertiary": "Competitor chatter (Princess/Celebrity fall promos) — why not to wait."
+    },
+    "friday": {
+      "main": "Norwegian Bliss and the question: *Could she repeat a blockbuster NYC–Seattle repo in Mar 2028?*",
+      "secondary": "Broader speculation: Asia recovery, Aus/NZ growth, private islands.",
+      "tertiary": "Competitor positioning — how NCL may counter Royal/Princess."
+    },
+    "saturday": {
+      "main": "*Dreaming ahead* — the thrill of planning cruises that don’t even exist yet.",
+      "secondary": "Tease: *Why early hints about Alaska matter* (set stage for Nov 3 push).",
+      "tertiary": "Quote/story: “The joy of anticipation is half the vacation.”"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "** Retirement/reunion 2026/27 — book while itineraries are fresh."
+    }
+  },
+  {
+    "week_start_date": "2025-11-03",
+    "year": 2025,
+    "monday": {
+      "main": "The rise of “Gift of Travel” — why families are booking cruises as holiday presents.",
+      "secondary": "Cyber promos launching early (Princess, RCI) → what that signals about demand.",
+      "tertiary": "Tease: Norwegian’s upcoming Fall/Winter 2027 deployments — more to come this month."
+    },
+    "wednesday": {
+      "main": "Planning a holiday cruise: why you need 12–18 months lead time.",
+      "secondary": "Asia and Aus/NZ as peak winter/spring options (educational contrast).",
+      "tertiary": "Milestone tie-in: family reunions and anniversaries as holiday-season gifts."
+    },
+    "friday": {
+      "main": "*Glacier Bay vs. Hubbard: What Really Sets NCL and RCI Apart in Alaska 2026/27* (fact-checked).",
+      "secondary": "Ship experience differences (NCL observation lounges vs. RCI North Star/Two70).",
+      "tertiary": "Cabin choice strategy (balcony/Haven vs. family layouts) and why booking early beats chasing Cyber deals."
+    },
+    "saturday": {
+      "main": "*On the Road to the Ships* — anticipation ahead of Norwegian Jade + Bliss inspections.",
+      "secondary": "Short “walk-and-talk/drive-and-talk” teaser video/audio impression (recorded en route).",
+      "tertiary": "Wow-factor photo/quote about anticipation: “The best part of a cruise is the moment before you step onboard.”"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "** Holidays as reunion time → perfect for gifting a cruise."
+    }
+  },
+  {
+    "week_start_date": "2025-11-10",
+    "year": 2025,
+    "monday": {
+      "main": "Anticipating Norwegian’s Fall/Winter 2027 deployment — what cruisers should watch for.",
+      "secondary": "Why early-bird booking matters before Black Friday crowds the market.",
+      "tertiary": "Tease Cyber promos without focusing on sales → educational framing (“here’s what these promos *really* mean”)."
+    },
+    "wednesday": {
+      "main": "Holiday cruise planning 101: why you need 12–18 months lead time.",
+      "secondary": "Asia and Aus/NZ itineraries as winter escapes (educational comparison).",
+      "tertiary": "Milestone tie-in: anniversaries and reunions as holiday-season gifts."
+    },
+    "friday": {
+      "main": "*Deployment Watch: What Norwegian’s Next Moves Could Mean for You* — anticipation/education piece.",
+      "secondary": "Educate on how deployment announcements work and what they mean for travelers.",
+      "tertiary": "Milestones best to lock now regardless (retirement/reunion 2027) + gentle reminder news could drop any day."
+    },
+    "saturday": {
+      "main": "*The Gift of Anticipation* — planning a cruise today for memories tomorrow.",
+      "secondary": "Tie to holiday gifting season (non-salesy lifestyle framing).",
+      "tertiary": "Quote/story: “The best gift isn’t wrapped, it’s experienced.”"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "** Holiday cruises/reunions — best secured now with new itineraries."
+    }
+  },
+  {
+    "week_start_date": "2025-11-17",
+    "year": 2025,
+    "monday": {
+      "main": "Anticipating Norwegian’s Fall/Winter 2027 deployment — what it means for milestone planners.",
+      "secondary": "Why early-bird booking matters: best cabins vs. waiting for Black Friday.",
+      "tertiary": "Cyber chatter is building — here’s what promos *really* signal."
+    },
+    "wednesday": {
+      "main": "*Black Friday Game Plan: You Shop, I Book* — how I simplify NCL booking while you tackle the rest of holiday chaos.",
+      "secondary": "Planning tip: lock cabins now, don’t chase headline sales later.",
+      "tertiary": "Milestone tie-in: family reunions/anniversaries make the best “gifts of travel.”"
+    },
+    "friday": {
+      "main": "*Deployment Watch: Reading the Tea Leaves* — what Norwegian’s next moves could mean.",
+      "secondary": "Educational explainer: how deployment drops work, what they signal.",
+      "tertiary": "Reminder: milestones worth booking now regardless of announcement timing."
+    },
+    "saturday": {
+      "main": "*The Calm Before Black Friday* — imagine skipping sales chaos and securing a cruise instead.",
+      "secondary": "Shareable lifestyle framing: “The gift of anticipation.”",
+      "tertiary": "Quote/visual: “The best gift isn’t wrapped — it’s experienced.”"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "** Holidays as the best time to give “the gift of togetherness.”"
+    }
+  },
+  {
+    "week_start_date": "2025-11-24",
+    "year": 2025,
+    "monday": {
+      "main": "*Black Friday Game Plan: You Shop, I Book* — let me handle your NCL cruise booking while you focus on everything else.",
+      "secondary": "Early booking perks and Haven upgrades worth targeting this week.",
+      "tertiary": "Cyber promos everywhere else — here’s why cruise booking is different."
+    },
+    "wednesday": {
+      "main": "*Cyber Monday: Your NCL Wish List, Handled* — framing cruise planning as stress-free service.",
+      "secondary": "Educational tip: how to create a cruise “wish list” (cabins, itineraries, milestones) to secure during Cyber week.",
+      "tertiary": "Competitor chatter (Royal, Princess, Carnival) vs. Norwegian positioning."
+    },
+    "friday": {
+      "main": "*Best Cabins and Perks Post-Black Friday* — what’s still available and how to snag it.",
+      "secondary": "Milestone tie-in: anniversaries, reunions, graduations 2026/27 — book now while promos linger.",
+      "tertiary": "How repricing policies protect value even after booking."
+    },
+    "saturday": {
+      "main": "*The Real Gift Isn’t in a Box — It’s at Sea* — holiday lifestyle inspiration.",
+      "secondary": "Shareable quote/story: family togetherness on board beats any doorbuster.",
+      "tertiary": "Visual: Haven suite or scenic sail-away as a “gift image.”"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "** Holiday gift idea = “the gift of togetherness.”"
+    }
+  },
+  {
+    "week_start_date": "2025-12-01",
+    "year": 2025,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Q4 Push (5) as explainer or practical angle",
+      "secondary": "Industry: Holiday Booking (5) as contrast/comparison",
+      "tertiary": "Milestone: Holiday Cruises (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Hawaii (4) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Industry: Holiday Booking (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Q4 Push (5)",
+      "tertiary": "Quote, visual, or short story from Milestone: Holiday Cruises (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Q4 Push (5)', 'Industry: Holiday Booking (5)', 'Milestone: Holiday Cruises (5)', 'Hawaii (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-12-08",
+    "year": 2025,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Q4 Push (5) as explainer or practical angle",
+      "secondary": "Industry: Holiday Booking (5) as contrast/comparison",
+      "tertiary": "Industry: Schedule Release (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Holiday Cruises (5) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Industry: Holiday Booking (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Q4 Push (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Schedule Release (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Q4 Push (5)', 'Industry: Holiday Booking (5)', 'Industry: Schedule Release (5)', 'Milestone: Holiday Cruises (5)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-12-15",
+    "year": 2025,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Q4 Push (5) as explainer or practical angle",
+      "secondary": "Industry: Holiday Booking (5) as contrast/comparison",
+      "tertiary": "Industry: Schedule Release (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Holiday Cruises (5) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Industry: Holiday Booking (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Q4 Push (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Schedule Release (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Q4 Push (5)', 'Industry: Holiday Booking (5)', 'Industry: Schedule Release (5)', 'Milestone: Holiday Cruises (5)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-12-22",
+    "year": 2025,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Q4 Push (5) as explainer or practical angle",
+      "secondary": "Industry: Holiday Booking (5) as contrast/comparison",
+      "tertiary": "Industry: Schedule Release (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Holiday Cruises (5) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Industry: Holiday Booking (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Q4 Push (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Schedule Release (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Q4 Push (5)', 'Industry: Holiday Booking (5)', 'Industry: Schedule Release (5)', 'Milestone: Holiday Cruises (5)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2025-12-29",
+    "year": 2025,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Q4 Push (5) as explainer or practical angle",
+      "secondary": "Industry: Holiday Booking (5) as contrast/comparison",
+      "tertiary": "Industry: Schedule Release (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Holiday Cruises (5) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Industry: Holiday Booking (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Q4 Push (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Schedule Release (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Q4 Push (5)', 'Industry: Holiday Booking (5)', 'Industry: Schedule Release (5)', 'Milestone: Holiday Cruises (5)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-01-05",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-01-12",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-01-19",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-01-26",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-02-02",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-02-09",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-02-16",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-02-23",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Australia/NZ (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Industry: Wave (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Asia (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Australia/NZ (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Australia/NZ (5)",
+      "secondary": "Wow-factor from Industry: Wave (5)",
+      "tertiary": "Quote, visual, or short story from Asia (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Australia/NZ (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-03-02",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Industry: Wave (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Hawaii (4) as explainer or practical angle",
+      "secondary": "Asia (4) as contrast/comparison",
+      "tertiary": "Australia/NZ (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Retirement (4) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Industry: Wave (5) or Asia (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Industry: Wave (5)",
+      "secondary": "Wow-factor from Hawaii (4)",
+      "tertiary": "Quote, visual, or short story from Australia/NZ (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-03-09",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Industry: Wave (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Hawaii (4) as explainer or practical angle",
+      "secondary": "Asia (4) as contrast/comparison",
+      "tertiary": "Australia/NZ (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Retirement (4) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Industry: Wave (5) or Asia (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Industry: Wave (5)",
+      "secondary": "Wow-factor from Hawaii (4)",
+      "tertiary": "Quote, visual, or short story from Australia/NZ (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-03-16",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Industry: Wave (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Hawaii (4) as explainer or practical angle",
+      "secondary": "Asia (4) as contrast/comparison",
+      "tertiary": "Australia/NZ (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Retirement (4) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Industry: Wave (5) or Asia (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Industry: Wave (5)",
+      "secondary": "Wow-factor from Hawaii (4)",
+      "tertiary": "Quote, visual, or short story from Australia/NZ (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-03-23",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Industry: Wave (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Hawaii (4) as explainer or practical angle",
+      "secondary": "Asia (4) as contrast/comparison",
+      "tertiary": "Australia/NZ (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Retirement (4) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Industry: Wave (5) or Asia (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Industry: Wave (5)",
+      "secondary": "Wow-factor from Hawaii (4)",
+      "tertiary": "Quote, visual, or short story from Australia/NZ (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-03-30",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Industry: Wave (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Hawaii (4) as explainer or practical angle",
+      "secondary": "Asia (4) as contrast/comparison",
+      "tertiary": "Australia/NZ (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Retirement (4) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Industry: Wave (5) or Asia (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Industry: Wave (5)",
+      "secondary": "Wow-factor from Hawaii (4)",
+      "tertiary": "Quote, visual, or short story from Australia/NZ (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Industry: Wave (5)', 'Hawaii (4)', 'Asia (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-04-06",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Mediterranean (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Australia/NZ (4) as explainer or practical angle",
+      "secondary": "Milestone: Retirement (4) as contrast/comparison",
+      "tertiary": "Milestone: Incentives (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Mediterranean (4) or Milestone: Retirement (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Mediterranean (4)",
+      "secondary": "Wow-factor from Australia/NZ (4)",
+      "tertiary": "Quote, visual, or short story from Milestone: Incentives (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Mediterranean (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)', 'Milestone: Incentives (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-04-13",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Mediterranean (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Australia/NZ (4) as explainer or practical angle",
+      "secondary": "Milestone: Retirement (4) as contrast/comparison",
+      "tertiary": "Milestone: Incentives (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Mediterranean (4) or Milestone: Retirement (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Mediterranean (4)",
+      "secondary": "Wow-factor from Australia/NZ (4)",
+      "tertiary": "Quote, visual, or short story from Milestone: Incentives (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Mediterranean (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)', 'Milestone: Incentives (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-04-20",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Mediterranean (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Australia/NZ (4) as explainer or practical angle",
+      "secondary": "Milestone: Retirement (4) as contrast/comparison",
+      "tertiary": "Milestone: Incentives (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Mediterranean (4) or Milestone: Retirement (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Mediterranean (4)",
+      "secondary": "Wow-factor from Australia/NZ (4)",
+      "tertiary": "Quote, visual, or short story from Milestone: Incentives (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Mediterranean (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)', 'Milestone: Incentives (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-04-27",
+    "year": 2026,
+    "monday": {
+      "main": "Caribbean (5) as the lead theme",
+      "secondary": "Mexican Riviera (5) as supporting context",
+      "tertiary": "Mediterranean (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Australia/NZ (4) as explainer or practical angle",
+      "secondary": "Milestone: Retirement (4) as contrast/comparison",
+      "tertiary": "Milestone: Incentives (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Alaska (3) as milestone or forward-looking piece",
+      "secondary": "Caribbean (5) revisited in deeper way",
+      "tertiary": "Mediterranean (4) or Milestone: Retirement (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mexican Riviera (5) or Mediterranean (4)",
+      "secondary": "Wow-factor from Australia/NZ (4)",
+      "tertiary": "Quote, visual, or short story from Milestone: Incentives (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Caribbean (5)', 'Mexican Riviera (5)', 'Mediterranean (4)', 'Australia/NZ (4)', 'Milestone: Retirement (4)', 'Milestone: Incentives (4)', 'Alaska (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-05-04",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (4) as the lead theme",
+      "secondary": "Mediterranean (4) as supporting context",
+      "tertiary": "Northern Europe & Baltic (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Milestone: Incentives (4) as explainer or practical angle",
+      "secondary": "Caribbean (3) as contrast/comparison",
+      "tertiary": "Mexican Riviera (3) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Hawaii (3) as milestone or forward-looking piece",
+      "secondary": "Alaska (4) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (4) or Caribbean (3) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (4) or Northern Europe & Baltic (4)",
+      "secondary": "Wow-factor from Milestone: Incentives (4)",
+      "tertiary": "Quote, visual, or short story from Mexican Riviera (3)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Milestone: Incentives (4)', 'Caribbean (3)', 'Mexican Riviera (3)', 'Hawaii (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-05-11",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (4) as the lead theme",
+      "secondary": "Mediterranean (4) as supporting context",
+      "tertiary": "Northern Europe & Baltic (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Milestone: Incentives (4) as explainer or practical angle",
+      "secondary": "Caribbean (3) as contrast/comparison",
+      "tertiary": "Mexican Riviera (3) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Hawaii (3) as milestone or forward-looking piece",
+      "secondary": "Alaska (4) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (4) or Caribbean (3) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (4) or Northern Europe & Baltic (4)",
+      "secondary": "Wow-factor from Milestone: Incentives (4)",
+      "tertiary": "Quote, visual, or short story from Mexican Riviera (3)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Milestone: Incentives (4)', 'Caribbean (3)', 'Mexican Riviera (3)', 'Hawaii (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-05-18",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (4) as the lead theme",
+      "secondary": "Mediterranean (4) as supporting context",
+      "tertiary": "Northern Europe & Baltic (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Milestone: Incentives (4) as explainer or practical angle",
+      "secondary": "Caribbean (3) as contrast/comparison",
+      "tertiary": "Mexican Riviera (3) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Hawaii (3) as milestone or forward-looking piece",
+      "secondary": "Alaska (4) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (4) or Caribbean (3) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (4) or Northern Europe & Baltic (4)",
+      "secondary": "Wow-factor from Milestone: Incentives (4)",
+      "tertiary": "Quote, visual, or short story from Mexican Riviera (3)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Milestone: Incentives (4)', 'Caribbean (3)', 'Mexican Riviera (3)', 'Hawaii (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-05-25",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (4) as the lead theme",
+      "secondary": "Mediterranean (4) as supporting context",
+      "tertiary": "Northern Europe & Baltic (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Milestone: Incentives (4) as explainer or practical angle",
+      "secondary": "Caribbean (3) as contrast/comparison",
+      "tertiary": "Mexican Riviera (3) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Hawaii (3) as milestone or forward-looking piece",
+      "secondary": "Alaska (4) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (4) or Caribbean (3) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (4) or Northern Europe & Baltic (4)",
+      "secondary": "Wow-factor from Milestone: Incentives (4)",
+      "tertiary": "Quote, visual, or short story from Mexican Riviera (3)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Milestone: Incentives (4)', 'Caribbean (3)', 'Mexican Riviera (3)', 'Hawaii (3)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-06-01",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-06-08",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-06-15",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-06-22",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-06-29",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-07-06",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Short Promos (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Industry: Short Promos (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-07-13",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-07-20",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Hawaii (4) as contrast/comparison",
+      "tertiary": "Industry: Summer Savings (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Anniversaries (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Hawaii (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Summer Savings (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)', 'Milestone: Anniversaries (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-07-27",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Industry: Schedule Release (5) as contrast/comparison",
+      "tertiary": "Hawaii (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Summer Savings (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Industry: Schedule Release (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Hawaii (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Industry: Schedule Release (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-08-03",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Industry: Hurricane Filler (5) as contrast/comparison",
+      "tertiary": "Hawaii (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Summer Savings (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Industry: Hurricane Filler (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Hawaii (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Industry: Hurricane Filler (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-08-10",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Industry: Hurricane Filler (5) as contrast/comparison",
+      "tertiary": "Hawaii (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Summer Savings (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Industry: Hurricane Filler (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Hawaii (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Industry: Hurricane Filler (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-08-17",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Industry: Hurricane Filler (5) as contrast/comparison",
+      "tertiary": "Hawaii (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Summer Savings (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Industry: Hurricane Filler (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Hawaii (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Industry: Hurricane Filler (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-08-24",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Industry: Hurricane Filler (5) as contrast/comparison",
+      "tertiary": "Hawaii (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Summer Savings (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Industry: Hurricane Filler (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Hawaii (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Industry: Hurricane Filler (5)', 'Hawaii (4)', 'Industry: Summer Savings (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-08-31",
+    "year": 2026,
+    "monday": {
+      "main": "Alaska (5) as the lead theme",
+      "secondary": "Mediterranean (5) as supporting context",
+      "tertiary": "Northern Europe & Baltic (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Arctic/Iceland/Greenland (5) as explainer or practical angle",
+      "secondary": "Industry: Hurricane Filler (5) as contrast/comparison",
+      "tertiary": "Industry: Short Promos (5) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Hawaii (4) as milestone or forward-looking piece",
+      "secondary": "Alaska (5) revisited in deeper way",
+      "tertiary": "Northern Europe & Baltic (5) or Industry: Hurricane Filler (5) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Mediterranean (5) or Northern Europe & Baltic (5)",
+      "secondary": "Wow-factor from Arctic/Iceland/Greenland (5)",
+      "tertiary": "Quote, visual, or short story from Industry: Short Promos (5)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Alaska (5)', 'Mediterranean (5)', 'Northern Europe & Baltic (5)', 'Arctic/Iceland/Greenland (5)', 'Industry: Hurricane Filler (5)', 'Industry: Short Promos (5)', 'Hawaii (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-09-07",
+    "year": 2026,
+    "monday": {
+      "main": "Industry: Q4 Push (5) as the lead theme",
+      "secondary": "Industry: Hurricane Filler (5) as supporting context",
+      "tertiary": "Industry: Short Promos (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Alaska (4) as explainer or practical angle",
+      "secondary": "Mediterranean (4) as contrast/comparison",
+      "tertiary": "Northern Europe & Baltic (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Industry: Summer Savings (4) as milestone or forward-looking piece",
+      "secondary": "Industry: Q4 Push (5) revisited in deeper way",
+      "tertiary": "Industry: Short Promos (5) or Mediterranean (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Industry: Hurricane Filler (5) or Industry: Short Promos (5)",
+      "secondary": "Wow-factor from Alaska (4)",
+      "tertiary": "Quote, visual, or short story from Northern Europe & Baltic (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Industry: Q4 Push (5)', 'Industry: Hurricane Filler (5)', 'Industry: Short Promos (5)', 'Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Industry: Summer Savings (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-09-14",
+    "year": 2026,
+    "monday": {
+      "main": "Industry: Q4 Push (5) as the lead theme",
+      "secondary": "Industry: Hurricane Filler (5) as supporting context",
+      "tertiary": "Alaska (4) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Mediterranean (4) as explainer or practical angle",
+      "secondary": "Northern Europe & Baltic (4) as contrast/comparison",
+      "tertiary": "Milestone: Graduation (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Milestone: Retirement (4) as milestone or forward-looking piece",
+      "secondary": "Industry: Q4 Push (5) revisited in deeper way",
+      "tertiary": "Alaska (4) or Northern Europe & Baltic (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Industry: Hurricane Filler (5) or Alaska (4)",
+      "secondary": "Wow-factor from Mediterranean (4)",
+      "tertiary": "Quote, visual, or short story from Milestone: Graduation (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Industry: Q4 Push (5)', 'Industry: Hurricane Filler (5)', 'Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Milestone: Graduation (4)', 'Milestone: Retirement (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  },
+  {
+    "week_start_date": "2026-09-21",
+    "year": 2026,
+    "monday": {
+      "main": "Canada/NE (5) as the lead theme",
+      "secondary": "Industry: Q4 Push (5) as supporting context",
+      "tertiary": "Industry: Hurricane Filler (5) as callout or sidebar"
+    },
+    "wednesday": {
+      "main": "Alaska (4) as explainer or practical angle",
+      "secondary": "Mediterranean (4) as contrast/comparison",
+      "tertiary": "Northern Europe & Baltic (4) as planning tip or insight"
+    },
+    "friday": {
+      "main": "Repo: Alaska→Asia/SP (4) as milestone or forward-looking piece",
+      "secondary": "Canada/NE (5) revisited in deeper way",
+      "tertiary": "Industry: Hurricane Filler (5) or Mediterranean (4) as add-on insight"
+    },
+    "saturday": {
+      "main": "Inspirational angle from Industry: Q4 Push (5) or Industry: Hurricane Filler (5)",
+      "secondary": "Wow-factor from Alaska (4)",
+      "tertiary": "Quote, visual, or short story from Northern Europe & Baltic (4)"
+    },
+    "newsletter": {
+      "themes": [],
+      "milestone": "tie one of ['Canada/NE (5)', 'Industry: Q4 Push (5)', 'Industry: Hurricane Filler (5)', 'Alaska (4)', 'Mediterranean (4)', 'Northern Europe & Baltic (4)', 'Repo: Alaska→Asia/SP (4)'] to graduations, reunions, anniversaries, etc."
+    }
+  }
+]

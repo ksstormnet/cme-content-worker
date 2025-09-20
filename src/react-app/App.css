@@ -19,6 +19,27 @@
   --border-secondary: #cbd5e1;
   --accent-primary: #3b82f6;
   --accent-secondary: #1e40af;
+  
+  /* Component-expected variables */
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --input-bg: #ffffff;
+  --primary: #3b82f6;
+  --primary-dark: #1e40af;
+  --primary-alpha: rgba(59, 130, 246, 0.1);
+  --shadow: rgba(0, 0, 0, 0.1);
+  --success-bg: #d1fae5;
+  --success-border: #a7f3d0;
+  --success-text: #065f46;
+  --warning-bg: #fef3c7;
+  --warning-border: #fde68a;
+  --warning-text: #92400e;
+  --error-bg: #fee2e2;
+  --error-border: #fecaca;
+  --error-text: #991b1b;
+  --info-bg: #dbeafe;
+  --info-border: #93c5fd;
+  --info-text: #1e40af;
 }
 
 [data-theme="dark"] {
@@ -33,6 +54,27 @@
   --border-secondary: #475569;
   --accent-primary: #60a5fa;
   --accent-secondary: #3b82f6;
+  
+  /* Component-expected variables - Dark mode */
+  --card-bg: #1e293b;
+  --border: #334155;
+  --input-bg: #334155;
+  --primary: #60a5fa;
+  --primary-dark: #3b82f6;
+  --primary-alpha: rgba(96, 165, 250, 0.1);
+  --shadow: rgba(0, 0, 0, 0.3);
+  --success-bg: #064e3b;
+  --success-border: #065f46;
+  --success-text: #34d399;
+  --warning-bg: #78350f;
+  --warning-border: #92400e;
+  --warning-text: #fbbf24;
+  --error-bg: #7f1d1d;
+  --error-border: #991b1b;
+  --error-text: #fca5a5;
+  --info-bg: #1e3a8a;
+  --info-border: #1d4ed8;
+  --info-text: #93c5fd;
 }
 
 body {
@@ -41,6 +83,31 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Override problematic base button styles */
+button {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-alpha);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .app {

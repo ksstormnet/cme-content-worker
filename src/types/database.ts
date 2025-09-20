@@ -17,7 +17,7 @@ export interface Post {
   title: string;
   content: string; // JSON string with blocks
   excerpt: string | null;
-  status: 'draft' | 'approved' | 'scheduled' | 'published';
+  status: 'draft' | 'scheduled' | 'published';
   post_type: 'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter';
   persona: 'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer' | null;
   author_id: number | null;
@@ -25,6 +25,8 @@ export interface Post {
   meta_title: string | null;
   meta_description: string | null;
   keywords: string | null; // JSON array
+  category: string; // Single category for URL routing
+  tags: string | null; // JSON array of tags
   scheduled_date: string | null;
   published_date: string | null;
   created_at: string;

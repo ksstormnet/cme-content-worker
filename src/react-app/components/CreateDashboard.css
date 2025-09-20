@@ -2,51 +2,190 @@
 
 .create-dashboard {
   display: flex;
-  height: calc(100vh - 80px); /* Account for header */
-}
-
-/* Sidebar Navigation */
-.dashboard-nav {
-  width: 280px;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border-primary);
-  display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  height: 100%;
 }
 
-.nav-section {
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #f1f5f9;
+/* Dashboard Header with Status Tabs */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--background);
 }
 
-.nav-section:last-child {
+.dashboard-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Status Tabs Bar */
+.status-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Status Pills */
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 50px; /* Pills are fully rounded */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.status-draft {
+  background: #6b7280; /* Gray for draft */
+}
+
+.status-draft:hover {
+  background: #4b5563;
+}
+
+.status-draft.active {
+  background: #374151;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+
+.status-scheduled {
+  background: #f59e0b; /* Amber for scheduled */
+}
+
+.status-scheduled:hover {
+  background: #d97706;
+}
+
+.status-scheduled.active {
+  background: #b45309;
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+}
+
+.status-published {
+  background: #3b82f6; /* Blue for published */
+}
+
+.status-published:hover {
+  background: #2563eb;
+}
+
+.status-published.active {
+  background: #1d4ed8;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.tab-icon {
+  font-size: 1rem;
+}
+
+.tab-count {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.status-pill.active .tab-count {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* New Post Dropdown */
+.new-post-dropdown {
+  position: relative;
+}
+
+.new-post-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: #22c55e; /* Green */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 4px rgba(34, 197, 94, 0.2);
+}
+
+.new-post-btn:hover {
+  background: #16a34a; /* Darker green */
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+}
+
+.dropdown-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: #22c55e; /* Green background to match button */
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.2), 0 2px 4px -1px rgba(34, 197, 94, 0.1);
+  min-width: 140px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item:last-child {
   border-bottom: none;
 }
 
-.nav-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 1rem;
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.nav-subtitle {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #64748b;
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.item-icon {
+  font-size: 1rem;
 }
 
-/* Tab Navigation */
-.nav-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+/* Dashboard Content */
+.dashboard-content {
+  flex: 1;
+  padding: 1.5rem 0;
+  overflow-y: auto;
 }
+
+/* Legacy styles - can be removed if not used elsewhere */
 
 .nav-tab {
   display: flex;
@@ -58,7 +197,7 @@
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #64748b;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -66,12 +205,12 @@
 }
 
 .nav-tab:hover {
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .nav-tab.active {
-  background: #3b82f6;
+  background: var(--primary);
   color: white;
 }
 
@@ -81,7 +220,7 @@
 
 .tab-count {
   margin-left: auto;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--primary-alpha);
   color: inherit;
   padding: 0.25rem 0.5rem;
   border-radius: 1rem;
@@ -108,21 +247,21 @@
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #64748b;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .nav-link:hover {
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
   text-decoration: none;
 }
 
 .nav-link.active {
-  background: #eff6ff;
-  color: #3b82f6;
-  border: 1px solid #dbeafe;
+  background: var(--primary-alpha);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .nav-link.admin-link {

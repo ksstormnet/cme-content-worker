@@ -32,7 +32,8 @@
 		{
 			"binding": "DB",
 			"database_name": "cme-content-db",
-			"database_id": "58de4dc4-0900-4b28-9ccc-5d066557bb11"
+			"database_id": "58de4dc4-0900-4b28-9ccc-5d066557bb11",
+			"preview_database_id": "58de4dc4-0900-4b28-9ccc-5d066557bb11"
 		}
 	],
 	/**
@@ -41,7 +42,8 @@
 	"r2_buckets": [
 		{
 			"binding": "IMAGES",
-			"bucket_name": "cruisemadeeasy-images"
+			"bucket_name": "cruisemadeeasy-images-dev",
+			"preview_bucket_name": "cruisemadeeasy-images-dev"
 		}
 	],
 	/**
@@ -49,9 +51,20 @@
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
 	"vars": { 
-		"ENVIRONMENT": "production",
+		"ENVIRONMENT": "development",
 		"SESSION_SECRET": "change-this-secret-key",
-		"ADMIN_EMAIL": "admin@cruisemadeeasy.com"
+		"ADMIN_EMAIL": "admin@cruisemadeeasy.com",
+		"JWT_SECRET": "dev-jwt-secret-key-change-in-production"
+	},
+	"env": {
+		"production": {
+			"vars": {
+				"ENVIRONMENT": "production",
+				"SESSION_SECRET": "change-this-secret-key",
+				"ADMIN_EMAIL": "admin@cruisemadeeasy.com",
+				"JWT_SECRET": "production-jwt-secret-key-change-this"
+			}
+		}
 	},
 	/**
 	 * Secrets for API keys (set via wrangler secret put)
@@ -73,7 +86,7 @@
 	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
 	"upload_source_maps": true,
 	"assets": {
-		"directory": "./dist/client",
+		"directory": "./dist/client/client",
 		"not_found_handling": "single-page-application"
 	}
 }
