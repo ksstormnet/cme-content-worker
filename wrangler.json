@@ -42,8 +42,8 @@
 	"r2_buckets": [
 		{
 			"binding": "IMAGES",
-			"bucket_name": "cruisemadeeasy-images-dev",
-			"preview_bucket_name": "cruisemadeeasy-images-dev"
+			"bucket_name": "cruisemadeeasy-images",
+			"preview_bucket_name": "cruisemadeeasy-images"
 		}
 	],
 	/**

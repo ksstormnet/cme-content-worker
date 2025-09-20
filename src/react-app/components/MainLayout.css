@@ -29,6 +29,25 @@
   border-bottom: 1px solid var(--border);
 }
 
+.header-settings-btn {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.25rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.header-settings-btn:hover {
+  color: var(--accent);
+  background: rgba(59, 130, 246, 0.1);
+}
+
 .sidebar-collapsed .sidebar-header {
   justify-content: center;
   padding: 1rem 0.5rem;
@@ -61,6 +80,74 @@
 
 .nav-section {
   margin-bottom: 1.5rem;
+}
+
+/* Collapsible sections */
+.collapsible-section {
+  margin-bottom: 8px;
+}
+
+.section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.section-toggle:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.toggle-icon {
+  font-size: 10px;
+  transition: transform 0.2s;
+}
+
+.section-title {
+  flex: 1;
+  text-align: left;
+}
+
+.section-content {
+  padding-left: 4px;
+  margin-top: 4px;
+}
+
+.section-content .nav-link {
+  margin-bottom: 2px;
+  margin-left: 12px;
+  position: relative;
+}
+
+.section-content .nav-link::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 16px;
+  background: var(--border);
+  border-radius: 1px;
+}
+
+.admin-section {
+  margin-top: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
 }
 
 .nav-subtitle {

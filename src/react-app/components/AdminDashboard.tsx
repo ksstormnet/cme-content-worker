@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { validateUrlPattern, getExampleUrls } from '../../utils/url';
+import MediaCategoryManager from './MediaCategoryManager';
 
 interface User {
   id: number;
@@ -60,6 +61,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
       loadCategories();
       loadTags();
     }
+    // Note: media tab doesn't need to load anything here as MediaCategoryManager handles its own data
   }, [activeTab]);
 
   const loadSettings = async () => {
@@ -415,27 +417,103 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
       <div className="settings-form">
 
         <div className="setting-group">
-          <h4>AI Configuration</h4>
-          <div className="form-row">
-            <label>Default AI Model:</label>
-            <select
-              value={settings.ai_default_model || ''}
-              onChange={(e) => updateSetting('ai_default_model', e.target.value)}
-            >
-              <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-              <option value="gpt-4o-mini">GPT-4o Mini</option>
-              <option value="claude-3.5-sonnet">Claude 3.5 Sonnet</option>
-            </select>
+          <h4>AI/API Configuration</h4>
+          
+          {/* Model Assignment Strategy */}
+          <div className="form-section">
+            <h5>Model Assignment & Selection</h5>
+            <div className="model-strategy-info">
+              <p><strong>ChatGPT:</strong> Content planning and strategy</p>
+              <p><strong>Claude:</strong> Content writing and generation</p>
+              <p><strong>DataForSEO:</strong> SEO analysis and optimization</p>
+            </div>
+            
+            <div className="form-row">
+              <label>ChatGPT Model (Planning):</label>
+              <select
+                value={settings.chatgpt_model || 'gpt-3.5-turbo'}
+                onChange={(e) => updateSetting('chatgpt_model', e.target.value)}
+              >
+                <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Cheapest)</option>
+                <option value="gpt-4o-mini">GPT-4o Mini (Standard)</option>
+                <option value="gpt-4o">GPT-4o (Premium)</option>
+              </select>
+              <small>Default: GPT-3.5 Turbo for cost-effective planning</small>
+            </div>
+            
+            <div className="form-row">
+              <label>Claude Model (Writing):</label>
+              <select
+                value={settings.claude_model || 'claude-3-5-sonnet-20241022'}
+                onChange={(e) => updateSetting('claude_model', e.target.value)}
+              >
+                <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet (Latest)</option>
+                <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku (Faster)</option>
+                <option value="claude-3-opus-20240229">Claude 3 Opus (Most Capable)</option>
+              </select>
+              <small>Default: Claude 3.5 Sonnet (latest version)</small>
+            </div>
           </div>
-          <div className="form-row">
-            <label>Fallback Model:</label>
-            <select
-              value={settings.ai_fallback_model || ''}
-              onChange={(e) => updateSetting('ai_fallback_model', e.target.value)}
-            >
-              <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-              <option value="llama3.1:8b">Llama 3.1 8B</option>
-            </select>
+
+          {/* API Keys */}
+          <div className="form-section">
+            <h5>API Keys</h5>
+            <div className="form-row">
+              <label>OpenAI API Key:</label>
+              <input
+                type="password"
+                value={settings.openai_api_key || ''}
+                onChange={(e) => updateSetting('openai_api_key', e.target.value)}
+                placeholder="sk-..."
+              />
+              <small>Used for content planning with GPT-4o-mini</small>
+            </div>
+            <div className="form-row">
+              <label>Claude API Key:</label>
+              <input
+                type="password"
+                value={settings.claude_api_key || ''}
+                onChange={(e) => updateSetting('claude_api_key', e.target.value)}
+                placeholder="sk-ant-..."
+              />
+              <small>Used for content writing with Claude-3.5-Sonnet</small>
+            </div>
+            <div className="form-row">
+              <label>DataForSEO API Username:</label>
+              <input
+                type="text"
+                value={settings.dataforseo_username || ''}
+                onChange={(e) => updateSetting('dataforseo_username', e.target.value)}
+                placeholder="your-username"
+              />
+              <small>DataForSEO account username</small>
+            </div>
+            <div className="form-row">
+              <label>DataForSEO API Key:</label>
+              <input
+                type="password"
+                value={settings.dataforseo_api_key || ''}
+                onChange={(e) => updateSetting('dataforseo_api_key', e.target.value)}
+                placeholder="your-api-key"
+              />
+              <small>Used for SEO analysis and keyword research</small>
+            </div>
+          </div>
+
+          {/* Fallback Settings */}
+          <div className="form-section">
+            <h5>Fallback Configuration</h5>
+            <div className="form-row">
+              <label>Fallback Model:</label>
+              <select
+                value={settings.ai_fallback_model || 'gpt-3.5-turbo'}
+                onChange={(e) => updateSetting('ai_fallback_model', e.target.value)}
+              >
+                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                <option value="gpt-4o-mini">GPT-4o Mini</option>
+              </select>
+              <small>Used when primary models fail</small>
+            </div>
           </div>
         </div>
 
@@ -788,6 +866,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
         >
           Categories & Tags
         </button>
+        <button 
+          className={`tab ${activeTab === 'media' ? 'active' : ''}`}
+          onClick={() => setActiveTab('media')}
+        >
+          Media Library
+        </button>
       </div>
 
       <div className="admin-content">
@@ -795,6 +879,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
         {activeTab === 'settings' && renderSettings()}
         {activeTab === 'users' && renderUsers()}
         {activeTab === 'categories' && renderCategoriesAndTags()}
+        {activeTab === 'media' && <MediaCategoryManager user={user} />}
       </div>
     </div>
   );

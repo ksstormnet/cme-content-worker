@@ -133,9 +133,18 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
 
   const isActive = (path: string) => location.pathname.includes(path);
 
+  // Only show post header for post-related routes, not for media
+  const isPostRoute = location.pathname === '/create' || 
+                      location.pathname === '/create/' || 
+                      location.pathname.startsWith('/create/edit/') ||
+                      location.pathname.startsWith('/create/generate') ||
+                      location.pathname.startsWith('/create/free-form') ||
+                      location.pathname.startsWith('/create/import');
+
   return (
     <div className="create-dashboard">
-      <div className="dashboard-header">
+      {isPostRoute && (
+        <div className="dashboard-header">
         <h2 className="dashboard-title">Posts</h2>
         
         <div className="header-controls">
@@ -203,7 +212,8 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      )}
 
       <main className="dashboard-content">
         <Routes>

@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react(), cloudflare()],
   server: {
     port: 5174,
+    strictPort: true,
     proxy: {
       '/api': {
         target: 'http://localhost:8787',

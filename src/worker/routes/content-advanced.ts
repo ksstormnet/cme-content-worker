@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { Env, APIResponse } from "../../types/database";
 import { requireAuth } from "./auth";
+import { generateComprehensiveContent, getAPIKeys } from "../../utils/ai-models";
 
 export const contentAdvancedRoutes = new Hono<{ Bindings: Env }>();
 
@@ -424,109 +425,98 @@ function getPostTypeGuidance(postType: string): string {
 }
 
 async function generateContentWithModel(prompt: string, modelPreference: string, env: any) {
-  // Use the existing generation logic from create.ts but with enhanced CME prompt
-  const AI_MODELS = {
-    cheap: "gpt-3.5-turbo",
-    standard: "gpt-4o-mini", 
-    premium: "claude-3.5-sonnet",
-    fallback: "gpt-3.5-turbo"
-  };
-
-  let model = AI_MODELS[modelPreference as keyof typeof AI_MODELS] || AI_MODELS.standard;
-  let response: string;
-  let tokensUsed = 0;
-  let costCents = 0;
-
-  try {
-    if (model.includes('gpt')) {
-      const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: model,
-          messages: [
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 3000,
-          temperature: 0.7,
-        }),
-      });
-
-      const data = await openaiResponse.json();
-      if (!openaiResponse.ok) {
-        throw new Error(data.error?.message || 'OpenAI API error');
-      }
-
-      response = data.choices[0].message.content;
-      tokensUsed = data.usage?.total_tokens || 0;
-      
-      if (model === 'gpt-4o-mini') {
-        costCents = Math.round(tokensUsed * 0.0015 / 1000 * 100);
-      } else {
-        costCents = Math.round(tokensUsed * 0.0005 / 1000 * 100);
-      }
-
-    } else if (model.includes('claude')) {
-      const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key': env.CLAUDE_API_KEY,
-          'Content-Type': 'application/json',
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: model,
-          max_tokens: 3000,
-          messages: [
-            { role: 'user', content: prompt }
-          ],
-        }),
-      });
-
-      const data = await claudeResponse.json();
-      if (!claudeResponse.ok) {
-        throw new Error(data.error?.message || 'Claude API error');
-      }
-
-      response = data.content[0].text;
-      tokensUsed = data.usage?.input_tokens + data.usage?.output_tokens || 0;
-      costCents = Math.round(tokensUsed * 0.003 / 1000 * 100);
-    }
-
-    // Parse AI response
-    let contentData;
+  // Use the new task-based generation system
+  const apiKeys = getAPIKeys(env);
+  
+  // Load model settings from database
+  const settingsResult = await env.DB.prepare(
+    "SELECT key, value FROM settings WHERE key IN ('chatgpt_model', 'claude_model')"
+  ).all();
+  
+  const settings: Record<string, any> = {};
+  settingsResult.results?.forEach((setting: any) => {
     try {
-      contentData = JSON.parse(response);
-    } catch (error) {
-      contentData = {
-        title: "Generated Content",
-        excerpt: response.substring(0, 160),
-        content_blocks: [
-          { type: "paragraph", content: response }
-        ],
-        keywords: [],
-        featured_image_suggestion: "Blog post featured image"
-      };
+      settings[setting.key] = JSON.parse(setting.value);
+    } catch {
+      settings[setting.key] = setting.value;
     }
-
-    return {
-      success: true,
-      data: {
-        ...contentData,
-        model_used: model,
-        tokens_used: tokensUsed,
-        cost_cents: costCents,
-        generation_time_ms: Date.now()
+  });
+  
+  try {
+    // Use comprehensive generation (planning + writing + SEO)
+    const result = await generateComprehensiveContent(
+      prompt,
+      apiKeys,
+      {
+        includeWriting: true,
+        includeSEO: true,
+        settings: settings
       }
-    };
+    );
+
+    if (result.writing?.success && result.writing.data) {
+      // Parse the writing response
+      let contentData;
+      try {
+        contentData = JSON.parse(result.writing.data.response);
+      } catch (error) {
+        contentData = {
+          title: "Generated Content",
+          excerpt: result.writing.data.response.substring(0, 160),
+          content_blocks: [
+            { type: "paragraph", content: result.writing.data.response }
+          ],
+          keywords: [],
+          featured_image_suggestion: "Blog post featured image"
+        };
+      }
+
+      return {
+        success: true,
+        data: {
+          ...contentData,
+          model_used: result.summary.models_used.join(', '),
+          tokens_used: result.summary.total_time_ms, // Store total time for now
+          cost_cents: result.summary.total_cost_cents,
+          generation_time_ms: result.summary.total_time_ms,
+          seo_analysis: result.seo?.data?.seo_analysis
+        }
+      };
+    } else if (result.planning?.success && result.planning.data) {
+      // Fallback to planning result
+      let contentData;
+      try {
+        contentData = JSON.parse(result.planning.data.response);
+      } catch (error) {
+        contentData = {
+          title: "Generated Content",
+          excerpt: result.planning.data.response.substring(0, 160),
+          content_blocks: [
+            { type: "paragraph", content: result.planning.data.response }
+          ],
+          keywords: [],
+          featured_image_suggestion: "Blog post featured image"
+        };
+      }
+
+      return {
+        success: true,
+        data: {
+          ...contentData,
+          model_used: result.planning.data.model_used,
+          tokens_used: result.planning.data.tokens_used,
+          cost_cents: result.planning.data.cost_cents,
+          generation_time_ms: result.planning.data.generation_time_ms
+        }
+      };
+    } else {
+      throw new Error('All generation attempts failed');
+    }
 
   } catch (error) {
     return {
       success: false,
-      error: error.message
+      error: error instanceof Error ? error.message : 'Content generation failed'
     };
   }
 }
@@ -572,20 +562,6 @@ async function createPostFromGeneration(generationData: any, plan: any, userId: 
   return postId;
 }
 
-async function generateSeoAnalysis(title: string, contentBlocks: any[], env: any): Promise<any> {
-  // This would integrate with DataForSEO or similar service
-  // For now, return basic analysis
-  return {
-    title_length: title.length,
-    title_seo_score: title.length >= 30 && title.length <= 60 ? 'good' : 'needs_improvement',
-    keyword_density: 'analysis_pending',
-    readability_score: 'analysis_pending',
-    suggested_improvements: [
-      'Consider adding more Norwegian Cruise Line-specific keywords',
-      'Ensure content follows CME brand voice guidelines',
-      'Optimize for featured snippets with structured content'
-    ]
-  };
-}
+// SEO analysis is now handled by the generateSEOAnalysis function in utils/ai-models.ts
 
 export default contentAdvancedRoutes;

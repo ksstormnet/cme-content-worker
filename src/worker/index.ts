@@ -12,6 +12,7 @@ import { createRoutes } from "./routes/create";
 import { calendarRoutes } from "./routes/calendar";
 import { contentAdvancedRoutes } from "./routes/content-advanced";
 import { importRoutes } from "./routes/import";
+import { media } from "./routes/media";
 
 // URL pattern for blog posts (should match settings)
 const BLOG_URL_PATTERN = "/%category%/";
@@ -34,6 +35,7 @@ app.route("/api/create", createRoutes);
 app.route("/api/calendar", calendarRoutes);
 app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
+app.route("/api/media", media);
 
 
 // Health check - MUST come before serveStatic

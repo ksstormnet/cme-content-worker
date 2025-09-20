@@ -172,13 +172,46 @@ adminRoutes.get("/settings", async (c) => {
     const settingsObj: Record<string, any> = {};
     settings.results?.forEach((setting: any) => {
       try {
-        // Try to parse JSON values
-        settingsObj[setting.key] = JSON.parse(setting.value);
-      } catch {
-        // If not JSON, store as string
+        // Handle sensitive data (API keys) - mask them for security
+        if (setting.is_sensitive && setting.value) {
+          const value = setting.value as string;
+          // Mask API keys but show enough to identify if they're set
+          if (value.startsWith('sk-ant-')) {
+            settingsObj[setting.key] = 'sk-ant-' + '*'.repeat(40) + value.slice(-4);
+          } else if (value.startsWith('sk-')) {
+            settingsObj[setting.key] = 'sk-' + '*'.repeat(40) + value.slice(-4);
+          } else {
+            settingsObj[setting.key] = '*'.repeat(Math.min(value.length, 20));
+          }
+        } else {
+          // Try to parse JSON values for regular settings
+          try {
+            settingsObj[setting.key] = JSON.parse(setting.value);
+          } catch {
+            // If not JSON, store as string
+            settingsObj[setting.key] = setting.value;
+          }
+        }
+      } catch (error) {
+        console.error('Setting parse error:', setting.key, error);
         settingsObj[setting.key] = setting.value;
       }
     });
+
+    // Also check for API keys from environment (Cloudflare Worker secrets)
+    // In production, these would come from c.env.OPENAI_API_KEY, etc.
+    if (c.env.OPENAI_API_KEY && !settingsObj.openai_api_key) {
+      settingsObj.openai_api_key = 'sk-' + '*'.repeat(40) + '(env)';
+    }
+    if (c.env.CLAUDE_API_KEY && !settingsObj.claude_api_key) {
+      settingsObj.claude_api_key = 'sk-ant-' + '*'.repeat(40) + '(env)';
+    }
+    if (c.env.DATAFORSEO_APIUSER && !settingsObj.dataforseo_username) {
+      settingsObj.dataforseo_username = c.env.DATAFORSEO_APIUSER;
+    }
+    if (c.env.DATAFORSEO_APIKEY && !settingsObj.dataforseo_api_key) {
+      settingsObj.dataforseo_api_key = '*'.repeat(20) + '(env)';
+    }
 
     return c.json<APIResponse<Record<string, any>>>({
       success: true,
@@ -199,8 +232,23 @@ adminRoutes.put("/settings", async (c) => {
   try {
     const settings = await c.req.json();
     
-    // Update each setting
+    // Separate API keys from other settings
+    const apiKeys = ['openai_api_key', 'claude_api_key', 'dataforseo_username', 'dataforseo_api_key'];
+    const regularSettings: Record<string, any> = {};
+    const keyUpdates: Record<string, string> = {};
+    
     for (const [key, value] of Object.entries(settings)) {
+      if (apiKeys.includes(key) && value && typeof value === 'string' && value.trim() !== '') {
+        // Store API keys securely (in production, these would be Cloudflare Worker secrets)
+        keyUpdates[key] = value as string;
+      } else if (!apiKeys.includes(key)) {
+        // Regular settings go to database
+        regularSettings[key] = value;
+      }
+    }
+    
+    // Update regular settings in database
+    for (const [key, value] of Object.entries(regularSettings)) {
       const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
       
       await c.env.DB.prepare(`
@@ -212,9 +260,34 @@ adminRoutes.put("/settings", async (c) => {
       `).bind(key, stringValue).run();
     }
 
+    // Store API keys as encrypted settings (in production, use Worker secrets)
+    // For now, we'll store them in settings but marked as sensitive
+    for (const [key, value] of Object.entries(keyUpdates)) {
+      try {
+        await c.env.DB.prepare(`
+          INSERT INTO settings (key, value, updated_at, is_sensitive) 
+          VALUES (?, ?, CURRENT_TIMESTAMP, 1)
+          ON CONFLICT(key) DO UPDATE SET 
+            value = excluded.value, 
+            updated_at = excluded.updated_at,
+            is_sensitive = 1
+        `).bind(key, value).run();
+      } catch (error) {
+        // Fallback for databases without is_sensitive column
+        console.warn('Fallback to basic settings insert for:', key);
+        await c.env.DB.prepare(`
+          INSERT INTO settings (key, value, updated_at) 
+          VALUES (?, ?, CURRENT_TIMESTAMP)
+          ON CONFLICT(key) DO UPDATE SET 
+            value = excluded.value, 
+            updated_at = excluded.updated_at
+        `).bind(key, value).run();
+      }
+    }
+
     return c.json<APIResponse>({ 
       success: true, 
-      message: "Settings updated successfully" 
+      message: "Settings and API keys updated successfully. In production, API keys should be stored as Cloudflare Worker secrets." 
     });
 
   } catch (error) {

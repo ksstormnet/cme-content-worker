@@ -1,18 +1,20 @@
 import { Hono } from "hono";
 import { Env, Post, ContentBlock, AIGeneration, APIResponse } from "../../types/database";
 import { requireAuth } from "./auth";
+import { generateComprehensiveContent, getAPIKeys, TaskType } from "../../utils/ai-models";
 
 export const createRoutes = new Hono<{ Bindings: Env }>();
 
 // Apply auth middleware to all create routes
 createRoutes.use("*", requireAuth);
 
-// AI Models configuration with cost optimization
-const AI_MODELS = {
-  cheap: "gpt-3.5-turbo", // For simple tasks, keyword extraction
-  standard: "gpt-4o-mini", // For most content generation
-  premium: "claude-3.5-sonnet", // For complex content, editing
-  fallback: "gpt-3.5-turbo" // If other models fail
+// Task-based AI Model Configuration
+// ChatGPT (GPT-4o-mini) for planning, Claude (Claude-3.5-sonnet) for writing, DataForSEO for SEO
+const TASK_MODELS = {
+  planning: "gpt-4o-mini", // Content planning and strategy
+  writing: "claude-3.5-sonnet", // Content writing and generation
+  seo: "dataforseo", // SEO analysis and optimization
+  fallback: "gpt-3.5-turbo" // Emergency fallback
 };
 
 // POST /api/create/generate - Generate content using AI
@@ -24,7 +26,7 @@ createRoutes.post("/generate", async (c) => {
       post_type, 
       persona, 
       week_themes, 
-      model_preference = "standard",
+      task_type = "comprehensive", // planning, writing, seo, or comprehensive
       category_id = 1, // Default to 'General' category
       tag_ids = []
     } = await c.req.json();
@@ -37,7 +39,6 @@ createRoutes.post("/generate", async (c) => {
     }
 
     const startTime = Date.now();
-    let model = AI_MODELS[model_preference as keyof typeof AI_MODELS] || AI_MODELS.standard;
     
     // Build comprehensive prompt based on CME guidelines
     const systemPrompt = `You are an expert content writer for Cruise Made Easy, specializing in Norwegian Cruise Line content.
@@ -77,113 +78,84 @@ FORMAT OUTPUT AS JSON:
   "featured_image_suggestion": "Description of ideal featured image"
 }`;
 
+    // Get API keys and model settings from database
+    const settingsResult = await c.env.DB.prepare(
+      "SELECT key, value FROM settings WHERE key IN ('openai_api_key', 'claude_api_key', 'dataforseo_username', 'dataforseo_api_key', 'chatgpt_model', 'claude_model')"
+    ).all();
+    
+    const dbSettings: Record<string, any> = {};
+    settingsResult.results?.forEach((setting: any) => {
+      try {
+        dbSettings[setting.key] = JSON.parse(setting.value);
+      } catch {
+        dbSettings[setting.key] = setting.value;
+      }
+    });
+    
+    const apiKeys = getAPIKeys(c.env, dbSettings);
+    
     let response: string;
     let tokensUsed = 0;
     let costCents = 0;
+    let modelUsed = '';
+    let seoAnalysis = null;
 
-    // Check for required API keys
-    if (model.includes('gpt') && !c.env.OPENAI_API_KEY) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "OpenAI API key not configured" 
-      }, 500);
-    }
-    
-    if (model.includes('claude') && !c.env.CLAUDE_API_KEY) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Claude API key not configured" 
-      }, 500);
-    }
-
+    // Generate content using task-based approach
     try {
-      // Try primary model first
-      if (model.includes('gpt')) {
-        const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${c.env.OPENAI_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: model,
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: prompt }
-            ],
-            max_tokens: 2000,
-            temperature: 0.7,
-          }),
-        });
+      if (task_type === 'comprehensive') {
+        // Use all three models: planning -> writing -> SEO
+        const result = await generateComprehensiveContent(
+          `${systemPrompt}\n\nUser Request: ${prompt}`,
+          apiKeys,
+          {
+            includeWriting: true,
+            includeSEO: true,
+            settings: dbSettings
+          }
+        );
 
-        const data = await openaiResponse.json();
-        if (!openaiResponse.ok) {
-          throw new Error(data.error?.message || 'OpenAI API error');
+        if (result.writing?.success && result.writing.data) {
+          response = result.writing.data.response;
+          tokensUsed = result.summary.total_time_ms; // Store total time in tokens field for now
+          costCents = result.summary.total_cost_cents;
+          modelUsed = result.summary.models_used.join(', ');
+          seoAnalysis = result.seo?.data?.seo_analysis || null;
+        } else if (result.planning?.success && result.planning.data) {
+          // Fallback to planning result if writing failed
+          response = result.planning.data.response;
+          tokensUsed = result.planning.data.tokens_used || 0;
+          costCents = result.planning.data.cost_cents || 0;
+          modelUsed = result.planning.data.model_used || 'gpt-4o-mini';
+        } else {
+          throw new Error('All content generation attempts failed');
         }
+      } else {
+        // Use single task-specific model
+        const { generateWithTaskModel } = await import('../../utils/ai-models');
+        const taskType = task_type as TaskType;
+        const result = await generateWithTaskModel(
+          taskType,
+          `${systemPrompt}\n\nUser Request: ${prompt}`,
+          apiKeys,
+          { settings: dbSettings }
+        );
 
-        response = data.choices[0].message.content;
-        tokensUsed = data.usage?.total_tokens || 0;
-        
-        // Rough cost calculation (adjust based on current pricing)
-        if (model === 'gpt-4o-mini') {
-          costCents = Math.round(tokensUsed * 0.0015 / 1000 * 100); // $0.0015 per 1K tokens
-        } else if (model === 'gpt-3.5-turbo') {
-          costCents = Math.round(tokensUsed * 0.0005 / 1000 * 100); // $0.0005 per 1K tokens
+        if (result.success && result.data) {
+          response = result.data.response;
+          tokensUsed = result.data.tokens_used || 0;
+          costCents = result.data.cost_cents || 0;
+          modelUsed = result.data.model_used || '';
+        } else {
+          throw new Error(result.error || 'Content generation failed');
         }
-
-      } else if (model.includes('claude')) {
-        const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: {
-            'x-api-key': c.env.CLAUDE_API_KEY,
-            'Content-Type': 'application/json',
-            'anthropic-version': '2023-06-01'
-          },
-          body: JSON.stringify({
-            model: model,
-            max_tokens: 2000,
-            messages: [
-              { role: 'user', content: `${systemPrompt}\n\nUser Request: ${prompt}` }
-            ],
-          }),
-        });
-
-        const data = await claudeResponse.json();
-        if (!claudeResponse.ok) {
-          throw new Error(data.error?.message || 'Claude API error');
-        }
-
-        response = data.content[0].text;
-        tokensUsed = data.usage?.input_tokens + data.usage?.output_tokens || 0;
-        costCents = Math.round(tokensUsed * 0.003 / 1000 * 100); // Rough Claude pricing
       }
 
     } catch (error) {
-      console.error(`${model} failed:`, error);
-      // Fallback to cheaper model
-      model = AI_MODELS.fallback;
-      
-      const fallbackResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${c.env.OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: model,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 2000,
-          temperature: 0.7,
-        }),
-      });
-
-      const fallbackData = await fallbackResponse.json();
-      response = fallbackData.choices[0].message.content;
-      tokensUsed = fallbackData.usage?.total_tokens || 0;
-      costCents = Math.round(tokensUsed * 0.0005 / 1000 * 100);
+      console.error('Content generation error:', error);
+      return c.json<APIResponse>({ 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Content generation failed'
+      }, 500);
     }
 
     const generationTime = Date.now() - startTime;
@@ -260,7 +232,7 @@ FORMAT OUTPUT AS JSON:
       ) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
     `).bind(
       postId,
-      model,
+      modelUsed,
       prompt,
       response,
       tokensUsed,
@@ -272,13 +244,15 @@ FORMAT OUTPUT AS JSON:
       success: true,
       data: {
         post_id: postId,
-        model_used: model,
+        model_used: modelUsed,
         generation_time_ms: generationTime,
         tokens_used: tokensUsed,
         cost_cents: costCents,
+        task_type: task_type,
+        seo_analysis: seoAnalysis,
         ...contentData
       },
-      message: "Content generated successfully"
+      message: `Content generated successfully using ${task_type} approach`
     });
 
   } catch (error) {

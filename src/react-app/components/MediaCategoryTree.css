@@ -1,0 +1,462 @@
+/* File Tree Styles - Compact and Clean */
+
+.file-tree {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 8px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Root "All Files" item */
+.root-item {
+  padding: 2px 4px;
+  margin-bottom: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 16px;
+}
+
+.root-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.root-item.selected {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+/* Tree structure */
+.tree-list {
+  margin-left: 0;
+}
+
+.tree-item {
+  user-select: none;
+}
+
+.tree-row[draggable="true"] {
+  cursor: grab;
+}
+
+.tree-row[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+.tree-row {
+  display: flex;
+  align-items: center;
+  min-height: 16px;
+  padding: 1px 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+  position: relative;
+}
+
+.tree-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tree-row.selected {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.tree-row.drag-over {
+  background: rgba(34, 197, 94, 0.3);
+  outline: 1px dashed #22c55e;
+  box-shadow: inset 0 0 0 2px #22c55e;
+}
+
+/* Dragging state visual feedback */
+.tree-row:has(+ .tree-children .tree-row.drag-over) {
+  border-left: 2px solid #22c55e;
+}
+
+/* Tree connectors */
+.tree-connector {
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  font-size: 13px;
+  white-space: pre;
+  flex-shrink: 0;
+}
+
+/* Expand/collapse button */
+.tree-toggle {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 8px;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2px;
+  padding: 0;
+  border-radius: 1px;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.tree-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Icons */
+.tree-icon {
+  font-size: 10px;
+  margin-right: 4px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* Category names */
+.tree-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.tree-name:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Inline editing */
+.tree-row.editing {
+  background: rgba(59, 130, 246, 0.1);
+  outline: 1px solid #3b82f6;
+}
+
+.inline-edit {
+  flex: 1;
+  display: flex;
+  margin-right: 4px;
+}
+
+.edit-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #3b82f6;
+  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-family: inherit;
+  padding: 1px 4px;
+  width: 100%;
+  min-width: 80px;
+  outline: none;
+}
+
+.edit-input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #60a5fa;
+}
+
+/* File counts */
+.tree-count {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+/* Children indentation */
+.tree-children {
+  margin-left: 0;
+}
+
+/* Depth-specific styling */
+.depth-0 .tree-name {
+  font-weight: 500;
+}
+
+.depth-1 .tree-name {
+  font-size: 12px;
+}
+
+.depth-2 .tree-name {
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Admin actions */
+.tree-actions {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.add-root-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 9px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  transition: all 0.15s;
+  width: 100%;
+  text-align: left;
+}
+
+.add-root-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Quick add form */
+.quick-add-form {
+  margin-top: 4px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.quick-add-form input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 10px;
+  padding: 3px 6px;
+  min-width: 0;
+}
+
+.quick-add-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.quick-add-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.form-buttons button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.form-buttons .save:hover {
+  background: rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+}
+
+.form-buttons .cancel:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+/* Responsive adjustments for collapsed sidebar */
+.sidebar-collapsed .file-tree {
+  display: none;
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .file-tree {
+  color: rgba(0, 0, 0, 0.8);
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .tree-connector {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .tree-toggle {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .tree-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="light"] .tree-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .root-item:hover,
+[data-theme="light"] .tree-row:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .root-item.selected,
+[data-theme="light"] .tree-row.selected {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
+
+[data-theme="light"] .add-root-btn {
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .add-root-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .quick-add-form {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .quick-add-form input {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="light"] .quick-add-form input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* Light theme inline editing */
+[data-theme="light"] .tree-name:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="light"] .tree-row.editing {
+  background: rgba(59, 130, 246, 0.1);
+  outline-color: #3b82f6;
+}
+
+[data-theme="light"] .edit-input {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: #3b82f6;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="light"] .edit-input:focus {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: #60a5fa;
+}
+
+/* Compact sizing */
+.tree-item {
+  margin: 0;
+}
+
+.tree-row {
+  font-size: 13px;
+  min-height: 16px;
+  padding: 1px 2px;
+}
+
+/* File tree specific spacing */
+.file-tree .tree-list .tree-item:not(:last-child) {
+  margin-bottom: 1px;
+}
+
+/* Ensure proper alignment */
+.tree-row > * {
+  vertical-align: middle;
+}
+
+/* Loading skeleton styles */
+.tree-skeleton {
+  margin-top: 4px;
+}
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  min-height: 16px;
+  padding: 1px 2px;
+  margin-bottom: 1px;
+}
+
+.skeleton-connector {
+  color: rgba(255, 255, 255, 0.2);
+  font-family: monospace;
+  font-size: 13px;
+  white-space: pre;
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+
+.skeleton-icon {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-right: 4px;
+  flex-shrink: 0;
+  animation: skeleton-pulse 1.5s ease-in-out infinite alternate;
+}
+
+.skeleton-text {
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  flex: 1;
+  max-width: 120px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite alternate;
+  animation-delay: 0.2s;
+}
+
+.skeleton-text-long {
+  max-width: 160px;
+}
+
+.skeleton-text-short {
+  max-width: 80px;
+}
+
+@keyframes skeleton-pulse {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+/* Light theme skeleton adjustments */
+[data-theme="light"] .skeleton-connector {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .skeleton-icon,
+[data-theme="light"] .skeleton-text {
+  background: rgba(0, 0, 0, 0.08);
+}
