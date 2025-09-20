@@ -5,7 +5,7 @@ import { serveStatic } from "hono/cloudflare-workers";
 import { Env } from "../types/database";
 
 // Import route handlers
-import { authRoutes } from "./routes/auth";
+import { authRoutes } from "./routes/auth-simple";
 import { adminRoutes } from "./routes/admin"; 
 import { createRoutes } from "./routes/create";
 
@@ -14,16 +14,14 @@ const app = new Hono<{ Bindings: Env }>();
 // Middleware
 app.use("*", logger());
 app.use("*", cors({
-  origin: ["https://blog.cruisemadeeasy.com", "http://localhost:5173"],
-  allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  origin: ["https://blog.cruisemadeeasy.com", "https://cme-content-worker.ksstorm.workers.dev", "http://localhost:5174"],
+  allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
-// Serve static assets for React app
-app.use("/*", serveStatic({ root: "./", onNotFound: (path, c) => {
-  console.log(`Asset not found: ${path}`);
-} }));
+// Serve static assets for React app  
+app.use("/*", serveStatic());
 
 // API Routes
 app.route("/api/auth", authRoutes);
@@ -40,6 +38,6 @@ app.get("/api/health", (c) => {
 });
 
 // Fallback for React SPA routing
-app.get("*", serveStatic({ path: "./index.html" }));
+app.get("*", serveStatic());
 
 export default app;

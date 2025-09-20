@@ -22,7 +22,7 @@ const verifyPassword = async (password: string, hash: string): Promise<boolean> 
 };
 
 const createJWT = async (user: User, env: Env): Promise<string> => {
-  const payload: JWTPayload = {
+  const payload = {
     user_id: user.id,
     email: user.email,
     role: user.role,
@@ -40,7 +40,7 @@ export const requireAuth = async (c: any, next: any) => {
       return c.json({ success: false, error: "Not authenticated" }, 401);
     }
 
-    const payload = await verify(token, c.env.JWT_SECRET) as JWTPayload;
+    const payload = await verify(token, c.env.JWT_SECRET) as any;
     if (payload.exp < Math.floor(Date.now() / 1000)) {
       return c.json({ success: false, error: "Token expired" }, 401);
     }

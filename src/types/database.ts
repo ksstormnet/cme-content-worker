@@ -160,4 +160,5 @@ export interface JWTPayload {
   email: string;
   role: string;
   exp: number;
+  [key: string]: any; // Add index signature for Hono compatibility
 }

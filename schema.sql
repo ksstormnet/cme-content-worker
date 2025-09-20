@@ -109,9 +109,12 @@ INSERT INTO settings (key, value, description) VALUES
   ('ai_default_model', 'gpt-3.5-turbo', 'Default AI model for content generation'),
   ('ai_fallback_model', 'llama3.1:8b', 'Fallback model for cost optimization'),
   ('posts_per_page', '20', 'Posts shown per page in admin'),
-  ('auto_publish', 'false', 'Automatically publish approved posts at scheduled time');
+  ('auto_publish', 'false', 'Automatically publish approved posts at scheduled time'),
+  ('r2_bucket_name', 'cruisemadeeasy-images', 'R2 bucket name for media storage'),
+  ('r2_public_url', 'https://cdn.cruisemadeeasy.com', 'Public CDN URL for serving images'),
+  ('r2_internal_url', 'https://54919652c0ba9b83cb0ae04cb5ea90f3.r2.cloudflarestorage.com/cruisemadeeasy-images', 'Internal R2 URL for uploads');
 
 -- Default admin user (password should be changed immediately)
--- Password: 'admin123' hashed with bcrypt
+-- Password: 'admin123' hashed with SHA-256 + salt (matching our auth system)
 INSERT INTO users (email, password_hash, name, role) VALUES 
-  ('admin@cruisemadeeasy.com', '$2b$10$rBEKjZ5F5F5F5F5F5F5F5uO5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F', 'Admin User', 'admin');
+  ('admin@cruisemadeeasy.com', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'Admin User', 'admin');

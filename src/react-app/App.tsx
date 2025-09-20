@@ -29,10 +29,30 @@ function App() {
     error: null
   });
 
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' || 
+             (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  });
+
   // Check authentication status on app load
   useEffect(() => {
     checkAuthStatus();
   }, []);
+
+  // Dark mode effect
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
 
   const checkAuthStatus = async () => {
     try {
@@ -121,15 +141,20 @@ function App() {
               <span className="brand">Cruise Made Easy</span>
               <span className="subtitle">Content System</span>
             </h1>
-            {auth.user && (
-              <div className="user-info">
-                <span className="user-name">{auth.user.name}</span>
-                <span className="user-role">({auth.user.role})</span>
-                <button onClick={handleLogout} className="logout-btn">
-                  Logout
-                </button>
-              </div>
-            )}
+            <div className="header-actions">
+              <button onClick={toggleDarkMode} className="theme-toggle" title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>
+                {darkMode ? '☀️' : '🌙'}
+              </button>
+              {auth.user && (
+                <div className="user-info">
+                  <span className="user-name">{auth.user.name}</span>
+                  <span className="user-role">({auth.user.role})</span>
+                  <button onClick={handleLogout} className="logout-btn">
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </header>
 

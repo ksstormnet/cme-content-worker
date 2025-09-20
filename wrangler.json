@@ -5,6 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "cme-content-worker",
+	"account_id": "54919652c0ba9b83cb0ae04cb5ea90f3",
 	"main": "./src/worker/index.ts",
 	"compatibility_date": "2025-04-01",
 	"compatibility_flags": [
@@ -31,7 +32,7 @@
 		{
 			"binding": "DB",
 			"database_name": "cme-content-db",
-			"database_id": "TBD"
+			"database_id": "58de4dc4-0900-4b28-9ccc-5d066557bb11"
 		}
 	],
 	/**
@@ -40,7 +41,7 @@
 	"r2_buckets": [
 		{
 			"binding": "IMAGES",
-			"bucket_name": "cme-content-images"
+			"bucket_name": "cruisemadeeasy-images"
 		}
 	],
 	/**
@@ -51,7 +52,7 @@
 		"ENVIRONMENT": "production",
 		"SESSION_SECRET": "change-this-secret-key",
 		"ADMIN_EMAIL": "admin@cruisemadeeasy.com"
-	}
+	},
 	/**
 	 * Secrets for API keys (set via wrangler secret put)
 	 * OPENAI_API_KEY - OpenAI API key
