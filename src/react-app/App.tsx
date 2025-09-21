@@ -11,6 +11,11 @@ import ChangePassword from './components/ChangePassword';
 import ContentCalendar from './components/ContentCalendar';
 import MainLayout from './components/MainLayout';
 
+// Blog Components
+import BlogHomepage from './components/BlogHomepage';
+import CategoryPage from './components/CategoryPage';
+import PostPage from './components/PostPage';
+
 // Types
 interface User {
   id: number;
@@ -199,6 +204,17 @@ function App() {
 
         <main className="app-main">
           <Routes>
+            {/* Public blog routes - served by Vite in development, Worker in production */}
+            <Route 
+              path="/category/:categorySlug" 
+              element={<CategoryPage />} 
+            />
+            
+            <Route 
+              path="/:category/:slug" 
+              element={<PostPage />} 
+            />
+
             {/* Protected routes - namespaced under /admin */}
             <Route 
               path="/admin/calendar" 
@@ -243,13 +259,13 @@ function App() {
               } 
             />
 
-            {/* Root route - redirect based on auth status */}
+            {/* Root route - show blog homepage for everyone, redirect authenticated users to admin */}
             <Route 
               path="/" 
               element={
                 auth.user ? 
                 <Navigate to="/admin/create" replace /> : 
-                <Navigate to="/blogin" replace />
+                <BlogHomepage />
               } 
             />
 
