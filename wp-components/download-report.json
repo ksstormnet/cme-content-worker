@@ -1,0 +1,24 @@
+{
+  "timestamp": "2025-09-21T19:14:36.715Z",
+  "duration": {
+    "milliseconds": 58969,
+    "formatted": "0:58"
+  },
+  "stats": {
+    "totalFiles": 160,
+    "totalSize": 332382281,
+    "downloadedFiles": 157,
+    "downloadedSize": 332253502,
+    "failedFiles": 3,
+    "skippedFiles": 0,
+    "startTime": "2025-09-21T19:13:37.746Z",
+    "errors": [
+      "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-no-background.png: Error: HTTP 404: Not Found",
+      "https://cruisemadeeasy.com/wp-content/uploads/2025/02/White-logo-no-background.png: Error: HTTP 404: Not Found",
+      "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-with-background.png: Error: HTTP 404: Not Found"
+    ]
+  },
+  "completed_jobs": 157,
+  "failed_jobs": 3,
+  "success_rate": "98.13%"
+}
