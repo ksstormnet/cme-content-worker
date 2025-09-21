@@ -1,0 +1,43 @@
+{
+  "wordpress_site": {
+    "url": "https://cruisemadeeasy.com",
+    "api_base": "https://cruisemadeeasy.com/wp-json",
+    "credentials": {
+      "username": "support-team",
+      "password": "TMIi 8E5g NPxn 9B7F y4T0 L86q"
+    },
+    "access_level": "admin"
+  },
+  "api_settings": {
+    "rate_limit": {
+      "requests_per_second": 2.5,
+      "max_concurrent": 3,
+      "retry_attempts": 3,
+      "backoff_multiplier": 2
+    },
+    "timeout": {
+      "connection": 30000,
+      "request": 60000
+    },
+    "headers": {
+      "User-Agent": "CME-Content-Worker/1.0 (WordPress Component Export)",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  },
+  "endpoints": {
+    "discovery": "/wp-json/",
+    "wp_core": "/wp-json/wp/v2/",
+    "namespaces": [
+      "wp/v2",
+      "wp-site-health/v1",
+      "wp-block-editor/v1",
+      "generateblocks/v1"
+    ]
+  },
+  "session_info": {
+    "created": "2025-09-21",
+    "session": "1",
+    "purpose": "WordPress REST API Discovery & Authentication"
+  }
+}
