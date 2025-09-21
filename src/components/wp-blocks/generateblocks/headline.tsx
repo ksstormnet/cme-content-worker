@@ -5,7 +5,6 @@ interface HeadlineBlockProps {
   children?: React.ReactNode;
   lock?: Record<string, any>;
   metadata?: Record<string, any>;
-  className?: string;
 }
 
 // No specific styling required
@@ -14,8 +13,7 @@ export const HeadlineBlock: React.FC<HeadlineBlockProps> = ({
   className,
   children,
   lock,
-  metadata,
-  className
+  metadata
 }) => {
   return (
     <div className={className}>
