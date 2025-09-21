@@ -85,8 +85,16 @@
 	 */
 	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
 	"upload_source_maps": true,
-	"assets": {
-		"directory": "./dist/client/client",
-		"not_found_handling": "single-page-application"
+	// Temporarily disabled for development - re-enable for production deployment
+	// "assets": {
+	//	"directory": "./dist/client/client",
+	//	"not_found_handling": "single-page-application"
+	// },
+	/**
+	 * Cron Triggers for CSS sync
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#cron-triggers
+	 */
+	"triggers": {
+		"crons": ["0 * * * *"]
 	}
 }

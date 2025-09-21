@@ -38,7 +38,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
           {!sidebarCollapsed && <h3>Navigation</h3>}
           {!sidebarCollapsed && user.role === 'admin' && (
             <Link
-              to="/admin"
+              to="/admin/settings"
               className="header-settings-btn"
               title="Admin Settings"
             >
@@ -68,8 +68,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
             {!writingSectionCollapsed && (
               <div className="section-content">
                 <Link
-                  to="/create"
-                  className={`nav-link ${isActive('/create') && !isActive('/calendar') && !isActive('/media') ? 'active' : ''}`}
+                  to="/admin/create"
+                  className={`nav-link ${isActive('/admin/create') && !isActive('/admin/calendar') && !isActive('/media') ? 'active' : ''}`}
                   title="Posts"
                 >
                   <span className="link-icon">📝</span>
@@ -77,8 +77,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/calendar"
-                  className={`nav-link ${isActive('/calendar') ? 'active' : ''}`}
+                  to="/admin/calendar"
+                  className={`nav-link ${isActive('/admin/calendar') ? 'active' : ''}`}
                   title="Content Calendar"
                 >
                   <span className="link-icon">📅</span>
@@ -86,8 +86,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/create/generate"
-                  className={`nav-link ${location.pathname === '/create/generate' ? 'active' : ''}`}
+                  to="/admin/create/generate"
+                  className={`nav-link ${location.pathname === '/admin/create/generate' ? 'active' : ''}`}
                   title="Generate Content"
                 >
                   <span className="link-icon">🤖</span>
@@ -95,8 +95,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/create/free-form"
-                  className={`nav-link ${location.pathname === '/create/free-form' ? 'active' : ''}`}
+                  to="/admin/create/free-form"
+                  className={`nav-link ${location.pathname === '/admin/create/free-form' ? 'active' : ''}`}
                   title="Free-Form Editor"
                 >
                   <span className="link-icon">✍️</span>
@@ -104,8 +104,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/create/import"
-                  className={`nav-link ${location.pathname === '/create/import' ? 'active' : ''}`}
+                  to="/admin/create/import"
+                  className={`nav-link ${location.pathname === '/admin/create/import' ? 'active' : ''}`}
                   title="Import Content"
                 >
                   <span className="link-icon">📁</span>

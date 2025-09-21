@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { validateUrlPattern, getExampleUrls } from '../../utils/url';
 import MediaCategoryManager from './MediaCategoryManager';
+import WordPressTemplateManager from './WordPressTemplateManager';
 
 interface User {
   id: number;
@@ -570,6 +571,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
             />
           </div>
         </div>
+
+        <WordPressTemplateManager />
 
         <div className="form-actions">
           <button 

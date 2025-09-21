@@ -1,0 +1,24 @@
+{
+  "startTime": "2025-09-21T11:33:24.529Z",
+  "posts": {
+    "total": 17,
+    "processed": 17,
+    "success": 17,
+    "failed": 0,
+    "errors": []
+  },
+  "media": {
+    "total": 18,
+    "processed": 18,
+    "success": 18,
+    "failed": 0,
+    "errors": []
+  },
+  "endTime": "2025-09-21T11:34:54.713Z",
+  "summary": {
+    "total_duration": 90184,
+    "posts_success_rate": "100.00%",
+    "media_success_rate": "100.00%",
+    "total_errors": 0
+  }
+}

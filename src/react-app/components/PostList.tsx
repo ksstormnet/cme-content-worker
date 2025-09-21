@@ -365,7 +365,7 @@ const PostList: React.FC<PostListProps> = ({
                   </td>
                   <td className="title-col">
                     <div className="title-wrapper">
-                      <Link to={`/create/edit/${post.id}`} className="post-title-link">
+                      <Link to={`/admin/create/edit/${post.id}`} className="post-title-link">
                         <strong>{post.title || 'Untitled'}</strong>
                       </Link>
                       {post.excerpt && (
@@ -407,7 +407,7 @@ const PostList: React.FC<PostListProps> = ({
                   <td className="actions-col">
                     <div className="row-actions">
                       <Link 
-                        to={`/create/edit/${post.id}`}
+                        to={`/admin/create/edit/${post.id}`}
                         className="action-link edit"
                         title="Edit"
                       >

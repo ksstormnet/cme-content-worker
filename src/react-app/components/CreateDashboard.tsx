@@ -166,7 +166,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
             {showNewDropdown && (
               <div className="dropdown-menu">
                 <Link 
-                  to="/create/generate"
+                  to="/admin/create/generate"
                   className="dropdown-item"
                   onClick={() => setShowNewDropdown(false)}
                 >
@@ -174,7 +174,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
                   Generate
                 </Link>
                 <Link 
-                  to="/create/free-form"
+                  to="/admin/create/free-form"
                   className="dropdown-item"
                   onClick={() => setShowNewDropdown(false)}
                 >

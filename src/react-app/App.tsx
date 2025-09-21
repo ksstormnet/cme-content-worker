@@ -151,7 +151,7 @@ function App() {
         <header className="app-header">
           <div className="header-content">
             <h1 className="app-title">
-              <span className="brand">Cruise Made Easy</span>
+              <span className="brand">Cruise Made EASY Blog</span>
               <span className="subtitle">Content System</span>
             </h1>
             <div className="header-actions">
@@ -199,67 +199,67 @@ function App() {
 
         <main className="app-main">
           <Routes>
-            {/* Public routes */}
+            {/* Protected routes - namespaced under /admin */}
             <Route 
-              path="/login" 
-              element={
-                auth.user ? 
-                <Navigate to="/create" replace /> : 
-                <LoginPage onLogin={handleLogin} error={auth.error} />
-              } 
-            />
-
-            {/* Protected routes */}
-            <Route 
-              path="/calendar" 
+              path="/admin/calendar" 
               element={
                 auth.user ? 
                 <MainLayout user={auth.user}>
                   <ContentCalendar user={auth.user} />
                 </MainLayout> : 
-                <Navigate to="/login" replace />
+                <Navigate to="/blogin" replace />
               } 
             />
 
             <Route 
-              path="/create/*" 
+              path="/admin/create/*" 
               element={
                 auth.user ? 
                 <MainLayout user={auth.user}>
                   <CreateDashboard user={auth.user} />
                 </MainLayout> : 
-                <Navigate to="/login" replace />
+                <Navigate to="/blogin" replace />
               } 
             />
 
             <Route 
-              path="/admin/*" 
+              path="/admin/settings/*" 
               element={
                 auth.user && auth.user.role === 'admin' ? 
                 <MainLayout user={auth.user}>
                   <AdminDashboard user={auth.user} />
                 </MainLayout> : 
-                <Navigate to="/create" replace />
+                <Navigate to="/admin/create" replace />
               } 
             />
 
-            {/* Default redirect */}
+            {/* Redirect authenticated users from /blogin to admin dashboard */}
+            <Route 
+              path="/blogin" 
+              element={
+                auth.user ? 
+                <Navigate to="/admin/create" replace /> : 
+                <LoginPage onLogin={handleLogin} error={auth.error} />
+              } 
+            />
+
+            {/* Root route - redirect based on auth status */}
             <Route 
               path="/" 
               element={
                 auth.user ? 
-                <Navigate to="/create" replace /> : 
-                <Navigate to="/login" replace />
+                <Navigate to="/admin/create" replace /> : 
+                <Navigate to="/blogin" replace />
               } 
             />
-            
-            {/* Catch-all redirect */}
+
+            {/* Catch all other routes - redirect to appropriate location */}
             <Route 
               path="*" 
               element={
                 auth.user ? 
-                <Navigate to="/create" replace /> : 
-                <Navigate to="/login" replace />
+                <Navigate to="/admin/create" replace /> : 
+                <Navigate to="/blogin" replace />
               } 
             />
           </Routes>

@@ -1,0 +1,1287 @@
+[
+  {
+    "id": 7698,
+    "date": "2025-07-26T14:05:01",
+    "slug": "hubbard-glacier",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/hubbard-glacier/",
+    "title": {
+      "rendered": "hubbard glacier"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "Snow-capped mountains and glacier under blue sky.",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 2310,
+      "height": 1733,
+      "file": "2025/08/hubbard-glacier.jpg",
+      "filesize": 725257,
+      "sizes": {
+        "medium": {
+          "file": "hubbard-glacier-300x225.jpg",
+          "width": 300,
+          "height": 225,
+          "filesize": 18996,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier-300x225.jpg"
+        },
+        "large": {
+          "file": "hubbard-glacier-1024x768.jpg",
+          "width": 1024,
+          "height": 768,
+          "filesize": 161144,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier-1024x768.jpg"
+        },
+        "thumbnail": {
+          "file": "hubbard-glacier-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 7267,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier-150x150.jpg"
+        },
+        "medium_large": {
+          "file": "hubbard-glacier-768x576.jpg",
+          "width": 768,
+          "height": 576,
+          "filesize": 97886,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier-768x576.jpg"
+        },
+        "1536x1536": {
+          "file": "hubbard-glacier-1536x1152.jpg",
+          "width": 1536,
+          "height": 1152,
+          "filesize": 327244,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier-1536x1152.jpg"
+        },
+        "2048x2048": {
+          "file": "hubbard-glacier-2048x1536.jpg",
+          "width": 2048,
+          "height": 1536,
+          "filesize": 521303,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier-2048x1536.jpg"
+        },
+        "full": {
+          "file": "hubbard-glacier.jpg",
+          "width": 2310,
+          "height": 1733,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "517a9a",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier.jpg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7698",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7698"
+        }
+      ]
+    }
+  },
+  {
+    "id": 7762,
+    "date": "2025-07-27T16:27:30",
+    "slug": "photo-by-dylan-michaud",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/weekend-wanderlust-alaska-2026-the-planning-begins/photo-by-dylan-michaud/#main",
+    "title": {
+      "rendered": "photo by dylan michaud"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "a view of a glacier from a window",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 1600,
+      "height": 956,
+      "file": "2025/07/qf8ifcw2oc8.jpg",
+      "filesize": 262815,
+      "sizes": {
+        "medium": {
+          "file": "qf8ifcw2oc8-300x179.jpg",
+          "width": 300,
+          "height": 179,
+          "filesize": 10430,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8-300x179.jpg"
+        },
+        "large": {
+          "file": "qf8ifcw2oc8-1024x612.jpg",
+          "width": 1024,
+          "height": 612,
+          "filesize": 94866,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8-1024x612.jpg"
+        },
+        "thumbnail": {
+          "file": "qf8ifcw2oc8-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 5336,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8-150x150.jpg"
+        },
+        "medium_large": {
+          "file": "qf8ifcw2oc8-768x459.jpg",
+          "width": 768,
+          "height": 459,
+          "filesize": 55757,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8-768x459.jpg"
+        },
+        "1536x1536": {
+          "file": "qf8ifcw2oc8-1536x918.jpg",
+          "width": 1536,
+          "height": 918,
+          "filesize": 198374,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8-1536x918.jpg"
+        },
+        "full": {
+          "file": "qf8ifcw2oc8.jpg",
+          "width": 1600,
+          "height": 956,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "505945",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8.jpg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7762",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7762"
+        }
+      ]
+    }
+  },
+  {
+    "id": "content-ncl_Bliss_AK_land_glacier_millenial_selfie_1",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg",
+    "title": {
+      "rendered": "ncl_Bliss_AK_land_glacier_millenial_selfie_1"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpeg",
+    "slug": "ncl_Bliss_AK_land_glacier_millenial_selfie_1"
+  },
+  {
+    "id": "content-505eectw54k",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/505eectw54k.jpg",
+    "title": {
+      "rendered": "505eectw54k"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpg",
+    "slug": "505eectw54k"
+  },
+  {
+    "id": 6168,
+    "date": "2025-03-07T18:18:15",
+    "slug": "sunset-wake",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/cruise-styles/easy-breezy/sunset-wake/#main",
+    "title": {
+      "rendered": "sunset wake"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 2048,
+      "height": 1185,
+      "file": "2025/03/sunset-wake.jpg",
+      "filesize": 375191,
+      "sizes": {
+        "medium": {
+          "file": "sunset-wake-300x174.jpg",
+          "width": 300,
+          "height": 174,
+          "filesize": 18533,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake-300x174.jpg"
+        },
+        "large": {
+          "file": "sunset-wake-1024x593.jpg",
+          "width": 1024,
+          "height": 593,
+          "filesize": 143234,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake-1024x593.jpg"
+        },
+        "thumbnail": {
+          "file": "sunset-wake-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 10230,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake-150x150.jpg"
+        },
+        "medium_large": {
+          "file": "sunset-wake-768x444.jpg",
+          "width": 768,
+          "height": 444,
+          "filesize": 86345,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake-768x444.jpg"
+        },
+        "1536x1536": {
+          "file": "sunset-wake-1536x889.jpg",
+          "width": 1536,
+          "height": 889,
+          "filesize": 288202,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake-1536x889.jpg"
+        },
+        "full": {
+          "file": "sunset-wake.jpg",
+          "width": 2048,
+          "height": 1185,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "736b42",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake.jpg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/6168",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=6168"
+        }
+      ]
+    }
+  },
+  {
+    "id": "content-ig8omcxmoty",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/ig8omcxmoty.jpg",
+    "title": {
+      "rendered": "ig8omcxmoty"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpg",
+    "slug": "ig8omcxmoty"
+  },
+  {
+    "id": "content-5676024",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024.jpeg",
+    "title": {
+      "rendered": "5676024"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpeg",
+    "slug": "5676024"
+  },
+  {
+    "id": "content-nhagqnnk2ls",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/nhagqnnk2ls.jpg",
+    "title": {
+      "rendered": "nhagqnnk2ls"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpg",
+    "slug": "nhagqnnk2ls"
+  },
+  {
+    "id": "content-lgrghyzzbsk",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/08/lgrghyzzbsk.jpg",
+    "title": {
+      "rendered": "lgrghyzzbsk"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpg",
+    "slug": "lgrghyzzbsk"
+  },
+  {
+    "id": 7970,
+    "date": "2025-07-29T07:07:26",
+    "slug": "photo-by-francesco-ungaro",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/the-fall-leaf-peeping-secret-most-people-miss/photo-by-francesco-ungaro/#main",
+    "title": {
+      "rendered": "photo by francesco ungaro"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "Picturesque scenery of calm lake reflecting mountains and trees with autumnal foliage in sunny day with blue cloudy sky",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 1600,
+      "height": 1067,
+      "file": "2025/07/5676024.jpeg",
+      "filesize": 474808,
+      "sizes": {
+        "medium": {
+          "file": "5676024-300x200.jpeg",
+          "width": 300,
+          "height": 200,
+          "filesize": 20023,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-300x200.jpeg"
+        },
+        "large": {
+          "file": "5676024-1024x683.jpeg",
+          "width": 1024,
+          "height": 683,
+          "filesize": 185299,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-1024x683.jpeg"
+        },
+        "thumbnail": {
+          "file": "5676024-150x150.jpeg",
+          "width": 150,
+          "height": 150,
+          "filesize": 8609,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-150x150.jpeg"
+        },
+        "medium_large": {
+          "file": "5676024-768x512.jpeg",
+          "width": 768,
+          "height": 512,
+          "filesize": 110247,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-768x512.jpeg"
+        },
+        "1536x1536": {
+          "file": "5676024-1536x1024.jpeg",
+          "width": 1536,
+          "height": 1024,
+          "filesize": 373820,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-1536x1024.jpeg"
+        },
+        "meta-slider-resized-700x300": {
+          "file": "5676024-700x300.jpeg",
+          "width": 700,
+          "height": 300,
+          "filesize": 65182,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-700x300.jpeg"
+        },
+        "meta-slider-resized-620x266": {
+          "file": "5676024-620x266.jpeg",
+          "width": 620,
+          "height": 266,
+          "filesize": 52022,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-620x266.jpeg"
+        },
+        "meta-slider-resized-400x171": {
+          "file": "5676024-400x171.jpeg",
+          "width": 400,
+          "height": 171,
+          "filesize": 23509,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024-400x171.jpeg"
+        },
+        "full": {
+          "file": "5676024.jpeg",
+          "width": 1600,
+          "height": 1067,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024.jpeg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "445046",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024.jpeg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7970",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7970"
+        }
+      ]
+    }
+  },
+  {
+    "id": "content-8310076",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/8310076.jpg",
+    "title": {
+      "rendered": "8310076"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpg",
+    "slug": "8310076"
+  },
+  {
+    "id": 7960,
+    "date": "2025-07-29T06:51:00",
+    "slug": "photo-by-rawpixel",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/how-i-learned-alaska-cruise-planning-has-a-sweet-spot/photo-by-rawpixel/#main",
+    "title": {
+      "rendered": "photo by rawpixel"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "desk, work, business, office, finance, documents, analysis, application, brainstorming, computer, flatlay, information, laptop, marketing, notebook, objects, planning, startup, wooden table, workplace, workspace, business, business, business, business, business, finance",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 1280,
+      "height": 824,
+      "file": "2025/07/3139127.jpg",
+      "filesize": 372339,
+      "sizes": {
+        "medium": {
+          "file": "3139127-300x193.jpg",
+          "width": 300,
+          "height": 193,
+          "filesize": 18724,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127-300x193.jpg"
+        },
+        "large": {
+          "file": "3139127-1024x659.jpg",
+          "width": 1024,
+          "height": 659,
+          "filesize": 178085,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127-1024x659.jpg"
+        },
+        "thumbnail": {
+          "file": "3139127-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 7970,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127-150x150.jpg"
+        },
+        "medium_large": {
+          "file": "3139127-768x494.jpg",
+          "width": 768,
+          "height": 494,
+          "filesize": 101570,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127-768x494.jpg"
+        },
+        "full": {
+          "file": "3139127.jpg",
+          "width": 1280,
+          "height": 824,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "9a8e82",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127.jpg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7960",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7960"
+        }
+      ]
+    }
+  },
+  {
+    "id": "content-sw0-r8wb0ma",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/sw0-r8wb0ma.jpg",
+    "title": {
+      "rendered": "sw0-r8wb0ma"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpg",
+    "slug": "sw0-r8wb0ma"
+  },
+  {
+    "id": 7758,
+    "date": "2025-07-27T16:22:33",
+    "slug": "photo-by-mike-kit",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/weekend-wanderlust-alaska-2026-the-planning-begins/photo-by-mike-kit/#main",
+    "title": {
+      "rendered": "photo by mike kit"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "Sunny day on a cruise ship off the coast of Mallorca, Spain, overlooking the Mediterranean Sea.",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 1600,
+      "height": 1067,
+      "file": "2025/07/17230782.jpeg",
+      "filesize": 378797,
+      "sizes": {
+        "medium": {
+          "file": "17230782-300x200.jpeg",
+          "width": 300,
+          "height": 200,
+          "filesize": 12735,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782-300x200.jpeg"
+        },
+        "large": {
+          "file": "17230782-1024x683.jpeg",
+          "width": 1024,
+          "height": 683,
+          "filesize": 133517,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782-1024x683.jpeg"
+        },
+        "thumbnail": {
+          "file": "17230782-150x150.jpeg",
+          "width": 150,
+          "height": 150,
+          "filesize": 4856,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782-150x150.jpeg"
+        },
+        "medium_large": {
+          "file": "17230782-768x512.jpeg",
+          "width": 768,
+          "height": 512,
+          "filesize": 75177,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782-768x512.jpeg"
+        },
+        "1536x1536": {
+          "file": "17230782-1536x1024.jpeg",
+          "width": 1536,
+          "height": 1024,
+          "filesize": 289131,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782-1536x1024.jpeg"
+        },
+        "full": {
+          "file": "17230782.jpeg",
+          "width": 1600,
+          "height": 1067,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782.jpeg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "738593",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782.jpeg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7758",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7758"
+        }
+      ]
+    }
+  },
+  {
+    "id": "content-13451840",
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/13451840.jpeg",
+    "title": {
+      "rendered": "13451840"
+    },
+    "alt_text": "",
+    "caption": {
+      "rendered": ""
+    },
+    "description": {
+      "rendered": ""
+    },
+    "mime_type": "image/jpeg",
+    "slug": "13451840"
+  },
+  {
+    "id": 7744,
+    "date": "2025-07-27T16:05:00",
+    "slug": "photo-by-emil-kalibradov",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/the-alaska-planning-mistake-that-cost-me-2000-and-how-i-learned-better/photo-by-emil-kalibradov/#main",
+    "title": {
+      "rendered": "photo by emil kalibradov"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "person holding black android smartphone",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 1600,
+      "height": 1068,
+      "file": "2025/07/k05udh2lhfa.jpg",
+      "filesize": 184919,
+      "sizes": {
+        "medium": {
+          "file": "k05udh2lhfa-300x200.jpg",
+          "width": 300,
+          "height": 200,
+          "filesize": 10121,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa-300x200.jpg"
+        },
+        "large": {
+          "file": "k05udh2lhfa-1024x684.jpg",
+          "width": 1024,
+          "height": 684,
+          "filesize": 69708,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa-1024x684.jpg"
+        },
+        "thumbnail": {
+          "file": "k05udh2lhfa-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 4956,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa-150x150.jpg"
+        },
+        "medium_large": {
+          "file": "k05udh2lhfa-768x513.jpg",
+          "width": 768,
+          "height": 513,
+          "filesize": 43806,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa-768x513.jpg"
+        },
+        "1536x1536": {
+          "file": "k05udh2lhfa-1536x1025.jpg",
+          "width": 1536,
+          "height": 1025,
+          "filesize": 138746,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa-1536x1025.jpg"
+        },
+        "full": {
+          "file": "k05udh2lhfa.jpg",
+          "width": 1600,
+          "height": 1068,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "84766f",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa.jpg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7744",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7744"
+        }
+      ]
+    }
+  },
+  {
+    "id": 7975,
+    "date": "2025-07-29T09:40:04",
+    "slug": "9305955-great-stirrup-cay-tidal-tower",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/ncl-announces-great-stirrup-cay-makeover-details-heres-the-skinny/9305955-great-stirrup-cay-tidal-tower/#main",
+    "title": {
+      "rendered": "9305955 great stirrup cay tidal tower"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "",
+    "media_type": "image",
+    "mime_type": "image/jpeg",
+    "media_details": {
+      "width": 2560,
+      "height": 1280,
+      "file": "2025/07/9305955-great-stirrup-cay-tidal-tower.jpg",
+      "filesize": 990101,
+      "sizes": {
+        "medium": {
+          "file": "9305955-great-stirrup-cay-tidal-tower-300x150.jpg",
+          "width": 300,
+          "height": 150,
+          "filesize": 14659,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower-300x150.jpg"
+        },
+        "large": {
+          "file": "9305955-great-stirrup-cay-tidal-tower-1024x512.jpg",
+          "width": 1024,
+          "height": 512,
+          "filesize": 137210,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower-1024x512.jpg"
+        },
+        "thumbnail": {
+          "file": "9305955-great-stirrup-cay-tidal-tower-150x150.jpg",
+          "width": 150,
+          "height": 150,
+          "filesize": 8062,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower-150x150.jpg"
+        },
+        "medium_large": {
+          "file": "9305955-great-stirrup-cay-tidal-tower-768x384.jpg",
+          "width": 768,
+          "height": 384,
+          "filesize": 81041,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower-768x384.jpg"
+        },
+        "1536x1536": {
+          "file": "9305955-great-stirrup-cay-tidal-tower-1536x768.jpg",
+          "width": 1536,
+          "height": 768,
+          "filesize": 291898,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower-1536x768.jpg"
+        },
+        "2048x2048": {
+          "file": "9305955-great-stirrup-cay-tidal-tower-2048x1024.jpg",
+          "width": 2048,
+          "height": 1024,
+          "filesize": 490093,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower-2048x1024.jpg"
+        },
+        "full": {
+          "file": "9305955-great-stirrup-cay-tidal-tower.jpg",
+          "width": 2560,
+          "height": 1280,
+          "mime_type": "image/jpeg",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "5d8380",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/7975",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=7975"
+        }
+      ]
+    }
+  },
+  {
+    "id": 6167,
+    "date": "2025-03-07T18:15:33",
+    "slug": "1000x667norwegiandrinksonboard",
+    "type": "attachment",
+    "link": "https://cruisemadeeasy.com/cruise-styles/easy-breezy/1000x667norwegiandrinksonboard/#main",
+    "title": {
+      "rendered": "1000x667NorwegianDrinksOnboard"
+    },
+    "author": 1,
+    "featured_media": 0,
+    "media_tag": [],
+    "caption": {
+      "rendered": ""
+    },
+    "alt_text": "",
+    "media_type": "image",
+    "mime_type": "image/webp",
+    "media_details": {
+      "width": 1000,
+      "height": 667,
+      "file": "2025/03/1000x667NorwegianDrinksOnboard.webp",
+      "filesize": 68778,
+      "sizes": {
+        "medium": {
+          "file": "1000x667NorwegianDrinksOnboard-300x200.webp",
+          "width": 300,
+          "height": 200,
+          "filesize": 15584,
+          "mime_type": "image/webp",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard-300x200.webp"
+        },
+        "thumbnail": {
+          "file": "1000x667NorwegianDrinksOnboard-150x150.webp",
+          "width": 150,
+          "height": 150,
+          "filesize": 7336,
+          "mime_type": "image/webp",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard-150x150.webp"
+        },
+        "medium_large": {
+          "file": "1000x667NorwegianDrinksOnboard-768x512.webp",
+          "width": 768,
+          "height": 512,
+          "filesize": 68322,
+          "mime_type": "image/webp",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard-768x512.webp"
+        },
+        "full": {
+          "file": "1000x667NorwegianDrinksOnboard.webp",
+          "width": 1000,
+          "height": 667,
+          "mime_type": "image/webp",
+          "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard.webp"
+        }
+      },
+      "image_meta": {
+        "aperture": "0",
+        "credit": "",
+        "camera": "",
+        "caption": "",
+        "created_timestamp": "0",
+        "copyright": "",
+        "focal_length": "0",
+        "iso": "0",
+        "shutter_speed": "0",
+        "title": "",
+        "orientation": "0",
+        "keywords": []
+      },
+      "dominant_color": "aba6a6",
+      "has_transparency": false
+    },
+    "source_url": "https://cruisemadeeasy.com/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard.webp",
+    "_links": {
+      "self": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media/6167",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/media"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/types/attachment"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://cruisemadeeasy.com/wp-json/wp/v2/comments?post=6167"
+        }
+      ]
+    }
+  }
+]

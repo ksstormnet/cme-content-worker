@@ -87,25 +87,40 @@
 ### Development Environment Architecture
 
 #### **IMMUTABLE DEV STARTUP PROTOCOL**
-**CRITICAL - ONLY ACCEPTABLE WAY TO START DEVELOPMENT**:
+**CRITICAL - NEW MANAGED DEVELOPMENT ENVIRONMENT**:
 
-**SEQUENTIAL STARTUP (REQUIRED)**:
+**PREFERRED METHOD (Managed Process Control)**:
 ```bash
-# Start backend first (in background) - connects to REMOTE D1/R2 resources
-npm run dev:worker
+# Start both servers with proper process management
+npm run dev
+# OR
+npm run dev:start
 
-# Then start frontend (in background)  
-npm run dev:frontend
+# Stop all development servers cleanly
+npm run dev:stop
+
+# Restart all servers
+npm run dev:restart
+
+# Check server status
+npm run dev:status
 ```
 
-**NEVER use `npm run dev` with concurrently - it causes process management issues**
-
 **Development Server Control**:
-- **Backend Worker**: `http://localhost:8787` - Start first, runs in background
-- **Frontend Vite**: `http://localhost:5174` - Start second, runs in background
-- **Individual Control**: Can restart each server independently by killing specific bash process
-- **Process Management**: Sequential startup provides full control over each server
-- **Concurrently Problems**: Process cleanup issues, difficult to kill/reload servers
+- **Managed Startup**: `dev-control.js` handles sequential startup, PID tracking, port cleanup
+- **Backend Worker**: `http://localhost:8787` - Started first automatically
+- **Frontend Vite**: `http://localhost:5174` - Started second with 3s delay
+- **Process Tracking**: PID files in `.dev-pids/` directory for proper cleanup
+- **Port Management**: Automatic port conflict resolution and cleanup
+- **Clean Shutdown**: Graceful termination with SIGTERM/SIGKILL fallback
+
+**Legacy Methods (Still Available)**:
+```bash
+# Individual server control (if needed)
+npm run dev:worker    # Backend only
+npm run dev:frontend  # Frontend only
+npm run dev:legacy    # Old concurrently method
+```
 
 **Development Setup Requirements**:
 1. **Worker Dev Server**: Cloudflare Workers API on `localhost:8787` (START FIRST)
@@ -340,10 +355,17 @@ const generation = await env.DB.prepare(`
 
 #### Essential Development Commands
 ```bash
-# Development servers (concurrent)
-npm run dev                    # Starts both frontend and worker servers
-npm run dev:frontend          # Vite dev server (localhost:5173)  
-npm run dev:worker            # Worker dev server (localhost:8787)
+# Development servers (managed)
+npm run dev                   # Start both servers with process management
+npm run dev:start             # Alternative start command
+npm run dev:stop              # Stop all development servers cleanly
+npm run dev:restart           # Restart all servers
+npm run dev:status            # Check server status and PID information
+
+# Legacy development servers
+npm run dev:frontend          # Vite dev server only (localhost:5174)  
+npm run dev:worker            # Worker dev server only (localhost:8787)
+npm run dev:legacy            # Old concurrently method
 
 # Database management
 npx wrangler d1 migrations list              # List migrations
@@ -356,16 +378,20 @@ npm run deploy               # Deploy Worker to Cloudflare
 npx wrangler deploy          # Direct Worker deployment
 
 # Development utilities
-npm run type-check           # TypeScript validation
 npm run lint                 # ESLint code quality
+npm run cf-typegen           # Generate Cloudflare Worker types
+npm run check                # Full build and deployment check
 ```
 
 #### Development Workflow Patterns
-1. **Start Development**: `npm run dev` (launches both servers)
-2. **Database Changes**: Edit `schema.sql` → `wrangler d1 migrations apply`
-3. **Frontend Development**: Edit React components → Hot reload on :5173
-4. **Backend Development**: Edit Worker routes → Auto-reload on :8787
-5. **Full Stack Testing**: Frontend calls Worker APIs with shared D1 database
+1. **Start Development**: `npm run dev` (managed startup with proper sequencing and cleanup)
+2. **Stop Development**: `npm run dev:stop` (clean shutdown of all processes)
+3. **Check Status**: `npm run dev:status` (verify server states and PID tracking)
+4. **Database Changes**: Edit `schema.sql` → `wrangler d1 migrations apply`
+5. **Frontend Development**: Edit React components → Hot reload on :5174
+6. **Backend Development**: Edit Worker routes → Auto-reload on :8787
+7. **Full Stack Testing**: Frontend calls Worker APIs with shared D1 database
+8. **Process Issues**: `npm run dev:restart` (clean restart of entire environment)
 
 ### Performance & Optimization Notes
 
