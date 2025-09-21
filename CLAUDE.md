@@ -62,11 +62,19 @@
 3. **Task-Specific Usage**: Apply appropriate agent patterns based on work type
 4. **General-Purpose Integration**: Use Task tool with `general-purpose` agent + agent-specific prompts when needed
 
-#### Agent Usage Protocol  
-1. **fullstack-developer patterns**: For backend/frontend/database/API development tasks
-2. **ui-designer patterns**: For interface, UX, styling, and responsive design work  
-3. **agent-organizer patterns**: For complex multi-step coordination and planning
-4. **context-manager patterns**: For state management, data persistence, and context synchronization
+#### Agent Activation Strategy
+**Always Active Agents**:
+- **agent-organizer**: Always active for task coordination and workflow management
+- **context-manager**: Always active for context synchronization and state management
+
+**Trigger-Based Agents**:
+- **fullstack-developer**: Activates for backend, frontend, database, API, authentication, and full-stack development tasks
+- **ui-designer**: Activates for UI, design, interface, UX, visual, component, styling, and responsive design tasks
+
+**Agent Usage Protocol**:
+1. **agent-organizer + context-manager**: Always engaged for coordination and context management
+2. **fullstack-developer**: Triggers on development tasks, follows comprehensive stack integration patterns
+3. **ui-designer**: Triggers on design tasks, follows professional UI/UX design standards
 
 #### Future Integration Options
 - **MCP Server Development**: Custom MCP server could integrate agents as callable tools
@@ -86,74 +94,53 @@
 
 ### Development Environment Architecture
 
-#### **IMMUTABLE DEV STARTUP PROTOCOL**
-**CRITICAL - NEW MANAGED DEVELOPMENT ENVIRONMENT**:
+#### **MANDATORY BACKGROUND SESSION MANAGEMENT**
+**CRITICAL REQUIREMENT**: All development servers MUST run in background bash sessions controlled by Claude to prevent session hijacking.
 
-**PREFERRED METHOD (Managed Process Control)**:
-```bash
-# Start both servers with proper process management
-npm run dev
-# OR
-npm run dev:start
+**Background Session Protocol**:
+- **Session 1**: Vite development server (serves ALL routes in development)
+- **Session 2**: Worker API server (serves ONLY `/api/*` endpoints in development)  
+- **Agent Orchestration**: Use agent-organizer for coordinating session management and routing
+- **Never Foreground**: Development servers must NEVER run in foreground Claude session
 
-# Stop all development servers cleanly
-npm run dev:stop
-
-# Restart all servers
-npm run dev:restart
-
-# Check server status
-npm run dev:status
-```
-
-**Development Server Control**:
-- **Managed Startup**: `dev-control.js` handles sequential startup, PID tracking, port cleanup
-- **Backend Worker**: `http://localhost:8787` - Started first automatically
-- **Frontend Vite**: `http://localhost:5174` - Started second with 3s delay
-- **Process Tracking**: PID files in `.dev-pids/` directory for proper cleanup
-- **Port Management**: Automatic port conflict resolution and cleanup
-- **Clean Shutdown**: Graceful termination with SIGTERM/SIGKILL fallback
-
-**Legacy Methods (Still Available)**:
-```bash
-# Individual server control (if needed)
-npm run dev:worker    # Backend only
-npm run dev:frontend  # Frontend only
-npm run dev:legacy    # Old concurrently method
-```
+**Architecture Summary**:
+- **Development Mode**: Vite serves everything (frontend + admin + blog content via React Router), Worker serves only API
+- **Production Mode**: Worker serves everything (static React build + dynamic blog content + API routes)
+- **Build-Time Routing**: Conditional routing logic based on environment
 
 **Development Setup Requirements**:
-1. **Worker Dev Server**: Cloudflare Workers API on `localhost:8787` (START FIRST)
-2. **Frontend Dev Server**: Vite with HMR on `localhost:5174` (START SECOND)
-3. **Database Configuration**: Worker uses REMOTE D1 instance (use --remote flag)
-4. **Database ID**: `58de4dc4-0900-4b28-9ccc-5d066557bb11` (remote production binding)
+1. **Vite Dev Server**: Serves ALL routes on `localhost:5174` (frontend, admin, blog content)
+2. **Worker Dev Server**: Serves ONLY `/api/*` routes on `localhost:8787` with `--remote` flag
+3. **Database Configuration**: Worker uses REMOTE D1 instance (production binding)
+4. **Database ID**: `58de4dc4-0900-4b28-9ccc-5d066557bb11`
 5. **R2 Bucket**: `cruisemadeeasy-images` (remote production binding)
-6. **CORS Configuration**: Worker allows Vite frontend origin for API calls
+6. **React Router**: Handles all navigation, fetches blog content via API calls
 7. **Proxy Setup**: Vite proxies `/api/*` requests to Worker server
 
-#### Vite Dev Server ↔ Worker Database Integration
-**CRITICAL**: The development setup uses a dual-server architecture with remote Cloudflare resources:
+#### Development vs Production Routing
+**Development Routing**:
+```
+Vite (localhost:5174):
+├── / (React Router - fetches blog data via API)
+├── /admin/* (React Router - admin interface)
+├── /category/* (React Router - fetches category data via API)
+├── /:category/:slug (React Router - fetches post data via API)
+└── /api/* → Proxied to Worker
 
-**Database Development Flow**:
-```typescript
-// Frontend makes API call
-fetch('/api/content/generate', {
-  method: 'POST',
-  credentials: 'include',  // Include auth cookies
-  body: JSON.stringify(data)
-})
-
-// Worker processes request with D1 database
-const result = await env.DB.prepare(
-  'SELECT * FROM posts WHERE user_id = ?'
-).bind(userId).all()
+Worker (localhost:8787):
+└── /api/* (API endpoints only)
 ```
 
-**Key Development Commands**:
-- `npm run dev:frontend` - Starts Vite dev server (port 5173)
-- `npm run dev:worker` - Starts Worker dev server (port 8787)
-- `npm run dev` - Runs both servers concurrently
-- `npx wrangler d1 migrations apply` - Apply schema changes
+**Production Routing**:
+```
+Worker (blog.cruisemadeeasy.com):
+├── / (Server-rendered blog homepage)
+├── /category/* (Server-rendered category pages)
+├── /:category/:slug (Server-rendered post pages)
+├── /admin/* (Serves React build files)
+├── /assets/* (Static React assets)
+└── /api/* (API endpoints)
+```
 
 ### Database Schema (Advanced Block-Based Architecture)
 
@@ -353,26 +340,26 @@ const generation = await env.DB.prepare(`
 
 ### Development Commands & Workflows
 
-#### Essential Development Commands
-```bash
-# Development servers (managed)
-npm run dev                   # Start both servers with process management
-npm run dev:start             # Alternative start command
-npm run dev:stop              # Stop all development servers cleanly
-npm run dev:restart           # Restart all servers
-npm run dev:status            # Check server status and PID information
+#### **MANDATORY Background Session Commands**
+**CRITICAL**: All development server commands MUST be executed in background bash sessions.
 
-# Legacy development servers
-npm run dev:frontend          # Vite dev server only (localhost:5174)  
-npm run dev:worker            # Worker dev server only (localhost:8787)
-npm run dev:legacy            # Old concurrently method
+```bash
+# Background Session Management (REQUIRED)
+# Session 1: Vite server
+npm run dev:frontend &        # Vite dev server (localhost:5174) - ALL routes
+
+# Session 2: Worker API server  
+npm run dev:worker &          # Worker dev server (localhost:8787) - API only
+
+# Session Status Checking
+npm run dev:status            # Check server status without blocking session
 
 # Database management
 npx wrangler d1 migrations list              # List migrations
 npx wrangler d1 migrations apply             # Apply pending migrations
 npx wrangler d1 execute --command="SELECT * FROM posts"  # Direct SQL
 
-# Deployment
+# Production deployment
 npm run build                 # Build React app for production
 npm run deploy               # Deploy Worker to Cloudflare
 npx wrangler deploy          # Direct Worker deployment
@@ -383,15 +370,26 @@ npm run cf-typegen           # Generate Cloudflare Worker types
 npm run check                # Full build and deployment check
 ```
 
+#### **Commit Protocol**
+**MANDATORY**: Frequent commits after each file modification or logical group of changes.
+```bash
+# Commit after each file write/edit
+git add [files]
+git commit -m "Descriptive message
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+```
+
 #### Development Workflow Patterns
-1. **Start Development**: `npm run dev` (managed startup with proper sequencing and cleanup)
-2. **Stop Development**: `npm run dev:stop` (clean shutdown of all processes)
-3. **Check Status**: `npm run dev:status` (verify server states and PID tracking)
+1. **Start Development**: Launch background sessions for Vite (all routes) + Worker (API only)
+2. **Frontend Development**: Edit React components → Hot reload on :5174 with full routing
+3. **Backend Development**: Edit Worker routes → Auto-reload on :8787 (API endpoints only)
 4. **Database Changes**: Edit `schema.sql` → `wrangler d1 migrations apply`
-5. **Frontend Development**: Edit React components → Hot reload on :5174
-6. **Backend Development**: Edit Worker routes → Auto-reload on :8787
-7. **Full Stack Testing**: Frontend calls Worker APIs with shared D1 database
-8. **Process Issues**: `npm run dev:restart` (clean restart of entire environment)
+5. **Full Stack Testing**: Vite handles all routing, fetches data from Worker API
+6. **Frequent Commits**: Commit after each file write or logical change group
+7. **Session Monitoring**: Use agent-organizer to coordinate session health and routing
 
 ### Performance & Optimization Notes
 
