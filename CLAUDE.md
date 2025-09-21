@@ -86,14 +86,38 @@
 
 ### Development Environment Architecture
 
-#### Vite Dev Server ↔ Worker Database Integration
-**CRITICAL**: The development setup uses a sophisticated dual-server architecture:
+#### **IMMUTABLE DEV STARTUP PROTOCOL**
+**CRITICAL - ONLY ACCEPTABLE WAY TO START DEVELOPMENT**:
 
-1. **Frontend Dev Server**: Vite serves React app on `localhost:5173`
-2. **Worker Dev Server**: Cloudflare Workers runs API on `localhost:8787`
-3. **Database Connection**: Both servers connect to the same D1 SQLite instance
-4. **CORS Configuration**: Worker allows frontend origin for API calls
-5. **Proxy Setup**: Vite proxies `/api/*` requests to Worker server
+**SEQUENTIAL STARTUP (REQUIRED)**:
+```bash
+# Start backend first (in background) - connects to REMOTE D1/R2 resources
+npm run dev:worker
+
+# Then start frontend (in background)  
+npm run dev:frontend
+```
+
+**NEVER use `npm run dev` with concurrently - it causes process management issues**
+
+**Development Server Control**:
+- **Backend Worker**: `http://localhost:8787` - Start first, runs in background
+- **Frontend Vite**: `http://localhost:5174` - Start second, runs in background
+- **Individual Control**: Can restart each server independently by killing specific bash process
+- **Process Management**: Sequential startup provides full control over each server
+- **Concurrently Problems**: Process cleanup issues, difficult to kill/reload servers
+
+**Development Setup Requirements**:
+1. **Worker Dev Server**: Cloudflare Workers API on `localhost:8787` (START FIRST)
+2. **Frontend Dev Server**: Vite with HMR on `localhost:5174` (START SECOND)
+3. **Database Configuration**: Worker uses REMOTE D1 instance (use --remote flag)
+4. **Database ID**: `58de4dc4-0900-4b28-9ccc-5d066557bb11` (remote production binding)
+5. **R2 Bucket**: `cruisemadeeasy-images` (remote production binding)
+6. **CORS Configuration**: Worker allows Vite frontend origin for API calls
+7. **Proxy Setup**: Vite proxies `/api/*` requests to Worker server
+
+#### Vite Dev Server ↔ Worker Database Integration
+**CRITICAL**: The development setup uses a dual-server architecture with remote Cloudflare resources:
 
 **Database Development Flow**:
 ```typescript

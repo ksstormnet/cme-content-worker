@@ -338,11 +338,11 @@ createRoutes.put("/posts/:id", async (c) => {
 // GET /api/create/posts - Get posts for editorial workflow
 createRoutes.get("/posts", async (c) => {
   try {
-    const status = c.req.query("status") || "draft";
+    const status = c.req.query("status");
     const limit = parseInt(c.req.query("limit") || "10");
 
-    // Get posts with category info
-    const posts = await c.env.DB.prepare(`
+    // Build query based on whether status filter is provided
+    let query = `
       SELECT 
         p.*, 
         u.name as author_name,
@@ -353,10 +353,19 @@ createRoutes.get("/posts", async (c) => {
       FROM posts p
       LEFT JOIN users u ON p.author_id = u.id
       LEFT JOIN categories c ON p.category_id = c.id
-      WHERE p.status = ?
-      ORDER BY p.updated_at DESC
-      LIMIT ?
-    `).bind(status, limit).all();
+    `;
+    
+    let bindings = [];
+    
+    if (status) {
+      query += ` WHERE p.status = ?`;
+      bindings.push(status);
+    }
+    
+    query += ` ORDER BY p.updated_at DESC LIMIT ?`;
+    bindings.push(limit);
+    
+    const posts = await c.env.DB.prepare(query).bind(...bindings).all();
     
     // Get tags for each post
     const postsWithTags = [];
@@ -458,15 +467,21 @@ createRoutes.get("/stats", async (c) => {
       draft: 0,
       approved: 0, 
       scheduled: 0,
-      published: 0
+      published: 0,
+      total: 0
     };
 
+    let totalCount = 0;
+    
     // Update counts from database results
     statusCounts.results.forEach((row: any) => {
+      totalCount += row.count;
       if (counts.hasOwnProperty(row.status)) {
         counts[row.status as keyof typeof counts] = row.count;
       }
     });
+    
+    counts.total = totalCount;
 
     return c.json<APIResponse<any>>({
       success: true,
@@ -482,14 +497,15 @@ createRoutes.get("/stats", async (c) => {
   }
 });
 
-// DELETE /api/create/posts/:id - Delete draft post
+// DELETE /api/create/posts/:id - Delete post (any status)
 createRoutes.delete("/posts/:id", async (c) => {
   try {
     const postId = c.req.param("id");
+    const user = c.get("user");
 
-    // Only allow deletion of draft posts
+    // Check if post exists
     const post = await c.env.DB.prepare(
-      "SELECT status FROM posts WHERE id = ?"
+      "SELECT id, status, author_id FROM posts WHERE id = ?"
     ).bind(postId).first();
 
     if (!post) {
@@ -499,14 +515,18 @@ createRoutes.delete("/posts/:id", async (c) => {
       }, 404);
     }
 
-    if (post.status !== 'draft') {
+    // Only allow deletion by admin or post author
+    if (user.role !== 'admin' && post.author_id !== user.id) {
       return c.json<APIResponse>({ 
         success: false, 
-        error: "Can only delete draft posts" 
-      }, 400);
+        error: "You don't have permission to delete this post" 
+      }, 403);
     }
 
-    // Delete post (content_blocks will cascade delete)
+    // Delete related content blocks first
+    await c.env.DB.prepare("DELETE FROM content_blocks WHERE post_id = ?").bind(postId).run();
+    
+    // Delete post
     await c.env.DB.prepare("DELETE FROM posts WHERE id = ?").bind(postId).run();
 
     return c.json<APIResponse>({
@@ -519,6 +539,96 @@ createRoutes.delete("/posts/:id", async (c) => {
     return c.json<APIResponse>({ 
       success: false, 
       error: "Failed to delete post" 
+    }, 500);
+  }
+});
+
+// PATCH /api/create/posts/:id/unpublish - Unpublish a post (change to draft)
+createRoutes.patch("/posts/:id/unpublish", async (c) => {
+  try {
+    const postId = c.req.param("id");
+    const user = c.get("user");
+
+    // Check if post exists and is published
+    const post = await c.env.DB.prepare(
+      "SELECT id, status, author_id FROM posts WHERE id = ?"
+    ).bind(postId).first();
+
+    if (!post) {
+      return c.json<APIResponse>({ 
+        success: false, 
+        error: "Post not found" 
+      }, 404);
+    }
+
+    if (post.status !== 'published') {
+      return c.json<APIResponse>({ 
+        success: false, 
+        error: "Can only unpublish published posts" 
+      }, 400);
+    }
+
+    // Only allow unpublishing by admin or post author
+    if (user.role !== 'admin' && post.author_id !== user.id) {
+      return c.json<APIResponse>({ 
+        success: false, 
+        error: "You don't have permission to unpublish this post" 
+      }, 403);
+    }
+
+    // Update post status to draft
+    await c.env.DB.prepare(
+      "UPDATE posts SET status = 'draft', updated_at = CURRENT_TIMESTAMP WHERE id = ?"
+    ).bind(postId).run();
+
+    // Get updated post data
+    const updatedPost = await c.env.DB.prepare(`
+      SELECT 
+        p.*, 
+        u.name as author_name,
+        c.name as category_name,
+        c.slug as category_slug,
+        c.color as category_color,
+        c.icon as category_icon
+      FROM posts p
+      LEFT JOIN users u ON p.author_id = u.id
+      LEFT JOIN categories c ON p.category_id = c.id
+      WHERE p.id = ?
+    `).bind(postId).first();
+
+    // Get tags for the post
+    const tags = await c.env.DB.prepare(`
+      SELECT t.id, t.name, t.slug, t.color
+      FROM post_tags pt
+      JOIN tags t ON pt.tag_id = t.id
+      WHERE pt.post_id = ?
+      ORDER BY t.name
+    `).bind(postId).all();
+
+    const postWithTags = {
+      ...updatedPost,
+      keywords: updatedPost.keywords ? JSON.parse(updatedPost.keywords) : [],
+      tags: tags.results || [],
+      category: {
+        id: updatedPost.category_id,
+        name: updatedPost.category_name,
+        slug: updatedPost.category_slug,
+        color: updatedPost.category_color,
+        icon: updatedPost.category_icon
+      }
+    };
+
+    return c.json<APIResponse>({
+      success: true,
+      message: "Post unpublished successfully",
+      data: postWithTags
+    });
+
+  } catch (error) {
+    console.error("Unpublish post error:", error);
+    return c.json<APIResponse>({ 
+      success: false, 
+      error: "Failed to unpublish post" 
     }, 500);
   }
 });

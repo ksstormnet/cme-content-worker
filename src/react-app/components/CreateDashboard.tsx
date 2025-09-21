@@ -40,15 +40,16 @@ interface StatusCounts {
   draft: number;
   scheduled: number;
   published: number;
+  total: number;
 }
 
 const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
   const location = useLocation();
   const [posts, setPosts] = useState<Post[]>([]);
-  const [counts, setCounts] = useState<StatusCounts>({ draft: 0, scheduled: 0, published: 0 });
+  const [counts, setCounts] = useState<StatusCounts>({ draft: 0, scheduled: 0, published: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('drafts');
+  const [activeTab, setActiveTab] = useState('published');
   const [showNewDropdown, setShowNewDropdown] = useState(false);
 
   useEffect(() => {
@@ -62,10 +63,15 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
   const loadPosts = async () => {
     try {
       setLoading(true);
-      const status = activeTab === 'drafts' ? 'draft' : 
-                   activeTab === 'scheduled' ? 'scheduled' : 'published';
+      let apiUrl = '/api/create/posts?limit=50';
       
-      const response = await fetch(`/api/create/posts?status=${status}&limit=50`, {
+      if (activeTab !== 'all') {
+        const status = activeTab === 'drafts' ? 'draft' : 
+                     activeTab === 'scheduled' ? 'scheduled' : 'published';
+        apiUrl += `&status=${status}`;
+      }
+      
+      const response = await fetch(apiUrl, {
         credentials: 'include'
       });
 
@@ -181,6 +187,26 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
 
           <div className="status-tabs">
             <button
+              className={`status-pill status-all ${activeTab === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTab('all')}
+            >
+              <span className="tab-icon">📋</span>
+              All
+              <span className="tab-count">
+                {counts.total || 0}
+              </span>
+            </button>
+            <button
+              className={`status-pill status-published ${activeTab === 'published' ? 'active' : ''}`}
+              onClick={() => setActiveTab('published')}
+            >
+              <span className="tab-icon">🚀</span>
+              Published
+              <span className="tab-count">
+                {counts.published || 0}
+              </span>
+            </button>
+            <button
               className={`status-pill status-draft ${activeTab === 'drafts' ? 'active' : ''}`}
               onClick={() => setActiveTab('drafts')}
             >
@@ -198,16 +224,6 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
               Scheduled
               <span className="tab-count">
                 {counts.scheduled || 0}
-              </span>
-            </button>
-            <button
-              className={`status-pill status-published ${activeTab === 'published' ? 'active' : ''}`}
-              onClick={() => setActiveTab('published')}
-            >
-              <span className="tab-icon">🚀</span>
-              Published
-              <span className="tab-count">
-                {counts.published || 0}
               </span>
             </button>
           </div>

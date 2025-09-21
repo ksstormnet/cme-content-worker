@@ -44,7 +44,7 @@
 		"deploy": "wrangler deploy",
 		"dev": "concurrently \"npm run dev:frontend\" \"npm run dev:worker\"",
 		"dev:frontend": "vite",
-		"dev:worker": "wrangler dev",
+		"dev:worker": "wrangler dev --remote",
 		"lint": "eslint .",
 		"preview": "npm run build && vite preview"
 	},
