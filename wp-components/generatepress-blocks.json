@@ -1,0 +1,4100 @@
+{
+  "timestamp": "2025-09-21T19:00:57.814Z",
+  "generatepress": [
+    {
+      "attributes": {
+        "contentType": {
+          "type": "string",
+          "default": ""
+        },
+        "excerptLength": {
+          "type": "number",
+          "default": 55
+        },
+        "useThemeMoreLink": {
+          "type": "boolean",
+          "defaut": true
+        },
+        "customMoreLink": {
+          "type": "string",
+          "default": ""
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generatepress/dynamic-content",
+      "title": "",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generatepress/dynamic-content",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generatepress"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generatepress/dynamic-content?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "imageType": {
+          "type": "string",
+          "default": ""
+        },
+        "imageSource": {
+          "type": "string",
+          "default": "current-post"
+        },
+        "customField": {
+          "type": "string",
+          "default": ""
+        },
+        "gpDynamicSourceInSameTerm": {
+          "type": "boolean",
+          "default": false
+        },
+        "gpDynamicSourceInSameTermTaxonomy": {
+          "tyoe": "string",
+          "default": "category"
+        },
+        "imageSize": {
+          "type": "string",
+          "default": "full"
+        },
+        "linkTo": {
+          "type": "string",
+          "default": ""
+        },
+        "linkToCustomField": {
+          "type": "string",
+          "default": ""
+        },
+        "imageWidth": {
+          "type": "number",
+          "default": null
+        },
+        "imageHeight": {
+          "type": "number",
+          "default": null
+        },
+        "avatarSize": {
+          "type": "number",
+          "default": 30
+        },
+        "avatarRounded": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generatepress/dynamic-image",
+      "title": "",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generatepress/dynamic-image",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generatepress"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generatepress/dynamic-image?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  ],
+  "generateblocks": [
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/container",
+      "title": "Container",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks-pro/accordionTransition": "accordionTransition",
+        "generateblocks-pro/faqSchema": "faqSchema"
+      },
+      "uses_context": [
+        "generateblocks-pro/accordionTransition",
+        "generateblocks-pro/faqSchema"
+      ],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks",
+        "generateblocks-pro"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks",
+        "generateblocks-pro"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/container",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/container?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/grid",
+      "title": "Grid",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks/query",
+        "generateblocks/queryId",
+        "generateblocks/inheritQuery"
+      ],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/grid",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/grid?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/query-loop",
+      "title": "Query loop",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks/query": "query",
+        "generateblocks/queryId": "uniqueId",
+        "generateblocks/inheritQuery": "inheritQuery"
+      },
+      "uses_context": [],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/query-loop",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/query-loop?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/button-container",
+      "title": "Buttons",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/button-container",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/button-container?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/headline",
+      "title": "Headline",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/headline",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/headline?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/button",
+      "title": "Button",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks-pro/faqSchema": "faqSchema"
+      },
+      "uses_context": [
+        "generateblocks/query",
+        "generateblocks/queryId",
+        "generateblocks/inheritQuery",
+        "generateblocks-pro/faqSchema"
+      ],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/button",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/button?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 1,
+      "name": "generateblocks/image",
+      "title": "Image",
+      "description": "",
+      "icon": null,
+      "category": null,
+      "keywords": [],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks/query",
+        "generateblocks/queryId",
+        "postType",
+        "postId"
+      ],
+      "selectors": [],
+      "supports": [],
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": null,
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/image",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/image?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "p",
+            "span",
+            "div",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "a",
+            "button",
+            "figcaption",
+            "li"
+          ]
+        },
+        "content": {
+          "type": "rich-text",
+          "source": "rich-text",
+          "selector": ".gb-text"
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "icon": {
+          "type": "string",
+          "source": "html",
+          "selector": ".gb-shape"
+        },
+        "iconLocation": {
+          "type": "string",
+          "default": "before"
+        },
+        "iconOnly": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/text",
+      "title": "Text",
+      "description": "A text element where you can choose your own tag name, content, and styles.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "text",
+        "heading",
+        "headline",
+        "paragraph"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "postId",
+        "postType",
+        "generateblocks/query",
+        "generateblocks/queryData",
+        "generateblocks/queryType",
+        "generateblocks/inheritQuery",
+        "generateblocks/queryId",
+        "generateblocks/paginationType",
+        "generateblocks/loopIndex",
+        "generateblocks/loopItem"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false,
+        "splitting": true
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-text-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-text-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-text-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-text-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/text",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/text?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "article",
+            "aside",
+            "header",
+            "footer",
+            "nav",
+            "main",
+            "figure",
+            "a",
+            "ul",
+            "ol",
+            "li",
+            "dl",
+            "dt",
+            "dd"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "align": {
+          "type": "string",
+          "default": ""
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/element",
+      "title": "Container",
+      "description": "An HTML element that you can add blocks inside of.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "element",
+        "container",
+        "group"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "postId",
+        "postType",
+        "generateblocks/query",
+        "generateblocks/queryData",
+        "generateblocks/queryType",
+        "generateblocks/inheritQuery",
+        "generateblocks/queryId",
+        "generateblocks/paginationType",
+        "generateblocks/loopIndex",
+        "generateblocks/loopItem"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-element-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-element-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-element-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-element-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/element",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/element?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "img"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "mediaId": {
+          "type": "number",
+          "default": 0
+        },
+        "linkHtmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/media",
+      "title": "Image",
+      "description": "A self-closing media element.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "image",
+        "media",
+        "img"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "postId",
+        "generateblocks/loopItem",
+        "generateblocks/loopIndex"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-media-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-media-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-media-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-media-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/media",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/media?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "html": {
+          "type": "string",
+          "source": "html",
+          "selector": ".gb-shape"
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/shape",
+      "title": "Shape",
+      "description": "A custom SVG shape.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "icon",
+        "shape",
+        "svg",
+        "image"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "postId"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-shape-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-shape-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-shape-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-shape-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/shape",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/shape?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "article",
+            "aside",
+            "header",
+            "footer",
+            "nav",
+            "main"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "queryType": {
+          "type": "string",
+          "default": "WP_Query"
+        },
+        "paginationType": {
+          "type": "string",
+          "default": "standard",
+          "enum": [
+            "standard",
+            "instant"
+          ]
+        },
+        "query": {
+          "type": "object",
+          "default": []
+        },
+        "inheritQuery": {
+          "type": "boolean",
+          "default": false
+        },
+        "showTemplateSelector": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/query",
+      "title": "Query",
+      "description": "Query posts and display them in a loop.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "query",
+        "loop",
+        "posts"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks/query": "query",
+        "generateblocks/queryId": "uniqueId",
+        "generateblocks/inheritQuery": "inheritQuery",
+        "generateblocks/paginationType": "paginationType",
+        "generateblocks/queryType": "queryType"
+      },
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-query-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-query-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-query-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-query-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/query",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/query?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "article",
+            "aside",
+            "header",
+            "footer",
+            "nav",
+            "main",
+            "ul",
+            "ol"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/looper",
+      "title": "Looper",
+      "description": "Loops its children based on the data provided by the Query block.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "query",
+        "loop",
+        "posts"
+      ],
+      "parent": null,
+      "ancestor": [
+        "generateblocks/query"
+      ],
+      "allowed_blocks": [
+        "generateblocks/loop-item"
+      ],
+      "provides_context": [],
+      "uses_context": [
+        "postId",
+        "postType",
+        "generateblocks/queryId",
+        "generateblocks/query",
+        "generateblocks/inheritQuery",
+        "generateblocks/queryData",
+        "generateblocks/queryType",
+        "generateblocks/loopIndex",
+        "generateblocks/loopItem"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-looper-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-looper-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-looper-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-looper-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/looper",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/looper?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/query-no-results",
+      "title": "No Results",
+      "description": "Display blocks when your query has no results.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "no results"
+      ],
+      "parent": null,
+      "ancestor": [
+        "generateblocks/query"
+      ],
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks/queryData"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false,
+        "customClassName": false,
+        "html": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-query-no-results-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-query-no-results-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/query-no-results",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/query-no-results?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "nav"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "midSize": {
+          "type": "number",
+          "default": 3
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/query-page-numbers",
+      "title": "Page Numbers",
+      "description": "Display page numbers for a paginated query loop.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "pagination",
+        "numbers"
+      ],
+      "parent": null,
+      "ancestor": [
+        "generateblocks/query"
+      ],
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks/queryData",
+        "generateblocks/queryType",
+        "generateblocks/query",
+        "generateblocks/queryId",
+        "generateblocks/inheritQuery",
+        "generateblocks/paginationType",
+        "generateblocks/loopIndex",
+        "generateblocks/loopItem"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-query-page-numbers-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-query-page-numbers-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-query-page-numbers-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-query-page-numbers-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/query-page-numbers",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/query-page-numbers?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "li",
+            "a",
+            "article",
+            "section",
+            "aside"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks/loop-item",
+      "title": "Loop Item",
+      "description": "The item that is looped inside of the Looper.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "loop",
+        "loop item"
+      ],
+      "parent": [
+        "generateblocks/looper"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks/queryData",
+        "generateblocks/queryType",
+        "generateblocks/loopIndex",
+        "generateblocks/loopItem",
+        "generateblocks/loopPreviewId",
+        "generateblocks/hasLoopItems",
+        "generateblocks/queryId",
+        "generateblocks/setLoopPreviewId",
+        "postId"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-loop-item-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-loop-item-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-loop-item-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-loop-item-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks/loop-item",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks/loop-item?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav",
+            "ul",
+            "ol",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/accordion",
+      "title": "Accordion",
+      "description": "Show and hide content within an accordion.",
+      "icon": null,
+      "category": "generateblocks",
+      "keywords": [
+        "accordion"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks/accordion/htmlAttributes": "htmlAttributes"
+      },
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-accordion-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-accordion-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-accordion-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-accordion-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/accordion",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/accordion?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "openByDefault": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/accordion-item",
+      "title": "Accordion Item",
+      "description": "The accordion item wrapper.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "accordion"
+      ],
+      "parent": [
+        "generateblocks-pro/accordion"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks/accordion/openByDefault": "openByDefault"
+      },
+      "uses_context": [
+        "generateblocks/accordion/htmlAttributes"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-accordion-item-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-accordion-item-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-accordion-item-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-accordion-item-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/accordion-item",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/accordion-item?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "button"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/accordion-toggle",
+      "title": "Accordion Toggle",
+      "description": "The clickable toggle that opens the accordion content.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "accordion"
+      ],
+      "parent": [
+        "generateblocks-pro/accordion-item"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks/accordion/openByDefault"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-accordion-toggle-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-accordion-toggle-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-accordion-toggle-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-accordion-toggle-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/accordion-toggle",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/accordion-toggle?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "span"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "openIcon": {
+          "type": "string",
+          "source": "html",
+          "selector": ".gb-accordion__toggle-icon-open"
+        },
+        "closeIcon": {
+          "type": "string",
+          "source": "html",
+          "selector": ".gb-accordion__toggle-icon-close"
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/accordion-toggle-icon",
+      "title": "Accordion Toggle Icon",
+      "description": "The open and close icon for the accordion toggle.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "accordion"
+      ],
+      "parent": [
+        "generateblocks-pro/accordion-toggle"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-accordion-toggle-icon-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-accordion-toggle-icon-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-accordion-toggle-icon-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-accordion-toggle-icon-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/accordion-toggle-icon",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/accordion-toggle-icon?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "ul",
+            "ol"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/accordion-content",
+      "title": "Accordion Content",
+      "description": "The accordion content wrapper. Accordion transitions are applied to this block.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "accordion"
+      ],
+      "parent": [
+        "generateblocks-pro/accordion-item"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-accordion-content-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-accordion-content-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-accordion-content-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-accordion-content-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/accordion-content",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/accordion-content?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav",
+            "ul",
+            "ol",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "showTemplateSelector": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/tabs",
+      "title": "Tabs",
+      "description": "Display content in a set of tabs.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-tabs-editor-script",
+        "generateblocks-pro-tabs-editor-script-2"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-tabs-editor-style",
+        "generateblocks-pro-tabs-editor-style-2"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-tabs-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-tabs-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/tabs",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/tabs?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav",
+            "ul",
+            "ol",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/tabs-menu",
+      "title": "Tabs Menu",
+      "description": "Contains the menu items for a set of tabs.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/tabs"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-tabs-menu-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-tabs-menu-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/tabs-menu",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/tabs-menu?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "button",
+            "ul",
+            "ol",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "tabItemOpen": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/tab-menu-item",
+      "title": "Tab Menu Item",
+      "description": "The clickable menu item for a tab.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/tabs-menu"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-tab-menu-item-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-tab-menu-item-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/tab-menu-item",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/tab-menu-item?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav",
+            "ul",
+            "ol",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/tab-items",
+      "title": "Tab Items",
+      "description": "Contains each tab item.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/tabs"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-tab-items-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-tab-items-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": null,
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/tab-items",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/tab-items?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "ul",
+            "ol",
+            "li"
+          ]
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "tabItemOpen": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/tab-item",
+      "title": "Tab Item",
+      "description": "Contains the content of a tab item.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/tab-items"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-tab-item-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-tab-item-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-tab-item-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-tab-item-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/tab-item",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/tab-item?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "menu": {
+          "type": "string",
+          "default": ""
+        },
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/classic-menu",
+      "title": "Menu",
+      "description": "Displays a classic WordPress menu.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/menu-container"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks-pro/menu-unique-id": "uniqueId"
+      },
+      "uses_context": [
+        "generateblocks-pro/subMenuType"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "inserter": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-classic-menu-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-classic-menu-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-classic-menu-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-classic-menu-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/classic-menu",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/classic-menu?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/classic-menu-item",
+      "title": "Menu Item",
+      "description": "Displays a classic WordPress menu.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/classic-menu"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks-pro/menu-unique-id"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "inserter": false,
+        "customClassName": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-classic-menu-item-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-classic-menu-item-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-classic-menu-item-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-classic-menu-item-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/classic-menu-item",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/classic-menu-item?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/classic-sub-menu",
+      "title": "Sub Menu",
+      "description": "Displays a classic WordPress menu.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": [
+        "generateblocks-pro/classic-menu"
+      ],
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks-pro/menu-unique-id"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "inserter": false,
+        "customClassName": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-classic-sub-menu-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-classic-sub-menu-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-classic-sub-menu-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-classic-sub-menu-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/classic-sub-menu",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/classic-sub-menu?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav"
+          ]
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "subMenuType": {
+          "type": "string",
+          "default": "hover"
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/navigation",
+      "title": "Navigation",
+      "description": "The container for the navigation block.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": {
+        "generateblocks-pro/subMenuType": "subMenuType",
+        "generateblocks-pro/navigation/htmlAttributes": "htmlAttributes"
+      },
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-navigation-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-navigation-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-navigation-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-navigation-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/navigation",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/navigation?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "openIcon": {
+          "type": "string",
+          "source": "html",
+          "selector": ".gb-menu-open-icon"
+        },
+        "closeIcon": {
+          "type": "string",
+          "source": "html",
+          "selector": ".gb-menu-close-icon"
+        },
+        "iconLocation": {
+          "type": "string",
+          "default": "before"
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "button"
+          ]
+        },
+        "content": {
+          "type": "rich-text",
+          "source": "rich-text",
+          "selector": ".gb-menu-toggle-text"
+        },
+        "iconOnly": {
+          "type": "boolean",
+          "default": false
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/menu-toggle",
+      "title": "Menu Toggle",
+      "description": "The toggle button for the menu block.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": null,
+      "ancestor": [
+        "generateblocks-pro/navigation"
+      ],
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false,
+        "inserter": true
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-menu-toggle-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-menu-toggle-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-menu-toggle-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-menu-toggle-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/menu-toggle",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/menu-toggle?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav"
+          ]
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/menu-container",
+      "title": "Menu Container",
+      "description": "The container for the classic menu block.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [
+        "generateblocks-pro/navigation/htmlAttributes"
+      ],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "inserter": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-menu-container-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-menu-container-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-menu-container-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-menu-container-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/menu-container",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/menu-container?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "uniqueId": {
+          "type": "string",
+          "default": ""
+        },
+        "styles": {
+          "type": "object",
+          "default": []
+        },
+        "css": {
+          "type": "string",
+          "default": ""
+        },
+        "globalClasses": {
+          "type": "array",
+          "default": []
+        },
+        "tagName": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "div",
+            "section",
+            "aside",
+            "nav",
+            "header"
+          ]
+        },
+        "htmlAttributes": {
+          "type": "object",
+          "default": []
+        },
+        "lock": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        }
+      },
+      "is_dynamic": true,
+      "api_version": 3,
+      "name": "generateblocks-pro/site-header",
+      "title": "Site Header",
+      "description": "The container for your site header.",
+      "icon": "star",
+      "category": "generateblocks",
+      "keywords": [
+        "alert",
+        "message"
+      ],
+      "parent": null,
+      "ancestor": null,
+      "allowed_blocks": null,
+      "provides_context": [],
+      "uses_context": [],
+      "selectors": [],
+      "supports": {
+        "align": false,
+        "className": false
+      },
+      "styles": [],
+      "textdomain": null,
+      "example": null,
+      "editor_script_handles": [
+        "generateblocks-pro-site-header-editor-script"
+      ],
+      "script_handles": [],
+      "view_script_handles": [],
+      "view_script_module_ids": [],
+      "editor_style_handles": [
+        "generateblocks-pro-site-header-editor-style"
+      ],
+      "style_handles": [],
+      "view_style_handles": [],
+      "variations": [],
+      "block_hooks": [],
+      "editor_script": "generateblocks-pro-site-header-editor-script",
+      "script": null,
+      "view_script": null,
+      "editor_style": "generateblocks-pro-site-header-editor-style",
+      "style": null,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro/site-header",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "up": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-types/generateblocks-pro"
+          }
+        ],
+        "wp:render-block": [
+          {
+            "href": "https://cruisemadeeasy.com/wp-json/wp/v2/block-renderer/generateblocks-pro/site-header?context=edit"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "generatepress_blocks": 2,
+    "generateblocks_blocks": 33,
+    "total_generate_blocks": 35
+  },
+  "component_index": {
+    "blocks": [
+      "generatepress/dynamic-content",
+      "generatepress/dynamic-image"
+    ],
+    "template_parts": []
+  }
+}

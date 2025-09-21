@@ -88,7 +88,8 @@ export class WordPressAPI {
   async testConnection(): Promise<APIResponse<any>> {
     try {
       console.log('Testing WordPress API connection...');
-      const response = await this.makeRequest('/wp-json/');
+      const response = await this.makeRequest('/');
+      
       
       if (response.success && response.data) {
         console.log('✅ WordPress API connection successful');
@@ -105,7 +106,7 @@ export class WordPressAPI {
       } else {
         return {
           success: false,
-          error: 'Connection test failed: Invalid response structure'
+          error: `Connection test failed: success=${response.success}, hasData=${!!response.data}, error=${response.error}`
         };
       }
     } catch (error) {
@@ -123,7 +124,7 @@ export class WordPressAPI {
   async discoverEndpoints(): Promise<APIResponse<Record<string, EndpointInfo>>> {
     try {
       console.log('Discovering WordPress API endpoints...');
-      const response = await this.makeRequest('/wp-json/');
+      const response = await this.makeRequest('/');
       
       if (!response.success || !response.data) {
         return {
@@ -295,7 +296,7 @@ export class WordPressAPI {
   /**
    * Make rate-limited authenticated request to WordPress API
    */
-  private async makeRequest(endpoint: string, options: RequestInit = {}): Promise<APIResponse> {
+  async makeRequest(endpoint: string, options: RequestInit = {}): Promise<APIResponse> {
     return new Promise((resolve) => {
       this.requestQueue.push(async () => {
         try {
