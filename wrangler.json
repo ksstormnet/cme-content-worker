@@ -63,6 +63,10 @@
 				"SESSION_SECRET": "change-this-secret-key",
 				"ADMIN_EMAIL": "admin@cruisemadeeasy.com",
 				"JWT_SECRET": "production-jwt-secret-key-change-this"
+			},
+			"assets": {
+				"directory": "./dist/client",
+				"not_found_handling": "single-page-application"
 			}
 		}
 	},
@@ -85,11 +89,6 @@
 	 */
 	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
 	"upload_source_maps": true,
-	// Temporarily disabled for development - re-enable for production deployment
-	// "assets": {
-	//	"directory": "./dist/client/client",
-	//	"not_found_handling": "single-page-application"
-	// },
 	/**
 	 * Cron Triggers for CSS sync
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#cron-triggers
