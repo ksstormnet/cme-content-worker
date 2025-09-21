@@ -13,6 +13,7 @@ import MainLayout from './components/MainLayout';
 
 // Blog Components
 import BlogHomepage from './components/BlogHomepage';
+import BlogHomepageTest from './components/BlogHomepageTest';
 import CategoryPage from './components/CategoryPage';
 import PostPage from './components/PostPage';
 
@@ -204,6 +205,16 @@ function App() {
 
         <main className="app-main">
           <Routes>
+            {/* Root route - MUST come before wildcard routes */}
+            <Route 
+              path="/" 
+              element={
+                auth.user ? 
+                <Navigate to="/admin/create" replace /> : 
+                <BlogHomepage />
+              } 
+            />
+
             {/* Public blog routes - served by Vite in development, Worker in production */}
             <Route 
               path="/category/:categorySlug" 
@@ -259,15 +270,6 @@ function App() {
               } 
             />
 
-            {/* Root route - show blog homepage for everyone, redirect authenticated users to admin */}
-            <Route 
-              path="/" 
-              element={
-                auth.user ? 
-                <Navigate to="/admin/create" replace /> : 
-                <BlogHomepage />
-              } 
-            />
 
             {/* Catch all other routes - redirect to appropriate location */}
             <Route 
