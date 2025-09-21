@@ -1,0 +1,189 @@
+{
+  "timestamp": "2025-09-21T19:04:50.332Z",
+  "session": "3",
+  "source_site": "https://cruisemadeeasy.com",
+  "summary": {
+    "total_settings": 22,
+    "generatepress_options": 0,
+    "generateblocks_options": 0,
+    "css_variables": 18,
+    "color_variables": 7,
+    "typography_variables": 5,
+    "spacing_variables": 3,
+    "breakpoint_variables": 3
+  },
+  "theme_settings": {
+    "wordpress_settings": {
+      "generateblocks_pro_classic_menu_support": false,
+      "plsr_speculation_rules": {
+        "mode": "prerender",
+        "eagerness": "eager"
+      },
+      "title": "Cruise Made Easy",
+      "description": "Your Cruise, Your Way — Without the Hassle",
+      "url": "https://cruisemadeeasy.com",
+      "email": "ksstormmedia@gmail.com",
+      "timezone": "America/Chicago",
+      "date_format": "F j, Y",
+      "time_format": "g:i a",
+      "start_of_week": 1,
+      "language": "",
+      "use_smilies": true,
+      "default_category": 1,
+      "default_post_format": "0",
+      "posts_per_page": 100,
+      "show_on_front": "page",
+      "page_on_front": 3575,
+      "page_for_posts": 6015,
+      "default_ping_status": null,
+      "default_comment_status": null,
+      "site_logo": null,
+      "site_icon": 7542
+    },
+    "generatepress_settings": {},
+    "generateblocks_settings": {},
+    "customizer_settings": {},
+    "theme_mods": {},
+    "active_theme": {}
+  },
+  "css_variables": {
+    "colors": {
+      "--accent": "#1e73be",
+      "--base": "#ffffff",
+      "--base-2": "#f7f8f9",
+      "--base-3": "#efefef",
+      "--contrast": "#222222",
+      "--contrast-2": "#757575",
+      "--contrast-3": "#999999"
+    },
+    "typography": {
+      "--body-font": "system-ui, sans-serif",
+      "--heading-font": "inherit",
+      "--base-font-size": "17px",
+      "--heading-font-weight": "400",
+      "--body-line-height": "1.6"
+    },
+    "spacing": {
+      "--container-width": "1200px",
+      "--content-width": "1200px",
+      "--spacing-unit": "20px"
+    },
+    "breakpoints": {
+      "--mobile-breakpoint": "768px",
+      "--tablet-breakpoint": "1024px",
+      "--desktop-breakpoint": "1200px"
+    },
+    "custom_properties": {}
+  },
+  "color_schemes": [
+    {
+      "primary": "#1e73be",
+      "secondary": "#f7f8f9",
+      "accent": "#1e73be",
+      "background": "#ffffff",
+      "text": "#222222",
+      "heading": "#222222",
+      "link": "#1e73be",
+      "button": "#1e73be"
+    }
+  ],
+  "typography": {
+    "body_font": "system-ui, sans-serif",
+    "heading_font": "inherit",
+    "font_sizes": {
+      "base": "17px",
+      "h1": "2.5rem",
+      "h2": "2rem",
+      "h3": "1.75rem",
+      "h4": "1.5rem",
+      "h5": "1.25rem",
+      "h6": "1rem"
+    },
+    "line_heights": {
+      "body": "1.6",
+      "heading": "1.2"
+    },
+    "font_weights": {
+      "normal": "400",
+      "heading": "400",
+      "bold": "700"
+    }
+  },
+  "responsive_breakpoints": {
+    "mobile": "768px",
+    "tablet": "1024px",
+    "desktop": "1200px",
+    "mobile_menu": "1024px"
+  },
+  "theme_features": {},
+  "react_mapping": {
+    "css_variables": {
+      "accent": "var(--accent)",
+      "base": "var(--base)",
+      "base-2": "var(--base-2)",
+      "base-3": "var(--base-3)",
+      "contrast": "var(--contrast)",
+      "contrast-2": "var(--contrast-2)",
+      "contrast-3": "var(--contrast-3)",
+      "bodyFont": "var(--body-font)",
+      "headingFont": "var(--heading-font)",
+      "baseFontSize": "var(--base-font-size)",
+      "headingFontWeight": "var(--heading-font-weight)",
+      "bodyLineHeight": "var(--body-line-height)",
+      "containerWidth": "var(--container-width)",
+      "contentWidth": "var(--content-width)",
+      "spacingUnit": "var(--spacing-unit)"
+    },
+    "theme_config": {
+      "colors": {
+        "primary": "#1e73be",
+        "secondary": "#f7f8f9",
+        "accent": "#1e73be",
+        "background": "#ffffff",
+        "text": "#222222",
+        "heading": "#222222",
+        "link": "#1e73be",
+        "button": "#1e73be"
+      },
+      "typography": {
+        "body_font": "system-ui, sans-serif",
+        "heading_font": "inherit",
+        "font_sizes": {
+          "base": "17px",
+          "h1": "2.5rem",
+          "h2": "2rem",
+          "h3": "1.75rem",
+          "h4": "1.5rem",
+          "h5": "1.25rem",
+          "h6": "1rem"
+        },
+        "line_heights": {
+          "body": "1.6",
+          "heading": "1.2"
+        },
+        "font_weights": {
+          "normal": "400",
+          "heading": "400",
+          "bold": "700"
+        }
+      },
+      "breakpoints": {
+        "mobile": "768px",
+        "tablet": "1024px",
+        "desktop": "1200px",
+        "mobile_menu": "1024px"
+      },
+      "spacing": {
+        "unit": "20px",
+        "containerWidth": "1200px"
+      }
+    },
+    "typescript_interfaces": [
+      "interface ThemeColors",
+      "interface Typography",
+      "interface Breakpoints",
+      "interface SpacingConfig",
+      "interface ThemeConfig"
+    ]
+  }
+}

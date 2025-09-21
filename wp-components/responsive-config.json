@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-09-21T19:04:50.332Z",
+  "breakpoints": {
+    "mobile": "768px",
+    "tablet": "1024px",
+    "desktop": "1200px",
+    "mobile_menu": "1024px"
+  },
+  "variables": {
+    "--mobile-breakpoint": "768px",
+    "--tablet-breakpoint": "1024px",
+    "--desktop-breakpoint": "1200px"
+  }
+}
