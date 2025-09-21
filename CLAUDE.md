@@ -81,6 +81,21 @@
 - **Manual Reference**: Current approach using specifications as detailed guidelines
 - **Enhanced Prompting**: Leverage agent specifications in Task tool prompts
 
+## Modernized Architecture (January 2025)
+
+### Architecture Transformation
+This project has undergone a comprehensive modernization to implement clean development/production routing separation:
+
+**BEFORE**: Hybrid routing with Worker serving blog content + Vite serving admin (confusing, session hijacking)
+**AFTER**: Clean separation - Vite serves ALL routes in development, Worker serves everything in production
+
+### Current Architecture Benefits
+- **No Session Hijacking**: Background sessions prevent Claude session blocking
+- **Clean Development**: Single server (Vite) handles all routes with React Router
+- **True Production**: Worker serves complete site with server-side rendering
+- **API Consistency**: Same API endpoints work in both environments
+- **Hot Module Replacement**: Full React development experience maintained
+
 ## Project Architecture
 
 ### Technology Stack
@@ -108,14 +123,19 @@
 - **Production Mode**: Worker serves everything (static React build + dynamic blog content + API routes)
 - **Build-Time Routing**: Conditional routing logic based on environment
 
-**Development Setup Requirements**:
-1. **Vite Dev Server**: Serves ALL routes on `localhost:5174` (frontend, admin, blog content)
-2. **Worker Dev Server**: Serves ONLY `/api/*` routes on `localhost:8787` with `--remote` flag
+**Development Setup Requirements** (MANDATORY Background Sessions):
+1. **Session 1 - Vite Dev Server**: Serves ALL routes on `localhost:5174` (frontend, admin, blog content)
+   - Command: `npm run dev:frontend` (run in background bash session)
+   - Handles all routing via React Router
+   - Proxies `/api/*` requests to Worker server
+2. **Session 2 - Worker Dev Server**: Serves ONLY `/api/*` routes on `localhost:8787` 
+   - Command: `npm run dev:worker` (run in background bash session) 
+   - API-only mode in development environment
+   - Redirects blog routes to Vite in development
 3. **Database Configuration**: Worker uses REMOTE D1 instance (production binding)
 4. **Database ID**: `58de4dc4-0900-4b28-9ccc-5d066557bb11`
 5. **R2 Bucket**: `cruisemadeeasy-images` (remote production binding)
-6. **React Router**: Handles all navigation, fetches blog content via API calls
-7. **Proxy Setup**: Vite proxies `/api/*` requests to Worker server
+6. **Background Session Management**: Both servers MUST run in Claude-controlled background sessions
 
 #### Development vs Production Routing
 **Development Routing**:
@@ -341,33 +361,47 @@ const generation = await env.DB.prepare(`
 ### Development Commands & Workflows
 
 #### **MANDATORY Background Session Commands**
-**CRITICAL**: All development server commands MUST be executed in background bash sessions.
+**CRITICAL**: All development server commands MUST be executed in background bash sessions using the Bash tool with `run_in_background: true`.
 
+**Session Setup Protocol**:
 ```bash
-# Background Session Management (REQUIRED)
-# Session 1: Vite server
-npm run dev:frontend &        # Vite dev server (localhost:5174) - ALL routes
+# MANDATORY: Start both background sessions using Claude Bash tool
+# Session 1: Vite server (ALL routes)
+npm run dev:frontend    # Background: true
 
-# Session 2: Worker API server  
-npm run dev:worker &          # Worker dev server (localhost:8787) - API only
+# Session 2: Worker server (API-only) 
+npm run dev:worker      # Background: true (or --local if login issues)
+```
 
-# Session Status Checking
-npm run dev:status            # Check server status without blocking session
+**Session Management**:
+```bash
+# Status checking (non-blocking)
+npm run dev:bg-status            # Check both session status
+lsof -i:5174 -i:8787 | grep LISTEN  # Verify ports
 
+# Session cleanup
+npm run dev:bg-stop             # Stop all background sessions
+pkill -f 'wrangler dev' && pkill -f vite  # Force cleanup
+
+# Health monitoring
+npm run dev:status              # Legacy dev-control status
+```
+
+**Development & Deployment**:
+```bash
 # Database management
 npx wrangler d1 migrations list              # List migrations
 npx wrangler d1 migrations apply             # Apply pending migrations
 npx wrangler d1 execute --command="SELECT * FROM posts"  # Direct SQL
 
-# Production deployment
-npm run build                 # Build React app for production
-npm run deploy               # Deploy Worker to Cloudflare
-npx wrangler deploy          # Direct Worker deployment
+# Build & deployment
+npm run build                 # Build React app + Worker for production
+npm run deploy               # Deploy Worker to Cloudflare with assets
+npm run check                # Full build validation + deployment dry-run
 
 # Development utilities
 npm run lint                 # ESLint code quality
 npm run cf-typegen           # Generate Cloudflare Worker types
-npm run check                # Full build and deployment check
 ```
 
 #### **Commit Protocol**
