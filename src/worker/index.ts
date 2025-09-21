@@ -15,6 +15,7 @@ import { importRoutes } from "./routes/import";
 import { media } from "./routes/media";
 import { cssSyncRoutes } from "./routes/css-sync";
 import { templateRoutes } from "./routes/template";
+import { publicApiRoutes } from "./routes/public-api";
 import { htmlTemplateGenerator } from "../utils/html-template";
 import { renderContentBlocks } from "../utils/block-renderer";
 import { getCSSMapping } from "../utils/css-resolver";
@@ -34,7 +35,10 @@ app.use("*", cors({
   credentials: true,
 }));
 
-// API Routes - MUST come before serveStatic
+// Public API Routes (no auth required) - MUST come first to avoid conflicts
+app.route("/api", publicApiRoutes);
+
+// Protected API Routes - MUST come before serveStatic
 app.route("/api/auth", authRoutes);
 app.route("/api/admin", adminRoutes);
 app.route("/api/create", createRoutes);
@@ -64,8 +68,13 @@ app.post("/api/test", async (c) => {
     return c.json({ success: false, error: error.message }, 500);
   }
 });
-// Homepage route - serve real static template
+// Homepage route - serve real static template (production only)
 app.get("/", async (c) => {
+  // In development, let Vite handle this route
+  if (c.env.ENVIRONMENT === "development") {
+    return c.redirect("http://localhost:5174/");
+  }
+
   try {
     // Fetch published posts for homepage
     const posts = await c.env.DB.prepare(`
@@ -128,8 +137,13 @@ app.get("/", async (c) => {
   }
 });
 
-// Category route - serve posts for specific category
+// Category route - serve posts for specific category (production only)
 app.get("/category/:categorySlug/", async (c) => {
+  // In development, let Vite handle this route
+  if (c.env.ENVIRONMENT === "development") {
+    return c.redirect("http://localhost:5174/");
+  }
+
   try {
     const categorySlug = c.req.param("categorySlug");
     
@@ -268,8 +282,13 @@ app.get("/admin/*", (c) => {
   }
 });
 
-// Category/post routing - handle URLs like /cruise-tips/post-slug
+// Category/post routing - handle URLs like /cruise-tips/post-slug (production only)
 app.get("/:category/:slug", async (c) => {
+  // In development, let Vite handle this route
+  if (c.env.ENVIRONMENT === "development") {
+    return c.redirect("http://localhost:5174/");
+  }
+
   try {
     const category = c.req.param("category");
     const slug = c.req.param("slug");
@@ -360,8 +379,13 @@ app.get("/:category/:slug", async (c) => {
   }
 });
 
-// Category archive routing - handle URLs like /cruise-tips/
+// Category archive routing - handle URLs like /cruise-tips/ (production only)
 app.get("/:category", async (c) => {
+  // In development, let Vite handle this route
+  if (c.env.ENVIRONMENT === "development") {
+    return c.redirect("http://localhost:5174/");
+  }
+
   try {
     const category = c.req.param("category");
     const page = parseInt(c.req.query("page") || "1");
