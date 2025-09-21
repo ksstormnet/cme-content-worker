@@ -50,6 +50,9 @@
 		"dev:frontend": "vite",
 		"dev:worker": "wrangler dev --remote",
 		"dev:legacy": "concurrently \"npm run dev:frontend\" \"npm run dev:worker\"",
+		"dev:bg": "echo 'Background session development mode - use Claude Bash tool with run_in_background: true for both npm run dev:frontend and npm run dev:worker'",
+		"dev:bg-status": "echo 'Sessions: Vite (localhost:5174 - ALL routes) + Worker (localhost:8787 - API only)' && lsof -i:5174 -i:8787 | grep LISTEN",
+		"dev:bg-stop": "pkill -f 'wrangler dev' && pkill -f vite && echo 'Background development sessions stopped'",
 		"lint": "eslint .",
 		"preview": "npm run build && vite preview"
 	},

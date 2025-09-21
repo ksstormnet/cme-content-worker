@@ -101,7 +101,8 @@ class DevServer {
     
     const backend = spawn('npx', ['wrangler', 'dev', '--remote', '--port', BACKEND_PORT], {
       stdio: ['ignore', 'pipe', 'pipe'],
-      detached: false
+      detached: true,
+      cwd: process.cwd()
     });
 
     backend.stdout.on('data', (data) => {
