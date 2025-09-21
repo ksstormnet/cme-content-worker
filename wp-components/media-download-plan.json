@@ -1,0 +1,1452 @@
+{
+  "timestamp": "2025-09-21T19:10:55.117Z",
+  "download_plan": {
+    "batch_size": 50,
+    "concurrent_downloads": 3,
+    "retry_attempts": 3,
+    "rate_limit_ms": 1000,
+    "estimated_duration": "32 minutes"
+  },
+  "file_list": [
+    {
+      "id": 8642,
+      "title": "photo by alfonso romo",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/33678962.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/09/33678962.jpeg",
+      "filesize": 128758
+    },
+    {
+      "id": 8640,
+      "title": "santorini sunset with windmill",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/santorini-sunset-with-windmill.jpg"
+      ],
+      "local_path": "wp-components/media/2025/10/santorini-sunset-with-windmill.jpg",
+      "filesize": 126689
+    },
+    {
+      "id": 8635,
+      "title": "singapore cruises norwegian",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/singapore-cruises-norwegian.jpg"
+      ],
+      "local_path": "wp-components/media/2025/10/singapore-cruises-norwegian.jpg",
+      "filesize": 73370
+    },
+    {
+      "id": 8633,
+      "title": "photo by akinori uemura",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/s90ebepxxnw.jpg"
+      ],
+      "local_path": "wp-components/media/2025/09/s90ebepxxnw.jpg",
+      "filesize": 516743
+    },
+    {
+      "id": 8631,
+      "title": "norwegian bliss",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/norwegian_bliss.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/10/norwegian_bliss.jpeg",
+      "filesize": 160508
+    },
+    {
+      "id": 8627,
+      "title": "mi.panama.hero1600x3201",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/mi.panama.hero1600x3201.jpg"
+      ],
+      "local_path": "wp-components/media/2025/10/mi.panama.hero1600x3201.jpg",
+      "filesize": 143372
+    },
+    {
+      "id": 8626,
+      "title": "photo by mafer castañeda",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/33356121.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/09/33356121.jpeg",
+      "filesize": 146205
+    },
+    {
+      "id": 8623,
+      "title": "photo by skyler ewing",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/5228890.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/09/5228890.jpeg",
+      "filesize": 300207
+    },
+    {
+      "id": 8605,
+      "title": "photo by chris18769",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/7307997.jpg"
+      ],
+      "local_path": "wp-components/media/2025/09/7307997.jpg",
+      "filesize": 337402
+    },
+    {
+      "id": 8603,
+      "title": "photo by nicos fotowelt",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/5104385.jpg"
+      ],
+      "local_path": "wp-components/media/2025/09/5104385.jpg",
+      "filesize": 264113
+    },
+    {
+      "id": 8597,
+      "title": "photo by burak bahadır büyükkılınç",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/33712720.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/09/33712720.jpeg",
+      "filesize": 130149
+    },
+    {
+      "id": 8589,
+      "title": "ncl jewel aerial snt john nb",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/ncl_jewel_aerial_snt_-john_nb.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/10/ncl_jewel_aerial_snt_-john_nb.jpeg",
+      "filesize": 443284
+    },
+    {
+      "id": 8588,
+      "title": "ncl jewel aerial philadelphia comp 1",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/ncl_jewel_aerial_philadelphia_comp-1-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/10/ncl_jewel_aerial_philadelphia_comp-1-scaled.jpeg",
+      "filesize": 430459
+    },
+    {
+      "id": 8582,
+      "title": "photo by meg von haartman",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/vlypg-jdkda.jpg"
+      ],
+      "local_path": "wp-components/media/2025/09/vlypg-jdkda.jpg",
+      "filesize": 189596
+    },
+    {
+      "id": 8580,
+      "title": "ncl encore vibe hot tub ladies 0224 v3",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/ncl_encore_vibe_hot_tub_ladies_0224_v3-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/10/ncl_encore_vibe_hot_tub_ladies_0224_v3-scaled.jpeg",
+      "filesize": 567253
+    },
+    {
+      "id": 8573,
+      "title": "ncl joy aerial alaska alt",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/10/ncl_joy_aerial_alaska_alt.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/10/ncl_joy_aerial_alaska_alt.jpeg",
+      "filesize": 7439626
+    },
+    {
+      "id": 8558,
+      "title": "photo by gotta be worth it",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/1029011.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/09/1029011.jpeg",
+      "filesize": 209390
+    },
+    {
+      "id": 8551,
+      "title": "photo by nasa",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/i9w4uy1pu-s.jpg"
+      ],
+      "local_path": "wp-components/media/2025/09/i9w4uy1pu-s.jpg",
+      "filesize": 228259
+    },
+    {
+      "id": 8538,
+      "title": "photo by callum parker",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/hw0e7a8jpni.jpg"
+      ],
+      "local_path": "wp-components/media/2025/09/hw0e7a8jpni.jpg",
+      "filesize": 190524
+    },
+    {
+      "id": 8535,
+      "title": "photo by carlos corporan",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/09/19714717.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/09/19714717.jpeg",
+      "filesize": 309176
+    },
+    {
+      "id": 8303,
+      "title": "photo by thought catalog",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/08/505eectw54k.jpg"
+      ],
+      "local_path": "wp-components/media/2025/08/505eectw54k.jpg",
+      "filesize": 246393
+    },
+    {
+      "id": 8302,
+      "title": "photo by darkmoon art",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/08/3502188.jpg"
+      ],
+      "local_path": "wp-components/media/2025/08/3502188.jpg",
+      "filesize": 150981
+    },
+    {
+      "id": 8294,
+      "title": "photo by ferdinand stöhr",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/08/ig8omcxmoty.jpg"
+      ],
+      "local_path": "wp-components/media/2025/08/ig8omcxmoty.jpg",
+      "filesize": 586870
+    },
+    {
+      "id": 8289,
+      "title": "photo by christian holzinger",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/08/nhagqnnk2ls.jpg"
+      ],
+      "local_path": "wp-components/media/2025/08/nhagqnnk2ls.jpg",
+      "filesize": 202669
+    },
+    {
+      "id": 8288,
+      "title": "photo by cosmic timetraveler",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/08/lgrghyzzbsk.jpg"
+      ],
+      "local_path": "wp-components/media/2025/08/lgrghyzzbsk.jpg",
+      "filesize": 298257
+    },
+    {
+      "id": 7978,
+      "title": "Escape To The Great Life_ Great Stirrup Cay Sizzle Video &#8211; 60 sec_2025-07-29_14-44-51",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/escape-to-the-great-life_-great-stirrup-cay-sizzle-video-60-sec_2025-07-29_14-44-51.mp4"
+      ],
+      "local_path": "wp-components/media/2025/07/escape-to-the-great-life_-great-stirrup-cay-sizzle-video-60-sec_2025-07-29_14-44-51.mp4",
+      "filesize": 151070902
+    },
+    {
+      "id": 7975,
+      "title": "9305955 great stirrup cay tidal tower",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg",
+      "filesize": 990101
+    },
+    {
+      "id": 7970,
+      "title": "photo by francesco ungaro",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/5676024.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/07/5676024.jpeg",
+      "filesize": 474808
+    },
+    {
+      "id": 7969,
+      "title": "photo by renegossner",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/8310076.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/8310076.jpg",
+      "filesize": 435391
+    },
+    {
+      "id": 7960,
+      "title": "photo by rawpixel",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/3139127.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/3139127.jpg",
+      "filesize": 372339
+    },
+    {
+      "id": 7959,
+      "title": "photo by campbell&#8217;s photography",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/sw0-r8wb0ma.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/sw0-r8wb0ma.jpg",
+      "filesize": 89836
+    },
+    {
+      "id": 7926,
+      "title": "photo by pulkit jain",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/ytnmgdlf_k0.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/ytnmgdlf_k0.jpg",
+      "filesize": 238669
+    },
+    {
+      "id": 7763,
+      "title": "photo by gaspar zaldo",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/13451840.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/07/13451840.jpeg",
+      "filesize": 148201
+    },
+    {
+      "id": 7762,
+      "title": "photo by dylan michaud",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/qf8ifcw2oc8.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/qf8ifcw2oc8.jpg",
+      "filesize": 262815
+    },
+    {
+      "id": 7758,
+      "title": "photo by mike kit",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/17230782.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/07/17230782.jpeg",
+      "filesize": 378797
+    },
+    {
+      "id": 7744,
+      "title": "photo by emil kalibradov",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/k05udh2lhfa.jpg"
+      ],
+      "local_path": "wp-components/media/2025/07/k05udh2lhfa.jpg",
+      "filesize": 184919
+    },
+    {
+      "id": 7698,
+      "title": "hubbard glacier",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/08/hubbard-glacier.jpg"
+      ],
+      "local_path": "wp-components/media/2025/08/hubbard-glacier.jpg",
+      "filesize": 725257
+    },
+    {
+      "id": 7545,
+      "title": "fb og default image",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/fb-og-default-image-1.png"
+      ],
+      "local_path": "wp-components/media/2025/07/fb-og-default-image-1.png",
+      "filesize": 2363330
+    },
+    {
+      "id": 7544,
+      "title": "seopress 1200&#215;630",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/seopress-1200x630-2.webp"
+      ],
+      "local_path": "wp-components/media/2025/07/seopress-1200x630-2.webp",
+      "filesize": 17490
+    },
+    {
+      "id": 7542,
+      "title": "orange transparent icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/cropped-orange-transparent-icon-scaled-1.png"
+      ],
+      "local_path": "wp-components/media/2025/07/cropped-orange-transparent-icon-scaled-1.png",
+      "filesize": 10382
+    },
+    {
+      "id": 7541,
+      "title": "4 color white bg icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/cropped-4-color-white-bg-icon-scaled-1.png"
+      ],
+      "local_path": "wp-components/media/2025/07/cropped-4-color-white-bg-icon-scaled-1.png",
+      "filesize": 11249
+    },
+    {
+      "id": 7540,
+      "title": "4 color white bg icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-white-bg-icon-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-white-bg-icon-scaled.png",
+      "filesize": 61090
+    },
+    {
+      "id": 7538,
+      "title": "4 color white bg square",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/cropped-4-color-white-bg-square-scaled-1.png"
+      ],
+      "local_path": "wp-components/media/2025/07/cropped-4-color-white-bg-square-scaled-1.png",
+      "filesize": 12540
+    },
+    {
+      "id": 7537,
+      "title": "4 color white bg square",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-white-bg-square-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-white-bg-square-scaled.png",
+      "filesize": 76457
+    },
+    {
+      "id": 7531,
+      "title": "4 color transparent icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/cropped-4-color-transparent-icon-scaled-1.png"
+      ],
+      "local_path": "wp-components/media/2025/07/cropped-4-color-transparent-icon-scaled-1.png",
+      "filesize": 10847
+    },
+    {
+      "id": 7530,
+      "title": "4 color white bg vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-white-bg-vertical-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-white-bg-vertical-scaled.png",
+      "filesize": 77422
+    },
+    {
+      "id": 7529,
+      "title": "4 color transparent vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-transparent-vertical-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-transparent-vertical-scaled.png",
+      "filesize": 71359
+    },
+    {
+      "id": 7528,
+      "title": "4 color transparent icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-transparent-icon-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-transparent-icon-scaled.png",
+      "filesize": 55035
+    },
+    {
+      "id": 7527,
+      "title": "4 color transparent horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-transparent-horizontal-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-transparent-horizontal-scaled.png",
+      "filesize": 43164
+    },
+    {
+      "id": 7526,
+      "title": "4 color svg vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-svg-vertical.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-svg-vertical.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7525,
+      "title": "4 color svg icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-svg-icon.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-svg-icon.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7524,
+      "title": "4 color svg horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-svg-horizontal.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-svg-horizontal.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7523,
+      "title": "4 color dim white bg horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-dim-white-bg-horizontal-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-dim-white-bg-horizontal-scaled.png",
+      "filesize": 37921
+    },
+    {
+      "id": 7522,
+      "title": "black transparent vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/black-transparent-vertical-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/black-transparent-vertical-scaled.png",
+      "filesize": 24298
+    },
+    {
+      "id": 7521,
+      "title": "black transparent horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/black-transparent-horizontal-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/black-transparent-horizontal-scaled.png",
+      "filesize": 13608
+    },
+    {
+      "id": 7520,
+      "title": "black svg vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/black-svg-vertical.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/black-svg-vertical.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7519,
+      "title": "black svg icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/black-svg-icon.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/black-svg-icon.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7518,
+      "title": "black svg horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/black-svg-horizontal.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/black-svg-horizontal.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7517,
+      "title": "balck transparent icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/balck-transparent-icon-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/balck-transparent-icon-scaled.png",
+      "filesize": 18356
+    },
+    {
+      "id": 7516,
+      "title": "4 color white bg horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/4-color-white-bg-horizontal-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/4-color-white-bg-horizontal-scaled.png",
+      "filesize": 46827
+    },
+    {
+      "id": 7515,
+      "title": "white transparent vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-transparent-vertical-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/white-transparent-vertical-scaled.png",
+      "filesize": 26461
+    },
+    {
+      "id": 7514,
+      "title": "white transparent icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-transparent-icon-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/white-transparent-icon-scaled.png",
+      "filesize": 18962
+    },
+    {
+      "id": 7513,
+      "title": "white transparent horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-transparent-horizontal-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/white-transparent-horizontal-scaled.png",
+      "filesize": 17628
+    },
+    {
+      "id": 7512,
+      "title": "white svg vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-svg-vertical.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/white-svg-vertical.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7511,
+      "title": "white svg icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-svg-icon-1.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/white-svg-icon-1.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7510,
+      "title": "white svg icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-svg-icon.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/white-svg-icon.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7509,
+      "title": "white svg horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/white-svg-horizontal.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/white-svg-horizontal.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7508,
+      "title": "orange transparent vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/orange-transparent-vertical-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/orange-transparent-vertical-scaled.png",
+      "filesize": 70639
+    },
+    {
+      "id": 7507,
+      "title": "orange transparent icon",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/orange-transparent-icon-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/orange-transparent-icon-scaled.png",
+      "filesize": 54223
+    },
+    {
+      "id": 7506,
+      "title": "orange transparent horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/orange-transparent-horizontal-scaled.png"
+      ],
+      "local_path": "wp-components/media/2025/07/orange-transparent-horizontal-scaled.png",
+      "filesize": 41937
+    },
+    {
+      "id": 7505,
+      "title": "orange svg vertical",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/orange-svg-vertical.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/orange-svg-vertical.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7504,
+      "title": "orange svg horizontal",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/orange-svg-horizontal.svg"
+      ],
+      "local_path": "wp-components/media/2025/07/orange-svg-horizontal.svg",
+      "filesize": 0
+    },
+    {
+      "id": 7074,
+      "title": "fb og default image",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/fb-og-default-image.png"
+      ],
+      "local_path": "wp-components/media/2025/07/fb-og-default-image.png",
+      "filesize": 2388732
+    },
+    {
+      "id": 7073,
+      "title": "alignable service 4 planning lounge",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/alignable-service-4-planning-lounge.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/07/alignable-service-4-planning-lounge.jpeg",
+      "filesize": 57409
+    },
+    {
+      "id": 7069,
+      "title": "suqare logo 192&#215;192",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/suqare-logo-192x192-1.webp"
+      ],
+      "local_path": "wp-components/media/2025/07/suqare-logo-192x192-1.webp",
+      "filesize": 2888
+    },
+    {
+      "id": 7054,
+      "title": "SEOPress-1200&#215;630",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp"
+      ],
+      "local_path": "wp-components/media/2025/07/SEOPress-1200x630-1.webp",
+      "filesize": 9904
+    },
+    {
+      "id": 6690,
+      "title": "Private &#038; Premium",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q4_luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q4_luxe.png",
+      "filesize": 3156640
+    },
+    {
+      "id": 6677,
+      "title": "I Live for New Experiences",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q9-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q9-ts.png",
+      "filesize": 3516237
+    },
+    {
+      "id": 6676,
+      "title": "I Expect the Best and Love the Journey",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q9-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q9-luxe.png",
+      "filesize": 3618493
+    },
+    {
+      "id": 6675,
+      "title": "I like to keep it light and relaxed",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q9-e.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q9-e.png",
+      "filesize": 3559805
+    },
+    {
+      "id": 6674,
+      "title": "My Adventure Crew",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q8-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q8-ts.png",
+      "filesize": 3118080
+    },
+    {
+      "id": 6673,
+      "title": "Family and Friends",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q8-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q8-luxe.png",
+      "filesize": 3787274
+    },
+    {
+      "id": 6672,
+      "title": "Just Me (or Maybe One Lucky Person)",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q8-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q8-eb.png",
+      "filesize": 3135382
+    },
+    {
+      "id": 6671,
+      "title": "Just Help with the Big Stuff",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q7-moderate.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q7-moderate.png",
+      "filesize": 3341499
+    },
+    {
+      "id": 6670,
+      "title": "I&#8217;ll Plan it Myself",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q7-inelastic.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q7-inelastic.png",
+      "filesize": 2843044
+    },
+    {
+      "id": 6669,
+      "title": "Plan It All So I can Relax",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q7-elastic.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q7-elastic.png",
+      "filesize": 3648191
+    },
+    {
+      "id": 6668,
+      "title": "Mix It Up",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q6-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q6-ts.png",
+      "filesize": 3557041
+    },
+    {
+      "id": 6667,
+      "title": "Elegant Evenings",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q6-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q6-luxe.png",
+      "filesize": 3580686
+    },
+    {
+      "id": 6666,
+      "title": "Tasty &#038; Casual",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q6-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q6-eb.png",
+      "filesize": 3457548
+    },
+    {
+      "id": 6665,
+      "title": "Close to the Fun",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q5-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q5-ts.png",
+      "filesize": 3345745
+    },
+    {
+      "id": 6664,
+      "title": "Luxury &#038; Space",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q5-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q5-luxe.png",
+      "filesize": 3627023
+    },
+    {
+      "id": 6663,
+      "title": "Comfort &#038; Convenience",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q5-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q5-eb.png",
+      "filesize": 2977639
+    },
+    {
+      "id": 6662,
+      "title": "Epic Adventure",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q4-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q4-ts.png",
+      "filesize": 3308602
+    },
+    {
+      "id": 6660,
+      "title": "Easy Exploration",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q4-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q4-eb.png",
+      "filesize": 3336753
+    },
+    {
+      "id": 6659,
+      "title": "Onboard Action",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q3-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q3-ts.png",
+      "filesize": 3596383
+    },
+    {
+      "id": 6658,
+      "title": "Spa &#038; Sparkle",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q3-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q3-luxe.png",
+      "filesize": 3075139
+    },
+    {
+      "id": 6657,
+      "title": "Poolside Bliss",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q3-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q3-eb.png",
+      "filesize": 3121219
+    },
+    {
+      "id": 6656,
+      "title": "Worth the Splurge",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q2-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q2-ts.png",
+      "filesize": 3536789
+    },
+    {
+      "id": 6655,
+      "title": "Top-Tier Treat",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q2-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q2-luxe.png",
+      "filesize": 3184401
+    },
+    {
+      "id": 6654,
+      "title": "Value &#038; Variety",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q2-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q2-eb.png",
+      "filesize": 3206674
+    },
+    {
+      "id": 6653,
+      "title": "Adventure-Packed",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q1-ts.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q1-ts.png",
+      "filesize": 3457796
+    },
+    {
+      "id": 6652,
+      "title": "All-Out Indulgence",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q1-luxe.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q1-luxe.png",
+      "filesize": 3121646
+    },
+    {
+      "id": 6651,
+      "title": "Simple &#038; Fun",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/06/q1-eb.png"
+      ],
+      "local_path": "wp-components/media/2025/06/q1-eb.png",
+      "filesize": 3220764
+    },
+    {
+      "id": 6587,
+      "title": "How It Works (Planning Process)",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/05/How-It-Works-Planning-Process.png"
+      ],
+      "local_path": "wp-components/media/2025/05/How-It-Works-Planning-Process.png",
+      "filesize": 962830
+    },
+    {
+      "id": 6328,
+      "title": "NCL_MexRiv_Cabo_GettyImages-1496803833",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/NCL_MexRiv_Cabo_GettyImages-1496803833.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/NCL_MexRiv_Cabo_GettyImages-1496803833.jpeg",
+      "filesize": 4673361
+    },
+    {
+      "id": 6327,
+      "title": "ncl_Fam_WhiteHotParty",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Fam_WhiteHotParty-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Fam_WhiteHotParty-scaled.jpeg",
+      "filesize": 478192
+    },
+    {
+      "id": 6326,
+      "title": "ncl_Bliss_AK_land_glacier_millenial_selfie_1",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg",
+      "filesize": 5462671
+    },
+    {
+      "id": 6323,
+      "title": "ncl_Bliss_AK_land_kayaking tatoosh_millenials_1",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Bliss_AK_land_kayaking-tatoosh_millenials_1.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Bliss_AK_land_kayaking-tatoosh_millenials_1.jpeg",
+      "filesize": 9109363
+    },
+    {
+      "id": 6273,
+      "title": "NCL_Encore_Waterfront_Dining_B_0359",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/NCL_Encore_Waterfront_Dining_B_0359.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/NCL_Encore_Waterfront_Dining_B_0359.jpeg",
+      "filesize": 34876705
+    },
+    {
+      "id": 6272,
+      "title": "ncl_Alaska_DxOwnSuite_Bedroom_noTV",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Alaska_DxOwnSuite_Bedroom_noTV-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Alaska_DxOwnSuite_Bedroom_noTV-scaled.jpeg",
+      "filesize": 762719
+    },
+    {
+      "id": 6169,
+      "title": "2016 Escape Lifestyle Photo Shoot",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Esc_WaterfrontSeats_9702-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Esc_WaterfrontSeats_9702-scaled.jpeg",
+      "filesize": 477836
+    },
+    {
+      "id": 6168,
+      "title": "sunset wake",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/sunset-wake.jpg"
+      ],
+      "local_path": "wp-components/media/2025/03/sunset-wake.jpg",
+      "filesize": 375191
+    },
+    {
+      "id": 6167,
+      "title": "1000x667NorwegianDrinksOnboard",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/1000x667NorwegianDrinksOnboard.webp",
+      "filesize": 68778
+    },
+    {
+      "id": 6144,
+      "title": "color logo &#8211; no background-220&#215;180",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/color-logo-no-background-220x180-1.png"
+      ],
+      "local_path": "wp-components/media/2025/03/color-logo-no-background-220x180-1.png",
+      "filesize": 12744
+    },
+    {
+      "id": 6143,
+      "title": "White logo &#8211; no background-161&#215;132",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/White-logo-no-background-161x132-1.png"
+      ],
+      "local_path": "wp-components/media/2025/03/White-logo-no-background-161x132-1.png",
+      "filesize": 6214
+    },
+    {
+      "id": 6142,
+      "title": "White logo &#8211; no background &#8211; 132&#215;107",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/White-logo-no-background-132x107-1.png"
+      ],
+      "local_path": "wp-components/media/2025/03/White-logo-no-background-132x107-1.png",
+      "filesize": 5011
+    },
+    {
+      "id": 6141,
+      "title": "Color logo with background-512&#215;512",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Color-logo-with-background-512x512-1.png"
+      ],
+      "local_path": "wp-components/media/2025/03/Color-logo-with-background-512x512-1.png",
+      "filesize": 36719
+    },
+    {
+      "id": 6140,
+      "title": "Color logo with background-148&#215;120",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Color-logo-with-background-148x120-1.png"
+      ],
+      "local_path": "wp-components/media/2025/03/Color-logo-with-background-148x120-1.png",
+      "filesize": 5400
+    },
+    {
+      "id": 6139,
+      "title": "2016 Escape Lifestyle Photo Shoot",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Esc_Waterfront_5763_V9-ext-water-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Esc_Waterfront_5763_V9-ext-water-scaled.jpeg",
+      "filesize": 413713
+    },
+    {
+      "id": 6138,
+      "title": "ncl_Dawn_Wake",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Dawn_Wake-scaled.jpeg"
+      ],
+      "local_path": "wp-components/media/2025/03/ncl_Dawn_Wake-scaled.jpeg",
+      "filesize": 867919
+    },
+    {
+      "id": 6137,
+      "title": "dawn-on-calm-sea-1280&#215;720",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/dawn-on-calm-sea-1280x720-1.jpg"
+      ],
+      "local_path": "wp-components/media/2025/03/dawn-on-calm-sea-1280x720-1.jpg",
+      "filesize": 361025
+    },
+    {
+      "id": 5951,
+      "title": "Tenzin the Thrill-Seeker-at-Sea",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Tenzin-the-Thrill-Seeker-at-Sea.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Tenzin-the-Thrill-Seeker-at-Sea.webp",
+      "filesize": 499784
+    },
+    {
+      "id": 5950,
+      "title": "Tahrush the Thrill-Seeker-at-Sea",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Tahrush-the-Thrill-Seeker-at-Sea.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Tahrush-the-Thrill-Seeker-at-Sea.webp",
+      "filesize": 314490
+    },
+    {
+      "id": 5949,
+      "title": "Tahani the Thrill-Seeker-at-Sea",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Tahani-the-Thrill-Seeker-at-Sea.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Tahani-the-Thrill-Seeker-at-Sea.webp",
+      "filesize": 311512
+    },
+    {
+      "id": 5948,
+      "title": "London the Luxe Sefarer",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/London-the-Luxe-Sefarer.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/London-the-Luxe-Sefarer.webp",
+      "filesize": 310846
+    },
+    {
+      "id": 5947,
+      "title": "Leo the Luxe Sefarer",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Leo-the-Luxe-Sefarer.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Leo-the-Luxe-Sefarer.webp",
+      "filesize": 368210
+    },
+    {
+      "id": 5946,
+      "title": "Lana the Luxe Sefarer",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Lana-the-Luxe-Sefarer.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Lana-the-Luxe-Sefarer.webp",
+      "filesize": 409154
+    },
+    {
+      "id": 5945,
+      "title": "Ethan the Easy Breezy Cruiser",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Ethan-the-Easy-Breezy-Cruiser.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Ethan-the-Easy-Breezy-Cruiser.webp",
+      "filesize": 380322
+    },
+    {
+      "id": 5944,
+      "title": "Emma the Easy Breezy Cruiser",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Emma-the-Easy-Breezy-Cruiser.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Emma-the-Easy-Breezy-Cruiser.webp",
+      "filesize": 352118
+    },
+    {
+      "id": 5943,
+      "title": "Ellis the Easy Breezy Cruiser",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/03/Ellis-the-Easy-Breezy-Cruiser.webp"
+      ],
+      "local_path": "wp-components/media/2025/03/Ellis-the-Easy-Breezy-Cruiser.webp",
+      "filesize": 303154
+    },
+    {
+      "id": 5902,
+      "title": "Small words, Color on white-143&#215;66",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Small-words-Color-on-white-143x66-1.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Small-words-Color-on-white-143x66-1.png",
+      "filesize": 5400
+    },
+    {
+      "id": 5901,
+      "title": "Small Wrods, White over no color-126&#215;85",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Small-Wrods-White-over-no-color-126x85-1.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Small-Wrods-White-over-no-color-126x85-1.png",
+      "filesize": 3301
+    },
+    {
+      "id": 5898,
+      "title": "cropped-favicon-nobg.png",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/cropped-favicon-nobg.png"
+      ],
+      "local_path": "wp-components/media/2025/02/cropped-favicon-nobg.png",
+      "filesize": 64378
+    },
+    {
+      "id": 5876,
+      "title": "Color logo with background-148&#215;120",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-with-background-148x120-1.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Color-logo-with-background-148x120-1.png",
+      "filesize": 8162
+    },
+    {
+      "id": 5871,
+      "title": "2025",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/2025.png"
+      ],
+      "local_path": "wp-components/media/2025/02/2025.png",
+      "filesize": 206045
+    },
+    {
+      "id": 5870,
+      "title": "Alaska",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Alaska.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Alaska.png",
+      "filesize": 120093
+    },
+    {
+      "id": 5869,
+      "title": "CruiseNext",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/CruiseNext.png"
+      ],
+      "local_path": "wp-components/media/2025/02/CruiseNext.png",
+      "filesize": 106155
+    },
+    {
+      "id": 5868,
+      "title": "Latitudes Rewards",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Latitudes-Rewards.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Latitudes-Rewards.png",
+      "filesize": 96679
+    },
+    {
+      "id": 5867,
+      "title": "Masters",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Masters.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Masters.png",
+      "filesize": 207397
+    },
+    {
+      "id": 5866,
+      "title": "Mexican Rivera",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Mexican-Rivera.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Mexican-Rivera.png",
+      "filesize": 135384
+    },
+    {
+      "id": 5800,
+      "title": "White logo &#8211; no background &#8211; 132&#215;107",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2021/07/White-logo-no-background-132x107-1.png"
+      ],
+      "local_path": "wp-components/media/2021/07/White-logo-no-background-132x107-1.png",
+      "filesize": 5011
+    },
+    {
+      "id": 5758,
+      "title": "pattern-waves",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2021/07/pattern-waves.svg"
+      ],
+      "local_path": "wp-components/media/2021/07/pattern-waves.svg",
+      "filesize": 0
+    },
+    {
+      "id": 5735,
+      "title": "Encore Obs Lounge",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Encore-Obs-Lounge.jpg"
+      ],
+      "local_path": "wp-components/media/2025/02/Encore-Obs-Lounge.jpg",
+      "filesize": 169834
+    },
+    {
+      "id": 5734,
+      "title": "Bah Hahba",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Bah-Hahba.jpg"
+      ],
+      "local_path": "wp-components/media/2025/02/Bah-Hahba.jpg",
+      "filesize": 739513
+    },
+    {
+      "id": 5731,
+      "title": "First Drinks of the Cruise",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/First-Drinks-of-the-Cruise-e1740711298312.jpg"
+      ],
+      "local_path": "wp-components/media/2025/02/First-Drinks-of-the-Cruise-e1740711298312.jpg",
+      "filesize": 38120
+    },
+    {
+      "id": 5710,
+      "title": "NorwegianEncore_1638996506557-HR",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/NorwegianEncore_1638996506557-HR-1-scaled.jpg"
+      ],
+      "local_path": "wp-components/media/2025/02/NorwegianEncore_1638996506557-HR-1-scaled.jpg",
+      "filesize": 873999
+    },
+    {
+      "id": 5706,
+      "title": "iPhone",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/iPhone.png"
+      ],
+      "local_path": "wp-components/media/2025/02/iPhone.png",
+      "filesize": 10032
+    },
+    {
+      "id": 5705,
+      "title": "browser",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/browser.png"
+      ],
+      "local_path": "wp-components/media/2025/02/browser.png",
+      "filesize": 1347
+    },
+    {
+      "id": 5704,
+      "title": "Android",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Android.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Android.png",
+      "filesize": 11024
+    },
+    {
+      "id": 5703,
+      "title": "favicon-nobg",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/favicon-nobg.png"
+      ],
+      "local_path": "wp-components/media/2025/02/favicon-nobg.png",
+      "filesize": 13439
+    },
+    {
+      "id": 5702,
+      "title": "the-deck-of-a-cruise-ship-at-dawn-or-dusk",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/the-deck-of-a-cruise-ship-at-dawn-or-dusk-1.jpg"
+      ],
+      "local_path": "wp-components/media/2025/02/the-deck-of-a-cruise-ship-at-dawn-or-dusk-1.jpg",
+      "filesize": 1915404
+    },
+    {
+      "id": 5701,
+      "title": "White logo &#8211; no background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/White-logo-no-background.svg"
+      ],
+      "local_path": "wp-components/media/2025/02/White-logo-no-background.svg",
+      "filesize": 0
+    },
+    {
+      "id": 5700,
+      "title": "Gold logo &#8211; no backbround",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Gold-logo-no-backbround.svg"
+      ],
+      "local_path": "wp-components/media/2025/02/Gold-logo-no-backbround.svg",
+      "filesize": 0
+    },
+    {
+      "id": 5699,
+      "title": "Color logo with background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-with-background.svg"
+      ],
+      "local_path": "wp-components/media/2025/02/Color-logo-with-background.svg",
+      "filesize": 0
+    },
+    {
+      "id": 5698,
+      "title": "Color logo &#8211; no background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-no-background.svg"
+      ],
+      "local_path": "wp-components/media/2025/02/Color-logo-no-background.svg",
+      "filesize": 0
+    },
+    {
+      "id": 5697,
+      "title": "Black logo &#8211; no background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Black-logo-no-background.svg"
+      ],
+      "local_path": "wp-components/media/2025/02/Black-logo-no-background.svg",
+      "filesize": 0
+    },
+    {
+      "id": 5695,
+      "title": "White logo &#8211; no background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/White-logo-no-background.png"
+      ],
+      "local_path": "wp-components/media/2025/02/White-logo-no-background.png",
+      "filesize": 38596
+    },
+    {
+      "id": 5694,
+      "title": "Color logo with background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-with-background.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Color-logo-with-background.png",
+      "filesize": 47018
+    },
+    {
+      "id": 5693,
+      "title": "Color logo &#8211; no background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Color-logo-no-background.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Color-logo-no-background.png",
+      "filesize": 43165
+    },
+    {
+      "id": 5692,
+      "title": "Black logo &#8211; no background",
+      "urls": [
+        "https://cruisemadeeasy.com/wp-content/uploads/2025/02/Black-logo-no-background.png"
+      ],
+      "local_path": "wp-components/media/2025/02/Black-logo-no-background.png",
+      "filesize": 47865
+    }
+  ]
+}
