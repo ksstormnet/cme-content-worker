@@ -167,6 +167,11 @@ const UnifiedBlogView: React.FC = () => {
               margin: 0 auto;
               width: 100%;
             }
+            
+            .category-pills-container {
+              background-color: var(--base-3);
+              padding-top: 5px !important;
+            }
           `;
         }
       }, 500);
