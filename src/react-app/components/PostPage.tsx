@@ -375,15 +375,73 @@ const PostPage: React.FC = () => {
                 </header>
                 
                 <main id="main-content" role="main" className="post-body" itemProp="articleBody">
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: contentHtml }}
-                    style={{ 
-                      lineHeight: '1.8',
-                      fontSize: '1.1rem',
-                      maxWidth: '800px',
-                      margin: '0 auto'
-                    }}
-                  />
+                  {/* RAW DATA ANALYSIS SECTION */}
+                  <div style={{
+                    backgroundColor: '#f0f8ff',
+                    border: '2px solid #0073aa',
+                    borderRadius: '8px',
+                    padding: '1.5rem',
+                    margin: '2rem 0',
+                    maxWidth: '1000px'
+                  }}>
+                    <h2 style={{ color: '#0073aa', marginTop: 0 }}>🔍 RAW POST DATA ANALYSIS</h2>
+                    <p style={{ marginBottom: '1rem', color: '#666' }}>
+                      <strong>Route:</strong> /{category}/{slug}
+                    </p>
+                    
+                    <div style={{
+                      backgroundColor: '#fff',
+                      border: '1px solid #ddd',
+                      borderRadius: '4px',
+                      padding: '1rem',
+                      fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                      fontSize: '12px',
+                      overflow: 'auto',
+                      maxHeight: '400px',
+                      whiteSpace: 'pre-wrap'
+                    }}>
+                      {JSON.stringify(post, null, 2)}
+                    </div>
+                    
+                    <div style={{ 
+                      marginTop: '1rem', 
+                      padding: '1rem', 
+                      backgroundColor: '#e8f5e8', 
+                      borderRadius: '4px',
+                      border: '1px solid #4caf50'
+                    }}>
+                      <h4 style={{ margin: '0 0 0.5rem 0', color: '#2e7d32' }}>📊 Analysis Summary:</h4>
+                      <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+                        <li><strong>Post ID:</strong> {post.id}</li>
+                        <li><strong>Category:</strong> {post.category}</li>
+                        <li><strong>Slug:</strong> {post.slug}</li>
+                        <li><strong>Status:</strong> {post.status}</li>
+                        <li><strong>Post Type:</strong> {post.post_type || 'N/A'}</li>
+                        <li><strong>Persona:</strong> {post.persona || 'N/A'}</li>
+                        <li><strong>Content Blocks:</strong> {post.content_blocks ? `${post.content_blocks.length} blocks` : 'No content blocks'}</li>
+                        <li><strong>Featured Image:</strong> {post.featured_image_url ? 'Yes' : 'No'}</li>
+                        <li><strong>Published Date:</strong> {post.published_date || 'Not set'}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* RENDERED CONTENT */}
+                  <div style={{
+                    borderTop: '3px solid #ff6b35',
+                    paddingTop: '2rem',
+                    marginTop: '2rem'
+                  }}>
+                    <h2 style={{ color: '#ff6b35', marginBottom: '1rem' }}>📝 RENDERED CONTENT</h2>
+                    <div 
+                      dangerouslySetInnerHTML={{ __html: contentHtml }}
+                      style={{ 
+                        lineHeight: '1.8',
+                        fontSize: '1.1rem',
+                        maxWidth: '800px',
+                        margin: '0 auto'
+                      }}
+                    />
+                  </div>
                 </main>
               </article>
             </main>
