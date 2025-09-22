@@ -128,11 +128,11 @@ publicApiRoutes.post("/posts/:category/:slug/render", async (c) => {
 publicApiRoutes.get("/categories", async (c) => {
   try {
     const categories = await c.env.DB.prepare(`
-      SELECT c.id, c.slug, c.name, c.description, COUNT(p.id) as post_count
+      SELECT c.id, c.slug, c.name, c.description, c.priority, COUNT(p.id) as post_count
       FROM categories c
       LEFT JOIN posts p ON c.id = p.category_id AND p.status = 'published'
-      GROUP BY c.id, c.slug, c.name, c.description
-      ORDER BY c.name
+      GROUP BY c.id, c.slug, c.name, c.description, c.priority
+      ORDER BY c.name ASC
     `).all();
 
     return c.json<APIResponse>({
