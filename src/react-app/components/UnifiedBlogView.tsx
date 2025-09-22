@@ -73,8 +73,8 @@ const UnifiedBlogView: React.FC = () => {
     }
   }, [showMoreDropdown]);
 
-  // Calculate uniform height after posts are displayed
-  useEffect(() => {
+  // Calculate uniform height after posts are displayed (disabled for now)
+  /*useEffect(() => {
     if (displayPosts.length > 0 && !loading) {
       // Reset height first to get natural measurements
       setUniformHeight(null);
@@ -126,7 +126,7 @@ const UnifiedBlogView: React.FC = () => {
       
       return () => clearTimeout(timer);
     }
-  }, [displayPosts, loading, currentFilter]); // Re-run when filter changes too
+  }, [displayPosts, loading, currentFilter]); // Re-run when filter changes too*/
   
   // Load initial data (first 20 posts + categories + CSS)
   const initializeData = async () => {
@@ -291,19 +291,7 @@ const UnifiedBlogView: React.FC = () => {
         id={`post-${post.id}`}
         className={`dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${post.category || 'general'} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding`}
       >
-        <div 
-          className="gb-element-947acc35" 
-          style={{
-            backgroundImage: `url(${post.featured_image_url || ''})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            display: 'flex',
-            alignItems: 'flex-end',
-            height: uniformHeight ? `${uniformHeight}px !important` : 'auto',
-            minHeight: uniformHeight ? `${uniformHeight}px !important` : 'auto'
-          }}
-        >
+        <div className="gb-element-947acc35" style={{backgroundImage: `url(${post.featured_image_url || ''})`}}>
           <div 
             className="gb-element-ca29c3cc"
           >
