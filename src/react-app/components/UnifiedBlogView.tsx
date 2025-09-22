@@ -135,6 +135,14 @@ const UnifiedBlogView: React.FC = () => {
               height: ${maxHeight}px !important;
               min-height: ${maxHeight}px !important;
             }
+            
+            .gb-element-ba1def1c {
+              padding: 30px !important;
+            }
+            
+            .gb-element-f90eb26c {
+              padding: 0px !important;
+            }
           `;
         }
       }, 500);
@@ -526,8 +534,8 @@ const UnifiedBlogView: React.FC = () => {
       </div>
 
       {/* Hero section */}
-      <div className="gb-element-ba1def1c" style={{padding: '30px 30px 30px 30px'}}>
-        <div className="gb-element-f90eb26c" style={{padding: '0px'}}>
+      <div className="gb-element-ba1def1c">
+        <div className="gb-element-f90eb26c">
           <h1 className="gb-text gb-text-96e95bfb" style={{
             fontSize: '2.5rem',
             fontWeight: '700',
