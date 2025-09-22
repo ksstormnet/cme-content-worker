@@ -526,12 +526,25 @@ const UnifiedBlogView: React.FC = () => {
       </div>
 
       {/* Hero section */}
-      <div className="gb-element-ba1def1c" style={{padding: '120px 30px 60px 30px'}}>
-        <div className="gb-element-f90eb26c" style={{padding: '80px 30px 40px 30px'}}>
-          <h1 className="gb-text gb-text-96e95bfb">
+      <div className="gb-element-ba1def1c" style={{padding: '40px 30px 40px 30px'}}>
+        <div className="gb-element-f90eb26c" style={{padding: '0px 30px 0px 30px'}}>
+          <h1 className="gb-text gb-text-96e95bfb" style={{
+            fontSize: '2.5rem',
+            fontWeight: '700',
+            color: '#ffffff',
+            textAlign: 'center',
+            marginBottom: '20px',
+            lineHeight: '1.2'
+          }}>
             {getHeroText()}
           </h1>
-          <div style={{width: '100px', height: '4px', backgroundColor: 'var(--accent)', margin: '20px auto 0 auto'}}></div>
+          <div style={{
+            width: '100px', 
+            height: '2px', 
+            backgroundColor: '#ff6b35', 
+            margin: '0 auto',
+            borderRadius: '1px'
+          }}></div>
         </div>
       </div>
 
