@@ -177,6 +177,7 @@ const UnifiedBlogView: React.FC = () => {
               z-index: 10;
               padding: 2px 30px;
               width: calc(100% + 60px);
+              border-bottom: 1px solid var(--accent-2);
             }
           `;
         }
