@@ -48,9 +48,19 @@ function App() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  // Check authentication status on app load
+  // Check authentication status on app load - but only for admin routes
   useEffect(() => {
-    checkAuthStatus();
+    // Only check auth if we're potentially going to an admin route
+    const path = window.location.pathname;
+    const isAdminRoute = path.startsWith('/admin') || path === '/blogin';
+    const isRootWithPotentialAdmin = path === '/';
+    
+    if (isAdminRoute || isRootWithPotentialAdmin) {
+      checkAuthStatus();
+    } else {
+      // For public routes, skip auth check
+      setAuth({ user: null, loading: false, error: null });
+    }
   }, []);
 
   // Dark mode effect
