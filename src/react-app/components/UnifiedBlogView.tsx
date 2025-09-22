@@ -136,12 +136,35 @@ const UnifiedBlogView: React.FC = () => {
               min-height: ${maxHeight}px !important;
             }
             
-            .gb-element-ba1def1c {
-              padding: 30px !important;
+            /* Custom hero styles to replace .gb-* classes */
+            .custom-hero-outer {
+              background: linear-gradient(to left, rgba(12,29,61,0.62) 0%, rgba(12,29,61,0.62) 100%), 
+                          url(https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Dawn_Wake-scaled.jpeg) 53% 39% / cover no-repeat;
+              color: #ffffff;
+              overflow: hidden;
+              position: relative;
+              padding: 30px;
             }
             
-            .gb-element-f90eb26c {
-              padding: 0px !important;
+            .custom-hero-inner {
+              max-width: 1200px;
+              margin: 0 auto;
+              position: relative;
+              z-index: 1;
+              padding: 0;
+            }
+            
+            .custom-hero-heading {
+              font-size: 2.5rem;
+              font-weight: 700;
+              color: #ffffff;
+              text-align: center;
+              line-height: 1.2;
+              border-bottom: 2px solid #ff6b35;
+              padding-bottom: 15px;
+              display: inline-block;
+              margin: 0 auto;
+              width: 100%;
             }
           `;
         }
@@ -534,19 +557,9 @@ const UnifiedBlogView: React.FC = () => {
       </div>
 
       {/* Hero section */}
-      <div className="gb-element-ba1def1c">
-        <div className="gb-element-f90eb26c">
-          <h1 className="gb-text gb-text-96e95bfb" style={{
-            fontSize: '2.5rem',
-            fontWeight: '700',
-            color: '#ffffff',
-            textAlign: 'center',
-            lineHeight: '1.2',
-            borderBottom: '2px solid #ff6b35',
-            paddingBottom: '15px',
-            display: 'inline-block',
-            margin: '0 auto'
-          }}>
+      <div className="custom-hero-outer">
+        <div className="custom-hero-inner">
+          <h1 className="custom-hero-heading">
             {getHeroText()}
           </h1>
         </div>
