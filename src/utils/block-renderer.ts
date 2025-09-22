@@ -7,7 +7,13 @@ import {
   QuoteBlockContent, 
   CTABlockContent,
   ListBlockContent,
-  TableBlockContent 
+  TableBlockContent,
+  ColumnsBlockContent,
+  ColumnBlockContent,
+  SectionBlockContent,
+  ContainerBlockContent,
+  CTAGroupBlockContent,
+  FigureBlockContent
 } from "../types/database";
 
 /**
@@ -81,6 +87,18 @@ export class BlockRenderer {
           return this.renderList(content as ListBlockContent, block.id);
         case 'table':
           return this.renderTable(content as TableBlockContent, block.id);
+        case 'columns':
+          return this.renderColumns(content as ColumnsBlockContent, block.id);
+        case 'column':
+          return this.renderColumn(content as ColumnBlockContent, block.id);
+        case 'section':
+          return this.renderSection(content as SectionBlockContent, block.id);
+        case 'container':
+          return this.renderContainer(content as ContainerBlockContent, block.id);
+        case 'cta-group':
+          return this.renderCTAGroup(content as CTAGroupBlockContent, block.id);
+        case 'figure':
+          return this.renderFigure(content as FigureBlockContent, block.id);
         default:
           console.warn(`Unknown block type: ${block.block_type}`);
           return `<!-- Unknown block type: ${block.block_type} -->`;
@@ -275,6 +293,118 @@ ${items}
   }
 
   /**
+   * Render multi-column layout
+   */
+  private renderColumns(content: ColumnsBlockContent, blockId: number): string {
+    const alignment = content.alignment || 'left';
+    return `<div class="wp-block-columns is-layout-flex" style="justify-content: ${alignment}">
+  <!-- Columns content will be rendered by individual column blocks -->
+</div>`;
+  }
+
+  /**
+   * Render individual column
+   */
+  private renderColumn(content: ColumnBlockContent, blockId: number): string {
+    const width = content.width || 'auto';
+    return `<div class="wp-block-column" style="flex-basis: ${width}">
+  <!-- Column content rendered separately -->
+</div>`;
+  }
+
+  /**
+   * Render GeneratePress section
+   */
+  private renderSection(content: SectionBlockContent, blockId: number): string {
+    const style = content.style || 'default';
+    const bgColor = content.backgroundColor ? ` style="background-color: ${content.backgroundColor}"` : '';
+    
+    let html = `<div class="gbp-section gbp-section--${style}"${bgColor} role="region" aria-label="Content section">
+  <div class="gbp-section__inner">`;
+
+    if (content.headline) {
+      html += `\n    <h2 class="gbp-section__headline">${this.escapeHtml(content.headline)}</h2>`;
+    }
+
+    html += '\n  </div>\n</div>';
+    return html;
+  }
+
+  /**
+   * Render GenerateBlocks container
+   */
+  private renderContainer(content: ContainerBlockContent, blockId: number): string {
+    const elementId = content.elementId || `gb-element-${blockId}`;
+    const className = content.className || '';
+    const styles = content.style ? ` style="${this.objectToStyle(content.style)}"` : '';
+
+    return `<div class="${elementId} ${className}"${styles} role="group">
+  <!-- Container content rendered separately -->
+</div>`;
+  }
+
+  /**
+   * Render button group
+   */
+  private renderCTAGroup(content: CTAGroupBlockContent, blockId: number): string {
+    const alignment = content.alignment || 'center';
+    const justification = {
+      'left': 'flex-start',
+      'center': 'center', 
+      'right': 'flex-end'
+    }[alignment];
+
+    const buttons = content.buttons.map((button, index) => {
+      const target = button.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      const ariaLabel = button.external 
+        ? `${button.text} (opens in new window)`
+        : button.text;
+      
+      return `  <div class="wp-block-button">
+    <a href="${this.escapeHtml(button.url)}" class="wp-block-button__link cta-button--${button.type}" aria-label="${ariaLabel}"${target}>
+      ${this.escapeHtml(button.text)}
+    </a>
+  </div>`;
+    }).join('\n');
+
+    return `<div class="wp-block-buttons is-content-justification-${alignment} is-layout-flex" style="justify-content: ${justification}">
+${buttons}
+</div>`;
+  }
+
+  /**
+   * Render figure with image
+   */
+  private renderFigure(content: FigureBlockContent, blockId: number): string {
+    const alignment = content.alignment || 'center';
+    const size = content.size || 'large';
+    const image = content.image;
+    
+    const url = this.resolveImageUrl(image.url);
+    const alt = this.escapeHtml(image.alt || '');
+    const captionId = image.caption ? `caption-${blockId}` : undefined;
+    
+    const lazyLoading = this.options.enableLazyLoading ? ' loading="lazy"' : '';
+    
+    let html = `<figure class="wp-block-image size-${size} align${alignment}">
+  <img src="${url}" alt="${alt}"${lazyLoading} class="wp-image-${blockId}"`;
+    
+    if (captionId) {
+      html += ` aria-describedby="${captionId}"`;
+    }
+    
+    html += ' />';
+    
+    if (image.caption) {
+      html += `\n  <figcaption id="${captionId}">${this.escapeHtml(image.caption)}</figcaption>`;
+    }
+    
+    html += '\n</figure>';
+    
+    return html;
+  }
+
+  /**
    * Utility methods
    */
 
@@ -322,6 +452,12 @@ ${items}
       success: '✅'
     };
     return icons[type] || icons.tip;
+  }
+
+  private objectToStyle(styleObj: Record<string, any>): string {
+    return Object.entries(styleObj)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join('; ');
   }
 }
 

@@ -16,6 +16,7 @@ import { media } from "./routes/media";
 import { cssSyncRoutes } from "./routes/css-sync";
 import { templateRoutes } from "./routes/template";
 import { publicApiRoutes } from "./routes/public-api";
+import wordpressCssRoutes from "./routes/wordpress-css";
 import { htmlTemplateGenerator } from "../utils/html-template";
 import { renderContentBlocks } from "../utils/block-renderer";
 import { getCSSMapping } from "../utils/css-resolver";
@@ -50,6 +51,7 @@ app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
 app.route("/api/template", templateRoutes);
+app.route("/api/wordpress-css", wordpressCssRoutes);
 
 
 // Health check - MUST come before serveStatic

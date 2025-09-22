@@ -36,7 +36,7 @@ export interface Post {
 export interface ContentBlock {
   id: number;
   post_id: number;
-  block_type: 'heading' | 'paragraph' | 'image' | 'accent_tip' | 'quote' | 'cta' | 'divider' | 'list' | 'table';
+  block_type: 'heading' | 'paragraph' | 'image' | 'accent_tip' | 'quote' | 'cta' | 'divider' | 'list' | 'table' | 'columns' | 'column' | 'section' | 'container' | 'cta-group' | 'figure';
   block_order: number;
   content: string; // JSON with block-specific data
   created_at: string;
@@ -119,6 +119,51 @@ export interface CTABlockContent {
   url: string;
   type: 'primary' | 'secondary';
   style?: 'button' | 'link';
+  external?: boolean;
+}
+
+export interface ListBlockContent {
+  ordered: boolean;
+  items: string[];
+}
+
+export interface TableBlockContent {
+  caption?: string;
+  hasHeader?: boolean;
+  rows: string[][];
+}
+
+export interface ColumnsBlockContent {
+  columns: number;
+  alignment?: 'left' | 'center' | 'right';
+}
+
+export interface ColumnBlockContent {
+  width?: string;
+  content: ContentBlock[];
+}
+
+export interface SectionBlockContent {
+  headline?: string;
+  style?: 'default' | 'accent' | 'highlight';
+  backgroundColor?: string;
+}
+
+export interface ContainerBlockContent {
+  elementId?: string; // gb-element-* ID
+  className?: string;
+  style?: Record<string, any>;
+}
+
+export interface CTAGroupBlockContent {
+  alignment?: 'left' | 'center' | 'right';
+  buttons: CTABlockContent[];
+}
+
+export interface FigureBlockContent {
+  image: ImageBlockContent;
+  alignment?: 'left' | 'center' | 'right';
+  size?: 'thumbnail' | 'medium' | 'large' | 'full';
 }
 
 // Cloudflare Workers environment bindings
