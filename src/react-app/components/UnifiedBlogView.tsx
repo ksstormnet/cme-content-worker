@@ -17,6 +17,7 @@ interface Category {
   slug: string;
   name: string;
   post_count: number;
+  priority?: number | null;
 }
 
 const UnifiedBlogView: React.FC = () => {
@@ -28,6 +29,7 @@ const UnifiedBlogView: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [displayLimit, setDisplayLimit] = useState(20);
   const [totalLoaded, setTotalLoaded] = useState(0);
+  const [showMoreDropdown, setShowMoreDropdown] = useState(false);
   
   // Routing
   const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -54,6 +56,21 @@ const UnifiedBlogView: React.FC = () => {
   useEffect(() => {
     initializeData();
   }, []);
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (showMoreDropdown && !target.closest('.more-dropdown')) {
+        setShowMoreDropdown(false);
+      }
+    };
+    
+    if (showMoreDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [showMoreDropdown]);
   
   // Load initial data (first 20 posts + categories + CSS)
   const initializeData = async () => {
@@ -239,29 +256,99 @@ const UnifiedBlogView: React.FC = () => {
     );
   };
   
-  // Generate category filter buttons (client-side navigation)
+  // Generate smart priority-based category pills
   const generateCategoryPills = (): React.ReactElement => {
+    // Separate categories by priority (1-4 are priority, null/undefined are non-priority)
+    const priorityCategories = categories
+      .filter(cat => cat.priority && cat.priority >= 1 && cat.priority <= 4)
+      .sort((a, b) => (a.priority || 99) - (b.priority || 99));
+    
+    const nonPriorityCategories = categories
+      .filter(cat => !cat.priority || cat.priority < 1 || cat.priority > 4);
+    
+    // Find if current selection is non-priority
+    const currentSelectedCategory = categories.find(cat => cat.slug === currentFilter);
+    const isNonPrioritySelected = currentSelectedCategory && 
+      (!currentSelectedCategory.priority || currentSelectedCategory.priority < 1 || currentSelectedCategory.priority > 4);
+    
+    // Build display buttons: [ALL] + [Priority 1-4 OR Selected if non-priority] + [MORE]
+    const displayButtons: (Category | { slug: 'all'; name: 'ALL' } | { slug: 'more'; name: 'MORE' })[] = [
+      { slug: 'all', name: 'ALL' }
+    ];
+    
+    if (isNonPrioritySelected && currentSelectedCategory) {
+      // Show selected non-priority category + first 3 priority categories
+      displayButtons.push(currentSelectedCategory);
+      displayButtons.push(...priorityCategories.slice(0, 3));
+    } else {
+      // Show all 4 priority categories
+      displayButtons.push(...priorityCategories.slice(0, 4));
+    }
+    
+    // Add MORE button if there are remaining categories
+    const remainingCategories = isNonPrioritySelected 
+      ? [...priorityCategories.slice(3), ...nonPriorityCategories.filter(cat => cat.slug !== currentFilter)]
+      : nonPriorityCategories;
+    
+    if (remainingCategories.length > 0) {
+      displayButtons.push({ slug: 'more', name: 'MORE' });
+    }
+    
     return (
       <div className="category-pills-container">
-        <button 
-          onClick={() => handleCategoryChange('all')}
-          className={`category-pill ${currentFilter === 'all' ? 'category-pill-active' : ''}`}
-        >
-          ALL
-        </button>
-        
-        {categories.map(category => {
-          const displayName = category.name.toUpperCase();
-          const isActive = currentFilter === category.slug;
-          const pillClass = isActive ? 'category-pill category-pill-active' : 'category-pill';
+        {displayButtons.map((item, index) => {
+          if (item.slug === 'all') {
+            return (
+              <button 
+                key="all"
+                onClick={() => handleCategoryChange('all')}
+                className={`category-pill compact ${currentFilter === 'all' ? 'category-pill-active' : ''}`}
+              >
+                ALL
+              </button>
+            );
+          }
           
+          if (item.slug === 'more') {
+            return (
+              <div key="more" className="more-dropdown">
+                <button 
+                  className="category-pill compact more-button"
+                  onClick={() => setShowMoreDropdown(!showMoreDropdown)}
+                >
+                  MORE ▼
+                </button>
+                {showMoreDropdown && (
+                  <div className="more-dropdown-content">
+                    {remainingCategories.map(category => (
+                      <button
+                        key={category.slug}
+                        onClick={() => {
+                          handleCategoryChange(category.slug);
+                          setShowMoreDropdown(false);
+                        }}
+                        className={`dropdown-item ${currentFilter === category.slug ? 'active' : ''}`}
+                      >
+                        {category.name.toUpperCase()}
+                        <span className="post-count">({category.post_count})</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          }
+          
+          // Regular category button
+          const category = item as Category;
+          const isActive = currentFilter === category.slug;
           return (
             <button 
               key={category.slug}
               onClick={() => handleCategoryChange(category.slug)}
-              className={pillClass}
+              className={`category-pill compact ${isActive ? 'category-pill-active' : ''}`}
             >
-              {displayName}
+              {category.name.toUpperCase()}
             </button>
           );
         })}
