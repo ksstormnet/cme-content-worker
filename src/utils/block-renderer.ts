@@ -279,12 +279,18 @@ ${items}
    */
 
   private escapeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    if (!text) return '';
+    // Server-safe HTML escaping without document.createElement
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   private generateTextSummary(text: string, maxLength: number = 100): string {
+    if (!text) return '';
     const plainText = text.replace(/<[^>]*>/g, '');
     return plainText.length > maxLength 
       ? plainText.substring(0, maxLength) + '...'
@@ -292,6 +298,7 @@ ${items}
   }
 
   private processTextFormatting(text: string): string {
+    if (!text) return '';
     // Basic HTML formatting - in a real implementation, you'd want more sophisticated formatting
     // This is a simplified version for demonstration
     return text
