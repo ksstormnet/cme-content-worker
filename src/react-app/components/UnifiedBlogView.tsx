@@ -56,6 +56,24 @@ const UnifiedBlogView: React.FC = () => {
   
   useEffect(() => {
     initializeData();
+    
+    // Clean up any existing uniform height CSS overrides
+    const existingStyleElement = document.getElementById('uniform-card-styles');
+    if (existingStyleElement) {
+      existingStyleElement.remove();
+    }
+    
+    // Reset any inline height styles that might be lingering
+    const cardElements = document.querySelectorAll('.gb-element-947acc35');
+    cardElements.forEach(el => {
+      const element = el as HTMLElement;
+      element.style.height = '';
+      element.style.minHeight = '';
+      element.style.maxHeight = '';
+    });
+    
+    // Remove CSS custom property
+    document.documentElement.style.removeProperty('--uniform-card-height');
   }, []);
   
   // Close dropdown when clicking outside
