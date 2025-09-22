@@ -137,7 +137,7 @@ img {
   padding: 0.75rem 1rem !important;
   border: none !important;
   background: white !important;
-  color: #2c5aa0 !important; /* Dark blue text */
+  color: var(--contrast-2, #121212) !important; /* Almost black text */
   text-align: left;
   font-size: 0.9rem !important;
   font-weight: 600;
@@ -152,7 +152,7 @@ img {
 
 .dropdown-item:hover {
   background: #f5f5f5 !important;
-  color: #2c5aa0 !important; /* Keep dark blue text on hover */
+  color: var(--contrast-2, #121212) !important; /* Keep almost black text on hover */
 }
 
 .dropdown-item.active {
