@@ -175,7 +175,7 @@ const UnifiedBlogView: React.FC = () => {
               margin-right: -30px !important;
               position: relative;
               z-index: 10;
-              padding: 3px 30px;
+              padding: 4px 30px;
               width: calc(100% + 60px);
               border-top: 1px solid var(--accent-2);
               border-bottom: 1px solid var(--accent-2);
