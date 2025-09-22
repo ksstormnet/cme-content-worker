@@ -119,8 +119,23 @@ const UnifiedBlogView: React.FC = () => {
           
           setUniformHeight(maxHeight);
           
-          // Log what would be applied (but don't actually apply it)
-          console.log('✨ Would set uniform height to:', maxHeight + 'px');
+          // Apply uniform height to card containers only
+          console.log('✨ Applying uniform height:', maxHeight + 'px');
+          
+          // Add CSS to set uniform height for card containers
+          let styleElement = document.getElementById('uniform-card-styles');
+          if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = 'uniform-card-styles';
+            document.head.appendChild(styleElement);
+          }
+          
+          styleElement.textContent = `
+            .gb-element-947acc35 {
+              height: ${maxHeight}px !important;
+              min-height: ${maxHeight}px !important;
+            }
+          `;
         }
       }, 500);
       
