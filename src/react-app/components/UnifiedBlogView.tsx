@@ -144,6 +144,7 @@ const UnifiedBlogView: React.FC = () => {
               overflow: hidden;
               position: relative;
               padding: 30px;
+              margin-top: 80px;
             }
             
             .custom-hero-inner {
