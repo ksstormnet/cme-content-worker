@@ -12,9 +12,7 @@ import ContentCalendar from './components/ContentCalendar';
 import MainLayout from './components/MainLayout';
 
 // Blog Components
-import BlogHomepage from './components/BlogHomepage';
-import BlogHomepageTest from './components/BlogHomepageTest';
-import CategoryPage from './components/CategoryPage';
+import UnifiedBlogView from './components/UnifiedBlogView';
 import PostPage from './components/PostPage';
 
 // Types
@@ -142,66 +140,62 @@ function App() {
     }
   };
 
-  if (auth.loading) {
-    return (
-      <div className="app-loading">
-        <LoadingSpinner />
-        <p>Loading Cruise Made Easy Content System...</p>
-      </div>
-    );
-  }
+  // Don't show loading for public routes - only check auth for protected routes
+  // This allows BlogHomepage to render immediately without auth check
 
   return (
     <Router>
       <div className="app">
-        <header className="app-header">
-          <div className="header-content">
-            <h1 className="app-title">
-              <span className="brand">Cruise Made EASY Blog</span>
-              <span className="subtitle">Content System</span>
-            </h1>
-            <div className="header-actions">
-              <button onClick={toggleDarkMode} className="theme-toggle" title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>
-                {darkMode ? '🌙' : '☀️'}
-              </button>
-              {auth.user && (
-                <div className="user-menu-container">
-                  <button 
-                    onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="user-menu-trigger"
-                  >
-                    <span className="user-name">{auth.user.name}</span>
-                    <span className="user-role">({auth.user.role})</span>
-                    <span className="dropdown-arrow">▼</span>
-                  </button>
-                  
-                  {showUserMenu && (
-                    <div className="user-menu">
-                      <button 
-                        onClick={() => {
-                          setShowChangePassword(true);
-                          setShowUserMenu(false);
-                        }}
-                        className="menu-item"
-                      >
-                        🔑 Change Password
-                      </button>
-                      <button 
-                        onClick={() => {
-                          handleLogout();
-                          setShowUserMenu(false);
-                        }}
-                        className="menu-item logout"
-                      >
-                        🚪 Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
+{auth.user && (
+          <header className="app-header">
+            <div className="header-content">
+              <h1 className="app-title">
+                <span className="brand">Cruise Made EASY Blog</span>
+                <span className="subtitle">Content System</span>
+              </h1>
+              <div className="header-actions">
+                <button onClick={toggleDarkMode} className="theme-toggle" title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>
+                  {darkMode ? '🌙' : '☀️'}
+                </button>
+                {auth.user && (
+                  <div className="user-menu-container">
+                    <button 
+                      onClick={() => setShowUserMenu(!showUserMenu)}
+                      className="user-menu-trigger"
+                    >
+                      <span className="user-name">{auth.user.name}</span>
+                      <span className="user-role">({auth.user.role})</span>
+                      <span className="dropdown-arrow">▼</span>
+                    </button>
+                    
+                    {showUserMenu && (
+                      <div className="user-menu">
+                        <button 
+                          onClick={() => {
+                            setShowChangePassword(true);
+                            setShowUserMenu(false);
+                          }}
+                          className="menu-item"
+                        >
+                          🔑 Change Password
+                        </button>
+                        <button 
+                          onClick={() => {
+                            handleLogout();
+                            setShowUserMenu(false);
+                          }}
+                          className="menu-item logout"
+                        >
+                          🚪 Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
+        )}
 
         <main className="app-main">
           <Routes>
@@ -211,14 +205,14 @@ function App() {
               element={
                 auth.user ? 
                 <Navigate to="/admin/create" replace /> : 
-                <BlogHomepage />
+                <UnifiedBlogView />
               } 
             />
 
             {/* Public blog routes - served by Vite in development, Worker in production */}
             <Route 
               path="/category/:categorySlug" 
-              element={<CategoryPage />} 
+              element={<UnifiedBlogView />} 
             />
             
             <Route 

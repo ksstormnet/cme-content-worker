@@ -45,3 +45,107 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Category filter buttons */
+.category-pills-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.category-pill {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.category-pill:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.category-pill-active {
+  background: var(--accent, #ff6b35);
+  border-color: var(--accent, #ff6b35);
+  color: #fff;
+}
+
+.category-pill-active:hover {
+  background: var(--accent-hover, #e55a2b);
+  border-color: var(--accent-hover, #e55a2b);
+}
+
+/* Show more button */
+.button {
+  background: var(--accent, #ff6b35);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: var(--accent-hover, #e55a2b);
+  transform: translateY(-1px);
+}
+
+/* Loading and error states */
+.blog-loading, .blog-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--accent, #ff6b35);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.retry-button {
+  background: var(--accent, #ff6b35);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.retry-button:hover {
+  background: var(--accent-hover, #e55a2b);
+}
