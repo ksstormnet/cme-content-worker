@@ -683,6 +683,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
                 <tr>
                   <th>Icon</th>
                   <th>Name</th>
+                  <th>Priority</th>
                   <th>Posts</th>
                   <th>Status</th>
                   <th>Actions</th>
@@ -704,6 +705,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ user }) => {
                         <strong>{category.name}</strong>
                         <div className="category-slug">/{category.slug}/</div>
                       </div>
+                    </td>
+                    <td>
+                      {category.priority ? (
+                        <span className="priority-badge">{category.priority}</span>
+                      ) : (
+                        <span className="no-priority">MORE</span>
+                      )}
                     </td>
                     <td>{category.post_count}</td>
                     <td>
@@ -1060,6 +1068,23 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ category, onSave, onCancel 
               maxLength={4}
               placeholder="📝"
             />
+          </div>
+          <div className="form-row">
+            <label>Priority (1-4 for top pills, blank for MORE menu):</label>
+            <select
+              value={formData.priority || ''}
+              onChange={(e) => setFormData(prev => ({ 
+                ...prev, 
+                priority: e.target.value ? parseInt(e.target.value) : null 
+              }))}
+            >
+              <option value="">No Priority (MORE menu)</option>
+              <option value="1">Priority 1 (First pill)</option>
+              <option value="2">Priority 2 (Second pill)</option>
+              <option value="3">Priority 3 (Third pill)</option>
+              <option value="4">Priority 4 (Fourth pill)</option>
+            </select>
+            <small>Priority 1-4 categories show as main filter buttons. Others go in MORE dropdown.</small>
           </div>
           <div className="form-row">
             <label>
