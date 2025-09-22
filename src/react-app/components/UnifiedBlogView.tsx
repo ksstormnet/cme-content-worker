@@ -169,7 +169,7 @@ const UnifiedBlogView: React.FC = () => {
             }
             
             .category-pills-container {
-              background-color: var(--base-1);
+              background-color: #e5e7eb;
               margin-top: 0 !important;
               margin-left: -30px !important;
               margin-right: -30px !important;
