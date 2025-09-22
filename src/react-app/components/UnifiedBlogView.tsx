@@ -30,6 +30,7 @@ const UnifiedBlogView: React.FC = () => {
   const [displayLimit, setDisplayLimit] = useState(20);
   const [totalLoaded, setTotalLoaded] = useState(0);
   const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+  const [uniformHeight, setUniformHeight] = useState<number | null>(null);
   
   // Routing
   const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -71,6 +72,59 @@ const UnifiedBlogView: React.FC = () => {
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [showMoreDropdown]);
+
+  // Calculate uniform height after posts are displayed
+  useEffect(() => {
+    if (displayPosts.length > 0 && !loading) {
+      // Reset height first to get natural measurements
+      setUniformHeight(null);
+      
+      // Wait for DOM to update, then measure
+      const timer = setTimeout(() => {
+        const cardElements = document.querySelectorAll('.gb-element-947acc35');
+        console.log('Found card elements:', cardElements.length);
+        
+        if (cardElements.length > 0) {
+          // First, reset any height constraints
+          cardElements.forEach(el => {
+            (el as HTMLElement).style.height = 'auto';
+            (el as HTMLElement).style.minHeight = 'auto';
+          });
+          
+          // Measure natural heights
+          const heights = Array.from(cardElements).map(el => {
+            const height = (el as HTMLElement).offsetHeight;
+            console.log('Card element height:', height);
+            return height;
+          });
+          const maxHeight = Math.max(...heights);
+          console.log('Setting uniform height to:', maxHeight);
+          setUniformHeight(maxHeight);
+          
+          // Set CSS custom property for uniform height
+          document.documentElement.style.setProperty('--uniform-card-height', `${maxHeight}px`);
+          
+          // Add CSS override styles
+          let styleElement = document.getElementById('uniform-card-styles');
+          if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = 'uniform-card-styles';
+            document.head.appendChild(styleElement);
+          }
+          
+          styleElement.textContent = `
+            .gb-element-947acc35 {
+              height: ${maxHeight}px !important;
+              min-height: ${maxHeight}px !important;
+              max-height: ${maxHeight}px !important;
+            }
+          `;
+        }
+      }, 500); // Increased timeout
+      
+      return () => clearTimeout(timer);
+    }
+  }, [displayPosts, loading, currentFilter]); // Re-run when filter changes too
   
   // Load initial data (first 20 posts + categories + CSS)
   const initializeData = async () => {
@@ -235,8 +289,28 @@ const UnifiedBlogView: React.FC = () => {
         id={`post-${post.id}`}
         className={`dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${post.category || 'general'} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding`}
       >
-        <div className="gb-element-947acc35" style={{backgroundImage: `url(${post.featured_image_url || ''})`}}>
-          <div className="gb-element-ca29c3cc">
+        <div 
+          className="gb-element-947acc35" 
+          style={{
+            backgroundImage: `url(${post.featured_image_url || ''})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            alignItems: 'flex-end',
+            height: uniformHeight ? `${uniformHeight}px !important` : 'auto',
+            minHeight: uniformHeight ? `${uniformHeight}px !important` : 'auto'
+          }}
+        >
+          <div 
+            className="gb-element-ca29c3cc"
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}
+          >
             <p className="gb-text gb-text-44279aaa dynamic-term-class">
               <span>{categoryTitle}</span>
             </p>

@@ -151,7 +151,7 @@ function App() {
   };
 
   // Don't show loading for public routes - only check auth for protected routes
-  // This allows BlogHomepage to render immediately without auth check
+  // This allows UnifiedBlogView to render immediately without auth check
 
   return (
     <Router>
