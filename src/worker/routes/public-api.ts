@@ -54,14 +54,19 @@ publicApiRoutes.get("/posts/:category/:slug", async (c) => {
     const slug = c.req.param("slug");
 
     // Get post with category and author info
+    // Handle posts with null category_id by allowing category to be null when looking up 'general'
     const post = await c.env.DB.prepare(`
-      SELECT p.*, u.name as author_name, c.slug as category, c.name as category_name
+      SELECT p.*, u.name as author_name, 
+             COALESCE(c.slug, 'general') as category, 
+             COALESCE(c.name, 'General') as category_name
       FROM posts p
       LEFT JOIN users u ON p.author_id = u.id
       LEFT JOIN categories c ON p.category_id = c.id
-      WHERE c.slug = ? AND p.slug = ? AND p.status = 'published'
+      WHERE (c.slug = ? OR (c.slug IS NULL AND ? = 'general')) 
+            AND p.slug = ? 
+            AND p.status = 'published'
       LIMIT 1
-    `).bind(category, slug).first();
+    `).bind(category, category, slug).first();
 
     if (!post) {
       return c.json<APIResponse>({
