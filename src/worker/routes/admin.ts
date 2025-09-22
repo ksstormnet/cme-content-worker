@@ -596,7 +596,7 @@ adminRoutes.get("/categories", async (c) => {
 // POST /api/admin/categories - Create new category
 adminRoutes.post("/categories", async (c) => {
   try {
-    const { name, description, color, icon } = await c.req.json();
+    const { name, description, color, icon, priority } = await c.req.json();
     
     if (!name) {
       return c.json<APIResponse>({ 
@@ -614,14 +614,15 @@ adminRoutes.post("/categories", async (c) => {
       .replace(/^-|-$/g, '');
 
     const result = await c.env.DB.prepare(`
-      INSERT INTO categories (name, slug, description, color, icon, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+      INSERT INTO categories (name, slug, description, color, icon, priority, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     `).bind(
       name,
       slug,
       description || null,
       color || '#6b7280',
-      icon || '📝'
+      icon || '📝',
+      priority || null
     ).run();
 
     const categoryId = result.meta.last_row_id;
@@ -650,7 +651,7 @@ adminRoutes.post("/categories", async (c) => {
 adminRoutes.put("/categories/:id", async (c) => {
   try {
     const categoryId = c.req.param("id");
-    const { name, description, color, icon, active } = await c.req.json();
+    const { name, description, color, icon, active, priority } = await c.req.json();
     
     if (!name) {
       return c.json<APIResponse>({ 
@@ -669,7 +670,7 @@ adminRoutes.put("/categories/:id", async (c) => {
 
     await c.env.DB.prepare(`
       UPDATE categories 
-      SET name = ?, slug = ?, description = ?, color = ?, icon = ?, active = ?, 
+      SET name = ?, slug = ?, description = ?, color = ?, icon = ?, active = ?, priority = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).bind(
@@ -679,6 +680,7 @@ adminRoutes.put("/categories/:id", async (c) => {
       color || '#6b7280',
       icon || '📝',
       active !== undefined ? active : 1,
+      priority || null,
       categoryId
     ).run();
 
