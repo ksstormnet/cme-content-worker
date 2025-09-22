@@ -24,6 +24,7 @@ const BlogHomepage: React.FC = () => {
   const [cssUrls, setCssUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [uniformHeight, setUniformHeight] = useState<number | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -32,6 +33,23 @@ const BlogHomepage: React.FC = () => {
       fetchCSSUrls()
     ]).finally(() => setLoading(false));
   }, []);
+
+  // Calculate uniform height after posts are rendered
+  useEffect(() => {
+    if (posts.length > 0 && !loading) {
+      // Wait for DOM to update
+      setTimeout(() => {
+        const overlayElements = document.querySelectorAll('.gb-element-ca29c3cc');
+        if (overlayElements.length > 0) {
+          const heights = Array.from(overlayElements).map(el => 
+            (el as HTMLElement).offsetHeight
+          );
+          const maxHeight = Math.max(...heights);
+          setUniformHeight(maxHeight);
+        }
+      }, 100);
+    }
+  }, [posts, loading]);
 
   const fetchBlogData = async () => {
     try {
@@ -95,6 +113,16 @@ const BlogHomepage: React.FC = () => {
           link.href = generateBlocksCSS;
           document.head.appendChild(link);
         }
+        
+        // Add specific GenerateBlocks style file that contains .gb-text-bd574af4 styles
+        const generateBlocksSpecificCSS = `https://cdn.cruisemadeeasy.com/css/generateblocks-style-3575.css?v=${timestamp}`;
+        if (!document.querySelector(`link[href*="generateblocks-style-3575.css"]`)) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = generateBlocksSpecificCSS;
+          document.head.appendChild(link);
+        }
+        
       }
     } catch (error) {
       console.error('Error fetching CSS URLs:', error);
@@ -103,9 +131,10 @@ const BlogHomepage: React.FC = () => {
 
   const generatePostCard = (post: Post): React.ReactElement => {
     const categoryTitle = post.category
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      ? post.category.split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+      : 'General';
     
     const publishedDate = new Date(post.published_date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -117,21 +146,40 @@ const BlogHomepage: React.FC = () => {
       <article 
         key={post.id}
         id={`post-${post.id}`}
-        className={`dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${post.category} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding`}
+        className={`dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${post.category || 'general'} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding`}
       >
-        <div className="gb-element-947acc35" style={{backgroundImage: `url(${post.featured_image_url || ''})`}}>
-          <div className="gb-element-ca29c3cc">
+        <div 
+          className="gb-element-947acc35" 
+          style={{
+            backgroundImage: `url(${post.featured_image_url || ''})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            alignItems: 'flex-end',
+            minHeight: uniformHeight ? `${uniformHeight + 40}px` : 'auto'
+          }}
+        >
+          <div 
+            className="gb-element-ca29c3cc"
+            style={uniformHeight ? { 
+              minHeight: `${uniformHeight}px`,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            } : {}}
+          >
             <p className="gb-text gb-text-44279aaa dynamic-term-class">
               <span>{categoryTitle}</span>
             </p>
             
             <h2 className="gb-text gb-text-4c89c85f">
-              <a href={`/${post.category}/${post.slug}/`}>{post.title}</a>
+              <a href={`/${post.category || 'general'}/${post.slug}/`}>{post.title}</a>
             </h2>
             
             <p className="gb-text gb-text-663e6423">{publishedDate}</p>
             
-            <a className="gb-text gb-text-674a334b button" href={`/${post.category}/${post.slug}/`}>
+            <a className="gb-text gb-text-674a334b button" href={`/${post.category || 'general'}/${post.slug}/`}>
               View Article
             </a>
           </div>

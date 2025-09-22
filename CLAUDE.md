@@ -461,3 +461,4 @@ This repository inherits from the master Cruise Made Easy project context while 
 **OPERATIONAL STATUS**: Four mandatory agents installed and configured for comprehensive development support.
 
 **ENFORCEMENT**: Strict mode active - all development tasks MUST engage appropriate agents according to trigger keywords and capabilities.**
+- this machine uses ripgre. Alter grep commands for rg syntax

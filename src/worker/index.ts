@@ -35,7 +35,10 @@ app.use("*", cors({
   credentials: true,
 }));
 
-// Public API Routes (no auth required) - MUST come first to avoid conflicts
+// CSS Sync Routes - MUST come before public API routes to avoid /css/:layout conflict
+app.route("/api/css", cssSyncRoutes);
+
+// Public API Routes (no auth required)
 app.route("/api", publicApiRoutes);
 
 // Protected API Routes - MUST come before serveStatic
@@ -46,7 +49,6 @@ app.route("/api/calendar", calendarRoutes);
 app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
-app.route("/api/css", cssSyncRoutes);
 app.route("/api/template", templateRoutes);
 
 
@@ -55,7 +57,8 @@ app.get("/api/health", (c) => {
   return c.json({ 
     status: "healthy", 
     timestamp: new Date().toISOString(),
-    environment: c.env.ENVIRONMENT 
+    environment: c.env.ENVIRONMENT,
+    version: "1.0.1"
   });
 });
 
