@@ -85,40 +85,42 @@ const UnifiedBlogView: React.FC = () => {
         console.log('Found card elements:', cardElements.length);
         
         if (cardElements.length > 0) {
-          // First, reset any height constraints
+          // First, reset any height constraints to get natural measurements
           cardElements.forEach(el => {
             (el as HTMLElement).style.height = 'auto';
             (el as HTMLElement).style.minHeight = 'auto';
           });
           
-          // Measure natural heights
-          const heights = Array.from(cardElements).map(el => {
-            const height = (el as HTMLElement).offsetHeight;
-            console.log('Card element height:', height);
-            return height;
-          });
-          const maxHeight = Math.max(...heights);
-          console.log('Setting uniform height to:', maxHeight);
-          setUniformHeight(maxHeight);
-          
-          // Set CSS custom property for uniform height
-          document.documentElement.style.setProperty('--uniform-card-height', `${maxHeight}px`);
-          
-          // Add CSS override styles
-          let styleElement = document.getElementById('uniform-card-styles');
-          if (!styleElement) {
-            styleElement = document.createElement('style');
-            styleElement.id = 'uniform-card-styles';
-            document.head.appendChild(styleElement);
-          }
-          
-          styleElement.textContent = `
-            .gb-element-947acc35 {
-              height: ${maxHeight}px !important;
-              min-height: ${maxHeight}px !important;
-              max-height: ${maxHeight}px !important;
+          // Wait a moment for layout to settle, then measure
+          setTimeout(() => {
+            const heights = Array.from(cardElements).map(el => {
+              const height = (el as HTMLElement).offsetHeight;
+              console.log('Card element natural height:', height);
+              return height;
+            });
+            const maxHeight = Math.max(...heights);
+            console.log('Setting uniform height to:', maxHeight);
+            setUniformHeight(maxHeight);
+            
+            // Set CSS custom property for uniform height
+            document.documentElement.style.setProperty('--uniform-card-height', `${maxHeight}px`);
+            
+            // Add CSS override styles to make all cards the same height
+            let styleElement = document.getElementById('uniform-card-styles');
+            if (!styleElement) {
+              styleElement = document.createElement('style');
+              styleElement.id = 'uniform-card-styles';
+              document.head.appendChild(styleElement);
             }
-          `;
+            
+            styleElement.textContent = `
+              .gb-element-947acc35 {
+                height: ${maxHeight}px !important;
+                min-height: ${maxHeight}px !important;
+                max-height: ${maxHeight}px !important;
+              }
+            `;
+          }, 50);
         }
       }, 500); // Increased timeout
       
@@ -304,12 +306,6 @@ const UnifiedBlogView: React.FC = () => {
         >
           <div 
             className="gb-element-ca29c3cc"
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end'
-            }}
           >
             <p className="gb-text gb-text-44279aaa dynamic-term-class">
               <span>{categoryTitle}</span>
