@@ -173,7 +173,7 @@ const UnifiedBlogView: React.FC = () => {
               margin-top: 0 !important;
               position: relative;
               z-index: 10;
-              padding: 5px 0;
+              padding: 10px 0;
             }
           `;
         }
