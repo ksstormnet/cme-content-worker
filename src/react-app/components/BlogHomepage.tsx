@@ -37,17 +37,53 @@ const BlogHomepage: React.FC = () => {
   // Calculate uniform height after posts are rendered
   useEffect(() => {
     if (posts.length > 0 && !loading) {
-      // Wait for DOM to update
-      setTimeout(() => {
-        const overlayElements = document.querySelectorAll('.gb-element-ca29c3cc');
-        if (overlayElements.length > 0) {
-          const heights = Array.from(overlayElements).map(el => 
-            (el as HTMLElement).offsetHeight
-          );
+      // Reset height first to get natural measurements
+      setUniformHeight(null);
+      
+      // Wait for DOM to update, then measure
+      const timer = setTimeout(() => {
+        const cardElements = document.querySelectorAll('.gb-element-947acc35');
+        console.log('Found card elements:', cardElements.length);
+        
+        if (cardElements.length > 0) {
+          // First, reset any height constraints
+          cardElements.forEach(el => {
+            (el as HTMLElement).style.height = 'auto';
+            (el as HTMLElement).style.minHeight = 'auto';
+          });
+          
+          // Measure natural heights
+          const heights = Array.from(cardElements).map(el => {
+            const height = (el as HTMLElement).offsetHeight;
+            console.log('Card element height:', height);
+            return height;
+          });
           const maxHeight = Math.max(...heights);
+          console.log('Setting uniform height to:', maxHeight);
           setUniformHeight(maxHeight);
+          
+          // Set CSS custom property for uniform height
+          document.documentElement.style.setProperty('--uniform-card-height', `${maxHeight}px`);
+          
+          // Add CSS override styles
+          let styleElement = document.getElementById('uniform-card-styles');
+          if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = 'uniform-card-styles';
+            document.head.appendChild(styleElement);
+          }
+          
+          styleElement.textContent = `
+            .gb-element-947acc35 {
+              height: ${maxHeight}px !important;
+              min-height: ${maxHeight}px !important;
+              max-height: ${maxHeight}px !important;
+            }
+          `;
         }
-      }, 100);
+      }, 500); // Increased timeout
+      
+      return () => clearTimeout(timer);
     }
   }, [posts, loading]);
 
@@ -157,17 +193,18 @@ const BlogHomepage: React.FC = () => {
             backgroundRepeat: 'no-repeat',
             display: 'flex',
             alignItems: 'flex-end',
-            minHeight: uniformHeight ? `${uniformHeight + 40}px` : 'auto'
+            height: uniformHeight ? `${uniformHeight}px !important` : 'auto',
+            minHeight: uniformHeight ? `${uniformHeight}px !important` : 'auto'
           }}
         >
           <div 
             className="gb-element-ca29c3cc"
-            style={uniformHeight ? { 
-              minHeight: `${uniformHeight}px`,
+            style={{
+              width: '100%',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between'
-            } : {}}
+              justifyContent: 'flex-end'
+            }}
           >
             <p className="gb-text gb-text-44279aaa dynamic-term-class">
               <span>{categoryTitle}</span>
