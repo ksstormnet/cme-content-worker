@@ -169,11 +169,14 @@ const UnifiedBlogView: React.FC = () => {
             }
             
             .category-pills-container {
-              background-color: var(--base-2);
+              background-color: var(--base-1);
               margin-top: 0 !important;
+              margin-left: -30px !important;
+              margin-right: -30px !important;
               position: relative;
               z-index: 10;
-              padding: 2px 0;
+              padding: 2px 30px;
+              width: calc(100% + 60px);
             }
           `;
         }
