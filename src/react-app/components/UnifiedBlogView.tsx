@@ -143,7 +143,7 @@ const UnifiedBlogView: React.FC = () => {
               color: #ffffff;
               overflow: hidden;
               position: relative;
-              padding: 30px;
+              padding: 60px;
               margin-top: 80px;
             }
             
