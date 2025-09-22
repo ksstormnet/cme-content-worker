@@ -91,60 +91,42 @@ const UnifiedBlogView: React.FC = () => {
     }
   }, [showMoreDropdown]);
 
-  // Calculate uniform height after posts are displayed (disabled for now)
-  /*useEffect(() => {
+  // Calculate uniform height after posts are displayed (logging only - no CSS applied)
+  useEffect(() => {
     if (displayPosts.length > 0 && !loading) {
-      // Reset height first to get natural measurements
-      setUniformHeight(null);
-      
       // Wait for DOM to update, then measure
       const timer = setTimeout(() => {
         const cardElements = document.querySelectorAll('.gb-element-947acc35');
-        console.log('Found card elements:', cardElements.length);
+        console.log('🔍 Found card elements:', cardElements.length);
         
         if (cardElements.length > 0) {
-          // First, reset any height constraints to get natural measurements
-          cardElements.forEach(el => {
-            (el as HTMLElement).style.height = 'auto';
-            (el as HTMLElement).style.minHeight = 'auto';
+          // Measure natural heights without modifying anything
+          const heights = Array.from(cardElements).map((el, index) => {
+            const height = (el as HTMLElement).offsetHeight;
+            console.log(`📏 Card ${index + 1} natural height:`, height + 'px');
+            return height;
           });
           
-          // Wait a moment for layout to settle, then measure
-          setTimeout(() => {
-            const heights = Array.from(cardElements).map(el => {
-              const height = (el as HTMLElement).offsetHeight;
-              console.log('Card element natural height:', height);
-              return height;
-            });
-            const maxHeight = Math.max(...heights);
-            console.log('Setting uniform height to:', maxHeight);
-            setUniformHeight(maxHeight);
-            
-            // Set CSS custom property for uniform height
-            document.documentElement.style.setProperty('--uniform-card-height', `${maxHeight}px`);
-            
-            // Add CSS override styles to make all cards the same height
-            let styleElement = document.getElementById('uniform-card-styles');
-            if (!styleElement) {
-              styleElement = document.createElement('style');
-              styleElement.id = 'uniform-card-styles';
-              document.head.appendChild(styleElement);
-            }
-            
-            styleElement.textContent = `
-              .gb-element-947acc35 {
-                height: ${maxHeight}px !important;
-                min-height: ${maxHeight}px !important;
-                max-height: ${maxHeight}px !important;
-              }
-            `;
-          }, 50);
+          const maxHeight = Math.max(...heights);
+          const minHeight = Math.min(...heights);
+          const avgHeight = heights.reduce((sum, h) => sum + h, 0) / heights.length;
+          
+          console.log('📊 Height Analysis:');
+          console.log('   • Tallest card:', maxHeight + 'px');
+          console.log('   • Shortest card:', minHeight + 'px'); 
+          console.log('   • Average height:', Math.round(avgHeight) + 'px');
+          console.log('   • Height difference:', (maxHeight - minHeight) + 'px');
+          
+          setUniformHeight(maxHeight);
+          
+          // Log what would be applied (but don't actually apply it)
+          console.log('✨ Would set uniform height to:', maxHeight + 'px');
         }
-      }, 500); // Increased timeout
+      }, 500);
       
       return () => clearTimeout(timer);
     }
-  }, [displayPosts, loading, currentFilter]); // Re-run when filter changes too*/
+  }, [displayPosts, loading, currentFilter]); // Re-run when filter changes too
   
   // Load initial data (first 20 posts + categories + CSS)
   const initializeData = async () => {
