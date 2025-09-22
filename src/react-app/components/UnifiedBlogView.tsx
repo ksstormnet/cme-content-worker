@@ -277,9 +277,9 @@ const UnifiedBlogView: React.FC = () => {
     ];
     
     if (isNonPrioritySelected && currentSelectedCategory) {
-      // Show selected non-priority category + first 3 priority categories
-      displayButtons.push(currentSelectedCategory);
+      // Show first 3 priority categories + selected non-priority category (replaces 4th priority)
       displayButtons.push(...priorityCategories.slice(0, 3));
+      displayButtons.push(currentSelectedCategory);
     } else {
       // Show all 4 priority categories
       displayButtons.push(...priorityCategories.slice(0, 4));
