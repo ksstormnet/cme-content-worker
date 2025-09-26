@@ -32,3 +32,6 @@ dist-ssr
 
 # development process management
 .dev-pids/
+
+# WordPress media files
+wp-components/media/
