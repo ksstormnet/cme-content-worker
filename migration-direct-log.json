@@ -1,0 +1,854 @@
+{
+  "total": 141,
+  "uploaded": 141,
+  "failed": 0,
+  "errors": [],
+  "urlMappings": [
+    {
+      "localPath": "wp-components/media/2021/07/White-logo-no-background-132x107-1.png",
+      "relativePath": "2021/07/White-logo-no-background-132x107-1.png",
+      "wpPath": "/wp-content/uploads/2021/07/White-logo-no-background-132x107-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2021/07/White-logo-no-background-132x107-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/2025.png",
+      "relativePath": "2025/02/2025.png",
+      "wpPath": "/wp-content/uploads/2025/02/2025.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/2025.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Alaska.png",
+      "relativePath": "2025/02/Alaska.png",
+      "wpPath": "/wp-content/uploads/2025/02/Alaska.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Alaska.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Android.png",
+      "relativePath": "2025/02/Android.png",
+      "wpPath": "/wp-content/uploads/2025/02/Android.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Android.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Bah-Hahba.jpg",
+      "relativePath": "2025/02/Bah-Hahba.jpg",
+      "wpPath": "/wp-content/uploads/2025/02/Bah-Hahba.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Bah-Hahba.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Black-logo-no-background.png",
+      "relativePath": "2025/02/Black-logo-no-background.png",
+      "wpPath": "/wp-content/uploads/2025/02/Black-logo-no-background.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Black-logo-no-background.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Color-logo-no-background.png",
+      "relativePath": "2025/02/Color-logo-no-background.png",
+      "wpPath": "/wp-content/uploads/2025/02/Color-logo-no-background.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Color-logo-no-background.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Color-logo-with-background-148x120-1.png",
+      "relativePath": "2025/02/Color-logo-with-background-148x120-1.png",
+      "wpPath": "/wp-content/uploads/2025/02/Color-logo-with-background-148x120-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Color-logo-with-background-148x120-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Color-logo-with-background.png",
+      "relativePath": "2025/02/Color-logo-with-background.png",
+      "wpPath": "/wp-content/uploads/2025/02/Color-logo-with-background.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Color-logo-with-background.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/CruiseNext.png",
+      "relativePath": "2025/02/CruiseNext.png",
+      "wpPath": "/wp-content/uploads/2025/02/CruiseNext.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/CruiseNext.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Encore-Obs-Lounge.jpg",
+      "relativePath": "2025/02/Encore-Obs-Lounge.jpg",
+      "wpPath": "/wp-content/uploads/2025/02/Encore-Obs-Lounge.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Encore-Obs-Lounge.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/First-Drinks-of-the-Cruise-e1740711298312.jpg",
+      "relativePath": "2025/02/First-Drinks-of-the-Cruise-e1740711298312.jpg",
+      "wpPath": "/wp-content/uploads/2025/02/First-Drinks-of-the-Cruise-e1740711298312.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/First-Drinks-of-the-Cruise-e1740711298312.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Latitudes-Rewards.png",
+      "relativePath": "2025/02/Latitudes-Rewards.png",
+      "wpPath": "/wp-content/uploads/2025/02/Latitudes-Rewards.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Latitudes-Rewards.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Masters.png",
+      "relativePath": "2025/02/Masters.png",
+      "wpPath": "/wp-content/uploads/2025/02/Masters.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Masters.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Mexican-Rivera.png",
+      "relativePath": "2025/02/Mexican-Rivera.png",
+      "wpPath": "/wp-content/uploads/2025/02/Mexican-Rivera.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Mexican-Rivera.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/NorwegianEncore_1638996506557-HR-1-scaled.jpg",
+      "relativePath": "2025/02/NorwegianEncore_1638996506557-HR-1-scaled.jpg",
+      "wpPath": "/wp-content/uploads/2025/02/NorwegianEncore_1638996506557-HR-1-scaled.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/NorwegianEncore_1638996506557-HR-1-scaled.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Small-Wrods-White-over-no-color-126x85-1.png",
+      "relativePath": "2025/02/Small-Wrods-White-over-no-color-126x85-1.png",
+      "wpPath": "/wp-content/uploads/2025/02/Small-Wrods-White-over-no-color-126x85-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Small-Wrods-White-over-no-color-126x85-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/Small-words-Color-on-white-143x66-1.png",
+      "relativePath": "2025/02/Small-words-Color-on-white-143x66-1.png",
+      "wpPath": "/wp-content/uploads/2025/02/Small-words-Color-on-white-143x66-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/Small-words-Color-on-white-143x66-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/White-logo-no-background.png",
+      "relativePath": "2025/02/White-logo-no-background.png",
+      "wpPath": "/wp-content/uploads/2025/02/White-logo-no-background.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/White-logo-no-background.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/browser.png",
+      "relativePath": "2025/02/browser.png",
+      "wpPath": "/wp-content/uploads/2025/02/browser.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/browser.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/cropped-favicon-nobg.png",
+      "relativePath": "2025/02/cropped-favicon-nobg.png",
+      "wpPath": "/wp-content/uploads/2025/02/cropped-favicon-nobg.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/cropped-favicon-nobg.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/favicon-nobg.png",
+      "relativePath": "2025/02/favicon-nobg.png",
+      "wpPath": "/wp-content/uploads/2025/02/favicon-nobg.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/favicon-nobg.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/iPhone.png",
+      "relativePath": "2025/02/iPhone.png",
+      "wpPath": "/wp-content/uploads/2025/02/iPhone.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/iPhone.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/02/the-deck-of-a-cruise-ship-at-dawn-or-dusk-1.jpg",
+      "relativePath": "2025/02/the-deck-of-a-cruise-ship-at-dawn-or-dusk-1.jpg",
+      "wpPath": "/wp-content/uploads/2025/02/the-deck-of-a-cruise-ship-at-dawn-or-dusk-1.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/02/the-deck-of-a-cruise-ship-at-dawn-or-dusk-1.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/1000x667NorwegianDrinksOnboard.webp",
+      "relativePath": "2025/03/1000x667NorwegianDrinksOnboard.webp",
+      "wpPath": "/wp-content/uploads/2025/03/1000x667NorwegianDrinksOnboard.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/1000x667NorwegianDrinksOnboard.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Color-logo-with-background-148x120-1.png",
+      "relativePath": "2025/03/Color-logo-with-background-148x120-1.png",
+      "wpPath": "/wp-content/uploads/2025/03/Color-logo-with-background-148x120-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Color-logo-with-background-148x120-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Color-logo-with-background-512x512-1.png",
+      "relativePath": "2025/03/Color-logo-with-background-512x512-1.png",
+      "wpPath": "/wp-content/uploads/2025/03/Color-logo-with-background-512x512-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Color-logo-with-background-512x512-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Ellis-the-Easy-Breezy-Cruiser.webp",
+      "relativePath": "2025/03/Ellis-the-Easy-Breezy-Cruiser.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Ellis-the-Easy-Breezy-Cruiser.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Ellis-the-Easy-Breezy-Cruiser.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Emma-the-Easy-Breezy-Cruiser.webp",
+      "relativePath": "2025/03/Emma-the-Easy-Breezy-Cruiser.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Emma-the-Easy-Breezy-Cruiser.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Emma-the-Easy-Breezy-Cruiser.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Ethan-the-Easy-Breezy-Cruiser.webp",
+      "relativePath": "2025/03/Ethan-the-Easy-Breezy-Cruiser.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Ethan-the-Easy-Breezy-Cruiser.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Ethan-the-Easy-Breezy-Cruiser.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Lana-the-Luxe-Sefarer.webp",
+      "relativePath": "2025/03/Lana-the-Luxe-Sefarer.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Lana-the-Luxe-Sefarer.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Lana-the-Luxe-Sefarer.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Leo-the-Luxe-Sefarer.webp",
+      "relativePath": "2025/03/Leo-the-Luxe-Sefarer.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Leo-the-Luxe-Sefarer.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Leo-the-Luxe-Sefarer.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/London-the-Luxe-Sefarer.webp",
+      "relativePath": "2025/03/London-the-Luxe-Sefarer.webp",
+      "wpPath": "/wp-content/uploads/2025/03/London-the-Luxe-Sefarer.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/London-the-Luxe-Sefarer.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/NCL_Encore_Waterfront_Dining_B_0359.jpeg",
+      "relativePath": "2025/03/NCL_Encore_Waterfront_Dining_B_0359.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/NCL_Encore_Waterfront_Dining_B_0359.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/NCL_Encore_Waterfront_Dining_B_0359.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/NCL_MexRiv_Cabo_GettyImages-1496803833.jpeg",
+      "relativePath": "2025/03/NCL_MexRiv_Cabo_GettyImages-1496803833.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/NCL_MexRiv_Cabo_GettyImages-1496803833.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/NCL_MexRiv_Cabo_GettyImages-1496803833.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Tahani-the-Thrill-Seeker-at-Sea.webp",
+      "relativePath": "2025/03/Tahani-the-Thrill-Seeker-at-Sea.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Tahani-the-Thrill-Seeker-at-Sea.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Tahani-the-Thrill-Seeker-at-Sea.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Tahrush-the-Thrill-Seeker-at-Sea.webp",
+      "relativePath": "2025/03/Tahrush-the-Thrill-Seeker-at-Sea.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Tahrush-the-Thrill-Seeker-at-Sea.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Tahrush-the-Thrill-Seeker-at-Sea.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/Tenzin-the-Thrill-Seeker-at-Sea.webp",
+      "relativePath": "2025/03/Tenzin-the-Thrill-Seeker-at-Sea.webp",
+      "wpPath": "/wp-content/uploads/2025/03/Tenzin-the-Thrill-Seeker-at-Sea.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/Tenzin-the-Thrill-Seeker-at-Sea.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/White-logo-no-background-132x107-1.png",
+      "relativePath": "2025/03/White-logo-no-background-132x107-1.png",
+      "wpPath": "/wp-content/uploads/2025/03/White-logo-no-background-132x107-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/White-logo-no-background-132x107-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/White-logo-no-background-161x132-1.png",
+      "relativePath": "2025/03/White-logo-no-background-161x132-1.png",
+      "wpPath": "/wp-content/uploads/2025/03/White-logo-no-background-161x132-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/White-logo-no-background-161x132-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/color-logo-no-background-220x180-1.png",
+      "relativePath": "2025/03/color-logo-no-background-220x180-1.png",
+      "wpPath": "/wp-content/uploads/2025/03/color-logo-no-background-220x180-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/color-logo-no-background-220x180-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/dawn-on-calm-sea-1280x720-1.jpg",
+      "relativePath": "2025/03/dawn-on-calm-sea-1280x720-1.jpg",
+      "wpPath": "/wp-content/uploads/2025/03/dawn-on-calm-sea-1280x720-1.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/dawn-on-calm-sea-1280x720-1.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Alaska_DxOwnSuite_Bedroom_noTV-scaled.jpeg",
+      "relativePath": "2025/03/ncl_Alaska_DxOwnSuite_Bedroom_noTV-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Alaska_DxOwnSuite_Bedroom_noTV-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Alaska_DxOwnSuite_Bedroom_noTV-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg",
+      "relativePath": "2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Bliss_AK_land_glacier_millenial_selfie_1.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Bliss_AK_land_kayaking-tatoosh_millenials_1.jpeg",
+      "relativePath": "2025/03/ncl_Bliss_AK_land_kayaking-tatoosh_millenials_1.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Bliss_AK_land_kayaking-tatoosh_millenials_1.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Bliss_AK_land_kayaking-tatoosh_millenials_1.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Dawn_Wake-scaled.jpeg",
+      "relativePath": "2025/03/ncl_Dawn_Wake-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Dawn_Wake-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Dawn_Wake-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Esc_WaterfrontSeats_9702-scaled.jpeg",
+      "relativePath": "2025/03/ncl_Esc_WaterfrontSeats_9702-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Esc_WaterfrontSeats_9702-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Esc_WaterfrontSeats_9702-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Esc_Waterfront_5763_V9-ext-water-scaled.jpeg",
+      "relativePath": "2025/03/ncl_Esc_Waterfront_5763_V9-ext-water-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Esc_Waterfront_5763_V9-ext-water-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Esc_Waterfront_5763_V9-ext-water-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/ncl_Fam_WhiteHotParty-scaled.jpeg",
+      "relativePath": "2025/03/ncl_Fam_WhiteHotParty-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/03/ncl_Fam_WhiteHotParty-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/ncl_Fam_WhiteHotParty-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/03/sunset-wake.jpg",
+      "relativePath": "2025/03/sunset-wake.jpg",
+      "wpPath": "/wp-content/uploads/2025/03/sunset-wake.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/03/sunset-wake.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/05/How-It-Works-Planning-Process.png",
+      "relativePath": "2025/05/How-It-Works-Planning-Process.png",
+      "wpPath": "/wp-content/uploads/2025/05/How-It-Works-Planning-Process.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/05/How-It-Works-Planning-Process.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q1-eb.png",
+      "relativePath": "2025/06/q1-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q1-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q1-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q1-luxe.png",
+      "relativePath": "2025/06/q1-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q1-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q1-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q1-ts.png",
+      "relativePath": "2025/06/q1-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q1-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q1-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q2-eb.png",
+      "relativePath": "2025/06/q2-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q2-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q2-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q2-luxe.png",
+      "relativePath": "2025/06/q2-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q2-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q2-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q2-ts.png",
+      "relativePath": "2025/06/q2-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q2-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q2-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q3-eb.png",
+      "relativePath": "2025/06/q3-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q3-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q3-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q3-luxe.png",
+      "relativePath": "2025/06/q3-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q3-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q3-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q3-ts.png",
+      "relativePath": "2025/06/q3-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q3-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q3-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q4-eb.png",
+      "relativePath": "2025/06/q4-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q4-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q4-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q4-ts.png",
+      "relativePath": "2025/06/q4-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q4-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q4-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q4_luxe.png",
+      "relativePath": "2025/06/q4_luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q4_luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q4_luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q5-eb.png",
+      "relativePath": "2025/06/q5-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q5-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q5-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q5-luxe.png",
+      "relativePath": "2025/06/q5-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q5-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q5-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q5-ts.png",
+      "relativePath": "2025/06/q5-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q5-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q5-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q6-eb.png",
+      "relativePath": "2025/06/q6-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q6-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q6-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q6-luxe.png",
+      "relativePath": "2025/06/q6-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q6-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q6-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q6-ts.png",
+      "relativePath": "2025/06/q6-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q6-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q6-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q7-elastic.png",
+      "relativePath": "2025/06/q7-elastic.png",
+      "wpPath": "/wp-content/uploads/2025/06/q7-elastic.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q7-elastic.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q7-inelastic.png",
+      "relativePath": "2025/06/q7-inelastic.png",
+      "wpPath": "/wp-content/uploads/2025/06/q7-inelastic.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q7-inelastic.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q7-moderate.png",
+      "relativePath": "2025/06/q7-moderate.png",
+      "wpPath": "/wp-content/uploads/2025/06/q7-moderate.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q7-moderate.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q8-eb.png",
+      "relativePath": "2025/06/q8-eb.png",
+      "wpPath": "/wp-content/uploads/2025/06/q8-eb.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q8-eb.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q8-luxe.png",
+      "relativePath": "2025/06/q8-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q8-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q8-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q8-ts.png",
+      "relativePath": "2025/06/q8-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q8-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q8-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q9-e.png",
+      "relativePath": "2025/06/q9-e.png",
+      "wpPath": "/wp-content/uploads/2025/06/q9-e.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q9-e.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q9-luxe.png",
+      "relativePath": "2025/06/q9-luxe.png",
+      "wpPath": "/wp-content/uploads/2025/06/q9-luxe.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q9-luxe.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/06/q9-ts.png",
+      "relativePath": "2025/06/q9-ts.png",
+      "wpPath": "/wp-content/uploads/2025/06/q9-ts.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/06/q9-ts.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/13451840.jpeg",
+      "relativePath": "2025/07/13451840.jpeg",
+      "wpPath": "/wp-content/uploads/2025/07/13451840.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/13451840.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/17230782.jpeg",
+      "relativePath": "2025/07/17230782.jpeg",
+      "wpPath": "/wp-content/uploads/2025/07/17230782.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/17230782.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/3139127.jpg",
+      "relativePath": "2025/07/3139127.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/3139127.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/3139127.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-dim-white-bg-horizontal-scaled.png",
+      "relativePath": "2025/07/4-color-dim-white-bg-horizontal-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-dim-white-bg-horizontal-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-dim-white-bg-horizontal-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-transparent-horizontal-scaled.png",
+      "relativePath": "2025/07/4-color-transparent-horizontal-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-transparent-horizontal-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-transparent-horizontal-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-transparent-icon-scaled.png",
+      "relativePath": "2025/07/4-color-transparent-icon-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-transparent-icon-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-transparent-icon-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-transparent-vertical-scaled.png",
+      "relativePath": "2025/07/4-color-transparent-vertical-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-transparent-vertical-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-transparent-vertical-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-white-bg-horizontal-scaled.png",
+      "relativePath": "2025/07/4-color-white-bg-horizontal-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-white-bg-horizontal-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-white-bg-horizontal-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-white-bg-icon-scaled.png",
+      "relativePath": "2025/07/4-color-white-bg-icon-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-white-bg-icon-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-white-bg-icon-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-white-bg-square-scaled.png",
+      "relativePath": "2025/07/4-color-white-bg-square-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-white-bg-square-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-white-bg-square-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/4-color-white-bg-vertical-scaled.png",
+      "relativePath": "2025/07/4-color-white-bg-vertical-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/4-color-white-bg-vertical-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/4-color-white-bg-vertical-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/5676024.jpeg",
+      "relativePath": "2025/07/5676024.jpeg",
+      "wpPath": "/wp-content/uploads/2025/07/5676024.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/5676024.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/8310076.jpg",
+      "relativePath": "2025/07/8310076.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/8310076.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/8310076.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg",
+      "relativePath": "2025/07/9305955-great-stirrup-cay-tidal-tower.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/9305955-great-stirrup-cay-tidal-tower.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/SEOPress-1200x630-1.webp",
+      "relativePath": "2025/07/SEOPress-1200x630-1.webp",
+      "wpPath": "/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/SEOPress-1200x630-1.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/alignable-service-4-planning-lounge.jpeg",
+      "relativePath": "2025/07/alignable-service-4-planning-lounge.jpeg",
+      "wpPath": "/wp-content/uploads/2025/07/alignable-service-4-planning-lounge.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/alignable-service-4-planning-lounge.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/balck-transparent-icon-scaled.png",
+      "relativePath": "2025/07/balck-transparent-icon-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/balck-transparent-icon-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/balck-transparent-icon-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/black-transparent-horizontal-scaled.png",
+      "relativePath": "2025/07/black-transparent-horizontal-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/black-transparent-horizontal-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/black-transparent-horizontal-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/black-transparent-vertical-scaled.png",
+      "relativePath": "2025/07/black-transparent-vertical-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/black-transparent-vertical-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/black-transparent-vertical-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/cropped-4-color-transparent-icon-scaled-1.png",
+      "relativePath": "2025/07/cropped-4-color-transparent-icon-scaled-1.png",
+      "wpPath": "/wp-content/uploads/2025/07/cropped-4-color-transparent-icon-scaled-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/cropped-4-color-transparent-icon-scaled-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/cropped-4-color-white-bg-icon-scaled-1.png",
+      "relativePath": "2025/07/cropped-4-color-white-bg-icon-scaled-1.png",
+      "wpPath": "/wp-content/uploads/2025/07/cropped-4-color-white-bg-icon-scaled-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/cropped-4-color-white-bg-icon-scaled-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/cropped-4-color-white-bg-square-scaled-1.png",
+      "relativePath": "2025/07/cropped-4-color-white-bg-square-scaled-1.png",
+      "wpPath": "/wp-content/uploads/2025/07/cropped-4-color-white-bg-square-scaled-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/cropped-4-color-white-bg-square-scaled-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/cropped-orange-transparent-icon-scaled-1.png",
+      "relativePath": "2025/07/cropped-orange-transparent-icon-scaled-1.png",
+      "wpPath": "/wp-content/uploads/2025/07/cropped-orange-transparent-icon-scaled-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/cropped-orange-transparent-icon-scaled-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/fb-og-default-image-1.png",
+      "relativePath": "2025/07/fb-og-default-image-1.png",
+      "wpPath": "/wp-content/uploads/2025/07/fb-og-default-image-1.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/fb-og-default-image-1.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/fb-og-default-image.png",
+      "relativePath": "2025/07/fb-og-default-image.png",
+      "wpPath": "/wp-content/uploads/2025/07/fb-og-default-image.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/fb-og-default-image.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/k05udh2lhfa.jpg",
+      "relativePath": "2025/07/k05udh2lhfa.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/k05udh2lhfa.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/k05udh2lhfa.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/orange-transparent-horizontal-scaled.png",
+      "relativePath": "2025/07/orange-transparent-horizontal-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/orange-transparent-horizontal-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/orange-transparent-horizontal-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/orange-transparent-icon-scaled.png",
+      "relativePath": "2025/07/orange-transparent-icon-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/orange-transparent-icon-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/orange-transparent-icon-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/orange-transparent-vertical-scaled.png",
+      "relativePath": "2025/07/orange-transparent-vertical-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/orange-transparent-vertical-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/orange-transparent-vertical-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/qf8ifcw2oc8.jpg",
+      "relativePath": "2025/07/qf8ifcw2oc8.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/qf8ifcw2oc8.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/qf8ifcw2oc8.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/seopress-1200x630-2.webp",
+      "relativePath": "2025/07/seopress-1200x630-2.webp",
+      "wpPath": "/wp-content/uploads/2025/07/seopress-1200x630-2.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/seopress-1200x630-2.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/suqare-logo-192x192-1.webp",
+      "relativePath": "2025/07/suqare-logo-192x192-1.webp",
+      "wpPath": "/wp-content/uploads/2025/07/suqare-logo-192x192-1.webp",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/suqare-logo-192x192-1.webp"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/sw0-r8wb0ma.jpg",
+      "relativePath": "2025/07/sw0-r8wb0ma.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/sw0-r8wb0ma.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/sw0-r8wb0ma.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/white-transparent-horizontal-scaled.png",
+      "relativePath": "2025/07/white-transparent-horizontal-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/white-transparent-horizontal-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/white-transparent-horizontal-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/white-transparent-icon-scaled.png",
+      "relativePath": "2025/07/white-transparent-icon-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/white-transparent-icon-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/white-transparent-icon-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/white-transparent-vertical-scaled.png",
+      "relativePath": "2025/07/white-transparent-vertical-scaled.png",
+      "wpPath": "/wp-content/uploads/2025/07/white-transparent-vertical-scaled.png",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/white-transparent-vertical-scaled.png"
+    },
+    {
+      "localPath": "wp-components/media/2025/07/ytnmgdlf_k0.jpg",
+      "relativePath": "2025/07/ytnmgdlf_k0.jpg",
+      "wpPath": "/wp-content/uploads/2025/07/ytnmgdlf_k0.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/07/ytnmgdlf_k0.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/08/3502188.jpg",
+      "relativePath": "2025/08/3502188.jpg",
+      "wpPath": "/wp-content/uploads/2025/08/3502188.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/08/3502188.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/08/505eectw54k.jpg",
+      "relativePath": "2025/08/505eectw54k.jpg",
+      "wpPath": "/wp-content/uploads/2025/08/505eectw54k.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/08/505eectw54k.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/08/hubbard-glacier.jpg",
+      "relativePath": "2025/08/hubbard-glacier.jpg",
+      "wpPath": "/wp-content/uploads/2025/08/hubbard-glacier.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/08/hubbard-glacier.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/08/ig8omcxmoty.jpg",
+      "relativePath": "2025/08/ig8omcxmoty.jpg",
+      "wpPath": "/wp-content/uploads/2025/08/ig8omcxmoty.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/08/ig8omcxmoty.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/08/lgrghyzzbsk.jpg",
+      "relativePath": "2025/08/lgrghyzzbsk.jpg",
+      "wpPath": "/wp-content/uploads/2025/08/lgrghyzzbsk.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/08/lgrghyzzbsk.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/08/nhagqnnk2ls.jpg",
+      "relativePath": "2025/08/nhagqnnk2ls.jpg",
+      "wpPath": "/wp-content/uploads/2025/08/nhagqnnk2ls.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/08/nhagqnnk2ls.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/1029011.jpeg",
+      "relativePath": "2025/09/1029011.jpeg",
+      "wpPath": "/wp-content/uploads/2025/09/1029011.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/1029011.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/19714717.jpeg",
+      "relativePath": "2025/09/19714717.jpeg",
+      "wpPath": "/wp-content/uploads/2025/09/19714717.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/19714717.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/33356121.jpeg",
+      "relativePath": "2025/09/33356121.jpeg",
+      "wpPath": "/wp-content/uploads/2025/09/33356121.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/33356121.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/33678962.jpeg",
+      "relativePath": "2025/09/33678962.jpeg",
+      "wpPath": "/wp-content/uploads/2025/09/33678962.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/33678962.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/33712720.jpeg",
+      "relativePath": "2025/09/33712720.jpeg",
+      "wpPath": "/wp-content/uploads/2025/09/33712720.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/33712720.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/5104385.jpg",
+      "relativePath": "2025/09/5104385.jpg",
+      "wpPath": "/wp-content/uploads/2025/09/5104385.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/5104385.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/5228890.jpeg",
+      "relativePath": "2025/09/5228890.jpeg",
+      "wpPath": "/wp-content/uploads/2025/09/5228890.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/5228890.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/7307997.jpg",
+      "relativePath": "2025/09/7307997.jpg",
+      "wpPath": "/wp-content/uploads/2025/09/7307997.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/7307997.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/hw0e7a8jpni.jpg",
+      "relativePath": "2025/09/hw0e7a8jpni.jpg",
+      "wpPath": "/wp-content/uploads/2025/09/hw0e7a8jpni.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/hw0e7a8jpni.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/i9w4uy1pu-s.jpg",
+      "relativePath": "2025/09/i9w4uy1pu-s.jpg",
+      "wpPath": "/wp-content/uploads/2025/09/i9w4uy1pu-s.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/i9w4uy1pu-s.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/s90ebepxxnw.jpg",
+      "relativePath": "2025/09/s90ebepxxnw.jpg",
+      "wpPath": "/wp-content/uploads/2025/09/s90ebepxxnw.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/s90ebepxxnw.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/09/vlypg-jdkda.jpg",
+      "relativePath": "2025/09/vlypg-jdkda.jpg",
+      "wpPath": "/wp-content/uploads/2025/09/vlypg-jdkda.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/09/vlypg-jdkda.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/mi.panama.hero1600x3201.jpg",
+      "relativePath": "2025/10/mi.panama.hero1600x3201.jpg",
+      "wpPath": "/wp-content/uploads/2025/10/mi.panama.hero1600x3201.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/mi.panama.hero1600x3201.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/ncl_encore_vibe_hot_tub_ladies_0224_v3-scaled.jpeg",
+      "relativePath": "2025/10/ncl_encore_vibe_hot_tub_ladies_0224_v3-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/10/ncl_encore_vibe_hot_tub_ladies_0224_v3-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/ncl_encore_vibe_hot_tub_ladies_0224_v3-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/ncl_jewel_aerial_philadelphia_comp-1-scaled.jpeg",
+      "relativePath": "2025/10/ncl_jewel_aerial_philadelphia_comp-1-scaled.jpeg",
+      "wpPath": "/wp-content/uploads/2025/10/ncl_jewel_aerial_philadelphia_comp-1-scaled.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/ncl_jewel_aerial_philadelphia_comp-1-scaled.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/ncl_jewel_aerial_snt_-john_nb.jpeg",
+      "relativePath": "2025/10/ncl_jewel_aerial_snt_-john_nb.jpeg",
+      "wpPath": "/wp-content/uploads/2025/10/ncl_jewel_aerial_snt_-john_nb.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/ncl_jewel_aerial_snt_-john_nb.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/ncl_joy_aerial_alaska_alt.jpeg",
+      "relativePath": "2025/10/ncl_joy_aerial_alaska_alt.jpeg",
+      "wpPath": "/wp-content/uploads/2025/10/ncl_joy_aerial_alaska_alt.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/ncl_joy_aerial_alaska_alt.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/norwegian_bliss.jpeg",
+      "relativePath": "2025/10/norwegian_bliss.jpeg",
+      "wpPath": "/wp-content/uploads/2025/10/norwegian_bliss.jpeg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/norwegian_bliss.jpeg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/santorini-sunset-with-windmill.jpg",
+      "relativePath": "2025/10/santorini-sunset-with-windmill.jpg",
+      "wpPath": "/wp-content/uploads/2025/10/santorini-sunset-with-windmill.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/santorini-sunset-with-windmill.jpg"
+    },
+    {
+      "localPath": "wp-components/media/2025/10/singapore-cruises-norwegian.jpg",
+      "relativePath": "2025/10/singapore-cruises-norwegian.jpg",
+      "wpPath": "/wp-content/uploads/2025/10/singapore-cruises-norwegian.jpg",
+      "cdnUrl": "https://cdn.cruisemadeeasy.com/2025/10/singapore-cruises-norwegian.jpg"
+    }
+  ]
+}

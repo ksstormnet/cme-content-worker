@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import './PostPage.css';
 
 interface Post {
   id: number;
@@ -199,17 +197,6 @@ const PostPage: React.FC = () => {
 
   // Page title and meta are now handled by Helmet in JSX
 
-  // Calculate display values that depend on post
-  const categoryDisplayName = post ? post.category
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ') : '';
-
-  const publishedDate = post ? new Date(post.published_date || post.created_at).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }) : '';
 
   if (loading) {
     return (
@@ -231,67 +218,45 @@ const PostPage: React.FC = () => {
   }
 
   return (
-    <div className="post-page-content">
-        {/* Category Navigation */}
-        {post && (
-          <nav className="breadcrumb">
-            <a href="/" className="breadcrumb-link">Home</a>
-            <span className="breadcrumb-separator">/</span>
-            <a href={`/category/${post.category}`} className="breadcrumb-link">
-              {categoryDisplayName}
-            </a>
-            <span className="breadcrumb-separator">/</span>
-            <span className="breadcrumb-current">{post.title}</span>
-          </nav>
-        )}
-
-        {/* Article Header */}
-        {post && (
-          <header className="post-header">
-            <h1 className="post-title">{post.title}</h1>
-            <div className="post-meta">
-              <span className="post-date">{publishedDate}</span>
-              <span className="post-author">By {post.author_name}</span>
-              <span className="post-category">
-                <a href={`/category/${post.category}`} className="category-link">
-                  {categoryDisplayName}
-                </a>
-              </span>
-            </div>
-          </header>
-        )}
-
-        {/* Featured Image */}
-        {post && post.featured_image_url && (
-          <div className="post-featured-image">
-            <img 
-              src={post.featured_image_url} 
-              alt={post.title}
-              loading="lazy"
-              className="featured-image"
-            />
-          </div>
-        )}
-
-        {/* Post Content */}
-        <main className="post-content">
-          {contentHtml && (
-            <div 
-              className="content-blocks"
-              dangerouslySetInnerHTML={{ __html: contentHtml }}
-            />
-          )}
-        </main>
-
-        {/* Development Debug Panel */}
-        {process.env.NODE_ENV === 'development' && post && (
-          <details className="debug-panel">
-            <summary>Debug: Raw Post Data</summary>
-            <div className="debug-content">
-              <pre>{JSON.stringify(post, null, 2)}</pre>
-            </div>
-          </details>
-        )}
+    <div style={{
+      fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+      fontSize: '14px',
+      lineHeight: '1.4',
+      padding: '20px',
+      backgroundColor: '#f8f9fa',
+      minHeight: '100vh'
+    }}>
+      <div style={{
+        backgroundColor: '#ffffff',
+        border: '1px solid #dee2e6',
+        borderRadius: '8px',
+        padding: '20px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <h1 style={{
+          fontSize: '18px',
+          marginBottom: '20px',
+          color: '#495057',
+          borderBottom: '2px solid #007bff',
+          paddingBottom: '10px'
+        }}>
+          Raw Post Data - {post.title}
+        </h1>
+        
+        <div style={{
+          backgroundColor: '#f8f9fa',
+          border: '1px solid #e9ecef',
+          borderRadius: '4px',
+          padding: '15px',
+          overflow: 'auto',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word'
+        }}>
+          {JSON.stringify(post, null, 2)}
+        </div>
+      </div>
     </div>
   );
 };
