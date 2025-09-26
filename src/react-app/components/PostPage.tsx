@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import './PostPage.css';
 
 interface Post {
   id: number;
@@ -24,20 +26,37 @@ interface ContentBlock {
   block_order: number;
 }
 
+// Core CSS files to load from R2 CDN
+const CORE_CSS_FILES = [
+  'wp-block-library.min.css',      // WordPress base styles
+  'generatepress-main.min.css',    // Theme framework
+  'generateblocks-complete.min.css', // Layout system
+  'font-awesome.min.css',          // Icons
+  'google-fonts-montserrat.css'    // Typography
+];
+
+// Utility function for loading R2 CSS assets
+const loadR2CSS = (cssFiles: string[]) => {
+  return cssFiles.map(filename => (
+    <link 
+      key={filename}
+      rel="stylesheet" 
+      href={`/api/css/css/${filename}`}
+    />
+  ));
+};
+
 const PostPage: React.FC = () => {
   const { category, slug } = useParams<{ category: string; slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [contentHtml, setContentHtml] = useState<string>('');
-  const [cssUrls, setCssUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (category && slug) {
-      Promise.all([
-        fetchPostData(category, slug),
-        fetchCSSUrls()
-      ]).finally(() => setLoading(false));
+      fetchPostData(category, slug)
+        .finally(() => setLoading(false));
     }
   }, [category, slug]);
 
@@ -98,42 +117,6 @@ const PostPage: React.FC = () => {
     }
   };
 
-  const fetchCSSUrls = async () => {
-    try {
-      const response = await fetch('/api/css/post');
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      
-      const data = await response.json();
-      if (data.success) {
-        const urls = data.css_files
-          .map((file: any) => file.cdn_url || file.source_url)
-          .filter(Boolean);
-        setCssUrls(urls);
-        
-        // Inject CSS into document head
-        urls.forEach((url: string) => {
-          if (!document.querySelector(`link[href="${url}"]`)) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = url;
-            document.head.appendChild(link);
-          }
-        });
-        
-        // Add GenerateBlocks CSS with cache busting
-        const timestamp = Date.now();
-        const generateBlocksCSS = `https://cdn.cruisemadeeasy.com/css/generateblocks-complete.min.css?v=${timestamp}`;
-        if (!document.querySelector(`link[href*="generateblocks-complete.min.css"]`)) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = generateBlocksCSS;
-          document.head.appendChild(link);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching CSS URLs:', error);
-    }
-  };
 
   // Fallback content block renderer for client-side rendering
   const renderContentBlocksFallback = (blocks: ContentBlock[]): string => {
@@ -214,23 +197,7 @@ const PostPage: React.FC = () => {
     return icons[type] || icons.tip;
   };
 
-  // Update page title and meta description - MOVED BEFORE CONDITIONAL RETURNS
-  useEffect(() => {
-    if (post) {
-      document.title = `${post.title} | Cruise Made Easy`;
-      
-      // Update meta description
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('content', post.meta_description || post.excerpt || '');
-      } else {
-        const meta = document.createElement('meta');
-        meta.name = 'description';
-        meta.content = post.meta_description || post.excerpt || '';
-        document.head.appendChild(meta);
-      }
-    }
-  }, [post]);
+  // Page title and meta are now handled by Helmet in JSX
 
   // Calculate display values that depend on post
   const categoryDisplayName = post ? post.category
@@ -264,45 +231,67 @@ const PostPage: React.FC = () => {
   }
 
   return (
-    <div style={{
-      fontFamily: 'Monaco, Consolas, "Courier New", monospace',
-      fontSize: '14px',
-      lineHeight: '1.4',
-      padding: '20px',
-      backgroundColor: '#f8f9fa',
-      minHeight: '100vh'
-    }}>
-      <div style={{
-        backgroundColor: '#ffffff',
-        border: '1px solid #dee2e6',
-        borderRadius: '8px',
-        padding: '20px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-      }}>
-        <h1 style={{
-          fontSize: '18px',
-          marginBottom: '20px',
-          color: '#495057',
-          borderBottom: '2px solid #007bff',
-          paddingBottom: '10px'
-        }}>
-          Raw Post Data - {post.title}
-        </h1>
-        
-        <div style={{
-          backgroundColor: '#f8f9fa',
-          border: '1px solid #e9ecef',
-          borderRadius: '4px',
-          padding: '15px',
-          overflow: 'auto',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-word'
-        }}>
-          {JSON.stringify(post, null, 2)}
-        </div>
-      </div>
+    <div className="post-page-content">
+        {/* Category Navigation */}
+        {post && (
+          <nav className="breadcrumb">
+            <a href="/" className="breadcrumb-link">Home</a>
+            <span className="breadcrumb-separator">/</span>
+            <a href={`/category/${post.category}`} className="breadcrumb-link">
+              {categoryDisplayName}
+            </a>
+            <span className="breadcrumb-separator">/</span>
+            <span className="breadcrumb-current">{post.title}</span>
+          </nav>
+        )}
+
+        {/* Article Header */}
+        {post && (
+          <header className="post-header">
+            <h1 className="post-title">{post.title}</h1>
+            <div className="post-meta">
+              <span className="post-date">{publishedDate}</span>
+              <span className="post-author">By {post.author_name}</span>
+              <span className="post-category">
+                <a href={`/category/${post.category}`} className="category-link">
+                  {categoryDisplayName}
+                </a>
+              </span>
+            </div>
+          </header>
+        )}
+
+        {/* Featured Image */}
+        {post && post.featured_image_url && (
+          <div className="post-featured-image">
+            <img 
+              src={post.featured_image_url} 
+              alt={post.title}
+              loading="lazy"
+              className="featured-image"
+            />
+          </div>
+        )}
+
+        {/* Post Content */}
+        <main className="post-content">
+          {contentHtml && (
+            <div 
+              className="content-blocks"
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
+            />
+          )}
+        </main>
+
+        {/* Development Debug Panel */}
+        {process.env.NODE_ENV === 'development' && post && (
+          <details className="debug-panel">
+            <summary>Debug: Raw Post Data</summary>
+            <div className="debug-content">
+              <pre>{JSON.stringify(post, null, 2)}</pre>
+            </div>
+          </details>
+        )}
     </div>
   );
 };
