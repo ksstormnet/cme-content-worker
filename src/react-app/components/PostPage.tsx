@@ -52,6 +52,18 @@ const PostPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Load CSS files from R2 CDN
+    CORE_CSS_FILES.forEach(filename => {
+      const linkId = `css-${filename}`;
+      if (!document.getElementById(linkId)) {
+        const link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href = `/api/css/css/${filename}`;
+        document.head.appendChild(link);
+      }
+    });
+
     if (category && slug) {
       fetchPostData(category, slug)
         .finally(() => setLoading(false));
