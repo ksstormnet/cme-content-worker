@@ -37,7 +37,7 @@ export function StickyHeader({}: StickyHeaderProps) {
         Skip to content
       </a>
       
-      {/* Desktop Header */}
+      {/* Desktop Header - Using exact GenerateBlocks structure */}
       <div className="gb-element-6d98b3bd hide-on-mobile">
         <div className="gb-element-a31c4cb5">
           <div className="gb-element-0db34a8b">
@@ -45,7 +45,7 @@ export function StickyHeader({}: StickyHeaderProps) {
               <figure className="wp-block-image size-full">
                 <a href="https://cruisemadeeasy.com/">
                   <img 
-                    alt="Cruise Made Easy Logo" 
+                    alt="" 
                     decoding="async" 
                     width="132" 
                     height="54" 
@@ -63,7 +63,7 @@ export function StickyHeader({}: StickyHeaderProps) {
               </a>
 
               <a className="gb-text gb-text-c882862d" href="https://cruisemadeeasy.com/cruise-planning-services/" onClick={(e) => { e.preventDefault(); handlePlanCruise(); }}>
-                <strong>🧳 <strong>Plan My Cruise</strong></strong>
+                <strong>🧳 <strong>PLan My Cruise</strong></strong>
               </a>
 
               <a className="gb-text gb-text-8e5e6e91" href="/cruise-planning/" onClick={(e) => { e.preventDefault(); handleTipsGuides(); }}>
@@ -76,7 +76,7 @@ export function StickyHeader({}: StickyHeaderProps) {
 
               <p className="gb-text-bd574af4">
                 <span className="gb-shape">
-                  <svg viewBox="0 0 16 16" className="bi bi-phone" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">   
+                  <svg viewBox="0 0 16 16" className="bi bi-phone" fill="currentColor" height="16" width="16" xmlns="https://www.w3.org/2000/svg">   
                     <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z" />   
                     <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                   </svg>
@@ -99,29 +99,6 @@ export function StickyHeader({}: StickyHeaderProps) {
             <div className="menu-bar-items">
               <style>
                 {`
-                  /* Header z-index and sticky positioning */
-                  .header-wrap {
-                    position: sticky;
-                    top: 0;
-                    z-index: 9999;
-                  }
-
-                  /* Mobile menu positioning */
-                  .mobile-menu-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 10000;
-                    display: none;
-                  }
-
-                  .mobile-menu-overlay.open {
-                    display: block;
-                  }
-
                   @media (max-width: 768px) {
                     .top-bar {
                       display: none !important;
@@ -174,22 +151,6 @@ export function StickyHeader({}: StickyHeaderProps) {
                     display: flex;
                     align-items: center;
                     margin-left: auto;
-                  }
-
-                  /* Logo responsive sizing */
-                  .header-logo img,
-                  .mobile-header-logo img,
-                  .wp-image-5901 {
-                    max-height: 60px;
-                    width: auto;
-                  }
-
-                  @media (max-width: 768px) {
-                    .header-logo img,
-                    .mobile-header-logo img,
-                    .wp-image-5901 {
-                      max-height: 45px;
-                    }
                   }
                 `}
               </style>
