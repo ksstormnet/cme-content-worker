@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { StickyHeader } from './StickyHeader';
 
 interface Post {
   id: number;
@@ -230,46 +231,57 @@ const PostPage: React.FC = () => {
   }
 
   return (
-    <div style={{
-      fontFamily: 'Monaco, Consolas, "Courier New", monospace',
-      fontSize: '14px',
-      lineHeight: '1.4',
-      padding: '20px',
-      backgroundColor: '#f8f9fa',
-      minHeight: '100vh'
-    }}>
-      <div style={{
-        backgroundColor: '#ffffff',
-        border: '1px solid #dee2e6',
-        borderRadius: '8px',
-        padding: '20px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-      }}>
-        <h1 style={{
-          fontSize: '18px',
-          marginBottom: '20px',
-          color: '#495057',
-          borderBottom: '2px solid #007bff',
-          paddingBottom: '10px'
-        }}>
-          Raw Post Data - {post.title}
-        </h1>
-        
+    <>
+      {/* Load R2 CSS files */}
+      {loadR2CSS(CORE_CSS_FILES)}
+      
+      {/* Sticky Header Component */}
+      <StickyHeader />
+      
+      {/* Main Page Content */}
+      <main className="page-content">
         <div style={{
+          fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+          fontSize: '14px',
+          lineHeight: '1.4',
+          padding: '20px',
           backgroundColor: '#f8f9fa',
-          border: '1px solid #e9ecef',
-          borderRadius: '4px',
-          padding: '15px',
-          overflow: 'auto',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-word'
+          minHeight: '100vh'
         }}>
-          {JSON.stringify(post, null, 2)}
+          <div style={{
+            backgroundColor: '#ffffff',
+            border: '1px solid #dee2e6',
+            borderRadius: '8px',
+            padding: '20px',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}>
+            <h1 style={{
+              fontSize: '18px',
+              marginBottom: '20px',
+              color: '#495057',
+              borderBottom: '2px solid #007bff',
+              paddingBottom: '10px'
+            }}>
+              Raw Post Data - {post.title}
+            </h1>
+            
+            <div style={{
+              backgroundColor: '#f8f9fa',
+              border: '1px solid #e9ecef',
+              borderRadius: '4px',
+              padding: '15px',
+              overflow: 'auto',
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word'
+            }}>
+              {JSON.stringify(post, null, 2)}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 
