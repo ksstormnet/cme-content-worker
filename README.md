@@ -1,86 +1,38 @@
-# React + Vite + Hono + Cloudflare Workers
+# CME Content Worker - Hybrid Blog Architecture
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/vite-react-template)
+**CRITICAL**: This project is currently under architectural transformation. Do NOT implement features until the new hybrid architecture is complete.
 
-This template provides a minimal setup for building a React application with TypeScript and Vite, designed to run on Cloudflare Workers. It features hot module replacement, ESLint integration, and the flexibility of Workers deployments.
+## Current Status: Architecture Transformation In Progress
 
-![React + TypeScript + Vite + Cloudflare Workers](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/fc7b4b62-442b-4769-641b-ad4422d74300/public)
+The project is being transformed from a pure React application to a hybrid architecture:
+- **Admin Interface**: Pure React application (existing functionality preserved)
+- **Public Blog**: Server-side rendered templates with React components for dynamic content
 
-<!-- dash-content-start -->
+For implementation details, see the task-specific implementation documents in this directory.
 
-🚀 Supercharge your web development with this powerful stack:
+## Architecture Overview
 
-- [**React**](https://react.dev/) - A modern UI library for building interactive interfaces
-- [**Vite**](https://vite.dev/) - Lightning-fast build tooling and development server
-- [**Hono**](https://hono.dev/) - Ultralight, modern backend framework
-- [**Cloudflare Workers**](https://developers.cloudflare.com/workers/) - Edge computing platform for global deployment
+### Technology Stack
+- **Backend**: Cloudflare Workers + Hono.js + TypeScript
+- **Frontend**: React 19.0.0 + TypeScript + Vite 6.0.0
+- **Database**: Cloudflare D1 SQLite
+- **Storage**: Cloudflare R2 object storage
+- **Templates**: Static HTML with parameter replacement
+- **Content**: React server-side rendering for complex blocks
 
-### ✨ Key Features
+### Dual Application Structure
+1. **Pure React Admin** (`/admin/*` routes) - Content management interface
+2. **Hybrid Public Blog** (all other routes) - Server-rendered templates + React components
 
-- 🔥 Hot Module Replacement (HMR) for rapid development
-- 📦 TypeScript support out of the box
-- 🛠️ ESLint configuration included
-- ⚡ Zero-config deployment to Cloudflare's global network
-- 🎯 API routes with Hono's elegant routing
-- 🔄 Full-stack development setup
-- 🔎 Built-in Observability to monitor your Worker
+## Development Setup
 
-Get started in minutes with local development or deploy directly via the Cloudflare dashboard. Perfect for building modern, performant web applications at the edge.
+See `setup.md` for detailed setup instructions.
 
-<!-- dash-content-end -->
+**IMPORTANT**: During the transformation, use the background session development pattern specified in `CLAUDE.md`.
 
-## Getting Started
+## Architecture Transformation Status
 
-To start a new project with this template, run:
-
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/vite-react-template
-```
-
-A live deployment of this template is available at:
-[https://react-vite-template.templates.workers.dev](https://react-vite-template.templates.workers.dev)
-
-## Development
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server with:
-
-```bash
-npm run dev
-```
-
-Your application will be available at [http://localhost:5173](http://localhost:5173).
-
-## Production
-
-Build your project for production:
-
-```bash
-npm run build
-```
-
-Preview your build locally:
-
-```bash
-npm run preview
-```
-
-Deploy your project to Cloudflare Workers:
-
-```bash
-npm run build && npm run deploy
-```
-
-Monitor your workers:
-
-```bash
-npx wrangler tail
-```
+**⚠️ TRANSFORMATION IN PROGRESS**: Do not modify the existing codebase until implementation documents are complete and approved.
 
 ## Additional Resources
 

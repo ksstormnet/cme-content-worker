@@ -1,7 +1,11 @@
 # AI Model Selection Implementation
 
+**📋 OUT OF SCOPE**: This document describes current admin features that remain functional but are not part of the hybrid architecture transformation project.
+
 ## Overview
 Enhanced the AI integration system to allow admin users to select specific models for ChatGPT and Claude tasks, with cost-optimized defaults.
+
+**Note**: These model selection features remain fully functional in the admin interface and are not affected by the hybrid architecture transformation.
 
 ## Model Selection Options
 

@@ -1,11 +1,15 @@
 # API Integration Implementation Summary
 
+**📋 OUT OF SCOPE**: This document describes current admin features that are preserved but not part of the hybrid architecture transformation project.
+
 ## Overview
 Implemented a task-based AI model system with three specialized integrations for the CME Content Worker:
 
 1. **ChatGPT (GPT-4o-mini)** - Content planning and strategy
 2. **Claude (Claude-3.5-Sonnet)** - Content writing and generation  
 3. **DataForSEO** - SEO analysis and optimization
+
+**Note**: These AI integrations remain fully functional in the admin interface and are not affected by the hybrid architecture transformation.
 
 ## Key Changes Made
 

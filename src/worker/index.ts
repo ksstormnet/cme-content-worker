@@ -13,14 +13,9 @@ import { calendarRoutes } from "./routes/calendar";
 import { contentAdvancedRoutes } from "./routes/content-advanced";
 import { importRoutes } from "./routes/import";
 import { media } from "./routes/media";
-import { cssSyncRoutes } from "./routes/css-sync";
 import { templateRoutes } from "./routes/template";
 import { publicApiRoutes } from "./routes/public-api";
-import wordpressCssRoutes from "./routes/wordpress-css";
-import { htmlTemplateGenerator } from "../utils/html-template";
 import { renderContentBlocks } from "../utils/block-renderer";
-import { getCSSMapping } from "../utils/css-resolver";
-import { realStaticTemplate } from "../utils/static-template-real";
 
 // URL pattern for blog posts (should match settings)
 const BLOG_URL_PATTERN = "/%category%/";
@@ -36,9 +31,6 @@ app.use("*", cors({
   credentials: true,
 }));
 
-// CSS Sync Routes - MUST come before public API routes to avoid /css/:layout conflict
-app.route("/api/css", cssSyncRoutes);
-
 // Public API Routes (no auth required)
 app.route("/api", publicApiRoutes);
 
@@ -51,7 +43,6 @@ app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
 app.route("/api/template", templateRoutes);
-app.route("/api/wordpress-css", wordpressCssRoutes);
 
 
 // Health check - MUST come before serveStatic
@@ -74,199 +65,10 @@ app.post("/api/test", async (c) => {
   }
 });
 
-// Test route: Bare RealStaticTemplate with no content
-app.get("/test-bare-template", async (c) => {
-  try {
-    // Render template with empty data
-    const html = realStaticTemplate.renderPage(
-      [], // No posts
-      [], // No CSS URLs
-      [], // No categories
-      "Test Bare Template - No Content",
-      undefined // No current category
-    );
-    
-    console.log('Bare template HTML length:', html.length);
-    
-    // Add cache-busting headers
-    c.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    c.header('Pragma', 'no-cache');
-    c.header('Expires', '0');
-    
-    return c.html(html);
-    
-  } catch (error) {
-    console.error("Bare template test error:", error);
-    return c.html(`
-      <h1>Bare Template Test Error</h1>
-      <p>Error: ${error instanceof Error ? error.message : 'Unknown error'}</p>
-    `, 500);
-  }
-});
-// Homepage route - serve real static template (production only)
-app.get("/", async (c) => {
-  // In development, let Vite handle this route
-  if (c.env.ENVIRONMENT === "development") {
-    return c.redirect("http://localhost:5174/");
-  }
+// TODO: These routes will be replaced with new template system
+// Temporarily disabled during template system migration
 
-  try {
-    // Fetch published posts for homepage
-    const posts = await c.env.DB.prepare(`
-      SELECT p.id, p.title, p.slug, p.excerpt, c.slug as category, p.featured_image_url,
-             p.published_date, p.meta_description, u.name as author_name
-      FROM posts p
-      LEFT JOIN users u ON p.author_id = u.id
-      LEFT JOIN categories c ON p.category_id = c.id
-      WHERE p.status = 'published'
-      ORDER BY p.published_date DESC
-      LIMIT 20
-    `).all();
-
-    console.log('Homepage posts query result:', posts);
-    console.log('Posts results array length:', (posts.results || []).length);
-
-    // Get categories with post counts for pills
-    const categoriesWithCounts = await c.env.DB.prepare(`
-      SELECT c.slug, c.name, COUNT(p.id) as post_count
-      FROM categories c
-      LEFT JOIN posts p ON c.id = p.category_id AND p.status = 'published'
-      GROUP BY c.id, c.slug, c.name
-      HAVING COUNT(p.id) > 0
-      ORDER BY c.name
-    `).all();
-
-    console.log('Categories with post counts:', categoriesWithCounts.results?.length || 0);
-
-    // Get CSS URLs from the CSS sync system with sticky-header component
-    const components = ['sticky-header'];
-    const cssMapping = await getCSSMapping('homepage', c.env, components);
-    
-    // Separate global and component CSS
-    const globalCssUrls = cssMapping.css_files
-      .map(file => file.cdn_url || file.source_url)
-      .filter(Boolean) as string[];
-    
-    const componentCssUrls = cssMapping.component_css
-      .map(file => file.cdn_url || file.source_url)
-      .filter(Boolean) as string[];
-    
-    console.log('Global CSS URLs for homepage:', globalCssUrls.length);
-    console.log('Component CSS URLs for homepage:', componentCssUrls.length);
-
-    // Render complete page with component-specific CSS loading
-    const html = realStaticTemplate.renderPageWithComponents(
-      posts.results || [], 
-      globalCssUrls,
-      componentCssUrls,
-      categoriesWithCounts.results || [],
-      "Cruise Smarter with Norwegian: Tips, Tricks &#038; Planning Guides",
-      undefined  // No active category for homepage
-    );
-    console.log('Homepage HTML length:', html.length);
-
-    // Add cache-busting headers
-    c.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    c.header('Pragma', 'no-cache');
-    c.header('Expires', '0');
-
-    return c.html(html);
-
-  } catch (error) {
-    console.error("Homepage error:", error);
-    return c.html(`
-      <h1>Homepage Error</h1>
-      <p>Error: ${error instanceof Error ? error.message : 'Unknown error'}</p>
-    `, 500);
-  }
-});
-
-// Category route - serve posts for specific category (production only)
-app.get("/category/:categorySlug/", async (c) => {
-  // In development, let Vite handle this route
-  if (c.env.ENVIRONMENT === "development") {
-    return c.redirect("http://localhost:5174/");
-  }
-
-  try {
-    const categorySlug = c.req.param("categorySlug");
-    
-    // Get category info
-    const category = await c.env.DB.prepare(`
-      SELECT id, name, slug FROM categories WHERE slug = ?
-    `).bind(categorySlug).first() as { id: number; name: string; slug: string } | null;
-
-    if (!category) {
-      return c.html(`<h1>Category Not Found</h1><p>The category "${categorySlug}" does not exist.</p>`, 404);
-    }
-
-    // Fetch published posts for this category
-    const posts = await c.env.DB.prepare(`
-      SELECT p.id, p.title, p.slug, p.excerpt, c.slug as category, p.featured_image_url,
-             p.published_date, p.meta_description, u.name as author_name
-      FROM posts p
-      LEFT JOIN users u ON p.author_id = u.id
-      LEFT JOIN categories c ON p.category_id = c.id
-      WHERE p.status = 'published' AND c.slug = ?
-      ORDER BY p.published_date DESC
-      LIMIT 20
-    `).bind(categorySlug).all();
-
-    console.log(`Category ${categorySlug} posts:`, (posts.results || []).length);
-
-    // Get categories with post counts for pills
-    const categoriesWithCounts = await c.env.DB.prepare(`
-      SELECT c.slug, c.name, COUNT(p.id) as post_count
-      FROM categories c
-      LEFT JOIN posts p ON c.id = p.category_id AND p.status = 'published'
-      GROUP BY c.id, c.slug, c.name
-      HAVING COUNT(p.id) > 0
-      ORDER BY c.name
-    `).all();
-
-    // Get CSS URLs from the CSS sync system with sticky-header component
-    const components = ['sticky-header'];
-    const cssMapping = await getCSSMapping('category', c.env, components);
-    
-    // Separate global and component CSS
-    const globalCssUrls = cssMapping.css_files
-      .map(file => file.cdn_url || file.source_url)
-      .filter(Boolean) as string[];
-    
-    const componentCssUrls = cssMapping.component_css
-      .map(file => file.cdn_url || file.source_url)
-      .filter(Boolean) as string[];
-    
-    // Generate hero text with category name
-    const categoryDisplayName = category.name.toUpperCase();
-    const heroText = `CRUISE MADE EASY: ${categoryDisplayName}`;
-
-    // Render complete page with component-specific CSS loading
-    const html = realStaticTemplate.renderPageWithComponents(
-      posts.results || [], 
-      globalCssUrls,
-      componentCssUrls,
-      categoriesWithCounts.results || [],
-      heroText,
-      categorySlug  // Pass current category slug for active styling
-    );
-    console.log(`Category ${categorySlug} HTML length:`, html.length);
-
-    // Add cache-busting headers
-    c.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    c.header('Pragma', 'no-cache');
-    c.header('Expires', '0');
-
-    return c.html(html);
-
-  } catch (error) {
-    console.error("Category error:", error);
-    return c.html(`
-      <h1>Category Error</h1>
-      <p>Error: ${error instanceof Error ? error.message : 'Unknown error'}</p>
-    `, 500);
-  }
-});
+// Category routes will be implemented with new template system
 
 // Development HTML shell template
 const devHtmlShell = `<!doctype html>
@@ -334,191 +136,10 @@ app.get("/admin/*", (c) => {
   }
 });
 
-// Category/post routing - handle URLs like /cruise-tips/post-slug (production only)
-app.get("/:category/:slug", async (c) => {
-  // In development, let Vite handle this route
-  if (c.env.ENVIRONMENT === "development") {
-    return c.redirect("http://localhost:5174/");
-  }
+// Post routes will be implemented with new template system
 
-  try {
-    const category = c.req.param("category");
-    const slug = c.req.param("slug");
-    
-    // Find post by category and slug
-    const post = await c.env.DB.prepare(`
-      SELECT p.*, u.name as author_name, c.slug as category
-      FROM posts p
-      LEFT JOIN users u ON p.author_id = u.id
-      LEFT JOIN categories c ON p.category_id = c.id
-      WHERE c.slug = ? AND p.slug = ? AND p.status = 'published'
-      LIMIT 1
-    `).bind(category, slug).first();
-    
-    if (!post) {
-      // Return 404 HTML page
-      const notFoundHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Post Not Found - Cruise Made Easy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <h1>Post Not Found</h1>
-  <p>The cruise guide you're looking for could not be found.</p>
-  <a href="/">← Back to Homepage</a>
-</body>
-</html>`;
-      return c.html(notFoundHtml, 404);
-    }
-    
-    // Get content blocks
-    const blocks = await c.env.DB.prepare(
-      "SELECT * FROM content_blocks WHERE post_id = ? ORDER BY block_order"
-    ).bind(post.id).all();
+// Category archive routes will be implemented with new template system
 
-    // Render content blocks to HTML
-    const contentHtml = renderContentBlocks(blocks.results || []);
-    
-    // Get CSS URL for post layout
-    const cssUrl = await getCSSForLayout('post', c.env);
-
-    // Generate complete HTML document
-    const html = htmlTemplateGenerator.generatePostPage(
-      post,
-      blocks.results || [],
-      cssUrl,
-      {
-        content_html: `<article class="post-content" itemscope itemtype="http://schema.org/BlogPosting">
-          <header class="post-header">
-            <nav aria-label="Breadcrumb">
-              <ol class="breadcrumb">
-                <li><a href="/">Home</a></li>
-                <li><a href="/${post.category}/">${post.category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</a></li>
-                <li aria-current="page">${post.title}</li>
-              </ol>
-            </nav>
-            <h1 itemprop="headline">${post.title}</h1>
-            <div class="post-meta">
-              <time datetime="${post.published_date || post.created_at}" itemprop="datePublished">
-                ${new Date(post.published_date || post.created_at).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </time>
-              ${post.author_name ? `<span class="post-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                By <span itemprop="name">${post.author_name}</span>
-              </span>` : ''}
-            </div>
-          </header>
-          <main id="main-content" role="main" class="post-body" itemprop="articleBody">
-            ${contentHtml}
-          </main>
-        </article>`
-      }
-    );
-
-    return c.html(html);
-    
-  } catch (error) {
-    console.error("Category post fetch error:", error);
-    return c.json({ 
-      success: false, 
-      error: "Failed to fetch post" 
-    }, 500);
-  }
-});
-
-// Category archive routing - handle URLs like /cruise-tips/ (production only)
-app.get("/:category", async (c) => {
-  // In development, let Vite handle this route
-  if (c.env.ENVIRONMENT === "development") {
-    return c.redirect("http://localhost:5174/");
-  }
-
-  try {
-    const category = c.req.param("category");
-    const page = parseInt(c.req.query("page") || "1");
-    const limit = parseInt(c.req.query("limit") || "10");
-    const offset = (page - 1) * limit;
-    
-    // Get posts in category with required fields for post cards
-    const posts = await c.env.DB.prepare(`
-      SELECT p.id, p.title, p.slug, p.excerpt, c.slug as category, p.featured_image_url,
-             p.published_date, p.meta_description, u.name as author_name
-      FROM posts p
-      LEFT JOIN users u ON p.author_id = u.id
-      LEFT JOIN categories c ON p.category_id = c.id
-      WHERE c.slug = ? AND p.status = 'published'
-      ORDER BY p.published_date DESC
-      LIMIT ? OFFSET ?
-    `).bind(category, limit, offset).all();
-    
-    // If no posts found, show category not found page
-    if (!posts.results || posts.results.length === 0) {
-      const notFoundHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Category Not Found - Cruise Made Easy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <h1>Category Not Found</h1>
-  <p>The cruise category you're looking for could not be found or has no published posts.</p>
-  <a href="/">← Back to Homepage</a>
-</body>
-</html>`;
-      return c.html(notFoundHtml, 404);
-    }
-    
-    // Get CSS URL for category layout (uses same CSS as homepage)
-    const cssUrl = await getCSSForLayout('category', c.env);
-
-    // Generate complete HTML document
-    const html = htmlTemplateGenerator.generateCategoryPage(
-      category,
-      posts.results || [],
-      cssUrl,
-      {
-        og_image: posts.results?.[0]?.featured_image_url
-      }
-    );
-
-    return c.html(html);
-    
-  } catch (error) {
-    console.error("Category archive fetch error:", error);
-    return c.json({ 
-      success: false, 
-      error: "Failed to fetch category posts" 
-    }, 500);
-  }
-});
-
-// Add cron handler for CSS sync
 export default {
-  fetch: app.fetch,
-  scheduled: async (event, env, ctx) => {
-    // Handle CSS sync cron job
-    console.log('Scheduled CSS sync triggered at:', new Date().toISOString());
-    
-    const url = `https://${env.WORKER_URL || 'cme-content-worker.ksstorm.workers.dev'}/api/css/cron`;
-    
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'cf-cron': '1' // Indicate this is a cron request
-        }
-      });
-      
-      console.log('CSS sync cron response:', response.status);
-      
-    } catch (error) {
-      console.error('CSS sync cron error:', error);
-    }
-  }
+  fetch: app.fetch
 };
