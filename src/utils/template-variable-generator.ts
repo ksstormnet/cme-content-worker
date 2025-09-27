@@ -1,5 +1,6 @@
 import { TemplateVariables, PostData } from '../types/template-variables'
 import { Env } from '../types/database'
+import { COMPILED_TEMPLATES } from './compiled-templates'
 
 // Generate all template variables for a post
 export async function generatePostVariables(
@@ -296,19 +297,63 @@ function renderBlogCTA(): string {
 // Render post navigation
 async function renderPostNavigation(post: PostData, env: Env): Promise<string> {
   try {
-    // Get previous/next posts in same category
-    const navPosts = await env.DB.prepare(`
-      SELECT title, slug, category FROM posts 
-      WHERE category = ? AND status = 'published' AND id != ?
-      ORDER BY published_date DESC LIMIT 2
-    `).bind(post.category, post.id).all()
+    // Get previous post (older)
+    const prevPostResult = await env.DB.prepare(`
+      SELECT title, slug, category, featured_image_id FROM posts 
+      WHERE category = ? AND status = 'published' 
+      AND published_date < ? 
+      ORDER BY published_date DESC LIMIT 1
+    `).bind(post.category, post.published_date).first()
     
-    if (!navPosts.results || navPosts.results.length === 0) {
+    // Get next post (newer)
+    const nextPostResult = await env.DB.prepare(`
+      SELECT title, slug, category, featured_image_id FROM posts 
+      WHERE category = ? AND status = 'published' 
+      AND published_date > ? 
+      ORDER BY published_date ASC LIMIT 1
+    `).bind(post.category, post.published_date).first()
+    
+    // If no navigation posts, return empty
+    if (!prevPostResult && !nextPostResult) {
       return ''
     }
     
-    // For now, return empty - post navigation will be enhanced in Context Window 5
-    return ''
+    // Generate navigation variables
+    const navVariables: Record<string, any> = {}
+    
+    if (prevPostResult) {
+      const prevImageVariants = prevPostResult.featured_image_id 
+        ? await getImageVariants(String(prevPostResult.featured_image_id), env)
+        : null
+        
+      navVariables.HAS_PREV_POST = true
+      navVariables.PREV_POST_URL = `/${prevPostResult.category}/${prevPostResult.slug}/`
+      navVariables.PREV_POST_TITLE = prevPostResult.title
+      navVariables.PREV_POST_IMAGE_URL = prevImageVariants?.thumbnail || 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp'
+      navVariables.PREV_POST_ALT = `${prevPostResult.title} - Cruise Made Easy`
+      navVariables.PREV_POST_DOMINANT_COLOR = prevImageVariants?.dominant_color || '#1e3a8a'
+    } else {
+      navVariables.HAS_PREV_POST = false
+    }
+    
+    if (nextPostResult) {
+      const nextImageVariants = nextPostResult.featured_image_id 
+        ? await getImageVariants(String(nextPostResult.featured_image_id), env)
+        : null
+        
+      navVariables.HAS_NEXT_POST = true
+      navVariables.NEXT_POST_URL = `/${nextPostResult.category}/${nextPostResult.slug}/`
+      navVariables.NEXT_POST_TITLE = nextPostResult.title
+      navVariables.NEXT_POST_IMAGE_URL = nextImageVariants?.thumbnail || 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp'
+      navVariables.NEXT_POST_ALT = `${nextPostResult.title} - Cruise Made Easy`
+      navVariables.NEXT_POST_DOMINANT_COLOR = nextImageVariants?.dominant_color || '#1e3a8a'
+    } else {
+      navVariables.HAS_NEXT_POST = false
+    }
+    
+    // Load and render post navigation template
+    const template = await loadTemplate('POST_NAVIGATION')
+    return renderTemplateString(template, navVariables)
     
   } catch (error) {
     console.error('Error rendering post navigation:', error)
@@ -407,6 +452,44 @@ function generateBreadcrumbsJSON(post: PostData, categoryDisplayName: string, ba
   }
   
   return JSON.stringify(breadcrumbs)
+}
+
+// Template loading helper
+async function loadTemplate(templateName: string): Promise<string> {
+  const template = COMPILED_TEMPLATES[templateName as keyof typeof COMPILED_TEMPLATES]
+  
+  if (!template) {
+    console.error(`Template not found: ${templateName}. Available templates:`, Object.keys(COMPILED_TEMPLATES))
+    return `<!-- Template ${templateName} not found -->`
+  }
+  
+  return template
+}
+
+// Simple template variable substitution with conditional support
+function renderTemplateString(template: string, variables: Record<string, any>): string {
+  // First handle conditional blocks {{#CONDITION}}...{{/CONDITION}}
+  template = template.replace(/\{\{#(\w+)\}\}([\s\S]*?)\{\{\/\1\}\}/g, (match, condition, content) => {
+    const conditionValue = variables[condition]
+    
+    // Show content if condition is truthy and not empty
+    if (conditionValue && conditionValue !== '' && conditionValue !== '#') {
+      return content
+    }
+    
+    return '' // Hide content if condition is falsy or empty
+  })
+  
+  // Then handle regular variable substitutions
+  return template.replace(/\{\{([\w_]+)\}\}/g, (match, key) => {
+    const value = variables[key]
+    
+    if (value === undefined || value === null || value === '') {
+      return '' // Return empty string for missing/empty variables
+    }
+    
+    return String(value)
+  })
 }
 
 // HTML escape utility
