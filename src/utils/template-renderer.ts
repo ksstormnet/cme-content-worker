@@ -30,7 +30,13 @@ export class TemplateRenderer {
       // Validate required variables
       const validation = this.validateVariables(variables)
       if (!validation.isValid) {
+        console.error('Template validation failed:', validation)
         throw new Error(`Missing required variables: ${validation.missingRequired.join(', ')}`)
+      }
+      
+      // Log SEO quality warnings
+      if (validation.warnings.length > 0) {
+        console.warn('Template validation warnings:', validation.warnings)
       }
       
       // 1. Render SEO metadata with variables

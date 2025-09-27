@@ -15,6 +15,8 @@ import { importRoutes } from "./routes/import";
 import { media } from "./routes/media";
 // Context Window 4: Template rendering system
 import templateRenderRoutes from "./routes/template-render";
+// Context Window 5: SEO validation system
+import seoValidationRoutes from "./routes/seo-validation";
 import { renderContentBlocks } from "../utils/block-renderer";
 
 // URL pattern for blog posts (should match settings)
@@ -42,6 +44,7 @@ app.route("/api/calendar", calendarRoutes);
 app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
+app.route("/api/seo", seoValidationRoutes);
 
 
 // Health check - MUST come before serveStatic
