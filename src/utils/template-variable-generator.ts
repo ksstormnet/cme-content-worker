@@ -1,0 +1,422 @@
+import { TemplateVariables, PostData } from '../types/template-variables'
+import { Env } from '../types/database'
+
+// Generate all template variables for a post
+export async function generatePostVariables(
+  post: PostData,
+  env: Env
+): Promise<TemplateVariables> {
+  
+  // Format dates
+  const publishedDate = post.published_date ? new Date(post.published_date) : new Date()
+  const modifiedDate = post.updated_at ? new Date(post.updated_at) : publishedDate
+  
+  // Generate content from content blocks
+  const postContent = await renderContentBlocks(post.content_blocks || [])
+  
+  // Get featured image variants (if available)
+  const imageVariants = post.featured_image_id 
+    ? await getImageVariants(post.featured_image_id, env)
+    : null
+
+  // Generate category display name
+  const categoryDisplayName = post.category
+    ?.split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ') || 'General'
+
+  // Base URL for the site
+  const baseUrl = 'https://cruisemadeeasy.com'
+  const postUrl = `${baseUrl}/${post.category}/${post.slug}/`
+  
+  // Generate comprehensive template variables
+  const variables: TemplateVariables = {
+    // Required core variables
+    PAGE_TITLE: `${post.title} - Cruise Made Easy`,
+    META_DESCRIPTION: post.meta_description || post.excerpt?.slice(0, 155) || `${post.title} - Expert cruise guidance from Cruise Made Easy`,
+    PAGE_URL: postUrl,
+    CANONICAL_URL: postUrl,
+    
+    // Content areas
+    POST_CONTENT: postContent,
+    HERO_CONTENT: renderHeroSection(post, categoryDisplayName, publishedDate),
+    BLOG_CTA_CONTENT: renderBlogCTA(),
+    POST_NAVIGATION_CONTENT: await renderPostNavigation(post, env),
+    
+    // Open Graph required fields
+    OG_TYPE: 'article',
+    OG_TITLE: post.title,
+    OG_DESCRIPTION: post.meta_description || post.excerpt || `${post.title} - Cruise Made Easy`,
+    
+    // Twitter Card required fields  
+    TWITTER_TITLE: post.title,
+    TWITTER_DESCRIPTION: post.meta_description || post.excerpt || `${post.title} - Cruise Made Easy`,
+    
+    // Featured image handling
+    FEATURED_IMAGE_URL: imageVariants?.original || '',
+    FEATURED_IMAGE_THUMBNAIL: imageVariants?.thumbnail || '',
+    FEATURED_IMAGE_SOCIAL: imageVariants?.social || '',
+    FEATURED_IMAGE_ALT: imageVariants?.alt_text || post.title,
+    FEATURED_IMAGE_WIDTH: imageVariants?.width || '1200',
+    FEATURED_IMAGE_HEIGHT: imageVariants?.height || '630',
+    
+    // Date formatting
+    PUBLISHED_DATE: publishedDate.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }),
+    PUBLISHED_DATE_ISO: publishedDate.toISOString(),
+    MODIFIED_DATE: modifiedDate.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'  
+    }),
+    MODIFIED_DATE_ISO: modifiedDate.toISOString(),
+    
+    // Article-specific variables
+    ARTICLE_CATEGORY: categoryDisplayName,
+    ARTICLE_HEADLINE: post.title,
+    SCHEMA_DESCRIPTION: post.meta_description || post.excerpt || `${post.title} - Cruise Made Easy`,
+    
+    // Twitter-specific
+    TWITTER_IMAGE_URL: imageVariants?.social || imageVariants?.original || '',
+    
+    // Template conditional flags
+    IS_ARTICLE: true,
+    HAS_FEATURED_IMAGE: !!imageVariants?.original,
+    HAS_TWITTER_IMAGE: !!imageVariants?.social || !!imageVariants?.original,
+    
+    // Schema.org JSON-LD
+    SCHEMA_JSON: generateSchemaJSON(post, imageVariants, baseUrl),
+    BREADCRUMBS_JSON: generateBreadcrumbsJSON(post, categoryDisplayName, baseUrl),
+    
+    // Additional template variables for hero section compatibility
+    POST_TITLE: post.title,
+    POST_AUTHOR: post.author_name || 'Cruise Made EASY',
+    POST_CATEGORY: categoryDisplayName,
+    POST_DATE: publishedDate.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    })
+  }
+  
+  return variables
+}
+
+// Generate variables for homepage/category listing
+export async function generateBlogListingVariables(
+  categorySlug?: string,
+  categoryName?: string
+): Promise<TemplateVariables> {
+  const baseUrl = 'https://cruisemadeeasy.com'
+  const isCategory = !!categorySlug
+  
+  const pageTitle = isCategory 
+    ? `${categoryName || categorySlug} - Cruise Made Easy`
+    : 'Cruise Made Easy - Your Norwegian Cruise Line Experts'
+    
+  const pageUrl = isCategory 
+    ? `${baseUrl}/category/${categorySlug}/`
+    : baseUrl
+    
+  const description = isCategory
+    ? `Expert ${categoryName || categorySlug} advice and tips for Norwegian Cruise Line cruises. Plan your perfect cruise with Cruise Made Easy.`
+    : 'Expert Norwegian Cruise Line guidance, tips, and planning services. Your trusted cruise planning experts since 2020.'
+  
+  return {
+    PAGE_TITLE: pageTitle,
+    META_DESCRIPTION: description,
+    PAGE_URL: pageUrl,
+    CANONICAL_URL: pageUrl,
+    
+    POST_CONTENT: '', // Will be populated by React component in production
+    HERO_CONTENT: renderBlogHero(categoryName),
+    BLOG_CTA_CONTENT: renderBlogCTA(),
+    POST_NAVIGATION_CONTENT: '',
+    
+    OG_TYPE: 'website',
+    OG_TITLE: pageTitle,
+    OG_DESCRIPTION: description,
+    
+    TWITTER_TITLE: pageTitle,
+    TWITTER_DESCRIPTION: description,
+    
+    // Default featured image for blog listings
+    FEATURED_IMAGE_URL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+    FEATURED_IMAGE_THUMBNAIL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+    FEATURED_IMAGE_SOCIAL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+    FEATURED_IMAGE_ALT: 'Cruise Made Easy - Norwegian Cruise Line Experts',
+    FEATURED_IMAGE_WIDTH: '1200',
+    FEATURED_IMAGE_HEIGHT: '630',
+    
+    IS_ARTICLE: false,
+    HAS_FEATURED_IMAGE: true,
+    HAS_TWITTER_IMAGE: true,
+    
+    TWITTER_IMAGE_URL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp'
+  }
+}
+
+// Render content blocks to HTML
+async function renderContentBlocks(blocks: any[]): Promise<string> {
+  if (!blocks || blocks.length === 0) {
+    return '<p>Content coming soon...</p>'
+  }
+  
+  const sortedBlocks = blocks.sort((a, b) => (a.block_order || 0) - (b.block_order || 0))
+  const htmlBlocks = await Promise.all(sortedBlocks.map(renderBlock))
+  
+  return htmlBlocks.join('\n')
+}
+
+// Render individual content block
+async function renderBlock(block: any): Promise<string> {
+  try {
+    const content = typeof block.content === 'string' 
+      ? JSON.parse(block.content) 
+      : block.content
+    
+    switch (block.block_type) {
+      case 'heading':
+        const level = Math.min(6, Math.max(1, content.level || 2))
+        return `<h${level}>${escapeHtml(content.text || content.content || '')}</h${level}>`
+        
+      case 'paragraph':
+        return `<p>${content.text || content.content || ''}</p>`
+        
+      case 'image':
+        const img = `<img src="${content.url || content.src || ''}" alt="${escapeHtml(content.alt_text || content.alt || '')}" loading="lazy">`
+        const caption = content.caption ? `<figcaption>${escapeHtml(content.caption)}</figcaption>` : ''
+        return `<figure>${img}${caption}</figure>`
+        
+      case 'accent_tip':
+        const icon = content.icon ? `<span class="accent-icon">${content.icon}</span>` : ''
+        const title = content.title ? `<h4>${escapeHtml(content.title)}</h4>` : ''
+        return `<div class="accent-tip">${icon}<div class="accent-content">${title}<p>${content.text || content.content || ''}</p></div></div>`
+        
+      case 'quote':
+        const attribution = content.attribution ? `<cite>— ${escapeHtml(content.attribution)}</cite>` : ''
+        return `<blockquote><p>${content.text || content.quote || content.content || ''}</p>${attribution}</blockquote>`
+        
+      case 'cta':
+        const ctaTitle = content.title ? `<h3>${escapeHtml(content.title)}</h3>` : ''
+        const ctaText = content.text ? `<p>${escapeHtml(content.text)}</p>` : ''
+        const ctaButton = (content.button_text && content.button_url) 
+          ? `<a href="${content.button_url}" class="cta-button" ${content.open_new_tab ? 'target="_blank" rel="noopener"' : ''}>${escapeHtml(content.button_text)}</a>`
+          : ''
+        return `<div class="call-to-action">${ctaTitle}${ctaText}${ctaButton}</div>`
+        
+      case 'divider':
+        return `<hr class="divider ${content.style || 'default'}">`
+        
+      case 'list':
+        const listTag = content.type === 'ordered' ? 'ol' : 'ul'
+        const items = (content.items || []).map((item: string) => `<li>${item}</li>`).join('')
+        return `<${listTag}>${items}</${listTag}>`
+        
+      case 'table':
+        const headers = content.headers ? `<thead><tr>${content.headers.map((h: string) => `<th>${escapeHtml(h)}</th>`).join('')}</tr></thead>` : ''
+        const rows = (content.rows || []).map((row: string[]) => 
+          `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`
+        ).join('')
+        return `<table>${headers}<tbody>${rows}</tbody></table>`
+        
+      default:
+        console.warn(`Unknown block type: ${block.block_type}`)
+        return typeof content === 'string' 
+          ? `<div class="unknown-block">${content}</div>`
+          : `<div class="unknown-block"><pre>${JSON.stringify(content, null, 2)}</pre></div>`
+    }
+  } catch (error) {
+    console.error('Error rendering block:', error, block)
+    return '<div class="error-block">Error rendering content block</div>'
+  }
+}
+
+// Render hero section for individual posts
+function renderHeroSection(post: PostData, categoryDisplayName: string, publishedDate: Date): string {
+  return `
+    <div class="hero-container">
+      <div class="gb-element-65aa24d4">
+        <h1 class="gb-text gb-text-74f92ea1">${escapeHtml(post.title)}</h1>
+        <div class="gb-element-c208d8e1">
+          <p class="gb-text-cd6c9335">
+            <span class="gb-shape">
+              <svg viewBox="0 0 3 36.7" xmlns="https://www.w3.org/2000/svg"><path d="M0 0h3v36.7H0z"></path></svg>
+            </span>
+            <span class="gb-text">${escapeHtml(post.author_name || 'Cruise Made EASY')}</span>
+          </p>
+          <p class="gb-text-42e4a7df">
+            <span class="gb-shape">
+              <svg viewBox="0 0 3 36.7" xmlns="https://www.w3.org/2000/svg"><path d="M0 0h3v36.7H0z"></path></svg>
+            </span>
+            <span class="gb-text"><span>${escapeHtml(categoryDisplayName)}</span></span>
+          </p>
+          <p class="gb-text-12f7e1fd">
+            <span class="gb-shape">
+              <svg viewBox="0 0 3 36.7" xmlns="https://www.w3.org/2000/svg"><path d="M0 0h3v36.7H0z"></path></svg>
+            </span>
+            <span class="gb-text">${publishedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+// Render hero section for blog listings
+function renderBlogHero(categoryName?: string): string {
+  const title = categoryName 
+    ? `CRUISE MADE EASY: ${categoryName.toUpperCase()}`
+    : 'Cruise Smarter with Norwegian: Tips, Tricks & Planning Guides'
+    
+  return `
+    <div class="hero-container">
+      <div class="gb-element-65aa24d4">
+        <h1 class="gb-text gb-text-74f92ea1">${escapeHtml(title)}</h1>
+      </div>
+    </div>
+  `
+}
+
+// Render blog CTA section
+function renderBlogCTA(): string {
+  return `
+    <div class="gb-element-718de565">
+      <div class="gb-element-c26bb9ef">
+        <h3 class="gb-text gb-text-301a7e52">How Can I Help Plan Your Perfect NCL Cruise?</h3>
+        <div class="wp-block-buttons alignwide has-custom-font-size has-medium-font-size is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-16018d1d wp-block-buttons-is-layout-flex">
+          <div class="wp-block-button">
+            <a class="wp-block-button__link has-medium-font-size has-custom-font-size wp-element-button" href="https://a.gocme.link/widget/bookings/talk-cruises" style="border-radius:26px">
+              🛳️&nbsp;<strong>Let's Talk Cruises</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+// Render post navigation
+async function renderPostNavigation(post: PostData, env: Env): Promise<string> {
+  try {
+    // Get previous/next posts in same category
+    const navPosts = await env.DB.prepare(`
+      SELECT title, slug, category FROM posts 
+      WHERE category = ? AND status = 'published' AND id != ?
+      ORDER BY published_date DESC LIMIT 2
+    `).bind(post.category, post.id).all()
+    
+    if (!navPosts.results || navPosts.results.length === 0) {
+      return ''
+    }
+    
+    // For now, return empty - post navigation will be enhanced in Context Window 5
+    return ''
+    
+  } catch (error) {
+    console.error('Error rendering post navigation:', error)
+    return ''
+  }
+}
+
+// Get image variants from R2/Cloudflare
+async function getImageVariants(imageId: string, env: Env): Promise<any> {
+  try {
+    const result = await env.DB.prepare(`
+      SELECT * FROM images WHERE id = ?
+    `).bind(imageId).first()
+    
+    if (result && result.variants_json) {
+      return JSON.parse(result.variants_json as string)
+    }
+    
+    return null
+  } catch (error) {
+    console.error('Error getting image variants:', error)
+    return null
+  }
+}
+
+// Generate Schema.org JSON-LD
+function generateSchemaJSON(post: PostData, imageVariants: any, baseUrl: string): string {
+  const schema = {
+    '@context': 'https://schema.org/',
+    '@type': 'BlogPosting',
+    'datePublished': post.published_date,
+    'dateModified': post.updated_at || post.published_date,
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/${post.category}/${post.slug}/`
+    },
+    'headline': post.title,
+    'author': {
+      '@type': 'Person',
+      'name': 'Cruise Made EASY',
+      'url': 'https://cruisemadeeasy.com/author/scott/'
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'Cruise Made EASY',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+        'width': '1200',
+        'height': '630'
+      },
+      'sameAs': [
+        'https://facebook.com/CruiseMadeEASY',
+        'https://twitter.com/@CruiseMadeEasy',
+        'https://pinterest.com/CruiseMadeEasy',
+        'https://instagram.com/CruiseMadeEASY',
+        'https://youtube.com/@CruiseMadeEASY',
+        'https://linkedin.com/company/CruiseMadeEASY',
+        'https://www.alignable.com/wichita-ks/cruise-made-easy'
+      ]
+    },
+    'description': post.meta_description || post.excerpt || post.title
+  }
+  
+  if (imageVariants?.original) {
+    schema['image'] = imageVariants.original
+  }
+  
+  return JSON.stringify(schema)
+}
+
+// Generate breadcrumbs JSON-LD
+function generateBreadcrumbsJSON(post: PostData, categoryDisplayName: string, baseUrl: string): string {
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl
+      },
+      {
+        '@type': 'ListItem', 
+        position: 2,
+        name: categoryDisplayName,
+        item: `${baseUrl}/category/${post.category}/`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3, 
+        name: post.title
+      }
+    ]
+  }
+  
+  return JSON.stringify(breadcrumbs)
+}
+
+// HTML escape utility
+function escapeHtml(unsafe: string): string {
+  if (typeof unsafe !== 'string') return ''
+  
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}

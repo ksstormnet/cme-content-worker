@@ -13,9 +13,8 @@ import { calendarRoutes } from "./routes/calendar";
 import { contentAdvancedRoutes } from "./routes/content-advanced";
 import { importRoutes } from "./routes/import";
 import { media } from "./routes/media";
-// Template and CSS routes removed in Context Window 1 cleanup
-// import { templateRoutes } from "./routes/template";
-// import { publicApiRoutes } from "./routes/public-api";
+// Context Window 4: Template rendering system
+import templateRenderRoutes from "./routes/template-render";
 import { renderContentBlocks } from "../utils/block-renderer";
 
 // URL pattern for blog posts (should match settings)
@@ -35,7 +34,7 @@ app.use("*", cors({
 // Public API Routes removed in Context Window 1 cleanup
 // app.route("/api", publicApiRoutes);
 
-// Protected API Routes - MUST come before serveStatic
+// Protected API Routes - MUST come before serveStatic and template routes
 app.route("/api/auth", authRoutes);
 app.route("/api/admin", adminRoutes);
 app.route("/api/create", createRoutes);
@@ -43,8 +42,6 @@ app.route("/api/calendar", calendarRoutes);
 app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
-// Template routes removed in Context Window 1 cleanup
-// app.route("/api/template", templateRoutes);
 
 
 // Health check - MUST come before serveStatic
@@ -67,10 +64,9 @@ app.post("/api/test", async (c) => {
   }
 });
 
-// TODO: These routes will be replaced with new template system
-// Temporarily disabled during template system migration
-
-// Category routes will be implemented with new template system
+// Context Window 4: Template rendering system - MUST come after API routes but before admin routes
+console.log('🎨 Initializing template rendering system');
+app.route("/", templateRenderRoutes);
 
 // Development HTML shell template
 const devHtmlShell = `<!doctype html>
@@ -128,7 +124,7 @@ app.get("/blogin", (c) => {
   }
 });
 
-// Admin interface routes
+// Admin interface routes - these MUST come after template routes to avoid conflicts
 app.get("/admin/*", (c) => {
   if (c.env.ENVIRONMENT === "production") {
     return serveStatic({ path: "index.html" })(c);
@@ -137,10 +133,6 @@ app.get("/admin/*", (c) => {
     return c.redirect("http://localhost:5174/");
   }
 });
-
-// Post routes will be implemented with new template system
-
-// Category archive routes will be implemented with new template system
 
 export default {
   fetch: app.fetch

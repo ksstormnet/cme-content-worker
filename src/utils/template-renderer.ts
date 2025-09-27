@@ -1,9 +1,16 @@
 import { TemplateVariables, TemplateValidation, REQUIRED_TEMPLATE_VARIABLES } from '../types/template-variables'
+import { COMPILED_TEMPLATES } from './compiled-templates'
 
 // Template rendering with validation and optimization
 export class TemplateRenderer {
   private static instance: TemplateRenderer
   private compiledTemplates: Record<string, string> = {}
+  
+  constructor() {
+    // Initialize with pre-compiled templates
+    this.compiledTemplates = COMPILED_TEMPLATES
+    console.log('✅ Template renderer initialized with', Object.keys(this.compiledTemplates).length, 'templates')
+  }
   
   static getInstance(): TemplateRenderer {
     if (!TemplateRenderer.instance) {
@@ -12,9 +19,9 @@ export class TemplateRenderer {
     return TemplateRenderer.instance
   }
   
-  // Initialize with compiled templates (will be called after template compilation)
+  // Initialize with compiled templates (backwards compatibility)
   initializeTemplates(templates: Record<string, string>): void {
-    this.compiledTemplates = templates
+    this.compiledTemplates = { ...this.compiledTemplates, ...templates }
   }
   
   // Render complete page with validation
@@ -55,10 +62,14 @@ export class TemplateRenderer {
     }
   }
   
-  // Safe template rendering with variable substitution
+  // Safe template rendering with variable substitution and conditionals
   private renderTemplate(templateName: string, variables: Record<string, any>): string {
-    const template = this.getTemplate(templateName)
+    let template = this.getTemplate(templateName)
     
+    // Process conditional blocks first ({{#CONDITION}}...{{/CONDITION}})
+    template = this.processConditionals(template, variables)
+    
+    // Then process regular variables
     return template.replace(/\{\{([\w_]+)\}\}/g, (match, key) => {
       const value = variables[key]
       
@@ -69,6 +80,23 @@ export class TemplateRenderer {
       
       // Ensure value is string and escape if needed
       return String(value)
+    })
+  }
+
+  // Process conditional template blocks
+  private processConditionals(template: string, variables: Record<string, any>): string {
+    // Process {{#CONDITION}}content{{/CONDITION}} blocks
+    const conditionalRegex = /\{\{#(\w+)\}\}([\s\S]*?)\{\{\/\1\}\}/g
+    
+    return template.replace(conditionalRegex, (match, condition, content) => {
+      const conditionValue = variables[condition]
+      
+      // Show content if condition is truthy
+      if (conditionValue) {
+        return content
+      }
+      
+      return '' // Hide content if condition is falsy
     })
   }
   

@@ -51,6 +51,13 @@ export interface TemplateVariables {
   // Image dimensions
   FEATURED_IMAGE_WIDTH?: string
   FEATURED_IMAGE_HEIGHT?: string
+  
+  // Additional template variables for compatibility
+  BODY_CLASSES?: string
+  POST_TITLE?: string
+  POST_AUTHOR?: string
+  POST_CATEGORY?: string
+  POST_DATE?: string
 }
 
 // Post data interface
