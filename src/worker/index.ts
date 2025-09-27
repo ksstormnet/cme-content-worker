@@ -73,6 +73,36 @@ app.post("/api/test", async (c) => {
     return c.json({ success: false, error: error.message }, 500);
   }
 });
+
+// Test route: Bare RealStaticTemplate with no content
+app.get("/test-bare-template", async (c) => {
+  try {
+    // Render template with empty data
+    const html = realStaticTemplate.renderPage(
+      [], // No posts
+      [], // No CSS URLs
+      [], // No categories
+      "Test Bare Template - No Content",
+      undefined // No current category
+    );
+    
+    console.log('Bare template HTML length:', html.length);
+    
+    // Add cache-busting headers
+    c.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+    c.header('Pragma', 'no-cache');
+    c.header('Expires', '0');
+    
+    return c.html(html);
+    
+  } catch (error) {
+    console.error("Bare template test error:", error);
+    return c.html(`
+      <h1>Bare Template Test Error</h1>
+      <p>Error: ${error instanceof Error ? error.message : 'Unknown error'}</p>
+    `, 500);
+  }
+});
 // Homepage route - serve real static template (production only)
 app.get("/", async (c) => {
   // In development, let Vite handle this route
@@ -108,18 +138,27 @@ app.get("/", async (c) => {
 
     console.log('Categories with post counts:', categoriesWithCounts.results?.length || 0);
 
-    // Get CSS URLs from the CSS sync system
-    const cssMapping = await getCSSMapping('homepage', c.env);
-    const cssUrls = cssMapping.css_files
+    // Get CSS URLs from the CSS sync system with sticky-header component
+    const components = ['sticky-header'];
+    const cssMapping = await getCSSMapping('homepage', c.env, components);
+    
+    // Separate global and component CSS
+    const globalCssUrls = cssMapping.css_files
       .map(file => file.cdn_url || file.source_url)
       .filter(Boolean) as string[];
     
-    console.log('CSS URLs for homepage:', cssUrls.length);
+    const componentCssUrls = cssMapping.component_css
+      .map(file => file.cdn_url || file.source_url)
+      .filter(Boolean) as string[];
+    
+    console.log('Global CSS URLs for homepage:', globalCssUrls.length);
+    console.log('Component CSS URLs for homepage:', componentCssUrls.length);
 
-    // Render complete page with real static template
-    const html = realStaticTemplate.renderPage(
+    // Render complete page with component-specific CSS loading
+    const html = realStaticTemplate.renderPageWithComponents(
       posts.results || [], 
-      cssUrls, 
+      globalCssUrls,
+      componentCssUrls,
       categoriesWithCounts.results || [],
       "Cruise Smarter with Norwegian: Tips, Tricks &#038; Planning Guides",
       undefined  // No active category for homepage
@@ -185,9 +224,16 @@ app.get("/category/:categorySlug/", async (c) => {
       ORDER BY c.name
     `).all();
 
-    // Get CSS URLs from the CSS sync system
-    const cssMapping = await getCSSMapping('category', c.env);
-    const cssUrls = cssMapping.css_files
+    // Get CSS URLs from the CSS sync system with sticky-header component
+    const components = ['sticky-header'];
+    const cssMapping = await getCSSMapping('category', c.env, components);
+    
+    // Separate global and component CSS
+    const globalCssUrls = cssMapping.css_files
+      .map(file => file.cdn_url || file.source_url)
+      .filter(Boolean) as string[];
+    
+    const componentCssUrls = cssMapping.component_css
       .map(file => file.cdn_url || file.source_url)
       .filter(Boolean) as string[];
     
@@ -195,10 +241,11 @@ app.get("/category/:categorySlug/", async (c) => {
     const categoryDisplayName = category.name.toUpperCase();
     const heroText = `CRUISE MADE EASY: ${categoryDisplayName}`;
 
-    // Render complete page with real static template
-    const html = realStaticTemplate.renderPage(
+    // Render complete page with component-specific CSS loading
+    const html = realStaticTemplate.renderPageWithComponents(
       posts.results || [], 
-      cssUrls, 
+      globalCssUrls,
+      componentCssUrls,
       categoriesWithCounts.results || [],
       heroText,
       categorySlug  // Pass current category slug for active styling

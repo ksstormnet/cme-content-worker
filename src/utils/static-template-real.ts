@@ -89,7 +89,7 @@ export class RealStaticTemplate {
   /**
    * Render complete page with real WordPress content
    */
-  renderPage(posts: PostCardData[], cssUrls: string[], categories: CategoryData[] = [], heroText: string = "Cruise Smarter with Norwegian: Tips, Tricks & Planning Guides", currentCategory?: string): string {
+  renderPage(posts: PostCardData[], cssUrls: string[], categories: CategoryData[] = [], heroText: string = "Cruise Smarter with Norwegian: Tips, Tricks & Planning Guides", currentCategory?: string, componentCSS: string[] = []): string {
     // Generate post cards HTML
     const postCardsHtml = posts.map(post => this.generatePostCard(post)).join('\n\n');
     
@@ -101,12 +101,60 @@ export class RealStaticTemplate {
     const generateBlocksCSS = `https://cdn.cruisemadeeasy.com/css/generateblocks-complete.min.css?v=${timestamp}`;
     const allCssUrls = [...cssUrls, generateBlocksCSS];
     
-    // Inject CSS URLs into header
-    const cssLinks = allCssUrls.map(url => `<link rel="stylesheet" href="${url}">`).join('\n  ');
+    // Inject CSS URLs into header - global CSS first, then component CSS
+    const globalCssLinks = allCssUrls.map(url => `<link rel="stylesheet" href="${url}">`).join('\n  ');
+    const componentCssLinks = componentCSS.length > 0 
+      ? '\n  ' + componentCSS.map(url => `<link rel="stylesheet" href="${url}" data-component="true">`).join('\n  ')
+      : '';
+    
+    const allCssLinks = globalCssLinks + componentCssLinks;
     
     // Assemble the complete page using the real WordPress structure
     return `${this.getHeader()}
-  ${cssLinks}
+  ${allCssLinks}
+</head>
+<body class="home blog wp-embed-responsive generatepress hfeed no-sidebar">
+
+${this.getHeaderBody()}
+
+${this.getHero(heroText)}
+
+${categoryPillsHtml ? categoryPillsHtml + '\n' : ''}
+<div class="site grid-container container hfeed" id="page">
+	<div class="site-content" id="content">
+		<div class="content-area" id="primary">
+			<main class="site-main" id="main">
+<div class="generate-columns-container">
+${postCardsHtml}
+</div>
+			</main>
+		</div>
+	</div>
+
+${this.getFooter()}`;
+  }
+
+  /**
+   * Render complete page with component-specific CSS loading
+   */
+  renderPageWithComponents(posts: PostCardData[], globalCSS: string[], componentCSS: string[], categories: CategoryData[] = [], heroText: string = "Cruise Smarter with Norwegian: Tips, Tricks & Planning Guides", currentCategory?: string): string {
+    // Generate post cards HTML
+    const postCardsHtml = posts.map(post => this.generatePostCard(post)).join('\n\n');
+    
+    // Generate category pills HTML
+    const categoryPillsHtml = categories.length > 0 ? this.generateCategoryPills(categories, currentCategory) : '';
+    
+    // Inject CSS URLs into header - global CSS first, then component CSS
+    const globalCssLinks = globalCSS.map(url => `<link rel="stylesheet" href="${url}">`).join('\n  ');
+    const componentCssLinks = componentCSS.length > 0 
+      ? '\n  ' + componentCSS.map(url => `<link rel="stylesheet" href="${url}" data-component="true">`).join('\n  ')
+      : '';
+    
+    const allCssLinks = globalCssLinks + componentCssLinks;
+    
+    // Assemble the complete page using the real WordPress structure
+    return `${this.getHeader()}
+  ${allCssLinks}
 </head>
 <body class="home blog wp-embed-responsive generatepress hfeed no-sidebar">
 

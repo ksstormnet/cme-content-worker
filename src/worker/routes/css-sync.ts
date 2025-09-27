@@ -546,3 +546,131 @@ cssSyncRoutes.post("/upload/:filename", async (c) => {
     }, 500);
   }
 });
+
+/**
+ * Component CSS upload endpoint for component-specific CSS files
+ * POST /api/css/component/:componentName
+ */
+cssSyncRoutes.post("/component/:componentName", async (c) => {
+  try {
+    const componentName = c.req.param("componentName");
+    
+    // Security: Only allow valid component names (alphanumeric, hyphens, underscores)
+    if (!/^[a-zA-Z0-9_-]+$/.test(componentName)) {
+      return c.json({ error: 'Invalid component name' }, 400);
+    }
+
+    const content = await c.req.text();
+    if (!content || content.length === 0) {
+      return c.json({ error: 'No CSS content provided' }, 400);
+    }
+
+    const filename = `${componentName}.css`;
+    const hash = await generateHash(content);
+    
+    // Store in components subdirectory
+    const r2Path = `css/components/${filename}`;
+    
+    await c.env.IMAGES.put(r2Path, content, {
+      httpMetadata: {
+        contentType: 'text/css',
+        cacheControl: 'public, max-age=86400', // 24 hours
+      },
+      customMetadata: {
+        'source-url': `component://${componentName}`,
+        'content-hash': hash,
+        'generated-at': new Date().toISOString(),
+        'component-type': 'extracted'
+      }
+    });
+
+    // Store in database with component prefix
+    const sourceUrl = `component://${componentName}`;
+    await updateCSSVersion(sourceUrl, hash, content, `components/${filename}`, c.env);
+
+    return c.json({
+      status: 'uploaded',
+      component: componentName,
+      filename,
+      cdn_filename: `components/${filename}`,
+      hash,
+      size: content.length,
+      cdn_url: `https://cdn.cruisemadeeasy.com/css/components/${filename}`
+    });
+
+  } catch (error) {
+    console.error("Component CSS upload error:", error);
+    return c.json({
+      error: error instanceof Error ? error.message : 'Component upload failed'
+    }, 500);
+  }
+});
+
+/**
+ * Get component CSS endpoint
+ * GET /api/css/component/:componentName
+ */
+cssSyncRoutes.get("/component/:componentName", async (c) => {
+  try {
+    const componentName = c.req.param("componentName");
+    
+    if (!/^[a-zA-Z0-9_-]+$/.test(componentName)) {
+      return c.json({ error: 'Invalid component name' }, 400);
+    }
+
+    const filename = `${componentName}.css`;
+    const r2Path = `css/components/${filename}`;
+    const object = await c.env.IMAGES.get(r2Path);
+
+    if (!object) {
+      return c.text('Component CSS not found', 404);
+    }
+
+    // Set proper headers for CSS serving
+    c.header('Content-Type', 'text/css');
+    c.header('Cache-Control', 'public, max-age=86400'); // 24 hours
+    c.header('Access-Control-Allow-Origin', '*'); // Allow cross-origin for CDN usage
+
+    return c.body(await object.arrayBuffer());
+
+  } catch (error) {
+    console.error("Component CSS serving error:", error);
+    return c.text('Internal server error', 500);
+  }
+});
+
+/**
+ * List all component CSS files
+ * GET /api/css/components
+ */
+cssSyncRoutes.get("/components", async (c) => {
+  try {
+    // List objects in components subdirectory
+    const componentObjects = await c.env.IMAGES.list({ prefix: 'css/components/' });
+    
+    const components = componentObjects.objects.map(obj => {
+      const filename = obj.key.replace('css/components/', '');
+      const componentName = filename.replace('.css', '');
+      
+      return {
+        name: componentName,
+        filename,
+        key: obj.key,
+        size: obj.size,
+        uploaded: obj.uploaded,
+        cdn_url: `https://cdn.cruisemadeeasy.com/${obj.key}`
+      };
+    });
+
+    return c.json({
+      count: components.length,
+      components
+    });
+
+  } catch (error) {
+    console.error("Component CSS listing error:", error);
+    return c.json({
+      error: error instanceof Error ? error.message : 'Failed to list components'
+    }, 500);
+  }
+});

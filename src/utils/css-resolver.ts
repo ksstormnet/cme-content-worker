@@ -12,11 +12,14 @@ export interface CSSFile {
   cdn_url: string | null;
   cdn_filename: string | null;
   hash: string | null;
+  type?: 'global' | 'component';
+  component_name?: string;
 }
 
 export interface CSSMapping {
   layout: LayoutType;
   css_files: CSSFile[];
+  component_css: CSSFile[];
   fallback_css?: string;
 }
 
@@ -40,11 +43,11 @@ export class CSSResolver {
   }
 
   /**
-   * Get CSS files for specific layout type
-   * Returns all CSS files in correct WordPress loading order
+   * Get CSS files for specific layout type with optional components
+   * Returns all CSS files in correct WordPress loading order plus component CSS
    */
-  async getCSSForLayout(layout: LayoutType, env: Env): Promise<CSSMapping> {
-    const cacheKey = `css-${layout}`;
+  async getCSSForLayout(layout: LayoutType, env: Env, components: string[] = []): Promise<CSSMapping> {
+    const cacheKey = `css-${layout}-${components.sort().join(',')}`;
     
     // Return cached result if available and cache enabled
     if (this.options.cacheEnabled && this.cache.has(cacheKey)) {
@@ -57,11 +60,11 @@ export class CSSResolver {
       const settings = await this.getCSSSettings(env);
       
       if (!settings.css_sync_enabled) {
-        return this.getFallbackCSS(layout);
+        return this.getFallbackCSS(layout, components);
       }
 
       if (settings.site_css_urls.length === 0) {
-        return this.getFallbackCSS(layout);
+        return this.getFallbackCSS(layout, components);
       }
 
       // Get all CSS files in WordPress loading order
@@ -77,13 +80,24 @@ export class CSSResolver {
           source_url: sourceUrl,
           cdn_url: version ? `${this.options.baseUrl}/css/${version.cdn_filename}` : null,
           cdn_filename: version?.cdn_filename || null,
-          hash: version?.file_hash || null
+          hash: version?.file_hash || null,
+          type: 'global'
         });
+      }
+
+      // Get component CSS files
+      const componentCSS: CSSFile[] = [];
+      for (const componentName of components) {
+        const componentFile = await this.getComponentCSS(componentName, env);
+        if (componentFile) {
+          componentCSS.push(componentFile);
+        }
       }
 
       const mapping: CSSMapping = {
         layout,
         css_files: cssFiles,
+        component_css: componentCSS,
         fallback_css: cssFiles.some(f => !f.cdn_url) ? this.getFallbackCSSContent(layout) : undefined
       };
 
@@ -96,7 +110,7 @@ export class CSSResolver {
 
     } catch (error) {
       console.error(`Error resolving CSS for layout ${layout}:`, error);
-      return this.getFallbackCSS(layout);
+      return this.getFallbackCSS(layout, components);
     }
   }
 
@@ -264,9 +278,40 @@ export class CSSResolver {
   }
 
   /**
+   * Get component CSS file information
+   */
+  private async getComponentCSS(componentName: string, env: Env): Promise<CSSFile | null> {
+    try {
+      // Check if component exists in database
+      const sourceUrl = `component://${componentName}`;
+      const version = await env.DB.prepare(
+        "SELECT file_hash, cdn_filename FROM css_versions WHERE file_url = ? AND active = 1"
+      ).bind(sourceUrl).first() as { file_hash: string; cdn_filename: string } | null;
+
+      if (!version) {
+        console.warn(`Component CSS not found in database: ${componentName}`);
+        return null;
+      }
+
+      return {
+        source_url: sourceUrl,
+        cdn_url: `${this.options.baseUrl}/css/${version.cdn_filename}`,
+        cdn_filename: version.cdn_filename,
+        hash: version.file_hash,
+        type: 'component',
+        component_name: componentName
+      };
+
+    } catch (error) {
+      console.error(`Error getting component CSS for ${componentName}:`, error);
+      return null;
+    }
+  }
+
+  /**
    * Get fallback CSS mapping when sync system fails
    */
-  private getFallbackCSS(layout: LayoutType): CSSMapping {
+  private getFallbackCSS(layout: LayoutType, components: string[] = []): CSSMapping {
     // Emergency fallback - just the GeneratePress main theme CSS
     const fallbackUrl = 'https://cruisemadeeasy.com/wp-content/themes/generatepress/assets/css/main.min.css';
 
@@ -276,8 +321,10 @@ export class CSSResolver {
         source_url: fallbackUrl,
         cdn_url: null,
         cdn_filename: null,
-        hash: null
+        hash: null,
+        type: 'global'
       }],
+      component_css: [], // No component CSS in fallback mode
       fallback_css: this.getFallbackCSSContent(layout)
     };
   }
@@ -328,20 +375,36 @@ export const cssResolver = new CSSResolver();
 
 /**
  * Get CSS URLs for layout (convenience function)
- * Returns array of CSS URLs in WordPress loading order
+ * Returns array of CSS URLs in WordPress loading order plus component CSS
  */
-export async function getCSSForLayout(layout: LayoutType, env: Env): Promise<string[]> {
-  const mapping = await cssResolver.getCSSForLayout(layout, env);
-  return mapping.css_files
-    .map(file => file.cdn_url || file.source_url)
-    .filter(Boolean) as string[];
+export async function getCSSForLayout(layout: LayoutType, env: Env, components: string[] = []): Promise<string[]> {
+  const mapping = await cssResolver.getCSSForLayout(layout, env, components);
+  const globalCSS = mapping.css_files.map(file => file.cdn_url || file.source_url).filter(Boolean) as string[];
+  const componentCSS = mapping.component_css.map(file => file.cdn_url || file.source_url).filter(Boolean) as string[];
+  
+  return [...globalCSS, ...componentCSS];
 }
 
 /**
- * Get CSS mapping with full details
+ * Get CSS mapping with full details including components
  */
-export async function getCSSMapping(layout: LayoutType, env: Env): Promise<CSSMapping> {
-  return await cssResolver.getCSSForLayout(layout, env);
+export async function getCSSMapping(layout: LayoutType, env: Env, components: string[] = []): Promise<CSSMapping> {
+  return await cssResolver.getCSSForLayout(layout, env, components);
+}
+
+/**
+ * Get CSS URLs separated by type (global vs component)
+ */
+export async function getCSSByType(layout: LayoutType, env: Env, components: string[] = []): Promise<{
+  global: string[];
+  component: string[];
+}> {
+  const mapping = await cssResolver.getCSSForLayout(layout, env, components);
+  
+  return {
+    global: mapping.css_files.map(file => file.cdn_url || file.source_url).filter(Boolean) as string[],
+    component: mapping.component_css.map(file => file.cdn_url || file.source_url).filter(Boolean) as string[]
+  };
 }
 
 /**
