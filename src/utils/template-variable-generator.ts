@@ -145,8 +145,20 @@ export async function generateBlogListingVariables(
     PAGE_URL: pageUrl,
     CANONICAL_URL: pageUrl,
     
-    POST_CONTENT: '', // Will be populated by React component in production
+    POST_CONTENT: isCategory 
+      ? `<div id="react-blog-content" class="blog-listing-container">
+           <p>Loading ${categoryName || categorySlug} articles...</p>
+         </div>`
+      : `<div id="react-blog-content" class="blog-listing-container">
+           <p>Loading latest cruise articles...</p>
+         </div>`,
     HERO_CONTENT: renderBlogHero(categoryName),
+    
+    // Template variables for hero (even though it's not a post)
+    POST_TITLE: isCategory ? (categoryName || categorySlug) : 'Cruise Made Easy',
+    POST_AUTHOR: '',
+    POST_CATEGORY: '',
+    POST_DATE: '',
     BLOG_CTA_CONTENT: renderBlogCTA(),
     POST_NAVIGATION_CONTENT: '',
     
