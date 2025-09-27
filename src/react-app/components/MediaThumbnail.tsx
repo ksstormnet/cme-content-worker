@@ -18,6 +18,12 @@ interface MediaFile {
   category_name?: string;
   uploaded_by: number;
   upload_date: string;
+  thumbnails?: {
+    thumbnail: string;
+    medium: string;
+    large: string;
+    full: string;
+  };
 }
 
 interface MediaThumbnailProps {
@@ -123,7 +129,7 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
             </div>
           )}
           <img
-            src={getProxyUrl(file.file_url)}
+            src={getProxyUrl(file.thumbnails?.thumbnail || file.file_url)}
             alt={file.alt_text || file.title}
             className={`w-full h-full object-cover transition-opacity duration-200 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
