@@ -313,10 +313,9 @@ function renderBlogHero(categoryName?: string): string {
   const heroBackgroundImage = 'https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Dawn_Wake.jpeg'
     
   return `
-    <div class="hero-container" style="background-image: url('${heroBackgroundImage}'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative;">
-      <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(30, 58, 138, 0.7) 0%, rgba(59, 130, 246, 0.6) 50%, rgba(30, 58, 138, 0.8) 100%); z-index: 1;"></div>
-      <div class="gb-element-65aa24d4" style="position: relative; z-index: 2;">
-        <h1 class="gb-text gb-text-74f92ea1" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">${escapeHtml(title)}</h1>
+    <div class="hero-container" style="background-image: url('${heroBackgroundImage}');">
+      <div class="gb-element-65aa24d4">
+        <h1 class="gb-text gb-text-74f92ea1">${escapeHtml(title)}</h1>
       </div>
     </div>
   `
