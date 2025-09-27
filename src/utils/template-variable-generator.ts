@@ -171,6 +171,15 @@ export async function generateBlogListingVariables(
     
     TWITTER_IMAGE_URL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
     
+    // Date fields (use current date for listings)
+    PUBLISHED_DATE: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    PUBLISHED_DATE_ISO: new Date().toISOString(),
+    MODIFIED_DATE: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    MODIFIED_DATE_ISO: new Date().toISOString(),
+    
+    // Schema.org for listings (minimal)
+    SCHEMA_JSON: '',
+    
     // Breadcrumb template variables for listings
     HAS_BREADCRUMBS: !!isCategory,
     BREADCRUMB_ITEMS: isCategory ? generateBreadcrumbItemsForCategory(categorySlug, categoryName, baseUrl) : []
