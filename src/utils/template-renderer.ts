@@ -166,8 +166,31 @@ export class TemplateRenderer {
     }
   }
   
-  // Error page rendering
-  private renderErrorPage(error: Error, context: string): string {
+  // Error page rendering with enhanced error handling
+  renderErrorPage(error: Error, context: string): string {
+    // Log detailed error information for debugging
+    console.error(`Template Error in ${context}:`, {
+      error: error.message,
+      stack: error.stack,
+      context,
+      timestamp: new Date().toISOString()
+    })
+    
+    // Determine error severity and user message
+    let userMessage = "We're having trouble loading this page. Please try again in a few moments."
+    let errorClass = "temporary-error"
+    
+    if (error.message.includes('Template not found')) {
+      userMessage = "The requested page template is currently unavailable."
+      errorClass = "template-error"
+    } else if (error.message.includes('Missing required variables')) {
+      userMessage = "Page content is incomplete. Our team has been notified."
+      errorClass = "content-error"
+    } else if (error.message.includes('Database')) {
+      userMessage = "We're experiencing database connectivity issues. Please try again shortly."
+      errorClass = "database-error"
+    }
+    
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,15 +198,78 @@ export class TemplateRenderer {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Unavailable - Cruise Made Easy</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
-    .error { color: #666; margin: 20px 0; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      margin: 0; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .error-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 500px;
+      margin: 20px;
+    }
+    h1 { color: #333; margin-bottom: 20px; font-size: 2em; }
+    .error-message { color: #666; margin: 20px 0; line-height: 1.5; }
+    .error-actions { margin-top: 30px; }
+    .btn { 
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 0 10px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .btn-primary { 
+      background: #667eea; 
+      color: white; 
+    }
+    .btn-primary:hover { 
+      background: #5a6fd8; 
+      transform: translateY(-2px);
+    }
+    .btn-secondary { 
+      background: transparent; 
+      color: #667eea; 
+      border: 2px solid #667eea; 
+    }
+    .btn-secondary:hover { 
+      background: #667eea; 
+      color: white; 
+    }
+    .error-id { 
+      font-size: 0.8em; 
+      color: #999; 
+      margin-top: 20px; 
+      font-family: monospace; 
+    }
+    .icon { font-size: 4em; margin-bottom: 20px; opacity: 0.6; }
   </style>
 </head>
 <body>
-  <h1>Page Temporarily Unavailable</h1>
-  <p class="error">We're having trouble loading this page. Please try again in a few moments.</p>
-  <p><a href="/">← Return to Homepage</a></p>
-  <!-- Error: ${error.message} in ${context} -->
+  <div class="error-container ${errorClass}">
+    <div class="icon">🚧</div>
+    <h1>Page Temporarily Unavailable</h1>
+    <p class="error-message">${userMessage}</p>
+    <div class="error-actions">
+      <a href="/" class="btn btn-primary">← Return to Homepage</a>
+      <a href="javascript:location.reload()" class="btn btn-secondary">Try Again</a>
+    </div>
+    <div class="error-id">
+      Error ID: ${Math.random().toString(36).substring(2, 9).toUpperCase()}
+      <br>
+      Time: ${new Date().toLocaleString()}
+    </div>
+  </div>
+  <!-- Debug Info: ${error.message} in ${context} at ${new Date().toISOString()} -->
 </body>
 </html>`
   }

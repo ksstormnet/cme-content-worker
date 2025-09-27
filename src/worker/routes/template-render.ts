@@ -3,6 +3,7 @@ import { Env } from '../../types/database'
 import { templateRenderer } from '../../utils/template-renderer'
 import { generatePostVariables, generateBlogListingVariables } from '../../utils/template-variable-generator'
 import { performanceMonitor, addPerformanceHeaders } from '../../utils/performance-monitor'
+import { edgeCaseHandler } from '../../utils/edge-case-handler'
 
 const app = new Hono<{ Bindings: Env }>()
 
@@ -43,11 +44,27 @@ app.get('/', async (c) => {
     console.error('Homepage rendering error:', error)
     tracker.finish(false, error instanceof Error ? error.message : 'Unknown error')
     
-    // Return error page
-    return new Response(templateRenderer.renderErrorPage(error as Error, 'homepage'), {
-      status: 500,
+    // Determine appropriate error response
+    let statusCode = 500
+    let errorContext = 'homepage'
+    
+    if (error instanceof Error) {
+      if (error.message.includes('Database')) {
+        statusCode = 503 // Service Unavailable
+        errorContext = 'homepage-database'
+      } else if (error.message.includes('Template')) {
+        statusCode = 500 // Internal Server Error
+        errorContext = 'homepage-template'
+      }
+    }
+    
+    // Return enhanced error page
+    return new Response(templateRenderer.renderErrorPage(error as Error, errorContext), {
+      status: statusCode,
       headers: {
-        'Content-Type': 'text/html; charset=utf-8'
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate', // Don't cache errors
+        'Retry-After': statusCode === 503 ? '60' : undefined // Retry after 1 minute for service unavailable
       }
     })
   }
@@ -132,14 +149,21 @@ app.get('/:category/:slug', async (c) => {
     
     if (!postResult) {
       tracker.finish(false, 'Post not found')
-      return new Response('Post not found', { status: 404 })
+      const edgeCase = edgeCaseHandler.handleMissingPost(category, slug, c.env)
+      return edgeCase.response!
     }
     
-    // Parse content blocks
-    const contentBlocks = postResult.content_blocks_json
+    // Parse content blocks with edge case handling
+    let contentBlocks = postResult.content_blocks_json
       ? JSON.parse(`[${(postResult.content_blocks_json as string).replace(/},{/g, '},{')}]`)
         .filter((block: any) => block.id !== null) // Remove null blocks
       : []
+    
+    // Handle corrupted content blocks
+    const blockEdgeCase = edgeCaseHandler.handleCorruptedContentBlocks(contentBlocks)
+    if (blockEdgeCase.handled) {
+      contentBlocks = blockEdgeCase.fallbackData
+    }
     
     tracker.setContentBlockCount(contentBlocks.length)
     

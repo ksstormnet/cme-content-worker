@@ -19,6 +19,8 @@ import templateRenderRoutes from "./routes/template-render";
 import seoValidationRoutes from "./routes/seo-validation";
 // Context Window 5: Performance monitoring system
 import performanceRoutes from "./routes/performance";
+// Context Window 5: Deployment readiness system
+import deploymentRoutes from "./routes/deployment";
 import { renderContentBlocks } from "../utils/block-renderer";
 
 // URL pattern for blog posts (should match settings)
@@ -48,6 +50,7 @@ app.route("/api/import", importRoutes);
 app.route("/api/media", media);
 app.route("/api/seo", seoValidationRoutes);
 app.route("/api/performance", performanceRoutes);
+app.route("/api/deployment", deploymentRoutes);
 
 
 // Health check - MUST come before serveStatic
