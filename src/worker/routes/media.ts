@@ -32,22 +32,126 @@ media.use('*', cors({
 media.use('*', requireAuth);
 
 /**
- * GET /api/media - List images with optional filtering
+ * GET /api/media/categories - Get media categories with image counts
+ */
+media.get('/categories', async (c) => {
+  try {
+    const categories = await c.env.DB.prepare(`
+      SELECT 
+        mc.*,
+        COUNT(i.id) as file_count
+      FROM media_categories mc
+      LEFT JOIN images i ON mc.id = i.category_id
+      GROUP BY mc.id, mc.name, mc.slug, mc.description, mc.color
+      ORDER BY mc.sort_order ASC, mc.name ASC
+    `).all();
+
+    return c.json({
+      categories: categories.results || [],
+    });
+  } catch (error) {
+    console.error('Categories fetch error:', error);
+    return c.json({ error: 'Failed to fetch categories' }, 500);
+  }
+});
+
+/**
+ * GET /api/media - List images from new unified images table
  */
 media.get('/', async (c) => {
   try {
-    const { search, page = '1', limit = '20' } = c.req.query();
+    const { search, page = '1', limit = '20', category = 'all' } = c.req.query();
     const offset = (parseInt(page) - 1) * parseInt(limit);
 
-    const result = await getImagesWithVariants(c.env, parseInt(limit), offset, search);
+    // Query the new images table with categories
+    let mediaQuery = `
+      SELECT 
+        i.id,
+        i.filename,
+        i.original_filename,
+        i.title,
+        i.alt_text,
+        i.description,
+        i.r2_key as file_path,
+        -- Generate file_url from R2 key
+        'https://cdn.cruisemadeeasy.com/' || i.r2_key as file_url,
+        'image' as file_type,
+        i.file_size,
+        i.mime_type,
+        i.width,
+        i.height,
+        i.category_id,
+        mc.name as category_name,
+        mc.color as category_color,
+        i.upload_user_id as uploaded_by,
+        u.name as uploaded_by_name,
+        i.created_at as upload_date,
+        i.tags,
+        i.variants_json
+      FROM images i
+      LEFT JOIN media_categories mc ON i.category_id = mc.id
+      LEFT JOIN users u ON i.upload_user_id = u.id
+      WHERE 1=1
+    `;
+
+    const params = [];
+    
+    // Category filtering
+    if (category !== 'all' && category !== 'all_including_non_viewable') {
+      mediaQuery += ` AND mc.slug = ?`;
+      params.push(category);
+    }
+    
+    // Search filtering
+    if (search) {
+      mediaQuery += ` AND (i.title LIKE ? OR i.original_filename LIKE ? OR i.alt_text LIKE ?)`;
+      params.push(`%${search}%`, `%${search}%`, `%${search}%`);
+    }
+    
+    mediaQuery += ` ORDER BY i.created_at DESC LIMIT ? OFFSET ?`;
+    params.push(parseInt(limit), offset);
+
+    const images = await c.env.DB.prepare(mediaQuery).bind(...params).all();
+
+    // Transform results to include both variants (new) and thumbnails (MediaLibrary compat)
+    const files = (images.results || []).map(image => {
+      const variants = image.variants_json ? JSON.parse(image.variants_json) : {};
+      return {
+        ...image,
+        // MediaLibrary expects thumbnails object
+        thumbnails: {
+          thumbnail: variants.thumbnail || image.file_url,
+          medium: variants.responsive?.medium || image.file_url,
+          large: variants.responsive?.large || image.file_url,
+          full: variants.original || image.file_url,
+        }
+      };
+    });
+
+    // Get total count
+    let countQuery = `SELECT COUNT(*) as total FROM images i LEFT JOIN media_categories mc ON i.category_id = mc.id WHERE 1=1`;
+    const countParams = [];
+    
+    if (category !== 'all' && category !== 'all_including_non_viewable') {
+      countQuery += ` AND mc.slug = ?`;
+      countParams.push(category);
+    }
+    
+    if (search) {
+      countQuery += ` AND (i.title LIKE ? OR i.original_filename LIKE ? OR i.alt_text LIKE ?)`;
+      countParams.push(`%${search}%`, `%${search}%`, `%${search}%`);
+    }
+
+    const totalResult = await c.env.DB.prepare(countQuery).bind(...countParams).first();
+    const total = totalResult?.total || 0;
 
     return c.json({
-      files: result.images,
+      files: files,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
-        total: result.total,
-        pages: Math.ceil(result.total / parseInt(limit)),
+        total: total,
+        pages: Math.ceil(total / parseInt(limit)),
       },
     });
   } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation, useParams } from 'react-router-dom';
 import './App.css';
 
 // Components
@@ -11,9 +11,9 @@ import ChangePassword from './components/ChangePassword';
 import ContentCalendar from './components/ContentCalendar';
 import MainLayout from './components/MainLayout';
 
-// Blog Components
-import UnifiedBlogView from './components/UnifiedBlogView';
-import PostPage from './components/PostPage';
+// Blog Components (Content-Only for Template Integration)
+import BlogContent from './components/BlogContent';
+import PostContent from './components/PostContent';
 
 // Types
 interface User {
@@ -150,8 +150,36 @@ function App() {
     }
   };
 
+  // Wrapper components for route parameters
+  const CategoryBlogContent = () => {
+    const { categorySlug } = useParams<{ categorySlug: string }>();
+    return (
+      <div className="content-only-wrapper">
+        <BlogContent category={categorySlug} />
+      </div>
+    );
+  };
+
+  const PostContentWrapper = () => {
+    const { category, slug } = useParams<{ category: string; slug: string }>();
+    if (!category || !slug) return <Navigate to="/" replace />;
+    return (
+      <div className="content-only-wrapper">
+        <PostContent category={category} slug={slug} />
+      </div>
+    );
+  };
+
+  const BlogContentWrapper = () => {
+    return (
+      <div className="content-only-wrapper">
+        <BlogContent />
+      </div>
+    );
+  };
+
   // Don't show loading for public routes - only check auth for protected routes
-  // This allows UnifiedBlogView to render immediately without auth check
+  // This allows BlogContent to render immediately without auth check
 
   return (
     <Router>
@@ -215,19 +243,19 @@ function App() {
               element={
                 auth.user ? 
                 <Navigate to="/admin" replace /> : 
-                <UnifiedBlogView />
+                <BlogContentWrapper />
               } 
             />
 
             {/* Public blog routes - served by Vite in development, Worker in production */}
             <Route 
               path="/category/:categorySlug" 
-              element={<UnifiedBlogView />} 
+              element={<CategoryBlogContent />} 
             />
             
             <Route 
               path="/:category/:slug" 
-              element={<PostPage />} 
+              element={<PostContentWrapper />} 
             />
 
             {/* Protected routes - namespaced under /admin */}
