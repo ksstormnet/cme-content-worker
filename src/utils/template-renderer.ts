@@ -151,8 +151,8 @@ export class TemplateRenderer {
   
   // Validate rendered HTML output
   private validateOutput(html: string): void {
-    // Basic HTML validation
-    if (!html.includes('<!DOCTYPE html>')) {
+    // Basic HTML validation (case-insensitive)
+    if (!html.toLowerCase().includes('<!doctype html>')) {
       throw new Error('Invalid HTML: Missing DOCTYPE')
     }
     
