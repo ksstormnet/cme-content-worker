@@ -62,7 +62,7 @@ export async function uploadImageToR2(
   const dimensions = await getImageDimensions(fileData, ext)
   
   // 5. Generate Cloudflare Image Resizing URLs
-  const baseUrl = `https://cdn.cruisemadeeasy.com/${r2Key}`
+  const baseUrl = `https://cruisemadeeasy.com/${r2Key}` // Use main domain for Image Resizing
   const variants = generateImageVariants(baseUrl, dimensions, altText)
   
   // 6. Store in database

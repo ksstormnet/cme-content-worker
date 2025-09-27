@@ -1,6 +1,7 @@
 import { TemplateVariables, PostData } from '../types/template-variables'
 import { Env } from '../types/database'
 import { COMPILED_TEMPLATES } from './compiled-templates'
+import { getImageVariants } from './image-processing'
 
 // Generate all template variables for a post
 export async function generatePostVariables(
@@ -53,13 +54,27 @@ export async function generatePostVariables(
     TWITTER_TITLE: post.title,
     TWITTER_DESCRIPTION: post.meta_description || post.excerpt || `${post.title} - Cruise Made Easy`,
     
-    // Featured image handling
+    // Featured image handling with full variant support
     FEATURED_IMAGE_URL: imageVariants?.original || '',
     FEATURED_IMAGE_THUMBNAIL: imageVariants?.thumbnail || '',
     FEATURED_IMAGE_SOCIAL: imageVariants?.social || '',
     FEATURED_IMAGE_ALT: imageVariants?.alt_text || post.title,
-    FEATURED_IMAGE_WIDTH: imageVariants?.width || '1200',
-    FEATURED_IMAGE_HEIGHT: imageVariants?.height || '630',
+    FEATURED_IMAGE_WIDTH: String(imageVariants?.width || '1200'),
+    FEATURED_IMAGE_HEIGHT: String(imageVariants?.height || '630'),
+    
+    // Additional image variants for responsive design
+    FEATURED_IMAGE_SMALL: imageVariants?.responsive?.small || imageVariants?.original || '',
+    FEATURED_IMAGE_MEDIUM: imageVariants?.responsive?.medium || imageVariants?.original || '',
+    FEATURED_IMAGE_LARGE: imageVariants?.responsive?.large || imageVariants?.original || '',
+    
+    // WebP variants for modern browsers
+    FEATURED_IMAGE_WEBP: imageVariants?.webp?.original || '',
+    FEATURED_IMAGE_WEBP_THUMBNAIL: imageVariants?.webp?.thumbnail || '',
+    FEATURED_IMAGE_WEBP_SOCIAL: imageVariants?.webp?.social || '',
+    
+    // Responsive srcset attributes
+    FEATURED_IMAGE_SRCSET: generateSrcSet(imageVariants),
+    FEATURED_IMAGE_SRCSET_WEBP: generateWebPSrcSet(imageVariants),
     
     // Date formatting
     PUBLISHED_DATE: publishedDate.toLocaleDateString('en-US', {
@@ -369,23 +384,6 @@ async function renderPostNavigation(post: PostData, env: Env): Promise<string> {
   }
 }
 
-// Get image variants from R2/Cloudflare
-async function getImageVariants(imageId: string, env: Env): Promise<any> {
-  try {
-    const result = await env.DB.prepare(`
-      SELECT * FROM images WHERE id = ?
-    `).bind(imageId).first()
-    
-    if (result && result.variants_json) {
-      return JSON.parse(result.variants_json as string)
-    }
-    
-    return null
-  } catch (error) {
-    console.error('Error getting image variants:', error)
-    return null
-  }
-}
 
 // Generate Schema.org JSON-LD
 function generateSchemaJSON(post: PostData, imageVariants: any, baseUrl: string): string {
@@ -555,6 +553,45 @@ function renderTemplateString(template: string, variables: Record<string, any>):
     
     return String(value)
   })
+}
+
+// Generate responsive srcset attribute
+function generateSrcSet(imageVariants: any): string {
+  if (!imageVariants?.responsive) {
+    return imageVariants?.original || ''
+  }
+  
+  const srcsetParts: string[] = []
+  
+  if (imageVariants.responsive.small) {
+    srcsetParts.push(`${imageVariants.responsive.small} 320w`)
+  }
+  if (imageVariants.responsive.medium) {
+    srcsetParts.push(`${imageVariants.responsive.medium} 768w`)
+  }
+  if (imageVariants.responsive.large) {
+    srcsetParts.push(`${imageVariants.responsive.large} 1200w`)
+  }
+  
+  return srcsetParts.length > 0 ? srcsetParts.join(', ') : (imageVariants.original || '')
+}
+
+// Generate WebP responsive srcset attribute
+function generateWebPSrcSet(imageVariants: any): string {
+  if (!imageVariants?.webp || !imageVariants?.responsive) {
+    return imageVariants?.webp?.original || ''
+  }
+  
+  const srcsetParts: string[] = []
+  const baseUrl = imageVariants.original
+  
+  if (baseUrl) {
+    srcsetParts.push(`${baseUrl}/cdn-cgi/image/width=320,format=webp,quality=85 320w`)
+    srcsetParts.push(`${baseUrl}/cdn-cgi/image/width=768,format=webp,quality=85 768w`)
+    srcsetParts.push(`${baseUrl}/cdn-cgi/image/width=1200,format=webp,quality=85 1200w`)
+  }
+  
+  return srcsetParts.length > 0 ? srcsetParts.join(', ') : (imageVariants?.webp?.original || '')
 }
 
 // HTML escape utility
