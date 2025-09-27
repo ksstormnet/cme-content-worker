@@ -122,8 +122,13 @@ export class TemplateRenderer {
     const missingRequired: string[] = []
     const warnings: string[] = []
     
+    // Fields that can be empty strings (for blog listings)
+    const allowEmptyFields = ['POST_CONTENT', 'POST_NAVIGATION_CONTENT']
+    
     for (const field of REQUIRED_TEMPLATE_VARIABLES) {
-      if (!variables[field]) {
+      const value = variables[field]
+      // Allow empty strings for specific fields, but not null/undefined
+      if (value === null || value === undefined || (value === '' && !allowEmptyFields.includes(field))) {
         missingRequired.push(field)
       }
     }
