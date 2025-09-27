@@ -122,7 +122,8 @@ export async function generatePostVariables(
 // Generate variables for homepage/category listing
 export async function generateBlogListingVariables(
   categorySlug?: string,
-  categoryName?: string
+  categoryName?: string,
+  env?: Env
 ): Promise<TemplateVariables> {
   const baseUrl = 'https://cruisemadeeasy.com'
   const isCategory = !!categorySlug
@@ -145,29 +146,11 @@ export async function generateBlogListingVariables(
     PAGE_URL: pageUrl,
     CANONICAL_URL: pageUrl,
     
-    POST_CONTENT: isCategory 
-      ? `<div id="react-blog-content" class="blog-listing-container">
-           <p>Loading ${categoryName || categorySlug} articles...</p>
-         </div>
-         <script type="module" src="http://localhost:5174/@vite/client"></script>
-         <script type="module" src="http://localhost:5174/src/react-app/blog-mount.tsx"></script>
-         <script type="text/javascript">
-           window.BLOG_CONFIG = {
-             category: '${categorySlug}',
-             categoryName: '${categoryName || categorySlug}'
-           };
-         </script>`
-      : `<div id="react-blog-content" class="blog-listing-container">
-           <p>Loading latest cruise articles...</p>
-         </div>
-         <script type="module" src="http://localhost:5174/@vite/client"></script>
-         <script type="module" src="http://localhost:5174/src/react-app/blog-mount.tsx"></script>
-         <script type="text/javascript">
-           window.BLOG_CONFIG = {
-             category: null,
-             categoryName: null
-           };
-         </script>`,
+    POST_CONTENT: env ? await generateServerSideBlogCards(env, categorySlug) : `
+      <div class="blog-listing-container generate-columns-container">
+        <p style="text-align: center; padding: 2rem;">Loading cruise articles...</p>
+      </div>
+    `,
     HERO_CONTENT: renderBlogHero(categoryName),
     
     // Template variables for hero (even though it's not a post)
@@ -634,6 +617,93 @@ function generateWebPSrcSet(imageVariants: any): string {
 }
 
 // HTML escape utility
+// Generate server-side blog cards (no React needed)
+async function generateServerSideBlogCards(env: Env, categorySlug?: string): Promise<string> {
+  try {
+    // Build query for posts (accounting for database schema issues)
+    // Start with minimal columns to see what exists
+    let query = `
+      SELECT id, title, slug
+      FROM posts 
+      LIMIT 5
+    `
+    
+    // Remove all filtering temporarily to test basic query
+    const postsResult = await env.DB.prepare(query).all()
+    
+    if (!postsResult.results || postsResult.results.length === 0) {
+      return `
+        <div class="blog-listing-container generate-columns-container">
+          <p style="text-align: center; padding: 2rem;">No articles found. Check back soon for new content!</p>
+        </div>
+      `
+    }
+    
+    // Generate blog cards HTML
+    const cards = postsResult.results.map((post: any) => {
+      // Handle missing category column gracefully
+      const category = post.category || 'cruise-planning'
+      const categoryTitle = category
+        .split('-')
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
+      
+      const publishedDate = post.published_date 
+        ? new Date(post.published_date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+        : 'Recent'
+      
+      // Use default featured image since column may not exist
+      const featuredImageUrl = 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp'
+      const postUrl = `/${category}/${post.slug}/`
+      
+      return `
+        <article 
+          id="post-${post.id}"
+          class="dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${category} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding"
+        >
+          <div class="gb-element-947acc35" style="background-image: url('${featuredImageUrl}');">
+            <div class="gb-element-ca29c3cc">
+              <p class="gb-text gb-text-44279aaa dynamic-term-class">
+                <span>${escapeHtml(categoryTitle)}</span>
+              </p>
+              
+              <h2 class="gb-text gb-text-4c89c85f">
+                <a href="${postUrl}">${escapeHtml(post.title)}</a>
+              </h2>
+              
+              <p class="gb-text gb-text-663e6423">${publishedDate}</p>
+              
+              <a class="gb-text gb-text-674a334b button" href="${postUrl}">
+                View Article
+              </a>
+            </div>
+          </div>
+        </article>
+      `
+    }).join('\n')
+    
+    return `
+      <div class="blog-listing-container generate-columns-container">
+        ${cards}
+      </div>
+    `
+    
+  } catch (error) {
+    console.error('Error generating server-side blog cards:', error)
+    return `
+      <div class="blog-listing-container generate-columns-container">
+        <p style="text-align: center; padding: 2rem; color: #666;">
+          Unable to load articles at this time. Please try again later.
+        </p>
+      </div>
+    `
+  }
+}
+
 function escapeHtml(unsafe: string): string {
   if (typeof unsafe !== 'string') return ''
   

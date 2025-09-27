@@ -15,7 +15,7 @@ app.get('/', async (c) => {
     console.log('🏠 Rendering homepage with template system')
     
     // Generate variables for homepage
-    const variables = await generateBlogListingVariables()
+    const variables = await generateBlogListingVariables(undefined, undefined, c.env)
     tracker.setVariableCount(Object.keys(variables).length)
     
     // Add body classes for WordPress compatibility
@@ -87,7 +87,7 @@ app.get('/category/:categorySlug', async (c) => {
     }
     
     // Generate variables for category listing
-    const variables = await generateBlogListingVariables(categorySlug, categoryResult.name as string)
+    const variables = await generateBlogListingVariables(categorySlug, categoryResult.name as string, c.env)
     
     // Add body classes
     const enhancedVariables = {
