@@ -148,10 +148,26 @@ export async function generateBlogListingVariables(
     POST_CONTENT: isCategory 
       ? `<div id="react-blog-content" class="blog-listing-container">
            <p>Loading ${categoryName || categorySlug} articles...</p>
-         </div>`
+         </div>
+         <script type="module" src="http://localhost:5174/@vite/client"></script>
+         <script type="module" src="http://localhost:5174/src/react-app/blog-mount.tsx"></script>
+         <script type="text/javascript">
+           window.BLOG_CONFIG = {
+             category: '${categorySlug}',
+             categoryName: '${categoryName || categorySlug}'
+           };
+         </script>`
       : `<div id="react-blog-content" class="blog-listing-container">
            <p>Loading latest cruise articles...</p>
-         </div>`,
+         </div>
+         <script type="module" src="http://localhost:5174/@vite/client"></script>
+         <script type="module" src="http://localhost:5174/src/react-app/blog-mount.tsx"></script>
+         <script type="text/javascript">
+           window.BLOG_CONFIG = {
+             category: null,
+             categoryName: null
+           };
+         </script>`,
     HERO_CONTENT: renderBlogHero(categoryName),
     
     // Template variables for hero (even though it's not a post)
