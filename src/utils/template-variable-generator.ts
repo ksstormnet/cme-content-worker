@@ -313,7 +313,7 @@ function renderBlogHero(categoryName?: string): string {
   const heroBackgroundImage = 'https://cruisemadeeasy.com/wp-content/uploads/2025/03/ncl_Dawn_Wake.jpeg'
     
   return `
-    <div class="hero-container" style="background-image: url('${heroBackgroundImage}');">
+    <div class="hero-container" style="--hero-bg-image: url('${heroBackgroundImage}');">
       <div class="gb-element-65aa24d4">
         <h1 class="gb-text gb-text-74f92ea1">${escapeHtml(title)}</h1>
       </div>
