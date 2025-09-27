@@ -88,6 +88,10 @@ export async function generatePostVariables(
     SCHEMA_JSON: generateSchemaJSON(post, imageVariants, baseUrl),
     BREADCRUMBS_JSON: generateBreadcrumbsJSON(post, categoryDisplayName, baseUrl),
     
+    // Breadcrumb template variables
+    HAS_BREADCRUMBS: true,
+    BREADCRUMB_ITEMS: generateBreadcrumbItems(post, categoryDisplayName, baseUrl),
+    
     // Additional template variables for hero section compatibility
     POST_TITLE: post.title,
     POST_AUTHOR: post.author_name || 'Cruise Made EASY',
@@ -150,7 +154,11 @@ export async function generateBlogListingVariables(
     HAS_FEATURED_IMAGE: true,
     HAS_TWITTER_IMAGE: true,
     
-    TWITTER_IMAGE_URL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp'
+    TWITTER_IMAGE_URL: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+    
+    // Breadcrumb template variables for listings
+    HAS_BREADCRUMBS: !!isCategory,
+    BREADCRUMB_ITEMS: isCategory ? generateBreadcrumbItemsForCategory(categorySlug, categoryName, baseUrl) : []
   }
 }
 
@@ -454,6 +462,52 @@ function generateBreadcrumbsJSON(post: PostData, categoryDisplayName: string, ba
   return JSON.stringify(breadcrumbs)
 }
 
+// Generate breadcrumb items for template rendering
+function generateBreadcrumbItems(post: PostData, categoryDisplayName: string, baseUrl: string): any[] {
+  return [
+    {
+      POSITION: 1,
+      URL: baseUrl,
+      NAME: 'Home',
+      NOT_LAST: true
+    },
+    {
+      POSITION: 2,
+      URL: `${baseUrl}/category/${post.category}/`,
+      NAME: categoryDisplayName,
+      NOT_LAST: true
+    },
+    {
+      POSITION: 3,
+      URL: `${baseUrl}/${post.category}/${post.slug}/`,
+      NAME: post.title,
+      NOT_LAST: false
+    }
+  ]
+}
+
+// Generate breadcrumb items for category pages
+function generateBreadcrumbItemsForCategory(categorySlug?: string, categoryName?: string, baseUrl: string = 'https://cruisemadeeasy.com'): any[] {
+  if (!categorySlug || !categoryName) {
+    return []
+  }
+  
+  return [
+    {
+      POSITION: 1,
+      URL: baseUrl,
+      NAME: 'Home',
+      NOT_LAST: true
+    },
+    {
+      POSITION: 2,
+      URL: `${baseUrl}/category/${categorySlug}/`,
+      NAME: categoryName,
+      NOT_LAST: false
+    }
+  ]
+}
+
 // Template loading helper
 async function loadTemplate(templateName: string): Promise<string> {
   const template = COMPILED_TEMPLATES[templateName as keyof typeof COMPILED_TEMPLATES]
@@ -468,11 +522,22 @@ async function loadTemplate(templateName: string): Promise<string> {
 
 // Simple template variable substitution with conditional support
 function renderTemplateString(template: string, variables: Record<string, any>): string {
-  // First handle conditional blocks {{#CONDITION}}...{{/CONDITION}}
+  // First handle conditional blocks with array iteration {{#ARRAY}}...{{/ARRAY}}
   template = template.replace(/\{\{#(\w+)\}\}([\s\S]*?)\{\{\/\1\}\}/g, (match, condition, content) => {
     const conditionValue = variables[condition]
     
-    // Show content if condition is truthy and not empty
+    // Handle arrays - iterate and render each item
+    if (Array.isArray(conditionValue)) {
+      return conditionValue.map((item, index) => {
+        // Replace variables within the array item content
+        return content.replace(/\{\{([\w_]+)\}\}/g, (varMatch, varKey) => {
+          const itemValue = item[varKey]
+          return itemValue !== undefined ? String(itemValue) : ''
+        })
+      }).join('')
+    }
+    
+    // Handle boolean/simple conditionals
     if (conditionValue && conditionValue !== '' && conditionValue !== '#') {
       return content
     }
