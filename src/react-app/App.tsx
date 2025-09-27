@@ -214,7 +214,7 @@ function App() {
               path="/" 
               element={
                 auth.user ? 
-                <Navigate to="/admin/create" replace /> : 
+                <Navigate to="/admin" replace /> : 
                 <UnifiedBlogView />
               } 
             />
@@ -243,7 +243,7 @@ function App() {
             />
 
             <Route 
-              path="/admin/create/*" 
+              path="/admin/*" 
               element={
                 auth.user ? 
                 <MainLayout user={auth.user}>
@@ -260,7 +260,7 @@ function App() {
                 <MainLayout user={auth.user}>
                   <AdminDashboard user={auth.user} />
                 </MainLayout> : 
-                <Navigate to="/admin/create" replace />
+                <Navigate to="/admin" replace />
               } 
             />
 
@@ -269,7 +269,7 @@ function App() {
               path="/blogin" 
               element={
                 auth.user ? 
-                <Navigate to="/admin/create" replace /> : 
+                <Navigate to="/admin" replace /> : 
                 <LoginPage onLogin={handleLogin} error={auth.error} />
               } 
             />
@@ -280,7 +280,7 @@ function App() {
               path="*" 
               element={
                 auth.user ? 
-                <Navigate to="/admin/create" replace /> : 
+                <Navigate to="/admin" replace /> : 
                 <Navigate to="/blogin" replace />
               } 
             />

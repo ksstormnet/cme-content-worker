@@ -68,8 +68,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
             {!writingSectionCollapsed && (
               <div className="section-content">
                 <Link
-                  to="/admin/create"
-                  className={`nav-link ${isActive('/admin/create') && !isActive('/admin/calendar') && !isActive('/media') ? 'active' : ''}`}
+                  to="/admin"
+                  className={`nav-link ${isActive('/admin') && !isActive('/admin/calendar') && !isActive('/media') ? 'active' : ''}`}
                   title="Posts"
                 >
                   <span className="link-icon">📝</span>
@@ -86,8 +86,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/admin/create/generate"
-                  className={`nav-link ${location.pathname === '/admin/create/generate' ? 'active' : ''}`}
+                  to="/admin/generate"
+                  className={`nav-link ${location.pathname === '/admin/generate' ? 'active' : ''}`}
                   title="Generate Content"
                 >
                   <span className="link-icon">🤖</span>
@@ -95,17 +95,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/admin/create/free-form"
-                  className={`nav-link ${location.pathname === '/admin/create/free-form' ? 'active' : ''}`}
-                  title="Free-Form Editor"
+                  to="/admin/new"
+                  className={`nav-link ${location.pathname === '/admin/new' ? 'active' : ''}`}
+                  title="New Post"
                 >
                   <span className="link-icon">✍️</span>
-                  {!sidebarCollapsed && <span className="link-text">Free-Form Editor</span>}
+                  {!sidebarCollapsed && <span className="link-text">New Post</span>}
                 </Link>
                 
                 <Link
-                  to="/admin/create/import"
-                  className={`nav-link ${location.pathname === '/admin/create/import' ? 'active' : ''}`}
+                  to="/admin/import"
+                  className={`nav-link ${location.pathname === '/admin/import' ? 'active' : ''}`}
                   title="Import Content"
                 >
                   <span className="link-icon">📁</span>
@@ -139,9 +139,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                   onCategorySelect={(categorySlug) => {
                     // Navigate to media library with category filter using React Router
                     if (categorySlug === null) {
-                      navigate('/create/media');
+                      navigate('/admin/media');
                     } else {
-                      navigate(`/create/media?category=${categorySlug}`);
+                      navigate(`/admin/media?category=${categorySlug}`);
                     }
                   }}
                 />

@@ -140,12 +140,12 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
   const isActive = (path: string) => location.pathname.includes(path);
 
   // Only show post header for post-related routes, not for media
-  const isPostRoute = location.pathname === '/create' || 
-                      location.pathname === '/create/' || 
-                      location.pathname.startsWith('/create/edit/') ||
-                      location.pathname.startsWith('/create/generate') ||
-                      location.pathname.startsWith('/create/free-form') ||
-                      location.pathname.startsWith('/create/import');
+  const isPostRoute = location.pathname === '/admin' || 
+                      location.pathname === '/admin/' || 
+                      location.pathname.startsWith('/admin/edit/') ||
+                      location.pathname.startsWith('/admin/generate') ||
+                      location.pathname.startsWith('/admin/new') ||
+                      location.pathname.startsWith('/admin/import');
 
   return (
     <div className="create-dashboard">
@@ -166,7 +166,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
             {showNewDropdown && (
               <div className="dropdown-menu">
                 <Link 
-                  to="/admin/create/generate"
+                  to="/admin/generate"
                   className="dropdown-item"
                   onClick={() => setShowNewDropdown(false)}
                 >
@@ -174,7 +174,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
                   Generate
                 </Link>
                 <Link 
-                  to="/admin/create/free-form"
+                  to="/admin/new"
                   className="dropdown-item"
                   onClick={() => setShowNewDropdown(false)}
                 >
@@ -257,7 +257,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
             } 
           />
           <Route 
-            path="/free-form" 
+            path="/new" 
             element={
               <FreeFormEditor
                 user={user}
