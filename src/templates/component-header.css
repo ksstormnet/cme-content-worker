@@ -1,0 +1,167 @@
+.gb-element-6d98b3bd{background-color:var(--accent-2);color:var(--base-3);position:fixed;width:100%;z-index:9999;border-bottom:1px solid var(--base-3)}
+
+@media (max-width: 768px) {
+  .top-bar {
+    display: none !important;
+  }
+}
+
+	@media (min-width: 769px) {
+  .mobile-bar {
+    display: none !important;
+  }
+}
+	
+/* Overall layout: left block (stacked), right hamburger */
+.mobile-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Stack quiz + phone vertically */
+.mobile-cta-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* Individual link styling */
+.mobile-cta,
+.mobile-phone-link {
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+/* Icon alignment if needed (optional) */
+.mobile-phone-link::before {
+  content: "☎️ ";
+  margin-right: 0.4em;
+}
+
+/* Hamburger stays right and centered */
+.generate-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+
+
+	@media (max-width: 768px) {
+  .top-bar {
+    display: none !important;
+  }
+}
+
+	@media (min-width: 769px) {
+  .mobile-bar {
+    display: none !important;
+  }
+}
+	
+/* Overall layout: left block (stacked), right hamburger */
+.mobile-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Stack quiz + phone vertically */
+.mobile-cta-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* Individual link styling */
+.mobile-cta,
+.mobile-phone-link {
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+/* Icon alignment if needed (optional) */
+.mobile-phone-link::before {
+  content: "☎️ ";
+  margin-right: 0.4em;
+}
+
+/* Hamburger stays right and centered */
+.generate-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+
+
+	@media (max-width: 768px) {
+  .top-bar {
+    display: none !important;
+  }
+}
+
+	@media (min-width: 769px) {
+  .mobile-bar {
+    display: none !important;
+  }
+}
+	
+/* Overall layout: left block (stacked), right hamburger */
+.mobile-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Stack quiz + phone vertically */
+.mobile-cta-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* Individual link styling */
+.mobile-cta,
+.mobile-phone-link {
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+/* Icon alignment if needed (optional) */
+.mobile-phone-link::before {
+  content: "☎️ ";
+  margin-right: 0.4em;
+}
+
+/* Hamburger stays right and centered */
+.generate-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}

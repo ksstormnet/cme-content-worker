@@ -1,0 +1,141 @@
+<!-- SEO and Meta Data Template - Dynamic Content Only -->
+<meta charset="UTF-8">
+<title>{{PAGE_TITLE}}</title>
+
+<!-- Core Performance and Display Optimization -->
+<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Dublin Core Metadata -->
+<meta name="dc.title" content="{{PAGE_TITLE}}">
+<meta name="dc.description" content="{{META_DESCRIPTION}}">
+<meta name="dc.relation" content="{{PAGE_URL}}">
+<meta name="dc.source" content="https://cruisemadeeasy.com/">
+<meta name="dc.language" content="en_US">
+
+<!-- Basic SEO Meta Tags -->
+<meta name="description" content="{{META_DESCRIPTION}}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="{{PAGE_URL}}">
+<meta name="thumbnail" content="{{FEATURED_IMAGE_THUMBNAIL}}">
+
+<!-- Article/Post Specific Meta Tags -->
+{{#IS_ARTICLE}}
+<meta property="article:published_time" content="{{PUBLISHED_DATE}}">
+<meta property="article:modified_time" content="{{MODIFIED_DATE}}">
+<meta property="article:author" content="https://facebook.com/CruiseMadeEASY">
+<meta property="article:publisher" content="https://facebook.com/CruiseMadeEASY">
+<meta property="article:section" content="{{ARTICLE_CATEGORY}}">
+{{/IS_ARTICLE}}
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:url" content="{{PAGE_URL}}">
+<meta property="og:site_name" content="Cruise Made Easy">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="{{OG_TYPE}}">
+<meta property="og:title" content="{{OG_TITLE}}">
+<meta property="og:description" content="{{OG_DESCRIPTION}}">
+<meta property="og:updated_time" content="{{MODIFIED_DATE}}">
+
+<!-- Open Graph Image Meta Tags -->
+{{#HAS_FEATURED_IMAGE}}
+<meta property="og:image" content="{{FEATURED_IMAGE_URL}}">
+<meta property="og:image:secure_url" content="{{FEATURED_IMAGE_URL}}">
+<meta property="og:image:width" content="{{FEATURED_IMAGE_WIDTH}}">
+<meta property="og:image:height" content="{{FEATURED_IMAGE_HEIGHT}}">
+<meta property="og:image:alt" content="{{FEATURED_IMAGE_ALT}}">
+{{/HAS_FEATURED_IMAGE}}
+
+<!-- Facebook Pages -->
+<meta property="fb:pages" content="107480055526279, 109600461963155">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@CruiseMadeEasy">
+<meta name="twitter:creator" content="@CruiseMadeEasy">
+<meta name="twitter:title" content="{{TWITTER_TITLE}}">
+<meta name="twitter:description" content="{{TWITTER_DESCRIPTION}}">
+{{#HAS_TWITTER_IMAGE}}
+<meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}">
+{{/HAS_TWITTER_IMAGE}}
+
+<!-- Preconnect for Performance -->
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link href='https://fonts.googleapis.com' crossorigin rel='preconnect' />
+
+<!-- RSS Feed -->
+<link rel="alternate" type="application/rss+xml" title="Cruise Made Easy &raquo; Feed" href="https://cruisemadeeasy.com/feed/" />
+
+<!-- JSON-LD Structured Data -->
+{{#IS_ARTICLE}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "BlogPosting",
+    "datePublished": "{{PUBLISHED_DATE_ISO}}",
+    "dateModified": "{{MODIFIED_DATE_ISO}}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{PAGE_URL}}"
+    },
+    "headline": "{{ARTICLE_HEADLINE}}",
+    "author": {
+        "@type": "Person",
+        "name": "Cruise Made EASY",
+        "url": "https://cruisemadeeasy.com/author/scott/"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Cruise Made EASY",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp",
+            "width": "1200",
+            "height": "630"
+        },
+        "sameAs": [
+            "https://facebook.com/CruiseMadeEASY",
+            "https://twitter.com/@CruiseMadeEasy",
+            "https://pinterest.com/CruiseMadeEasy",
+            "https://instagram.com/CruiseMadeEASY",
+            "https://youtube.com/@CruiseMadeEASY",
+            "https://linkedin.com.company/CruiseMadeEASY",
+            "https://www.alignable.com/wichita-ks/cruise-made-easy"
+        ]
+    },
+    "description": "{{SCHEMA_DESCRIPTION}}"
+}
+</script>
+{{/IS_ARTICLE}}
+
+<!-- Breadcrumb Structured Data -->
+{{#HAS_BREADCRUMBS}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "name": "Breadcrumb",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {{#BREADCRUMB_ITEMS}}
+        {
+            "@type": "ListItem",
+            "position": {{POSITION}},
+            "item": {
+                "@type": "WebPage",
+                "id": "{{URL}}#webpage",
+                "url": "{{URL}}",
+                "name": "{{NAME}}"
+            }
+        }{{#NOT_LAST}},{{/NOT_LAST}}
+        {{/BREADCRUMB_ITEMS}}
+    ]
+}
+</script>
+{{/HAS_BREADCRUMBS}}
+
+<!-- Optional: Additional Meta Tags -->
+{{#HAS_SENTRY}}
+<meta name="sentry-trace" content="{{SENTRY_TRACE}}">
+<meta name="traceparent" content="{{SENTRY_TRACEPARENT}}">
+<meta name="baggage" content="{{SENTRY_BAGGAGE}}">
+{{/HAS_SENTRY}}
