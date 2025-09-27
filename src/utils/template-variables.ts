@@ -413,18 +413,7 @@ function generateCategoryBreadcrumbsJSON(displayName: string, categorySlug: stri
 
 // Get image variants from database or generate them
 async function getImageVariants(imageId: string, env: Env): Promise<any> {
-  const image = await env.DB.prepare(`
-    SELECT variants_json FROM images WHERE id = ?
-  `).bind(imageId).first()
-  
-  if (image && image.variants_json) {
-    return JSON.parse(image.variants_json as string)
-  }
-  
-  // Fallback if no variants stored
-  return {
-    original: `https://cdn.cruisemadeeasy.com/blog-images/${imageId}`,
-    thumbnail: `https://cdn.cruisemadeeasy.com/blog-images/${imageId}/cdn-cgi/image/width=150,height=150`,
-    social: `https://cdn.cruisemadeeasy.com/blog-images/${imageId}/cdn-cgi/image/width=1024,height=768`
-  }
+  // Use the centralized getImageVariants function from image-processing
+  const { getImageVariants: getVariants } = await import('./image-processing')
+  return await getVariants(imageId, env)
 }

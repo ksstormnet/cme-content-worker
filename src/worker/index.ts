@@ -13,8 +13,9 @@ import { calendarRoutes } from "./routes/calendar";
 import { contentAdvancedRoutes } from "./routes/content-advanced";
 import { importRoutes } from "./routes/import";
 import { media } from "./routes/media";
-import { templateRoutes } from "./routes/template";
-import { publicApiRoutes } from "./routes/public-api";
+// Template and CSS routes removed in Context Window 1 cleanup
+// import { templateRoutes } from "./routes/template";
+// import { publicApiRoutes } from "./routes/public-api";
 import { renderContentBlocks } from "../utils/block-renderer";
 
 // URL pattern for blog posts (should match settings)
@@ -31,8 +32,8 @@ app.use("*", cors({
   credentials: true,
 }));
 
-// Public API Routes (no auth required)
-app.route("/api", publicApiRoutes);
+// Public API Routes removed in Context Window 1 cleanup
+// app.route("/api", publicApiRoutes);
 
 // Protected API Routes - MUST come before serveStatic
 app.route("/api/auth", authRoutes);
@@ -42,7 +43,8 @@ app.route("/api/calendar", calendarRoutes);
 app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
-app.route("/api/template", templateRoutes);
+// Template routes removed in Context Window 1 cleanup
+// app.route("/api/template", templateRoutes);
 
 
 // Health check - MUST come before serveStatic
