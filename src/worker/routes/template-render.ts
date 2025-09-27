@@ -2,16 +2,20 @@ import { Hono } from 'hono'
 import { Env } from '../../types/database'
 import { templateRenderer } from '../../utils/template-renderer'
 import { generatePostVariables, generateBlogListingVariables } from '../../utils/template-variable-generator'
+import { performanceMonitor, addPerformanceHeaders } from '../../utils/performance-monitor'
 
 const app = new Hono<{ Bindings: Env }>()
 
 // Homepage route - render blog listing
 app.get('/', async (c) => {
+  const tracker = performanceMonitor.startTracking('/')
+  
   try {
     console.log('🏠 Rendering homepage with template system')
     
     // Generate variables for homepage
     const variables = await generateBlogListingVariables()
+    tracker.setVariableCount(Object.keys(variables).length)
     
     // Add body classes for WordPress compatibility
     const enhancedVariables = {
@@ -20,10 +24,11 @@ app.get('/', async (c) => {
     }
     
     // Render complete HTML page
+    tracker.incrementTemplateCount()
     const html = templateRenderer.renderPage(enhancedVariables)
     
-    // Return HTML with proper headers
-    return new Response(html, {
+    // Create response with performance headers
+    const response = new Response(html, {
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': 'public, max-age=300, s-maxage=3600', // 5min browser, 1hr CDN
@@ -32,8 +37,11 @@ app.get('/', async (c) => {
       }
     })
     
+    return addPerformanceHeaders(response, tracker)
+    
   } catch (error) {
     console.error('Homepage rendering error:', error)
+    tracker.finish(false, error instanceof Error ? error.message : 'Unknown error')
     
     // Return error page
     return new Response(templateRenderer.renderErrorPage(error as Error, 'homepage'), {
@@ -93,12 +101,15 @@ app.get('/category/:categorySlug', async (c) => {
 
 // Individual post route
 app.get('/:category/:slug', async (c) => {
+  const category = c.req.param('category')
+  const slug = c.req.param('slug')
+  const tracker = performanceMonitor.startTracking(`/${category}/${slug}`)
+  
   try {
-    const category = c.req.param('category')
-    const slug = c.req.param('slug')
     console.log('📄 Rendering post:', category, '/', slug)
     
     // Get post data with content blocks
+    tracker.startDbQuery()
     const postResult = await c.env.DB.prepare(`
       SELECT 
         p.id, p.title, p.slug, p.excerpt, p.category, p.featured_image_id,
@@ -117,8 +128,10 @@ app.get('/:category/:slug', async (c) => {
       GROUP BY p.id
       LIMIT 1
     `).bind(category, slug).first()
+    tracker.endDbQuery()
     
     if (!postResult) {
+      tracker.finish(false, 'Post not found')
       return new Response('Post not found', { status: 404 })
     }
     
@@ -127,6 +140,8 @@ app.get('/:category/:slug', async (c) => {
       ? JSON.parse(`[${(postResult.content_blocks_json as string).replace(/},{/g, '},{')}]`)
         .filter((block: any) => block.id !== null) // Remove null blocks
       : []
+    
+    tracker.setContentBlockCount(contentBlocks.length)
     
     // Create post data object
     const postData = {
@@ -144,7 +159,17 @@ app.get('/:category/:slug', async (c) => {
     }
     
     // Generate comprehensive template variables
+    if (postData.featured_image_id) {
+      tracker.startImageProcessing()
+    }
+    
     const variables = await generatePostVariables(postData, c.env)
+    
+    if (postData.featured_image_id) {
+      tracker.endImageProcessing()
+    }
+    
+    tracker.setVariableCount(Object.keys(variables).length)
     
     // Add body classes for WordPress compatibility
     const enhancedVariables = {
@@ -153,9 +178,10 @@ app.get('/:category/:slug', async (c) => {
     }
     
     // Render complete HTML page
+    tracker.incrementTemplateCount()
     const html = templateRenderer.renderPage(enhancedVariables)
     
-    return new Response(html, {
+    const response = new Response(html, {
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': 'public, max-age=600, s-maxage=7200', // 10min browser, 2hr CDN
@@ -165,8 +191,12 @@ app.get('/:category/:slug', async (c) => {
       }
     })
     
+    return addPerformanceHeaders(response, tracker)
+    
   } catch (error) {
     console.error('Post rendering error:', error)
+    tracker.finish(false, error instanceof Error ? error.message : 'Unknown error')
+    
     return new Response(templateRenderer.renderErrorPage(error as Error, 'post page'), {
       status: 500,
       headers: { 'Content-Type': 'text/html; charset=utf-8' }
