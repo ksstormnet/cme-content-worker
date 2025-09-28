@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import BlogContent from "./components/BlogContent";
+import BlogWithFilters from "./components/BlogWithFilters";
 
 // Check if we're in blog mode (template system) or admin mode
 const blogMountPoint = document.getElementById("react-blog-content");
@@ -17,7 +17,7 @@ if (blogMountPoint) {
 
   createRoot(blogMountPoint).render(
     <StrictMode>
-      <BlogContent category={category} />
+      <BlogWithFilters category={category} />
     </StrictMode>
   );
   

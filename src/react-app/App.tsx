@@ -12,7 +12,6 @@ import ContentCalendar from './components/ContentCalendar';
 import MainLayout from './components/MainLayout';
 
 // Blog Components (Content-Only for Template Integration)
-import BlogContent from './components/BlogContent';
 import BlogWithFilters from './components/BlogWithFilters';
 import PostContent from './components/PostContent';
 
