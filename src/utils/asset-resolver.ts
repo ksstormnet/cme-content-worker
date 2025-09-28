@@ -6,10 +6,10 @@ interface AssetManifest {
   cssFile: string;
 }
 
-// Fixed CDN URLs - assets are uploaded as index.js and index.css
+// Use local proxy routes to avoid CORS issues
 const ASSET_MANIFEST: AssetManifest = {
-  jsFile: 'https://cdn.cruisemadeeasy.com/built-js/latest/index.js',
-  cssFile: 'https://cdn.cruisemadeeasy.com/built-js/latest/index.css'
+  jsFile: '/assets/index.js',
+  cssFile: '/assets/index.css'
 };
 
 /**

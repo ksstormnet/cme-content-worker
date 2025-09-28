@@ -103,9 +103,11 @@ authRoutes.post("/login", async (c) => {
     const token = await createJWT(user, c.env);
 
     // Set HTTP-only cookie
+    // Use protocol-based security instead of environment-based
+    const isHttps = c.req.url.startsWith('https://');
     setCookie(c, "auth_token", token, {
       httpOnly: true,
-      secure: c.env.ENVIRONMENT === "production",
+      secure: isHttps,
       sameSite: "Lax",
       maxAge: 24 * 60 * 60, // 24 hours
       path: "/",

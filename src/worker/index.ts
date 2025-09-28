@@ -37,7 +37,7 @@ getAssetManifest().catch(error => {
 // Middleware
 app.use("*", logger());
 app.use("*", cors({
-  origin: ["https://blog.cruisemadeeasy.com", "https://cme-content-worker.ksstorm.workers.dev", "http://localhost:5174"],
+  origin: ["https://blog.cruisemadeeasy.com", "https://tips.cruisemadeeasy.com", "https://cme-content-worker.ksstorm.workers.dev", "http://localhost:5174"],
   allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -88,8 +88,9 @@ app.get("/api/posts", async (c) => {
     
     // Simple query that works with current database schema
     const query = `
-      SELECT id, title, slug, excerpt, published_date
+      SELECT id, title, slug, excerpt, published_date, featured_image_url
       FROM posts 
+      WHERE status = 'published'
       ORDER BY published_date DESC 
       LIMIT ? OFFSET ?
     `;
@@ -102,8 +103,8 @@ app.get("/api/posts", async (c) => {
       title: post.title || 'Untitled',
       slug: post.slug || 'untitled',
       excerpt: post.excerpt || '',
-      category: 'cruise-planning', // Default category
-      featured_image_url: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+      category: 'cruise-planning', // Default category for now
+      featured_image_url: post.featured_image_url || 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
       published_date: post.published_date || new Date().toISOString(),
       author_name: 'Cruise Made EASY',
       meta_description: post.excerpt || ''
@@ -167,23 +168,77 @@ app.get("/favicon.svg", (c) => {
   return serveStatic({ root: "./dist/client", path: "favicon.svg" })(c);
 });
 
-// Assets requests - serve from built React app in both environments
-app.get("/assets/*", (c) => {
-  return serveStatic()(c);
+// Proxy CDN assets with CORS headers for development
+app.get("/assets/index.js", async (c) => {
+  try {
+    const response = await fetch('https://cdn.cruisemadeeasy.com/built-js/latest/index.js');
+    const content = await response.text();
+    
+    return new Response(content, {
+      headers: {
+        'Content-Type': 'application/javascript',
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=3600'
+      }
+    });
+  } catch (error) {
+    console.error('Error proxying JS:', error);
+    return new Response('Failed to load JS', { status: 500 });
+  }
+});
+
+app.get("/assets/index.css", async (c) => {
+  try {
+    const response = await fetch('https://cdn.cruisemadeeasy.com/built-js/latest/index.css');
+    const content = await response.text();
+    
+    return new Response(content, {
+      headers: {
+        'Content-Type': 'text/css',
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=3600'
+      }
+    });
+  } catch (error) {
+    console.error('Error proxying CSS:', error);
+    return new Response('Failed to load CSS', { status: 500 });
+  }
 });
 
 // Context Window 4: Template rendering system - MUST come after API routes and assets but before admin routes
 console.log('🎨 Initializing template rendering system');
 app.route("/", templateRenderRoutes);
 
+// Admin HTML template - serve React app in both dev and production
+const adminHtml = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cruise Made EASY Blog</title>
+    <script type="module" crossorigin src="/assets/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>`;
+
 // Admin login page - serve React app in both dev and production
 app.get("/blogin", (c) => {
-  return serveStatic({ root: "./dist/client", path: "index.html" })(c);
+  return new Response(adminHtml, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' }
+  });
 });
 
 // Admin interface routes - serve React app in both dev and production
 app.get("/admin/*", (c) => {
-  return serveStatic({ root: "./dist/client", path: "index.html" })(c);
+  return new Response(adminHtml, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' }
+  });
 });
 
 export default {

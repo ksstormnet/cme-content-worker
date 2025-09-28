@@ -1,3 +1,6 @@
+/* Import Montserrat font - same as live site */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
 /* Reset and normalize - override Vite defaults */
 * {
   margin: 0;
@@ -7,7 +10,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -191,6 +194,113 @@ img {
 }
 
 .button:hover {
+  background: var(--accent-hover, #e55a2b);
+  transform: translateY(-1px);
+}
+
+/* Blog post cards grid and styling */
+.generate-columns-container,
+.gb-element-299e3421 {
+  column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-left: 30px;
+  row-gap: 1em;
+}
+
+@media (max-width: 768px) {
+  .generate-columns-container,
+  .gb-element-299e3421 {
+    grid-template-columns: 1fr;
+    margin-left: 5px;
+    column-gap: 20px;
+  }
+}
+
+.gb-element-947acc35 {
+  background-size: cover;
+  background-position: center;
+  color: var(--base-3);
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.gb-element-ca29c3cc {
+  background-color: rgba(36, 36, 36, 0.49);
+  border-bottom-right-radius: 10px;
+  padding: 40px;
+  width: 60%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 1024px) {
+  .gb-element-ca29c3cc {
+    width: 90%;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gb-element-ca29c3cc {
+    width: 100%;
+    padding: 20px;
+    border-bottom-right-radius: 0;
+  }
+}
+
+/* Card text styling */
+.gb-text-44279aaa {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  color: var(--accent-2);
+  background: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.gb-text-4c89c85f {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.gb-text-4c89c85f a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.gb-text-4c89c85f a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.gb-text-663e6423 {
+  font-size: 0.875rem;
+  color: #fff;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.gb-text-674a334b {
+  background: var(--accent, #ff6b35);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.gb-text-674a334b:hover {
   background: var(--accent-hover, #e55a2b);
   transform: translateY(-1px);
 }

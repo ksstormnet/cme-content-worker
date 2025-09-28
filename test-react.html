@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React Test</title>
+</head>
+<body>
+    <h1>React Mount Test</h1>
+    
+    <div id="react-blog-content" class="blog-listing-container">
+        <p>Loading latest cruise articles...</p>
+    </div>
+    
+    <script type="text/javascript">
+        window.BLOG_CONFIG = {
+            category: null,
+            categoryName: null
+        };
+    </script>
+    
+    <script type="module" crossorigin src="https://cdn.cruisemadeeasy.com/built-js/latest/index.js"></script>
+    <link rel="stylesheet" crossorigin href="https://cdn.cruisemadeeasy.com/built-js/latest/index.css">
+    
+    <script>
+        // Debug logging
+        console.log('Page loaded');
+        console.log('BLOG_CONFIG:', window.BLOG_CONFIG);
+        
+        // Check if React mount point exists
+        setTimeout(() => {
+            const mountPoint = document.getElementById('react-blog-content');
+            console.log('Mount point found:', mountPoint);
+            console.log('Mount point content:', mountPoint ? mountPoint.innerHTML : 'None');
+        }, 1000);
+        
+        setTimeout(() => {
+            const mountPoint = document.getElementById('react-blog-content');
+            console.log('After 3 seconds - Mount point content:', mountPoint ? mountPoint.innerHTML : 'None');
+        }, 3000);
+    </script>
+</body>
+</html>

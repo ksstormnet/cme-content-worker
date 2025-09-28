@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 interface Post {
   id: number;
@@ -35,7 +35,16 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
   const [totalLoaded, setTotalLoaded] = useState(0);
   const [showMoreDropdown, setShowMoreDropdown] = useState(false);
   
-  const navigate = useNavigate();
+  // Defensive React Router hook usage with error boundary
+  let navigate;
+  let routerError = false;
+  
+  try {
+    navigate = useNavigate();
+  } catch (error) {
+    console.warn('React Router context not available:', error);
+    routerError = true;
+  }
   
   // Determine current filter from props or URL
   const currentFilter = category || 'all';
@@ -271,10 +280,17 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
   
   // Handle category filter change (client-side routing)
   const handleCategoryChange = (slug: string) => {
-    if (slug === 'all') {
-      navigate('/', { replace: true });
+    // Only use navigation if Router context is available
+    if (!routerError && navigate) {
+      if (slug === 'all') {
+        navigate('/', { replace: true });
+      } else {
+        navigate(`/category/${slug}`, { replace: true });
+      }
     } else {
-      navigate(`/category/${slug}`, { replace: true });
+      // Fallback to page reload if Router not available
+      const newUrl = slug === 'all' ? '/' : `/category/${slug}`;
+      window.location.href = newUrl;
     }
     
     // Reset display limit when changing filters
@@ -466,7 +482,7 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
       )}
 
       {/* Main content grid */}
-      <div className="generate-columns-container">
+      <div className="gb-element-299e3421">
         {displayPosts.length > 0 ? (
           displayPosts.map(post => generatePostCard(post))
         ) : (
