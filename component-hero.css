@@ -14,7 +14,7 @@
     position: relative;
     text-align: center;
     z-index: 1;
-    padding: 260px 30px 100px 30px;
+    padding: 120px 30px 80px 30px;
 }
 
 .gb-element-c208d8e1 {
@@ -26,7 +26,7 @@
     color: var(--base-3);
     display: inline-block;
     margin-bottom: 0px;
-    max-width: 50%;
+    max-width: 90%;
     padding-bottom: 20px;
     padding-left: 30px;
     border-bottom: 1px solid var(--accent);
@@ -41,5 +41,30 @@
     font-size: 15px;
     justify-content: center;
     text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Even shorter on mobile */
+    .gb-element-65aa24d4 {
+        padding: 100px 20px 60px 20px;
+    }
+    
+    /* Full width title on mobile */
+    .gb-text-74f92ea1 {
+        max-width: 100%;
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra compact for small screens */
+    .gb-element-65aa24d4 {
+        padding: 80px 15px 50px 15px;
+    }
+    
+    .gb-text-74f92ea1 {
+        padding-left: 15px;
+    }
 }
 

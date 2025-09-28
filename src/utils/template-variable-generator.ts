@@ -146,11 +146,29 @@ export async function generateBlogListingVariables(
     PAGE_URL: pageUrl,
     CANONICAL_URL: pageUrl,
     
-    POST_CONTENT: env ? await generateServerSideBlogCards(env, categorySlug) : `
-      <div class="blog-listing-container generate-columns-container">
-        <p style="text-align: center; padding: 2rem;">Loading cruise articles...</p>
-      </div>
-    `,
+    POST_CONTENT: isCategory 
+      ? `<div id="react-blog-content" class="blog-listing-container">
+           <p>Loading ${categoryName || categorySlug} articles...</p>
+         </div>
+         <script type="module" crossorigin src="/assets/index-DAljFaMt.js"></script>
+         <link rel="stylesheet" crossorigin href="/assets/index-D1z_T5He.css">
+         <script type="text/javascript">
+           window.BLOG_CONFIG = {
+             category: '${categorySlug}',
+             categoryName: '${categoryName || categorySlug}'
+           };
+         </script>`
+      : `<div id="react-blog-content" class="blog-listing-container">
+           <p>Loading latest cruise articles...</p>
+         </div>
+         <script type="module" crossorigin src="/assets/index-DAljFaMt.js"></script>
+         <link rel="stylesheet" crossorigin href="/assets/index-D1z_T5He.css">
+         <script type="text/javascript">
+           window.BLOG_CONFIG = {
+             category: null,
+             categoryName: null
+           };
+         </script>`,
     HERO_CONTENT: renderBlogHero(categoryName),
     
     // Template variables for hero (even though it's not a post)

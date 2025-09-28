@@ -130,7 +130,8 @@ app.get('/:category/:slug', async (c) => {
     const postResult = await c.env.DB.prepare(`
       SELECT 
         p.id, p.title, p.slug, p.excerpt, p.category, p.featured_image_id,
-        p.published_date, p.updated_at, p.meta_description, p.author_name,
+        p.published_date, p.updated_at, p.meta_description, p.author_id,
+        u.name as author_name,
         GROUP_CONCAT(
           json_object(
             'id', cb.id,
@@ -140,6 +141,7 @@ app.get('/:category/:slug', async (c) => {
           )
         ) as content_blocks_json
       FROM posts p
+      LEFT JOIN users u ON p.author_id = u.id
       LEFT JOIN content_blocks cb ON p.id = cb.post_id
       WHERE p.category = ? AND p.slug = ? AND p.status = 'published'
       GROUP BY p.id

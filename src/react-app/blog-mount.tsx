@@ -1,10 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
-import BlogContent from "./components/BlogContent";
+import BlogWithFilters from "./components/BlogWithFilters";
 
-// Blog-specific mounting point for template system integration
-// This mounts the BlogContent component directly into #react-blog-content
+// Blog-specific mounting point for template system integration  
+// This mounts the BlogWithFilters component directly into #react-blog-content
 // without the full App wrapper (which is designed for admin routes)
 
 const mountBlogContent = () => {
@@ -19,11 +20,13 @@ const mountBlogContent = () => {
   const blogConfig = (window as any).BLOG_CONFIG || {};
   const category = blogConfig.category;
 
-  console.log("Mounting BlogContent with config:", blogConfig);
+  console.log("Mounting BlogWithFilters with config:", blogConfig);
 
   createRoot(mountPoint).render(
     <StrictMode>
-      <BlogContent category={category} />
+      <Router>
+        <BlogWithFilters category={category} />
+      </Router>
     </StrictMode>
   );
 };

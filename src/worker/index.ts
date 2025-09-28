@@ -73,9 +73,66 @@ app.post("/api/test", async (c) => {
   }
 });
 
-// Context Window 4: Template rendering system - MUST come after API routes but before admin routes
-console.log('🎨 Initializing template rendering system');
-app.route("/", templateRenderRoutes);
+// Public API endpoints for React BlogContent component
+app.get("/api/posts", async (c) => {
+  try {
+    const status = c.req.query("status") || "published";
+    const limit = parseInt(c.req.query("limit") || "20");
+    const offset = parseInt(c.req.query("offset") || "0");
+    
+    // Simple query that works with current database schema
+    const query = `
+      SELECT id, title, slug, excerpt, published_date
+      FROM posts 
+      ORDER BY published_date DESC 
+      LIMIT ? OFFSET ?
+    `;
+    
+    const result = await c.env.DB.prepare(query).bind(limit, offset).all();
+    
+    // Transform data to match expected format
+    const posts = result.results?.map((post: any) => ({
+      id: post.id,
+      title: post.title || 'Untitled',
+      slug: post.slug || 'untitled',
+      excerpt: post.excerpt || '',
+      category: 'cruise-planning', // Default category
+      featured_image_url: 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
+      published_date: post.published_date || new Date().toISOString(),
+      author_name: 'Cruise Made EASY',
+      meta_description: post.excerpt || ''
+    })) || [];
+    
+    return c.json({
+      success: true,
+      data: posts
+    });
+  } catch (error) {
+    console.error('API posts error:', error);
+    return c.json({ success: false, error: 'Failed to fetch posts' }, 500);
+  }
+});
+
+app.get("/api/categories", async (c) => {
+  try {
+    // Return some basic categories for now
+    const categories = [
+      { slug: 'cruise-planning', name: 'Cruise Planning', post_count: 10, priority: 1 },
+      { slug: 'ship-reviews', name: 'Ship Reviews', post_count: 8, priority: 2 },
+      { slug: 'destinations', name: 'Destinations', post_count: 15, priority: 3 },
+      { slug: 'tips-tricks', name: 'Tips & Tricks', post_count: 12, priority: 4 }
+    ];
+    
+    return c.json({
+      success: true,
+      data: categories
+    });
+  } catch (error) {
+    console.error('API categories error:', error);
+    return c.json({ success: false, error: 'Failed to fetch categories' }, 500);
+  }
+});
+
 
 // Development HTML shell template
 const devHtmlShell = `<!doctype html>
@@ -112,16 +169,19 @@ app.get("/favicon.svg", (c) => {
   }
 });
 
-// Assets requests
+// Assets requests - CRITICAL: This MUST come before template routes
 app.get("/assets/*", (c) => {
   if (c.env.ENVIRONMENT === "production") {
     return serveStatic()(c);
   } else {
-    // Development: redirect to Vite dev server
-    const assetPath = c.req.path.replace('/assets/', '');
-    return c.redirect(`http://localhost:5174/assets/${assetPath}`);
+    // Development: serve from built assets, not Vite
+    return serveStatic()(c);
   }
 });
+
+// Context Window 4: Template rendering system - MUST come after API routes and assets but before admin routes
+console.log('🎨 Initializing template rendering system');
+app.route("/", templateRenderRoutes);
 
 // Admin login page
 app.get("/blogin", (c) => {

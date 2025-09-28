@@ -13,6 +13,7 @@ import MainLayout from './components/MainLayout';
 
 // Blog Components (Content-Only for Template Integration)
 import BlogContent from './components/BlogContent';
+import BlogWithFilters from './components/BlogWithFilters';
 import PostContent from './components/PostContent';
 
 // Types
@@ -155,7 +156,7 @@ function App() {
     const { categorySlug } = useParams<{ categorySlug: string }>();
     return (
       <div className="content-only-wrapper">
-        <BlogContent category={categorySlug} />
+        <BlogWithFilters category={categorySlug} />
       </div>
     );
   };
@@ -173,7 +174,7 @@ function App() {
   const BlogContentWrapper = () => {
     return (
       <div className="content-only-wrapper">
-        <BlogContent />
+        <BlogWithFilters />
       </div>
     );
   };

@@ -110,45 +110,42 @@ This project has undergone a comprehensive modernization to implement clean deve
 ### Development Environment Architecture
 
 #### **MANDATORY BACKGROUND SESSION MANAGEMENT**
-**CRITICAL REQUIREMENT**: All development servers MUST run in background bash sessions controlled by Claude to prevent session hijacking.
+**CRITICAL REQUIREMENT**: Worker development server MUST run in background bash session controlled by Claude to prevent session hijacking.
 
 **Background Session Protocol**:
-- **Session 1**: Vite development server (serves ALL routes in development)
-- **Session 2**: Worker API server (serves ONLY `/api/*` endpoints in development)  
+- **Single Session**: Worker development server (serves ALL routes - blog, admin, API)
 - **Agent Orchestration**: Use agent-organizer for coordinating session management and routing
-- **Never Foreground**: Development servers must NEVER run in foreground Claude session
+- **Never Foreground**: Development server must NEVER run in foreground Claude session
 
 **Architecture Summary**:
-- **Development Mode**: Vite serves everything (frontend + admin + blog content via React Router), Worker serves only API
+- **Development Mode**: Worker serves ALL routes (blog frontend + admin + API) on `localhost:8787`
 - **Production Mode**: Worker serves everything (static React build + dynamic blog content + API routes)
-- **Build-Time Routing**: Conditional routing logic based on environment
+- **NO Vite in Development**: Vite is only used for building, not serving in development
 
 **Development Setup Requirements** (MANDATORY Background Sessions):
-1. **Session 1 - Vite Dev Server**: Serves ALL routes on `localhost:5174` (frontend, admin, blog content)
-   - Command: `npm run dev:frontend` (run in background bash session)
-   - Handles all routing via React Router
-   - Proxies `/api/*` requests to Worker server
-2. **Session 2 - Worker Dev Server**: Serves ONLY `/api/*` routes on `localhost:8787` 
-   - Command: `npm run dev:worker` (run in background bash session) 
-   - API-only mode in development environment
-   - Redirects blog routes to Vite in development
+1. **Single Session - Worker Dev Server**: Serves ALL routes on `localhost:8787`
+   - Command: `npm run dev:worker` (run in background bash session)
+   - Serves blog frontend via server-side rendering (templates + React components)
+   - Serves admin interface via built React files
+   - Serves all `/api/*` endpoints
+   - Uses remote D1 database and R2 bucket
+2. **Build Process**: React components must be built before Worker can serve them
+   - Command: `npm run build` (rebuilds React app for Worker to serve)
+   - No HMR - requires rebuild and Worker restart for React changes
 3. **Database Configuration**: Worker uses REMOTE D1 instance (production binding)
 4. **Database ID**: `58de4dc4-0900-4b28-9ccc-5d066557bb11`
 5. **R2 Bucket**: `cruisemadeeasy-images` (remote production binding)
-6. **Background Session Management**: Both servers MUST run in Claude-controlled background sessions
 
 #### Development vs Production Routing
 **Development Routing**:
 ```
-Vite (localhost:5174):
-├── / (React Router - fetches blog data via API)
-├── /admin/* (React Router - admin interface)
-├── /category/* (React Router - fetches category data via API)
-├── /:category/:slug (React Router - fetches post data via API)
-└── /api/* → Proxied to Worker
-
 Worker (localhost:8787):
-└── /api/* (API endpoints only)
+├── / (Server-rendered blog homepage with template system)
+├── /category/* (Server-rendered category pages)
+├── /:category/:slug (Server-rendered post pages)
+├── /admin/* (Serves built React files for admin interface)
+├── /assets/* (Serves built React assets)
+└── /api/* (API endpoints)
 ```
 
 **Production Routing**:

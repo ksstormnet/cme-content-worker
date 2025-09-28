@@ -44,7 +44,7 @@ async function compileTemplates() {
     
     const content = fs.readFileSync(filePath, 'utf8')
     const minified = await minifyHtml.minify(content, minifyOptions)
-    const key = file.replace('.html', '').replace('-', '_').toUpperCase()
+    const key = file.replace('.html', '').replace(/-/g, '_').toUpperCase()
     
     templates[key] = minified
     console.log(`✅ Compiled ${file} (${content.length} → ${minified.length} chars)`)
