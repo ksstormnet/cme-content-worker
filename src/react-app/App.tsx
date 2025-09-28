@@ -10,6 +10,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ChangePassword from './components/ChangePassword';
 import ContentCalendar from './components/ContentCalendar';
 import MainLayout from './components/MainLayout';
+import AdminToolbar from './components/AdminToolbar';
 
 // Blog Components (Content-Only for Template Integration)
 import BlogWithFilters from './components/BlogWithFilters';
@@ -184,7 +185,8 @@ function App() {
   return (
     <Router>
       <div className="app">
-{auth.user && (
+        {/* Main admin header - only shown on admin routes */}
+        {auth.user && window.location.pathname.startsWith('/admin') && (
           <header className="app-header">
             <div className="header-content">
               <h1 className="app-title">
@@ -237,17 +239,13 @@ function App() {
 
         <main className="app-main">
           <Routes>
-            {/* Root route - MUST come before wildcard routes */}
+            {/* Root route - Always show blog homepage, regardless of auth status */}
             <Route 
               path="/" 
-              element={
-                auth.user ? 
-                <Navigate to="/admin" replace /> : 
-                <BlogContentWrapper />
-              } 
+              element={<BlogContentWrapper />} 
             />
 
-            {/* Public blog routes - served by Vite in development, Worker in production */}
+            {/* Public blog routes - Always accessible, regardless of auth status */}
             <Route 
               path="/category/:categorySlug" 
               element={<CategoryBlogContent />} 
@@ -258,24 +256,13 @@ function App() {
               element={<PostContentWrapper />} 
             />
 
-            {/* Protected routes - namespaced under /admin */}
+            {/* Protected admin routes - require authentication */}
             <Route 
               path="/admin/calendar" 
               element={
                 auth.user ? 
                 <MainLayout user={auth.user}>
                   <ContentCalendar user={auth.user} />
-                </MainLayout> : 
-                <Navigate to="/blogin" replace />
-              } 
-            />
-
-            <Route 
-              path="/admin/*" 
-              element={
-                auth.user ? 
-                <MainLayout user={auth.user}>
-                  <CreateDashboard user={auth.user} />
                 </MainLayout> : 
                 <Navigate to="/blogin" replace />
               } 
@@ -292,7 +279,18 @@ function App() {
               } 
             />
 
-            {/* Redirect authenticated users from /blogin to admin dashboard */}
+            <Route 
+              path="/admin/*" 
+              element={
+                auth.user ? 
+                <MainLayout user={auth.user}>
+                  <CreateDashboard user={auth.user} />
+                </MainLayout> : 
+                <Navigate to="/blogin" replace />
+              } 
+            />
+
+            {/* Login page - redirect to admin if already authenticated */}
             <Route 
               path="/blogin" 
               element={
@@ -302,15 +300,10 @@ function App() {
               } 
             />
 
-
-            {/* Catch all other routes - redirect to appropriate location */}
+            {/* Catch all other routes - redirect to homepage (public blog) */}
             <Route 
               path="*" 
-              element={
-                auth.user ? 
-                <Navigate to="/admin" replace /> : 
-                <Navigate to="/blogin" replace />
-              } 
+              element={<Navigate to="/" replace />} 
             />
           </Routes>
         </main>

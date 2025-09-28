@@ -4,6 +4,7 @@ import { logger } from "hono/logger";
 import { serveStatic } from "hono/cloudflare-workers";
 import { Env } from "../types/database";
 import { parsePostUrl } from "../utils/url";
+import { getAssetManifest } from "../utils/asset-resolver";
 
 // Import route handlers
 import { authRoutes } from "./routes/auth";
@@ -27,6 +28,11 @@ import { renderContentBlocks } from "../utils/block-renderer";
 const BLOG_URL_PATTERN = "/%category%/";
 
 const app = new Hono<{ Bindings: Env }>();
+
+// Initialize asset manifest on startup
+getAssetManifest().catch(error => {
+  console.error('⚠️ Failed to initialize asset manifest on startup:', error);
+});
 
 // Middleware
 app.use("*", logger());
@@ -152,55 +158,32 @@ const devHtmlShell = `<!doctype html>
 </html>`;
 
 // Admin interface routing - handle both development and production
-// Favicon requests
+// Favicon requests - serve from built React app in both environments
 app.get("/favicon.ico", (c) => {
-  if (c.env.ENVIRONMENT === "production") {
-    return serveStatic({ path: "favicon.ico" })(c);
-  } else {
-    return c.redirect("http://localhost:5174/favicon.ico");
-  }
+  return serveStatic({ root: "./dist/client", path: "favicon.ico" })(c);
 });
 
 app.get("/favicon.svg", (c) => {
-  if (c.env.ENVIRONMENT === "production") {
-    return serveStatic({ path: "favicon.svg" })(c);
-  } else {
-    return c.redirect("http://localhost:5174/favicon.svg");
-  }
+  return serveStatic({ root: "./dist/client", path: "favicon.svg" })(c);
 });
 
-// Assets requests - CRITICAL: This MUST come before template routes
+// Assets requests - serve from built React app in both environments
 app.get("/assets/*", (c) => {
-  if (c.env.ENVIRONMENT === "production") {
-    return serveStatic()(c);
-  } else {
-    // Development: serve from built assets, not Vite
-    return serveStatic()(c);
-  }
+  return serveStatic()(c);
 });
 
 // Context Window 4: Template rendering system - MUST come after API routes and assets but before admin routes
 console.log('🎨 Initializing template rendering system');
 app.route("/", templateRenderRoutes);
 
-// Admin login page
+// Admin login page - serve React app in both dev and production
 app.get("/blogin", (c) => {
-  if (c.env.ENVIRONMENT === "production") {
-    return serveStatic()(c);
-  } else {
-    // Development: redirect to Vite dev server root - let React Router handle routing
-    return c.redirect("http://localhost:5174/");
-  }
+  return serveStatic({ root: "./dist/client", path: "index.html" })(c);
 });
 
-// Admin interface routes - these MUST come after template routes to avoid conflicts
+// Admin interface routes - serve React app in both dev and production
 app.get("/admin/*", (c) => {
-  if (c.env.ENVIRONMENT === "production") {
-    return serveStatic({ path: "index.html" })(c);
-  } else {
-    // Development: redirect to Vite dev server root - let React Router handle routing
-    return c.redirect("http://localhost:5174/");
-  }
+  return serveStatic({ root: "./dist/client", path: "index.html" })(c);
 });
 
 export default {

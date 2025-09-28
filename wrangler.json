@@ -65,8 +65,7 @@
 				"JWT_SECRET": "production-jwt-secret-key-change-this"
 			},
 			"assets": {
-				"directory": "./dist/client",
-				"not_found_handling": "single-page-application"
+				"directory": "./dist/client"
 			}
 		}
 	},

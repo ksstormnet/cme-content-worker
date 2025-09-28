@@ -40,7 +40,11 @@
   --info-bg: #dbeafe;
   --info-border: #93c5fd;
   --info-text: #1e40af;
-}
+  
+  /* Admin toolbar specific */
+  --admin-toolbar-bg: #1e40af;
+  --admin-toolbar-text: #ffffff;
+  --admin-toolbar-button-hover: #3b82f6;
 }
 
 [data-theme="dark"] {
@@ -582,4 +586,92 @@ button:focus-visible {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Admin Toolbar Styles */
+.admin-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--admin-toolbar-bg);
+  color: var(--admin-toolbar-text);
+  padding: 0.75rem 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-toolbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-indicator {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.admin-user {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.admin-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-toolbar-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--admin-toolbar-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-toolbar-button:hover {
+  background: var(--admin-toolbar-button-hover);
+  color: white;
+}
+
+.admin-toolbar-button.logout {
+  background: rgba(239, 68, 68, 0.8);
+}
+
+.admin-toolbar-button.logout:hover {
+  background: #dc2626;
+}
+
+/* Adjust body margin when admin toolbar is present */
+body:has(.admin-toolbar) {
+  margin-top: 60px;
+}
+
+/* Fallback for browsers that don't support :has() */
+.admin-toolbar-active {
+  margin-top: 60px;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] {
+  --admin-toolbar-bg: #1e40af;
+  --admin-toolbar-text: #f8fafc;
+  --admin-toolbar-button-hover: #3b82f6;
 }

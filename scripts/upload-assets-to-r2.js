@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 const ASSETS_DIR = join(__dirname, '../dist/client/assets');
 const R2_BUCKET = 'cruisemadeeasy-images';
-const R2_PREFIX = 'built-js';
+const R2_PREFIX = 'built-js/latest';
 
 console.log('🚀 Starting R2 asset upload...');
 
@@ -46,9 +46,11 @@ async function uploadAssets() {
     });
 
     // Upload each file using wrangler r2 object put
+    // Upload JS as index.js and CSS as index.css for consistent URLs
     for (const file of files) {
       const filePath = join(ASSETS_DIR, file);
-      const r2Key = `${R2_PREFIX}/${file}`;
+      const extension = file.endsWith('.js') ? 'index.js' : 'index.css';
+      const r2Key = `${R2_PREFIX}/${extension}`;
       
       console.log(`⬆️ Uploading ${file} to R2...`);
       
@@ -56,11 +58,11 @@ async function uploadAssets() {
         const { execSync } = await import('child_process');
         
         // Upload file to R2 using wrangler
-        execSync(`wrangler r2 object put ${R2_BUCKET}/${r2Key} --file="${filePath}" --content-type="${getContentType(file)}"`, {
+        execSync(`wrangler r2 object put ${R2_BUCKET}/${r2Key} --file="${filePath}" --content-type="${getContentType(file)}" --remote`, {
           stdio: 'pipe'
         });
         
-        console.log(`✅ Successfully uploaded ${file} to r2://${R2_BUCKET}/${r2Key}`);
+        console.log(`✅ Successfully uploaded ${file} as ${extension} to r2://${R2_BUCKET}/${r2Key}`);
       } catch (error) {
         console.error(`❌ Failed to upload ${file}:`, error.message);
         process.exit(1);

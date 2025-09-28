@@ -2,6 +2,7 @@ import { TemplateVariables, PostData } from '../types/template-variables'
 import { Env } from '../types/database'
 import { COMPILED_TEMPLATES } from './compiled-templates'
 import { getImageVariants } from './image-processing'
+import { getAssetManifestSync } from './asset-resolver'
 
 // Generate all template variables for a post
 export async function generatePostVariables(
@@ -140,6 +141,9 @@ export async function generateBlogListingVariables(
     ? `Expert ${categoryName || categorySlug} advice and tips for Norwegian Cruise Line cruises. Plan your perfect cruise with Cruise Made Easy.`
     : 'Expert Norwegian Cruise Line guidance, tips, and planning services. Your trusted cruise planning experts since 2020.'
   
+  // Get current asset filenames dynamically
+  const assets = getAssetManifestSync()
+  
   return {
     PAGE_TITLE: pageTitle,
     META_DESCRIPTION: description,
@@ -150,8 +154,8 @@ export async function generateBlogListingVariables(
       ? `<div id="react-blog-content" class="blog-listing-container">
            <p>Loading ${categoryName || categorySlug} articles...</p>
          </div>
-         <script type="module" crossorigin src="/assets/index-DAljFaMt.js"></script>
-         <link rel="stylesheet" crossorigin href="/assets/index-D1z_T5He.css">
+         <script type="module" crossorigin src="${assets.jsFile}"></script>
+         <link rel="stylesheet" crossorigin href="${assets.cssFile}">
          <script type="text/javascript">
            window.BLOG_CONFIG = {
              category: '${categorySlug}',
@@ -161,8 +165,8 @@ export async function generateBlogListingVariables(
       : `<div id="react-blog-content" class="blog-listing-container">
            <p>Loading latest cruise articles...</p>
          </div>
-         <script type="module" crossorigin src="/assets/index-DAljFaMt.js"></script>
-         <link rel="stylesheet" crossorigin href="/assets/index-D1z_T5He.css">
+         <script type="module" crossorigin src="${assets.jsFile}"></script>
+         <link rel="stylesheet" crossorigin href="${assets.cssFile}">
          <script type="text/javascript">
            window.BLOG_CONFIG = {
              category: null,
