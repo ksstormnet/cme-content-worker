@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 interface Post {
   id: number;
@@ -24,6 +23,25 @@ interface BlogWithFiltersProps {
   category?: string;
 }
 
+// Router-aware navigation hook
+const useNavigation = () => {
+  const [hasRouter, setHasRouter] = useState(false);
+  
+  useEffect(() => {
+    // Check if we're in a router context by looking for router in window
+    setHasRouter(!!window.location);
+  }, []);
+  
+  const navigate = (path: string) => {
+    if (hasRouter) {
+      // Use browser navigation
+      window.location.href = path;
+    }
+  };
+  
+  return { navigate, hasRouter };
+};
+
 // Dynamic blog content with category filters - designed to work within page-frame template
 const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -35,16 +53,13 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
   const [totalLoaded, setTotalLoaded] = useState(0);
   const [showMoreDropdown, setShowMoreDropdown] = useState(false);
   
-  // Defensive React Router hook usage with error boundary
-  let navigate;
-  let routerError = false;
+  // Use custom navigation hook instead of React Router
+  const { navigate } = useNavigation();
   
-  try {
-    navigate = useNavigate();
-  } catch (error) {
-    console.warn('React Router context not available:', error);
-    routerError = true;
-  }
+  // Version logging for deployment verification
+  useEffect(() => {
+    console.log('🚢 BlogWithFilters loaded - Version: 2025-09-28T07:28:00Z - Router-Free Implementation');
+  }, []);
   
   // Determine current filter from props or URL
   const currentFilter = category || 'all';
@@ -278,26 +293,10 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
     }
   };
   
-  // Handle category filter change (client-side routing)
+  // Handle category filter change (browser navigation)
   const handleCategoryChange = (slug: string) => {
-    // Only use navigation if Router context is available
-    if (!routerError && navigate) {
-      if (slug === 'all') {
-        navigate('/', { replace: true });
-      } else {
-        navigate(`/category/${slug}`, { replace: true });
-      }
-    } else {
-      // Fallback to page reload if Router not available
-      const newUrl = slug === 'all' ? '/' : `/category/${slug}`;
-      window.location.href = newUrl;
-    }
-    
-    // Reset display limit when changing filters
-    setDisplayLimit(20);
-    
-    // Scroll to top smoothly
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const newUrl = slug === 'all' ? '/' : `/category/${slug}`;
+    navigate(newUrl);
   };
   
   // Show more posts (increase display limit)

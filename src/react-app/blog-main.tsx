@@ -1,19 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import App from "./App.tsx";
 import BlogWithFilters from "./components/BlogWithFilters";
 
-// Ensure DOM is ready before mounting
-const initializeReact = () => {
-  // Check if we're in blog mode (template system) or admin mode
+// Blog-only entry point - NO React Router imports
+const initializeBlogReact = () => {
   const blogMountPoint = document.getElementById("react-blog-content");
-  const adminMountPoint = document.getElementById("root");
 
   if (blogMountPoint) {
-    // Blog mode: mount BlogContent to #react-blog-content
-    console.log("🚢 Mounting BlogContent for template system");
+    console.log("🚢 Mounting BlogContent for template system (Router-free)");
     
     const blogConfig = (window as any).BLOG_CONFIG || {};
     const category = blogConfig.category;
@@ -24,7 +19,7 @@ const initializeReact = () => {
           <BlogWithFilters category={category} />
         </StrictMode>
       );
-      console.log("✅ Blog React component mounted successfully");
+      console.log("✅ Blog React component mounted successfully (Router-free)");
     } catch (error) {
       console.error("❌ Failed to mount blog React component:", error);
       // Fallback: show error message in the mount point
@@ -38,31 +33,15 @@ const initializeReact = () => {
         </div>
       `;
     }
-    
-  } else if (adminMountPoint) {
-    // Admin mode: mount full App to #root
-    console.log("⚙️ Mounting full App for admin interface");
-    
-    try {
-      createRoot(adminMountPoint).render(
-        <StrictMode>
-          <App />
-        </StrictMode>
-      );
-      console.log("✅ Admin React app mounted successfully");
-    } catch (error) {
-      console.error("❌ Failed to mount admin React app:", error);
-    }
-    
   } else {
-    console.error("No valid mount point found (neither #react-blog-content nor #root)");
+    console.error("Blog mount point #react-blog-content not found");
   }
 };
 
 // Wait for DOM to be ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeReact);
+  document.addEventListener('DOMContentLoaded', initializeBlogReact);
 } else {
   // DOM already loaded
-  initializeReact();
+  initializeBlogReact();
 }
