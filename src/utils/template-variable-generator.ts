@@ -644,7 +644,7 @@ async function generateServerSideBlogCards(env: Env, categorySlug?: string): Pro
   try {
     // Build query for posts (accounting for database schema issues)
     // Start with minimal columns to see what exists
-    let query = `
+    const query = `
       SELECT id, title, slug
       FROM posts 
       LIMIT 5

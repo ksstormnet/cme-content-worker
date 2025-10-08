@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
 import './ContentGenerator.css';
+import type { ContentBlock } from "../types/database";
 
 interface User {
   id: number;
@@ -32,7 +34,7 @@ interface GenerationResult {
   post_id: number;
   title: string;
   excerpt: string;
-  content_blocks: any[];
+  content_blocks: ContentBlock[];
   keywords: string[];
   model_used: string;
   generation_time_ms: number;
@@ -42,6 +44,7 @@ interface GenerationResult {
 }
 
 const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated }) => {
+  const navigate = useNavigate();
   const [isGenerating, setIsGenerating] = useState(false);
   const [formData, setFormData] = useState({
     prompt: '',
@@ -134,7 +137,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
 
       if (data.success) {
         setGenerationResult(data.data);
-        
+
         // Create post object for the parent component
         const newPost: Post = {
           id: data.data.post_id,
@@ -149,7 +152,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
           author_name: user.name,
           excerpt: data.data.excerpt
         };
-        
+
         onPostCreated(newPost);
       } else {
         setError(data.error || 'Content generation failed');
@@ -160,6 +163,23 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleEditPost = () => {
+    if (!generationResult) return;
+
+    // Navigate to PostEditor with generated content
+    navigate(`/admin/editor/${generationResult.post_id}`, {
+      state: {
+        generatedContent: generationResult.content_blocks,
+        title: generationResult.title,
+        excerpt: generationResult.excerpt,
+        category: formData.category,
+        tags: formData.tags,
+        postType: formData.post_type,
+        persona: formData.persona || null,
+      }
+    });
   };
 
   const resetForm = () => {
@@ -185,10 +205,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
       <div className="content-generator">
         <div className="generation-success">
           <div className="success-header">
-            <h2>✨ Content Generated Successfully!</h2>
-            <button className="btn btn-secondary" onClick={resetForm}>
-              Generate Another
-            </button>
+            <h2>Content Generated Successfully!</h2>
           </div>
 
           <div className="generation-stats">
@@ -212,7 +229,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
 
           <div className="content-preview">
             <h3>Generated Content Preview</h3>
-            
+
             <div className="preview-item">
               <h4>Title</h4>
               <p className="title-preview">{generationResult.title}</p>
@@ -232,10 +249,10 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
                     <span className="block-content">
                       {block.type === 'heading' && `H${block.level}: ${block.content}`}
                       {block.type === 'paragraph' && block.content.substring(0, 80) + '...'}
-                      {block.type === 'accent_tip' && `💡 ${block.content.substring(0, 60)}...`}
-                      {block.type === 'image' && `🖼️ ${block.alt}`}
+                      {block.type === 'accent_tip' && `${block.content.substring(0, 60)}...`}
+                      {block.type === 'image' && `${block.alt}`}
                       {block.type === 'quote' && `"${block.content.substring(0, 50)}..."`}
-                      {block.type === 'cta' && `🔗 ${block.text}`}
+                      {block.type === 'cta' && `${block.text}`}
                     </span>
                   </div>
                 ))}
@@ -260,12 +277,12 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
 
             <div className="next-actions">
               <p className="success-message">
-                ✅ Draft post created successfully! You can now find it in your Drafts tab for further editing.
+                Draft post created successfully! You can now edit it or generate another post.
               </p>
               <div className="action-buttons">
-                <button 
+                <button
                   className="btn btn-primary"
-                  onClick={() => window.location.href = `/create/edit/${generationResult.post_id}`}
+                  onClick={handleEditPost}
                 >
                   Edit This Post
                 </button>
@@ -283,13 +300,13 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
   return (
     <div className="content-generator">
       <div className="generator-header">
-        <h2>🤖 AI Content Generation</h2>
+        <h2>AI Content Generation</h2>
         <p>Generate high-quality Norwegian Cruise Line content following CME editorial guidelines</p>
       </div>
 
       {error && (
         <div className="error-message">
-          <span className="error-icon">⚠️</span>
+          <span className="error-icon">!</span>
           {error}
         </div>
       )}
@@ -297,7 +314,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
       <form className="generation-form" onSubmit={(e) => { e.preventDefault(); generateContent(); }}>
         <div className="form-section">
           <h3>Content Specifications</h3>
-          
+
           <div className="form-group">
             <label htmlFor="post_type">Post Type</label>
             <select
@@ -324,7 +341,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
               className="form-select"
             >
               <option value="">All Personas (Generic)</option>
-              {Object.entries(personaDescriptions).map(([persona, description]) => (
+              {Object.entries(personaDescriptions).map(([persona]) => (
                 <option key={persona} value={persona}>
                   {persona.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                 </option>
@@ -390,7 +407,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
           <p className="section-description">
             Provide thematic guidance to align content with your weekly content plan
           </p>
-          
+
           <div className="themes-grid">
             <div className="form-group">
               <label htmlFor="main_theme">Main Theme</label>
@@ -459,10 +476,10 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
                 Generating Content...
               </>
             ) : (
-              '✨ Generate Content'
+              'Generate Content'
             )}
           </button>
-          
+
           <button
             type="button"
             onClick={resetForm}
@@ -475,7 +492,7 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({ user, onPostCreated
       </form>
 
       <div className="tips-section">
-        <h3>💡 Content Generation Tips</h3>
+        <h3>Content Generation Tips</h3>
         <ul>
           <li><strong>Be specific:</strong> Include details about destinations, ship features, or target audience</li>
           <li><strong>Mention context:</strong> Seasonal relevance, current events, or milestone intersections</li>

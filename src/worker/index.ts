@@ -86,24 +86,27 @@ app.get("/api/posts", async (c) => {
     const limit = parseInt(c.req.query("limit") || "20");
     const offset = parseInt(c.req.query("offset") || "0");
     
-    // Simple query that works with current database schema
+    // Query with proper category JOIN using category_id FK
     const query = `
-      SELECT id, title, slug, excerpt, published_date, featured_image_url
-      FROM posts 
-      WHERE status = 'published'
-      ORDER BY published_date DESC 
+      SELECT
+        p.id, p.title, p.slug, p.excerpt, p.published_date, p.featured_image_url,
+        c.slug as category_slug
+      FROM posts p
+      LEFT JOIN categories c ON p.category_id = c.id
+      WHERE p.status = 'published'
+      ORDER BY p.published_date DESC
       LIMIT ? OFFSET ?
     `;
-    
+
     const result = await c.env.DB.prepare(query).bind(limit, offset).all();
-    
+
     // Transform data to match expected format
     const posts = result.results?.map((post: any) => ({
       id: post.id,
       title: post.title || 'Untitled',
       slug: post.slug || 'untitled',
       excerpt: post.excerpt || '',
-      category: 'cruise-planning', // Default category for now
+      category: post.category_slug || 'general',
       featured_image_url: post.featured_image_url || 'https://cruisemadeeasy.com/wp-content/uploads/2025/07/SEOPress-1200x630-1.webp',
       published_date: post.published_date || new Date().toISOString(),
       author_name: 'Cruise Made EASY',
@@ -168,17 +171,21 @@ app.get("/favicon.svg", (c) => {
   return serveStatic({ root: "./dist/client", path: "favicon.svg" })(c);
 });
 
-// Proxy CDN assets with CORS headers for development
+// Proxy CDN assets with CORS headers and cache-busting
 app.get("/assets/index.js", async (c) => {
   try {
     const response = await fetch('https://cdn.cruisemadeeasy.com/built-js/latest/index.js');
     const content = await response.text();
-    
+
+    // Use version parameter for cache control
+    const version = c.req.query('v') || 'default';
+
     return new Response(content, {
       headers: {
         'Content-Type': 'application/javascript',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'public, max-age=3600'
+        'Cache-Control': version === 'default' ? 'public, max-age=3600' : 'public, max-age=31536000', // 1 year for versioned
+        'ETag': `"${version}"`
       }
     });
   } catch (error) {
@@ -191,12 +198,16 @@ app.get("/assets/index.css", async (c) => {
   try {
     const response = await fetch('https://cdn.cruisemadeeasy.com/built-js/latest/index.css');
     const content = await response.text();
-    
+
+    // Use version parameter for cache control
+    const version = c.req.query('v') || 'default';
+
     return new Response(content, {
       headers: {
         'Content-Type': 'text/css',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'public, max-age=3600'
+        'Cache-Control': version === 'default' ? 'public, max-age=3600' : 'public, max-age=31536000',
+        'ETag': `"${version}"`
       }
     });
   } catch (error) {
@@ -209,7 +220,8 @@ app.get("/assets/index.css", async (c) => {
 console.log('🎨 Initializing template rendering system');
 app.route("/", templateRenderRoutes);
 
-// Admin HTML template - serve React app in both dev and production
+// Admin HTML template - serve React app with cache-busting version parameter
+const ASSET_VERSION = "20251008-081000"; // Update this on each deploy to bust cache
 const adminHtml = `<!doctype html>
 <html lang="en">
   <head>
@@ -218,8 +230,8 @@ const adminHtml = `<!doctype html>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cruise Made EASY Blog</title>
-    <script type="module" crossorigin src="/assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index.css">
+    <script type="module" crossorigin src="/assets/index.js?v=${ASSET_VERSION}"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index.css?v=${ASSET_VERSION}">
   </head>
 
   <body>

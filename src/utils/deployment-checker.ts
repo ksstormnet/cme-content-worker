@@ -20,33 +20,33 @@ export interface DeploymentReadiness {
 // Comprehensive deployment readiness checker
 export async function checkDeploymentReadiness(env: Env): Promise<DeploymentReadiness> {
   const checks: DeploymentCheck[] = []
-  
+
   // 1. Database connectivity and schema
   await checkDatabase(env, checks)
-  
+
   // 2. R2 storage connectivity
   await checkR2Storage(env, checks)
-  
+
   // 3. Template system
   await checkTemplateSystem(env, checks)
-  
+
   // 4. Environment variables
   checkEnvironmentVariables(env, checks)
-  
+
   // 5. Content validation
   await checkContentIntegrity(env, checks)
-  
+
   // 6. Performance baselines
   await checkPerformanceBaselines(env, checks)
-  
+
   // Calculate results
   const criticalFailures = checks.filter(c => c.critical && c.status === 'fail').length
   const warnings = checks.filter(c => c.status === 'warning').length
   const passes = checks.filter(c => c.status === 'pass').length
-  
+
   const ready = criticalFailures === 0
   const score = Math.round((passes / checks.length) * 100)
-  
+
   return {
     ready,
     score,
@@ -62,7 +62,7 @@ async function checkDatabase(env: Env, checks: DeploymentCheck[]): Promise<void>
   try {
     // Test basic connectivity
     const testResult = await env.DB.prepare('SELECT 1 as test').first()
-    
+
     if (testResult && testResult.test === 1) {
       checks.push({
         name: 'Database Connectivity',
@@ -79,10 +79,10 @@ async function checkDatabase(env: Env, checks: DeploymentCheck[]): Promise<void>
       })
       return
     }
-    
-    // Check required tables exist
-    const requiredTables = ['posts', 'content_blocks', 'images', 'categories', 'users']
-    
+
+    // Check required tables exist (removed 'content_blocks' from list)
+    const requiredTables = ['posts', 'images', 'categories', 'users']
+
     for (const table of requiredTables) {
       try {
         await env.DB.prepare(`SELECT COUNT(*) as count FROM ${table}`).first()
@@ -102,12 +102,12 @@ async function checkDatabase(env: Env, checks: DeploymentCheck[]): Promise<void>
         })
       }
     }
-    
+
     // Check for sample data
     try {
       const postCount = await env.DB.prepare('SELECT COUNT(*) as count FROM posts WHERE status = "published"').first()
       const count = (postCount as any)?.count || 0
-      
+
       if (count > 0) {
         checks.push({
           name: 'Sample Content',
@@ -132,7 +132,7 @@ async function checkDatabase(env: Env, checks: DeploymentCheck[]): Promise<void>
         critical: false
       })
     }
-    
+
   } catch (error) {
     checks.push({
       name: 'Database Connectivity',
@@ -150,14 +150,14 @@ async function checkR2Storage(env: Env, checks: DeploymentCheck[]): Promise<void
     // Test R2 connectivity with a simple operation
     const testKey = `deployment-test-${Date.now()}.txt`
     const testContent = 'Deployment readiness test'
-    
+
     // Try to put and get a test file
     await env.IMAGES.put(testKey, testContent)
     const retrieved = await env.IMAGES.get(testKey)
-    
+
     if (retrieved) {
       const content = await retrieved.text()
-      
+
       if (content === testContent) {
         checks.push({
           name: 'R2 Storage Connectivity',
@@ -165,7 +165,7 @@ async function checkR2Storage(env: Env, checks: DeploymentCheck[]): Promise<void
           message: 'R2 bucket is accessible and functional',
           critical: true
         })
-        
+
         // Clean up test file
         await env.IMAGES.delete(testKey)
       } else {
@@ -184,7 +184,7 @@ async function checkR2Storage(env: Env, checks: DeploymentCheck[]): Promise<void
         critical: true
       })
     }
-    
+
   } catch (error) {
     checks.push({
       name: 'R2 Storage Connectivity',
@@ -200,13 +200,13 @@ async function checkR2Storage(env: Env, checks: DeploymentCheck[]): Promise<void
 async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise<void> {
   try {
     const { templateRenderer } = await import('../utils/template-renderer')
-    
+
     // Check if templates are loaded
     const availableTemplates = templateRenderer.getAvailableTemplates()
-    
+
     const requiredTemplates = ['PAGE_FRAME', 'SEO_META_TEMPLATE', 'HEADER', 'FOOTER', 'POST_NAVIGATION']
     const missingTemplates = requiredTemplates.filter(t => !availableTemplates.includes(t))
-    
+
     if (missingTemplates.length === 0) {
       checks.push({
         name: 'Template System',
@@ -222,7 +222,7 @@ async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise
         critical: true
       })
     }
-    
+
     // Test template rendering with sample data
     try {
       const sampleVariables = {
@@ -250,9 +250,9 @@ async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise
         HAS_TWITTER_IMAGE: false,
         TWITTER_IMAGE_URL: ''
       }
-      
+
       const html = templateRenderer.renderPage(sampleVariables)
-      
+
       if (html.includes('<!DOCTYPE html>') && html.includes('<title>Deployment Test</title>')) {
         checks.push({
           name: 'Template Rendering',
@@ -268,7 +268,7 @@ async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise
           critical: true
         })
       }
-      
+
     } catch (error) {
       checks.push({
         name: 'Template Rendering',
@@ -278,7 +278,7 @@ async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise
         critical: true
       })
     }
-    
+
   } catch (error) {
     checks.push({
       name: 'Template System',
@@ -294,7 +294,7 @@ async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise
 function checkEnvironmentVariables(env: Env, checks: DeploymentCheck[]): void {
   // Check if we're in production environment
   const isProduction = env.ENVIRONMENT === 'production'
-  
+
   if (isProduction) {
     checks.push({
       name: 'Environment',
@@ -311,7 +311,7 @@ function checkEnvironmentVariables(env: Env, checks: DeploymentCheck[]): void {
       critical: false
     })
   }
-  
+
   // Check for required bindings
   if (env.DB) {
     checks.push({
@@ -329,7 +329,7 @@ function checkEnvironmentVariables(env: Env, checks: DeploymentCheck[]): void {
       critical: true
     })
   }
-  
+
   if (env.IMAGES) {
     checks.push({
       name: 'R2 Binding',
@@ -351,41 +351,40 @@ function checkEnvironmentVariables(env: Env, checks: DeploymentCheck[]): void {
 // Content integrity checks
 async function checkContentIntegrity(env: Env, checks: DeploymentCheck[]): Promise<void> {
   try {
-    // Check for orphaned content blocks
-    const orphanedBlocks = await env.DB.prepare(`
-      SELECT COUNT(*) as count FROM content_blocks cb
-      LEFT JOIN posts p ON cb.post_id = p.id
-      WHERE p.id IS NULL
+    // Check for posts with valid JSON content
+    const postsWithContent = await env.DB.prepare(`
+      SELECT COUNT(*) as count FROM posts
+      WHERE content IS NOT NULL AND content != ''
     `).first()
-    
-    const orphanCount = (orphanedBlocks as any)?.count || 0
-    
-    if (orphanCount === 0) {
+
+    const contentCount = (postsWithContent as any)?.count || 0
+
+    if (contentCount > 0) {
       checks.push({
         name: 'Content Integrity',
         status: 'pass',
-        message: 'No orphaned content blocks found',
+        message: `Found ${contentCount} posts with content`,
         critical: false
       })
     } else {
       checks.push({
         name: 'Content Integrity',
         status: 'warning',
-        message: `Found ${orphanCount} orphaned content blocks`,
-        details: 'Consider cleaning up orphaned content blocks',
+        message: 'No posts with content found',
+        details: 'Posts may not have block content populated',
         critical: false
       })
     }
-    
+
     // Check for missing featured images
     const postsWithMissingImages = await env.DB.prepare(`
       SELECT COUNT(*) as count FROM posts p
       LEFT JOIN images i ON p.featured_image_id = i.id
       WHERE p.featured_image_id IS NOT NULL AND i.id IS NULL
     `).first()
-    
+
     const missingImageCount = (postsWithMissingImages as any)?.count || 0
-    
+
     if (missingImageCount === 0) {
       checks.push({
         name: 'Image References',
@@ -401,7 +400,7 @@ async function checkContentIntegrity(env: Env, checks: DeploymentCheck[]): Promi
         critical: false
       })
     }
-    
+
   } catch (error) {
     checks.push({
       name: 'Content Integrity',
@@ -418,15 +417,15 @@ async function checkPerformanceBaselines(env: Env, checks: DeploymentCheck[]): P
   try {
     // Test template rendering performance
     const start = performance.now()
-    
+
     const { generateBlogListingVariables } = await import('../utils/template-variable-generator')
     const { templateRenderer } = await import('../utils/template-renderer')
-    
+
     const variables = await generateBlogListingVariables()
     const html = templateRenderer.renderPage(variables)
-    
+
     const renderTime = performance.now() - start
-    
+
     if (renderTime < 100) {
       checks.push({
         name: 'Rendering Performance',
@@ -457,7 +456,7 @@ async function checkPerformanceBaselines(env: Env, checks: DeploymentCheck[]): P
         critical: false
       })
     }
-    
+
   } catch (error) {
     checks.push({
       name: 'Rendering Performance',
@@ -473,7 +472,7 @@ async function checkPerformanceBaselines(env: Env, checks: DeploymentCheck[]): P
 export function generateDeploymentReport(readiness: DeploymentReadiness): string {
   const statusIcon = readiness.ready ? '✅' : '❌'
   const scoreColor = readiness.score >= 90 ? 'green' : readiness.score >= 70 ? 'orange' : 'red'
-  
+
   let report = `
     <!DOCTYPE html>
     <html lang="en">
@@ -507,7 +506,7 @@ export function generateDeploymentReport(readiness: DeploymentReadiness): string
           ${readiness.ready ? 'Ready for Production' : 'Not Ready for Production'}
         </p>
       </div>
-      
+
       <div class="summary">
         <h2>Summary</h2>
         <p><strong>Total Checks:</strong> ${readiness.checks.length}</p>
@@ -515,14 +514,14 @@ export function generateDeploymentReport(readiness: DeploymentReadiness): string
         <p><strong>Warnings:</strong> ${readiness.warnings}</p>
         <p><strong>Critical Failures:</strong> ${readiness.criticalFailures}</p>
       </div>
-      
+
       <h2>Detailed Results</h2>
   `
-  
+
   for (const check of readiness.checks) {
     const statusClass = `check-${check.status}`
     const criticalBadge = check.critical ? '<span class="critical-badge">CRITICAL</span>' : ''
-    
+
     report += `
       <div class="check-item ${statusClass}">
         <div class="check-name">${check.name} ${criticalBadge}</div>
@@ -531,7 +530,7 @@ export function generateDeploymentReport(readiness: DeploymentReadiness): string
       </div>
     `
   }
-  
+
   report += `
       <div class="timestamp">
         Generated at: ${new Date(readiness.timestamp).toLocaleString()}
@@ -539,6 +538,6 @@ export function generateDeploymentReport(readiness: DeploymentReadiness): string
     </body>
     </html>
   `
-  
+
   return report
 }

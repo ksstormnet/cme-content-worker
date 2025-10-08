@@ -137,13 +137,14 @@ app.get('/:category/:slug', async (c) => {
     tracker.startDbQuery()
     const postResult = await c.env.DB.prepare(`
       SELECT
-        p.id, p.title, p.slug, p.excerpt, p.featured_image_url,
+        p.id, p.title, p.slug, p.excerpt, p.featured_image_id, p.content,
         p.published_date, p.updated_at, p.meta_description, p.author_id,
-        p.category, p.content,
+        c.slug as category_slug,
         u.name as author_name
       FROM posts p
+      LEFT JOIN categories c ON p.category_id = c.id
       LEFT JOIN users u ON p.author_id = u.id
-      WHERE p.category = ? AND p.slug = ? AND p.status = 'published'
+      WHERE c.slug = ? AND p.slug = ? AND p.status = 'published'
       LIMIT 1
     `).bind(category, slug).first()
     tracker.endDbQuery()
@@ -182,8 +183,8 @@ app.get('/:category/:slug', async (c) => {
       slug: postResult.slug as string,
       excerpt: postResult.excerpt as string || '',
       content_blocks: contentBlocks,
-      category: postResult.category as string,
-      featured_image_id: postResult.featured_image_url as string,
+      category: postResult.category_slug as string,
+      featured_image_id: postResult.featured_image_id as string,
       published_date: postResult.published_date as string,
       updated_at: postResult.updated_at as string,
       meta_description: postResult.meta_description as string,

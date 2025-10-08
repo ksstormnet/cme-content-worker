@@ -18,7 +18,7 @@ EDITORIAL MISSION:
 
 WEEKLY POST ROLES:
 - Monday (Awareness): Big picture, wanderlust, seasonal urgency → pivot to future planning
-- Wednesday (Practical): Evergreen planning expertise, comparisons, myth-busting  
+- Wednesday (Practical): Evergreen planning expertise, comparisons, myth-busting
 - Friday (Aspirational): Milestones, future planning, deep dives
 - Saturday (Inspirational): Wow-factor, lifestyle resonance, shareable quotes
 - Newsletter (Sunday): Digest & bridge with persona-specific elements
@@ -48,17 +48,17 @@ SEO & ENGAGEMENT:
 contentAdvancedRoutes.post("/generate-from-plan", async (c) => {
   try {
     const user = c.get("user");
-    const { 
-      plan_id, 
+    const {
+      plan_id,
       model_preference = "standard",
       include_seo_analysis = true,
       auto_create_post = true
     } = await c.req.json();
 
     if (!plan_id) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Content plan ID required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Content plan ID required"
       }, 400);
     }
 
@@ -71,9 +71,9 @@ contentAdvancedRoutes.post("/generate-from-plan", async (c) => {
     `).bind(plan_id).first();
 
     if (!plan) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Content plan not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Content plan not found"
       }, 404);
     }
 
@@ -87,8 +87,8 @@ contentAdvancedRoutes.post("/generate-from-plan", async (c) => {
 
     // Generate content using selected model
     const generationResult = await generateContentWithModel(
-      contentPrompt, 
-      model_preference, 
+      contentPrompt,
+      model_preference,
       c.env
     );
 
@@ -134,9 +134,9 @@ contentAdvancedRoutes.post("/generate-from-plan", async (c) => {
 
   } catch (error) {
     console.error("Advanced content generation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to generate content from plan" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to generate content from plan"
     }, 500);
   }
 });
@@ -145,7 +145,7 @@ contentAdvancedRoutes.post("/generate-from-plan", async (c) => {
 contentAdvancedRoutes.post("/bulk-generate", async (c) => {
   try {
     const user = c.get("user");
-    const { 
+    const {
       calendar_id,
       post_days = ['monday', 'wednesday', 'friday', 'saturday'], // Exclude newsletter by default
       model_preference = "standard",
@@ -153,9 +153,9 @@ contentAdvancedRoutes.post("/bulk-generate", async (c) => {
     } = await c.req.json();
 
     if (!calendar_id) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Calendar ID required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Calendar ID required"
       }, 400);
     }
 
@@ -165,20 +165,20 @@ contentAdvancedRoutes.post("/bulk-generate", async (c) => {
       FROM weekly_content_plans wp
       JOIN content_calendar cc ON wp.calendar_id = cc.id
       WHERE wp.calendar_id = ? AND wp.post_day IN (${post_days.map(() => '?').join(',')})
-      ORDER BY 
-        CASE wp.post_day 
-          WHEN 'monday' THEN 1 
-          WHEN 'wednesday' THEN 2 
-          WHEN 'friday' THEN 3 
-          WHEN 'saturday' THEN 4 
-          WHEN 'newsletter' THEN 5 
+      ORDER BY
+        CASE wp.post_day
+          WHEN 'monday' THEN 1
+          WHEN 'wednesday' THEN 2
+          WHEN 'friday' THEN 3
+          WHEN 'saturday' THEN 4
+          WHEN 'newsletter' THEN 5
         END
     `).bind(calendar_id, ...post_days).all();
 
     if (!plans.results || plans.results.length === 0) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "No content plans found for specified days" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "No content plans found for specified days"
       }, 400);
     }
 
@@ -195,8 +195,8 @@ contentAdvancedRoutes.post("/bulk-generate", async (c) => {
 
         const contentPrompt = buildContentPrompt(plan, themes, seasonalHooks, milestoneHooks);
         const generationResult = await generateContentWithModel(
-          contentPrompt, 
-          model_preference, 
+          contentPrompt,
+          model_preference,
           c.env
         );
 
@@ -261,9 +261,9 @@ contentAdvancedRoutes.post("/bulk-generate", async (c) => {
 
   } catch (error) {
     console.error("Bulk generation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to perform bulk generation" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to perform bulk generation"
     }, 500);
   }
 });
@@ -272,7 +272,7 @@ contentAdvancedRoutes.post("/bulk-generate", async (c) => {
 contentAdvancedRoutes.post("/free-form", async (c) => {
   try {
     const user = c.get("user");
-    const { 
+    const {
       title,
       content_blocks = [],
       post_type = 'monday',
@@ -281,18 +281,18 @@ contentAdvancedRoutes.post("/free-form", async (c) => {
     } = await c.req.json();
 
     if (!title) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Title required for free-form content" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Title required for free-form content"
       }, 400);
     }
 
     // Create post with minimal structure - user will edit in content editor
     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    
+
     const postResult = await c.env.DB.prepare(`
       INSERT INTO posts (
-        slug, title, content, excerpt, status, post_type, persona, 
+        slug, title, content, excerpt, status, post_type, persona,
         author_id, keywords, created_at, updated_at
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     `).bind(
@@ -309,22 +309,6 @@ contentAdvancedRoutes.post("/free-form", async (c) => {
 
     const postId = postResult.meta.last_row_id;
 
-    // Save content blocks if provided
-    if (content_blocks.length > 0) {
-      for (let i = 0; i < content_blocks.length; i++) {
-        const block = content_blocks[i];
-        await c.env.DB.prepare(`
-          INSERT INTO content_blocks (post_id, block_type, block_order, content, created_at)
-          VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-        `).bind(
-          postId,
-          block.type,
-          i,
-          JSON.stringify(block)
-        ).run();
-      }
-    }
-
     return c.json<APIResponse<any>>({
       success: true,
       data: {
@@ -338,9 +322,9 @@ contentAdvancedRoutes.post("/free-form", async (c) => {
 
   } catch (error) {
     console.error("Free-form content creation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to create free-form content" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to create free-form content"
     }, 500);
   }
 });
@@ -348,10 +332,10 @@ contentAdvancedRoutes.post("/free-form", async (c) => {
 // Helper functions
 function buildContentPrompt(plan: any, themes: string[], seasonalHooks: string[], milestoneHooks: string[]): string {
   const weekDate = new Date(plan.week_start_date);
-  const weekDescription = `Week of ${weekDate.toLocaleDateString('en-US', { 
-    month: 'long', 
-    day: 'numeric', 
-    year: 'numeric' 
+  const weekDescription = `Week of ${weekDate.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
   })}`;
 
   return `${CME_SYSTEM_PROMPT}
@@ -362,7 +346,7 @@ Week: ${weekDescription}
 
 THEME INTEGRATION (These are content beats, not subheading labels):
 - Main Theme: ${plan.main_theme}
-- Secondary Theme: ${plan.secondary_theme} 
+- Secondary Theme: ${plan.secondary_theme}
 - Tertiary Theme: ${plan.tertiary_theme}
 
 SEASONAL CONTEXT:
@@ -427,12 +411,12 @@ function getPostTypeGuidance(postType: string): string {
 async function generateContentWithModel(prompt: string, modelPreference: string, env: any) {
   // Use the new task-based generation system
   const apiKeys = getAPIKeys(env);
-  
+
   // Load model settings from database
   const settingsResult = await env.DB.prepare(
     "SELECT key, value FROM settings WHERE key IN ('chatgpt_model', 'claude_model')"
   ).all();
-  
+
   const settings: Record<string, any> = {};
   settingsResult.results?.forEach((setting: any) => {
     try {
@@ -441,7 +425,7 @@ async function generateContentWithModel(prompt: string, modelPreference: string,
       settings[setting.key] = setting.value;
     }
   });
-  
+
   try {
     // Use comprehensive generation (planning + writing + SEO)
     const result = await generateComprehensiveContent(
@@ -523,10 +507,10 @@ async function generateContentWithModel(prompt: string, modelPreference: string,
 
 async function createPostFromGeneration(generationData: any, plan: any, userId: number, db: any): Promise<number> {
   const slug = generationData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  
+
   const postResult = await db.prepare(`
     INSERT INTO posts (
-      slug, title, content, excerpt, status, post_type, persona, 
+      slug, title, content, excerpt, status, post_type, persona,
       author_id, keywords, created_at, updated_at
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
   `).bind(
@@ -542,22 +526,6 @@ async function createPostFromGeneration(generationData: any, plan: any, userId: 
   ).run();
 
   const postId = postResult.meta.last_row_id;
-
-  // Save content blocks
-  if (generationData.content_blocks && Array.isArray(generationData.content_blocks)) {
-    for (let i = 0; i < generationData.content_blocks.length; i++) {
-      const block = generationData.content_blocks[i];
-      await db.prepare(`
-        INSERT INTO content_blocks (post_id, block_type, block_order, content, created_at)
-        VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-      `).bind(
-        postId,
-        block.type,
-        i,
-        JSON.stringify(block)
-      ).run();
-    }
-  }
 
   return postId;
 }

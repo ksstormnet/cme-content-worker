@@ -1,0 +1,140 @@
+[
+  {
+    "results": [
+      {
+        "id": 1,
+        "name": "General",
+        "slug": "general",
+        "description": "General cruise content and information",
+        "color": "#6b7280",
+        "icon": "📝",
+        "active": 1,
+        "post_count": -41,
+        "created_at": "2025-09-20 15:32:37",
+        "updated_at": "2025-09-22 18:40:35",
+        "priority": null
+      },
+      {
+        "id": 3,
+        "name": "Destinations",
+        "slug": "destinations",
+        "description": "Cruise destination guides and highlights",
+        "color": "#10b981",
+        "icon": "🌍",
+        "active": 1,
+        "post_count": 0,
+        "created_at": "2025-09-20 15:32:37",
+        "updated_at": "2025-09-20 16:01:10",
+        "priority": 2
+      },
+      {
+        "id": 6,
+        "name": "Ship Reviews",
+        "slug": "ship-reviews",
+        "description": "Detailed ship reviews and comparisons",
+        "color": "#ef4444",
+        "icon": "⭐",
+        "active": 1,
+        "post_count": 0,
+        "created_at": "2025-09-20 15:32:37",
+        "updated_at": "2025-09-27 15:21:59",
+        "priority": null
+      },
+      {
+        "id": 7,
+        "name": "Port Guides",
+        "slug": "port-guides",
+        "description": "Port of call guides and excursions",
+        "color": "#06b6d4",
+        "icon": "⚓",
+        "active": 1,
+        "post_count": 0,
+        "created_at": "2025-09-20 15:32:37",
+        "updated_at": "2025-09-20 16:00:09",
+        "priority": null
+      },
+      {
+        "id": 11,
+        "name": "Weekend Wanderlust",
+        "slug": "weekend-wanderlust",
+        "description": "Category for Weekend Wanderlust posts",
+        "color": "#3B82F6",
+        "icon": null,
+        "active": 1,
+        "post_count": 4,
+        "created_at": "2025-09-22 19:41:24",
+        "updated_at": "2025-09-22 19:46:58",
+        "priority": null
+      },
+      {
+        "id": 12,
+        "name": "Cruise Planning Tips",
+        "slug": "cruise-planning-tips",
+        "description": "Category for Cruise Planning Tips posts",
+        "color": "#3B82F6",
+        "icon": "📝",
+        "active": 1,
+        "post_count": 6,
+        "created_at": "2025-09-22 19:45:58",
+        "updated_at": "2025-09-27 15:21:11",
+        "priority": 1
+      },
+      {
+        "id": 13,
+        "name": "Best Timing",
+        "slug": "best-timing",
+        "description": "Category for Best Timing posts",
+        "color": "#3B82F6",
+        "icon": null,
+        "active": 1,
+        "post_count": 3,
+        "created_at": "2025-09-22 19:46:16",
+        "updated_at": "2025-09-22 19:47:07",
+        "priority": null
+      },
+      {
+        "id": 14,
+        "name": "Cruise Smarter",
+        "slug": "cruise-smarter",
+        "description": "Category for Cruise Smarter posts",
+        "color": "#3B82F6",
+        "icon": null,
+        "active": 1,
+        "post_count": 2,
+        "created_at": "2025-09-22 19:46:20",
+        "updated_at": "2025-09-22 19:47:17",
+        "priority": null
+      },
+      {
+        "id": 15,
+        "name": "Destination Guides",
+        "slug": "destination-guides",
+        "description": "Category for Destination Guides posts",
+        "color": "#3B82F6",
+        "icon": null,
+        "active": 1,
+        "post_count": 2,
+        "created_at": "2025-09-22 19:46:44",
+        "updated_at": "2025-09-22 19:47:14",
+        "priority": null
+      }
+    ],
+    "success": true,
+    "meta": {
+      "served_by": "v3-prod",
+      "served_by_region": "ENAM",
+      "served_by_primary": true,
+      "timings": {
+        "sql_duration_ms": 0.2296
+      },
+      "duration": 0.2296,
+      "changes": 0,
+      "last_row_id": 0,
+      "changed_db": false,
+      "size_after": 1740800,
+      "rows_read": 9,
+      "rows_written": 0,
+      "total_attempts": 1
+    }
+  }
+]

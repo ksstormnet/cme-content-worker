@@ -220,24 +220,6 @@ importRoutes.post("/articles", async (c) => {
 
           const postId = postResult.meta.last_row_id;
 
-          // Batch insert content blocks
-          if (contentBlocks && Array.isArray(contentBlocks)) {
-            // Prepare all content block inserts
-            const blockPromises = contentBlocks.map((block, index) => 
-              c.env.DB.prepare(`
-                INSERT INTO content_blocks (post_id, block_type, block_order, content, created_at)
-                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-              `).bind(
-                postId,
-                block.type,
-                index,
-                JSON.stringify(block)
-              ).run()
-            );
-            
-            // Execute content block inserts in parallel
-            await Promise.all(blockPromises);
-          }
 
           // Create AI generation record for tracking
           await c.env.DB.prepare(`

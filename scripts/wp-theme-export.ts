@@ -204,7 +204,7 @@ class WordPressThemeExporter {
         '/generatepress/v1/options'
       ];
 
-      let generatepressData = {};
+      const generatepressData = {};
       let settingsFound = 0;
 
       for (const endpoint of endpoints) {
@@ -247,7 +247,7 @@ class WordPressThemeExporter {
         '/generateblocks/v1/onboarding'
       ];
 
-      let generateblocksData = {};
+      const generateblocksData = {};
       let settingsFound = 0;
 
       for (const endpoint of endpoints) {

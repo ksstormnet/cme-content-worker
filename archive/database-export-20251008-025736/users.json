@@ -1,0 +1,45 @@
+[
+  {
+    "results": [
+      {
+        "id": 1,
+        "email": "scott@cruisemadeeasy.com",
+        "password_hash": "b08890d42a8e41cd6beadab6782a629b0ddf31bfa45b0d7ecaafed13347fbd60",
+        "name": "Cruise Made EASY",
+        "role": "admin",
+        "created_at": "2025-09-20 12:45:27",
+        "updated_at": "2025-09-22 20:02:07",
+        "last_login": "2025-09-28 06:10:17",
+        "active": 1
+      },
+      {
+        "id": 2,
+        "email": "claude@cruisemadeeasy.com",
+        "password_hash": "447cebdda8622f0ba7f5d4fc758d3df26a6d30009466e23f382b6a7b7278c32d",
+        "name": "Claude AI Assistant",
+        "role": "admin",
+        "created_at": "2025-09-22 19:58:50",
+        "updated_at": "2025-09-22 19:58:50",
+        "last_login": "2025-09-27 15:02:41",
+        "active": 1
+      }
+    ],
+    "success": true,
+    "meta": {
+      "served_by": "v3-prod",
+      "served_by_region": "ENAM",
+      "served_by_primary": true,
+      "timings": {
+        "sql_duration_ms": 0.2002
+      },
+      "duration": 0.2002,
+      "changes": 0,
+      "last_row_id": 0,
+      "changed_db": false,
+      "size_after": 1740800,
+      "rows_read": 2,
+      "rows_written": 0,
+      "total_attempts": 1
+    }
+  }
+]

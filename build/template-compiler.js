@@ -1,28 +1,48 @@
-// Build-time template compiler
+// Build-time template and CSS compiler
 import fs from 'fs'
 import path from 'path'
-import minifyHtml from 'html-minifier-terser'
+import { execSync } from 'child_process'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const TEMPLATE_DIR = path.join(__dirname, '../src/templates')
-const OUTPUT_FILE = path.join(__dirname, '../src/utils/compiled-templates.ts')
+const SOURCE_TEMPLATE_DIR = '/data/Development/repo/Cruise-Made-Easy/cme-posts-abstraction/templates'
+const CSS_OUTPUT_DIR = path.join(__dirname, '../public/css')
+const TEMPLATE_OUTPUT_FILE = path.join(__dirname, '../src/utils/compiled-templates.ts')
 
-// HTML minification options
-const minifyOptions = {
-  collapseWhitespace: true,
-  removeComments: true,
-  removeEmptyAttributes: true,
-  removeRedundantAttributes: true,
-  useShortDoctype: true,
-  minifyCSS: false, // Keep CSS references intact
-  minifyJS: false   // Keep any inline JS intact
+// No HTML minification - keep templates readable
+const preserveFormatting = {
+  collapseWhitespace: false,
+  removeComments: false,
+  minifyCSS: false,
+  minifyJS: false
+}
+
+async function triggerTemplateCSSBuild() {
+  console.log('🎨 Triggering CSS minification at template source...')
+  
+  const buildScriptPath = path.join(SOURCE_TEMPLATE_DIR, 'build-minified-css.js')
+  
+  if (!fs.existsSync(buildScriptPath)) {
+    console.log('ℹ️ No CSS build script found at template source - skipping')
+    return
+  }
+  
+  try {
+    execSync(`node "${buildScriptPath}"`, { 
+      stdio: 'inherit',
+      cwd: SOURCE_TEMPLATE_DIR
+    })
+    console.log('✅ Template CSS minification completed')
+  } catch (error) {
+    console.error('❌ Failed to run template CSS build:', error.message)
+  }
 }
 
 async function compileTemplates() {
-  console.log('🔄 Compiling templates...')
+  console.log('📄 Compiling HTML templates (unminified for readability)...')
   
   const templates = {}
   const templateFiles = [
@@ -43,11 +63,11 @@ async function compileTemplates() {
     }
     
     const content = fs.readFileSync(filePath, 'utf8')
-    const minified = await minifyHtml.minify(content, minifyOptions)
+    // No minification - keep templates readable
     const key = file.replace('.html', '').replace(/-/g, '_').toUpperCase()
     
-    templates[key] = minified
-    console.log(`✅ Compiled ${file} (${content.length} → ${minified.length} chars)`)
+    templates[key] = content
+    console.log(`✅ Compiled ${file} (${content.length} chars, unminified)`)
   }
   
   // Generate TypeScript file
@@ -79,16 +99,28 @@ for (const template of REQUIRED_TEMPLATES) {
 console.log('✅ All templates compiled and validated')
 `
   
-  fs.writeFileSync(OUTPUT_FILE, tsContent)
-  console.log(`📦 Templates bundled to: ${OUTPUT_FILE}`)
+  fs.writeFileSync(TEMPLATE_OUTPUT_FILE, tsContent)
+  console.log(`📦 Templates bundled to: ${TEMPLATE_OUTPUT_FILE}`)
   console.log(`📊 Total templates: ${Object.keys(templates).length}`)
   
   return templates
 }
 
-// Check if this module is being run directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  compileTemplates().catch(console.error)
+async function buildAll() {
+  console.log('🚀 Starting build process...')
+  
+  // Trigger CSS minification at template source
+  await triggerTemplateCSSBuild()
+  
+  // Then compile templates
+  await compileTemplates()
+  
+  console.log('✨ Build complete!')
 }
 
-export { compileTemplates }
+// Check if this module is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  buildAll().catch(console.error)
+}
+
+export { compileTemplates, triggerTemplateCSSBuild, buildAll }

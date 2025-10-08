@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import './CreateDashboard.css';
 
 // Components
 import PostList from './PostList';
 import ContentEditor from './ContentEditor';
+import PostEditor from './PostEditor';
 import MediaLibrary from './MediaLibrary';
-import LoadingSpinner from './LoadingSpinner';
 import ContentGenerator from './ContentGenerator';
 import FreeFormEditor from './FreeFormEditor';
 import ImportInterface from './ImportInterface';
@@ -52,25 +52,17 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
   const [activeTab, setActiveTab] = useState('published');
   const [showNewDropdown, setShowNewDropdown] = useState(false);
 
-  useEffect(() => {
-    loadPosts();
-  }, [activeTab]);
-
-  useEffect(() => {
-    loadCounts();
-  }, []);
-
-  const loadPosts = async () => {
+  const loadPosts = useCallback(async () => {
     try {
       setLoading(true);
       let apiUrl = '/api/create/posts?limit=50';
-      
+
       if (activeTab !== 'all') {
-        const status = activeTab === 'drafts' ? 'draft' : 
+        const status = activeTab === 'drafts' ? 'draft' :
                      activeTab === 'scheduled' ? 'scheduled' : 'published';
         apiUrl += `&status=${status}`;
       }
-      
+
       const response = await fetch(apiUrl, {
         credentials: 'include'
       });
@@ -88,9 +80,9 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeTab]);
 
-  const loadCounts = async () => {
+  const loadCounts = useCallback(async () => {
     try {
       console.log('Loading counts...');
       const response = await fetch('/api/create/stats', {
@@ -109,7 +101,15 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
     } catch (error) {
       console.error('Error loading counts:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
+
+  useEffect(() => {
+    loadCounts();
+  }, [loadCounts]);
 
   const handlePostCreated = (newPost: Post) => {
     setPosts(prev => [newPost, ...prev]);
@@ -117,7 +117,7 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
   };
 
   const handlePostUpdated = (updatedPost: Post) => {
-    setPosts(prev => prev.map(post => 
+    setPosts(prev => prev.map(post =>
       post.id === updatedPost.id ? updatedPost : post
     ));
     loadCounts(); // Refresh counts when a post is updated
@@ -128,20 +128,9 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
     loadCounts(); // Refresh counts when a post is deleted
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'draft': return '#6b7280';
-      case 'scheduled': return '#f59e0b';
-      case 'published': return '#3b82f6';
-      default: return '#6b7280';
-    }
-  };
-
-  const isActive = (path: string) => location.pathname.includes(path);
-
-  // Only show post header for post-related routes, not for media
-  const isPostRoute = location.pathname === '/admin' || 
-                      location.pathname === '/admin/' || 
+  // Only show post header for post-related routes, not for media or editor
+  const isPostRoute = location.pathname === '/admin' ||
+                      location.pathname === '/admin/' ||
                       location.pathname.startsWith('/admin/edit/') ||
                       location.pathname.startsWith('/admin/generate') ||
                       location.pathname.startsWith('/admin/new') ||
@@ -152,20 +141,20 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
       {isPostRoute && (
         <div className="dashboard-header">
         <h2 className="dashboard-title">Posts</h2>
-        
+
         <div className="header-controls">
           <div className="new-post-dropdown">
-            <button 
+            <button
               className="new-post-btn"
               onClick={() => setShowNewDropdown(!showNewDropdown)}
             >
               <span>+ New</span>
               <span className="dropdown-arrow">{showNewDropdown ? '▲' : '▼'}</span>
             </button>
-            
+
             {showNewDropdown && (
               <div className="dropdown-menu">
-                <Link 
+                <Link
                   to="/admin/generate"
                   className="dropdown-item"
                   onClick={() => setShowNewDropdown(false)}
@@ -173,8 +162,16 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
                   <span className="item-icon">🤖</span>
                   Generate
                 </Link>
-                <Link 
-                  to="/admin/new"
+                <Link
+                  to="/admin/editor"
+                  className="dropdown-item"
+                  onClick={() => setShowNewDropdown(false)}
+                >
+                  <span className="item-icon">✏️</span>
+                  Editor
+                </Link>
+                <Link
+                  to="/admin/editor"
                   className="dropdown-item"
                   onClick={() => setShowNewDropdown(false)}
                 >
@@ -233,8 +230,8 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
 
       <main className="dashboard-content">
         <Routes>
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               <PostList
                 posts={posts}
@@ -245,47 +242,67 @@ const CreateDashboard: React.FC<CreateDashboardProps> = ({ user }) => {
                 onPostDeleted={handlePostDeleted}
                 onRefresh={loadPosts}
               />
-            } 
+            }
           />
-          <Route 
-            path="/generate" 
+          <Route
+            path="/generate"
             element={
               <ContentGenerator
                 user={user}
                 onPostCreated={handlePostCreated}
               />
-            } 
+            }
           />
-          <Route 
-            path="/new" 
+          <Route
+            path="/editor"
+            element={
+              <PostEditor
+                user={user}
+                onPostCreated={handlePostCreated}
+                onPostUpdated={handlePostUpdated}
+              />
+            }
+          />
+          <Route
+            path="/editor/:id"
+            element={
+              <PostEditor
+                user={user}
+                onPostCreated={handlePostCreated}
+                onPostUpdated={handlePostUpdated}
+              />
+            }
+          />
+          <Route
+            path="/new"
             element={
               <FreeFormEditor
                 user={user}
                 onPostCreated={handlePostCreated}
               />
-            } 
+            }
           />
-          <Route 
-            path="/import" 
+          <Route
+            path="/import"
             element={
               <ImportInterface
                 user={user}
                 onContentImported={loadPosts}
               />
-            } 
+            }
           />
-          <Route 
-            path="/edit/:id" 
+          <Route
+            path="/edit/:id"
             element={
               <ContentEditor
                 user={user}
                 onPostUpdated={handlePostUpdated}
               />
-            } 
+            }
           />
-          <Route 
-            path="/media" 
-            element={<MediaLibrary user={user} />} 
+          <Route
+            path="/media"
+            element={<MediaLibrary user={user} />}
           />
         </Routes>
       </main>

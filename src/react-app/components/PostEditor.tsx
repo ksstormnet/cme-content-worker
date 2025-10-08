@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -16,10 +16,12 @@ import { ImagePlaceholderExtension } from './editor/extensions/ImagePlaceholderE
 
 // Editor components
 import EditorCanvas from './editor/EditorCanvas';
-import PreviewPanel from './editor/PreviewPanel';
-import MetadataPanel from './editor/MetadataPanel';
+import CollapsibleMetadata from './editor/CollapsibleMetadata';
+import BlockBrowser, { BlockType } from './editor/BlockBrowser';
+import BlockSettingsSidebar from './editor/BlockSettingsSidebar';
 import AutoSaveIndicator from './editor/AutoSaveIndicator';
 import LoadingSpinner from './LoadingSpinner';
+import MediaPicker, { SelectedImage } from './media/MediaPicker';
 
 import './PostEditor.css';
 
@@ -34,6 +36,16 @@ interface PostEditorProps {
   user: User;
   onPostCreated?: (post: Post) => void;
   onPostUpdated?: (post: Post) => void;
+}
+
+interface LocationState {
+  generatedContent?: ContentBlock[];
+  title?: string;
+  excerpt?: string;
+  category?: string;
+  tags?: string[];
+  postType?: 'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter';
+  persona?: 'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer' | null;
 }
 
 const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpdated }) => {
@@ -58,16 +70,32 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Block browser state
+  const [blockBrowserOpen, setBlockBrowserOpen] = useState(false);
+  const [browserMode, setBrowserMode] = useState<'insert' | 'wrap'>('insert');
+  const [selectedText, setSelectedText] = useState<string | null>(null);
+
+  // Block settings sidebar state
+  const [settingsSidebarOpen, setSettingsSidebarOpen] = useState(false);
+  const [currentBlockType, setCurrentBlockType] = useState<string | null>(null);
+
+  // Media picker state
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
+
   // Initialize with generated content if coming from ContentGenerator
   useEffect(() => {
     if (location.state) {
-      const state = location.state as any;
+      const state = location.state as LocationState;
       if (state.generatedContent) {
         setContentBlocks(state.generatedContent);
         setIsDirty(true);
       }
       if (state.title) setTitle(state.title);
       if (state.excerpt) setExcerpt(state.excerpt);
+      if (state.category) setCategory(state.category);
+      if (state.tags) setTags(state.tags);
+      if (state.postType) setPostType(state.postType);
+      if (state.persona) setPersona(state.persona);
     }
   }, [location.state]);
 
@@ -80,7 +108,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         },
       }),
       Placeholder.configure({
-        placeholder: 'Start writing or type / for commands...',
+        placeholder: 'Start writing or press Alt+I to insert a block...',
       }),
       Link.configure({
         openOnClick: false,
@@ -96,54 +124,183 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
       const blocks = tiptapToBlocks(editor.getJSON());
       setContentBlocks(blocks);
     },
+    onSelectionUpdate: ({ editor }) => {
+      // Detect current block type for settings sidebar
+      const { $from } = editor.state.selection;
+      const node = $from.node($from.depth);
+
+      if (node) {
+        setCurrentBlockType(node.type.name);
+      }
+    },
   });
+
+  // Alt+I keyboard shortcut handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Alt+I opens block browser
+      if (e.altKey && e.key === 'i') {
+        e.preventDefault();
+
+        if (!editor) return;
+
+        const selection = window.getSelection();
+        const hasSelection = selection && selection.toString().length > 0;
+
+        if (hasSelection) {
+          setBrowserMode('wrap');
+          setSelectedText(selection.toString());
+        } else {
+          setBrowserMode('insert');
+          setSelectedText(null);
+        }
+
+        setBlockBrowserOpen(true);
+      }
+
+      // Escape closes settings sidebar
+      if (e.key === 'Escape' && settingsSidebarOpen) {
+        setSettingsSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [editor, settingsSidebarOpen]);
 
   // Load existing post if editing
   useEffect(() => {
+    const loadPost = async (postId: number) => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/admin/posts/${postId}`, {
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to load post');
+        }
+
+        const data = await response.json();
+        const post = data.data;
+
+        setTitle(post.title || '');
+        setExcerpt(post.excerpt || '');
+        setCategory(post.category || '');
+        setTags(post.tags ? JSON.parse(post.tags) : []);
+        setStatus(post.status || 'draft');
+        setPostType(post.post_type || 'monday');
+        setPersona(post.persona);
+
+        // Load content blocks
+        const blocks = post.content_blocks || [];
+        setContentBlocks(blocks);
+
+        // Update editor content
+        if (editor && blocks.length > 0) {
+          editor.commands.setContent(blocksToTiptap(blocks));
+        }
+
+        setIsDirty(false);
+        setError(null);
+      } catch (err) {
+        console.error('Error loading post:', err);
+        setError('Failed to load post');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (id) {
       loadPost(parseInt(id));
     }
-  }, [id]);
+  }, [id, editor]);
 
-  const loadPost = async (postId: number) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/admin/posts/${postId}`, {
-        credentials: 'include'
-      });
+  const handleBlockSelect = (blockType: BlockType) => {
+    if (!editor) return;
 
-      if (!response.ok) {
-        throw new Error('Failed to load post');
+    if (browserMode === 'wrap' && selectedText) {
+      // Wrap selected text in block
+      switch (blockType) {
+        case 'heading':
+          editor.chain().focus().toggleHeading({ level: 2 }).run();
+          break;
+        case 'accent_tip':
+          editor.commands.setAccentTip('tip');
+          break;
+        case 'quote':
+          editor.chain().focus().toggleBlockquote().run();
+          break;
+        case 'bulletList':
+          editor.chain().focus().toggleBulletList().run();
+          break;
+        case 'orderedList':
+          editor.chain().focus().toggleOrderedList().run();
+          break;
+        default:
+          // For other block types, just insert at cursor
+          insertBlock(blockType);
       }
-
-      const data = await response.json();
-      const post = data.data;
-
-      setTitle(post.title || '');
-      setExcerpt(post.excerpt || '');
-      setCategory(post.category || '');
-      setTags(post.tags ? JSON.parse(post.tags) : []);
-      setStatus(post.status || 'draft');
-      setPostType(post.post_type || 'monday');
-      setPersona(post.persona);
-
-      // Load content blocks
-      const blocks = post.content_blocks || [];
-      setContentBlocks(blocks);
-
-      // Update editor content
-      if (editor && blocks.length > 0) {
-        editor.commands.setContent(blocksToTiptap(blocks));
-      }
-
-      setIsDirty(false);
-      setError(null);
-    } catch (err) {
-      console.error('Error loading post:', err);
-      setError('Failed to load post');
-    } finally {
-      setLoading(false);
+    } else {
+      // Insert empty block at cursor
+      insertBlock(blockType);
     }
+
+    setBlockBrowserOpen(false);
+  };
+
+  const insertBlock = (blockType: BlockType) => {
+    if (!editor) return;
+
+    switch (blockType) {
+      case 'heading':
+        editor.chain().focus().toggleHeading({ level: 2 }).run();
+        break;
+      case 'paragraph':
+        editor.chain().focus().setParagraph().run();
+        break;
+      case 'image':
+        setShowMediaPicker(true);
+        break;
+      case 'accent_tip':
+        editor.commands.setAccentTip('tip');
+        break;
+      case 'quote':
+        editor.chain().focus().toggleBlockquote().run();
+        break;
+      case 'cta':
+        {
+          const url = prompt('Enter URL:');
+          const text = prompt('Enter button text:');
+          if (url && text) {
+            editor.commands.setCTA({ text, url, type: 'primary', external: false });
+          }
+        }
+        break;
+      case 'divider':
+        editor.chain().focus().setHorizontalRule().run();
+        break;
+      case 'bulletList':
+        editor.chain().focus().toggleBulletList().run();
+        break;
+      case 'orderedList':
+        editor.chain().focus().toggleOrderedList().run();
+        break;
+    }
+  };
+
+  const handleImageSelect = (image: SelectedImage) => {
+    if (!editor) return;
+
+    editor.commands.setImage({
+      src: image.url,
+      alt: image.alt,
+      caption: image.caption,
+      alignment: image.alignment,
+      size: image.size,
+    });
+
+    setShowMediaPicker(false);
   };
 
   const savePost = async () => {
@@ -205,7 +362,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         }
 
         // Navigate to edit mode with the new post ID
-        navigate(`/admin/edit/${result.data.id}`, { replace: true });
+        navigate(`/admin/editor/${result.data.id}`, { replace: true });
       }
     } catch (err) {
       console.error('Error saving post:', err);
@@ -222,6 +379,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         savePost();
       }
     }, 2000),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isDirty, title, contentBlocks, excerpt, category, tags, status, postType, persona]
   );
 
@@ -295,6 +453,14 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
           >
             {saving ? 'Saving...' : 'Save'}
           </button>
+          <button
+            type="button"
+            onClick={() => setSettingsSidebarOpen(!settingsSidebarOpen)}
+            className="btn-secondary"
+            title="Block Settings"
+          >
+            ⚙️
+          </button>
         </div>
       </div>
 
@@ -305,9 +471,9 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         </div>
       )}
 
-      <div className="post-editor-content">
+      <div className="post-editor-content full-width">
         <div className="editor-main">
-          <MetadataPanel
+          <CollapsibleMetadata
             title={title}
             excerpt={excerpt}
             category={category}
@@ -323,17 +489,36 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
             onPostTypeChange={setPostType}
             onPersonaChange={setPersona}
           />
-          <EditorCanvas editor={editor} />
-        </div>
-
-        <div className="editor-preview">
-          <PreviewPanel
-            blocks={contentBlocks}
-            title={title}
-            excerpt={excerpt}
-          />
+          <EditorCanvas editor={editor} user={user} />
         </div>
       </div>
+
+      {/* Block Browser Modal */}
+      <BlockBrowser
+        isOpen={blockBrowserOpen}
+        mode={browserMode}
+        selectedText={selectedText}
+        onBlockSelect={handleBlockSelect}
+        onClose={() => setBlockBrowserOpen(false)}
+      />
+
+      {/* Block Settings Sidebar */}
+      <BlockSettingsSidebar
+        editor={editor}
+        isOpen={settingsSidebarOpen}
+        blockType={currentBlockType}
+        onClose={() => setSettingsSidebarOpen(false)}
+      />
+
+      {/* Media Picker */}
+      {showMediaPicker && (
+        <MediaPicker
+          isOpen={showMediaPicker}
+          user={user}
+          onSelect={handleImageSelect}
+          onClose={() => setShowMediaPicker(false)}
+        />
+      )}
     </div>
   );
 };

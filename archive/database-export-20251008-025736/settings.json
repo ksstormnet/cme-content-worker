@@ -1,0 +1,121 @@
+[
+  {
+    "results": [
+      {
+        "key": "blog_url_pattern",
+        "value": "/blog/",
+        "description": "URL pattern for blog posts routing",
+        "updated_at": "2025-09-21 09:46:50",
+        "is_sensitive": 0
+      },
+      {
+        "key": "site_css_urls",
+        "value": "[\"https://cruisemadeeasy.com/wp-includes/css/dist/block-library/style.min.css\",\"https://cruisemadeeasy.com/wp-content/uploads/font-awesome/v6.7.2/css/svg-with-js.css\",\"https://cruisemadeeasy.com/wp-content/plugins/ghl-wizard/css/styles.css\",\"https://cruisemadeeasy.com/wp-content/plugins/cme-personas/public/css/personas-frontend.css\",\"https://cruisemadeeasy.com/wp-content/themes/generatepress/assets/css/main.min.css\",\"https://fonts.googleapis.com/css?family=Montserrat%3Aregular%2C600%2C700&display=swap\",\"https://cruisemadeeasy.com/wp-content/uploads/generatepress/style.min.css\",\"https://cruisemadeeasy.com/wp-content/uploads/generateblocks/style-3575.css\",\"https://cruisemadeeasy.com/wp-content/plugins/gp-premium/blog/functions/css/columns.min.css\",\"https://cruisemadeeasy.com/wp-content/plugins/gp-premium/menu-plus/functions/css/offside.min.css\",\"https://cruisemadeeasy.com/wp-content/plugins/gp-premium/menu-plus/functions/css/navigation-branding-flex.min.css\"]",
+        "description": "CSS URLs to monitor for changes",
+        "updated_at": "2025-09-21 17:46:12",
+        "is_sensitive": 0
+      },
+      {
+        "key": "css_sync_enabled",
+        "value": "true",
+        "description": "Enable automatic CSS change detection",
+        "updated_at": "2025-09-21 09:46:50",
+        "is_sensitive": 0
+      },
+      {
+        "key": "ai_default_model",
+        "value": "gpt-3.5-turbo",
+        "description": "Default AI model for content generation",
+        "updated_at": "2025-09-21 09:46:50",
+        "is_sensitive": 0
+      },
+      {
+        "key": "ai_fallback_model",
+        "value": "llama3.1:8b",
+        "description": "Fallback model for cost optimization",
+        "updated_at": "2025-09-21 09:46:50",
+        "is_sensitive": 0
+      },
+      {
+        "key": "posts_per_page",
+        "value": "20",
+        "description": "Posts shown per page in admin",
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 0
+      },
+      {
+        "key": "auto_publish",
+        "value": "false",
+        "description": "Automatically publish approved posts at scheduled time",
+        "updated_at": "2025-09-21 09:46:50",
+        "is_sensitive": 0
+      },
+      {
+        "key": "r2_bucket_name",
+        "value": "cruisemadeeasy-images",
+        "description": "R2 bucket name for media storage",
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 0
+      },
+      {
+        "key": "r2_public_url",
+        "value": "https://cdn.cruisemadeeasy.com",
+        "description": "Public CDN URL for serving images",
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 0
+      },
+      {
+        "key": "r2_internal_url",
+        "value": "https://54919652c0ba9b83cb0ae04cb5ea90f3.r2.cloudflarestorage.com/cruisemadeeasy-images",
+        "description": "Internal R2 URL for uploads",
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 0
+      },
+      {
+        "key": "dataforseo_username",
+        "value": "********************",
+        "description": null,
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 1
+      },
+      {
+        "key": "dataforseo_api_key",
+        "value": "****************",
+        "description": null,
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 1
+      },
+      {
+        "key": "claude_api_key",
+        "value": "********************",
+        "description": null,
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 1
+      },
+      {
+        "key": "openai_api_key",
+        "value": "sk-****************************************xC0A",
+        "description": null,
+        "updated_at": "2025-09-21 09:46:51",
+        "is_sensitive": 1
+      }
+    ],
+    "success": true,
+    "meta": {
+      "served_by": "v3-prod",
+      "served_by_region": "ENAM",
+      "served_by_primary": true,
+      "timings": {
+        "sql_duration_ms": 0.2632
+      },
+      "duration": 0.2632,
+      "changes": 0,
+      "last_row_id": 0,
+      "changed_db": false,
+      "size_after": 1740800,
+      "rows_read": 14,
+      "rows_written": 0,
+      "total_attempts": 1
+    }
+  }
+]

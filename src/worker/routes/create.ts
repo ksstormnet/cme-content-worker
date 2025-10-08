@@ -21,25 +21,25 @@ const TASK_MODELS = {
 createRoutes.post("/generate", async (c) => {
   try {
     const user = c.get("user");
-    const { 
-      prompt, 
-      post_type, 
-      persona, 
-      week_themes, 
+    const {
+      prompt,
+      post_type,
+      persona,
+      week_themes,
       task_type = "comprehensive", // planning, writing, seo, or comprehensive
       category_id = 1, // Default to 'General' category
       tag_ids = []
     } = await c.req.json();
 
     if (!prompt) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Prompt is required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Prompt is required"
       }, 400);
     }
 
     const startTime = Date.now();
-    
+
     // Build comprehensive prompt based on CME guidelines
     const systemPrompt = `You are an expert content writer for Cruise Made Easy, specializing in Norwegian Cruise Line content.
 
@@ -62,7 +62,7 @@ ${week_themes ? `WEEK THEMES: ${JSON.stringify(week_themes)}` : ''}
 FORMAT OUTPUT AS JSON:
 {
   "title": "SEO-optimized title under 60 characters",
-  "excerpt": "1-2 sentence summary for meta description",  
+  "excerpt": "1-2 sentence summary for meta description",
   "content_blocks": [
     {"type": "heading", "level": 1, "content": "Main Title"},
     {"type": "paragraph", "content": "Engaging opening paragraph..."},
@@ -82,7 +82,7 @@ FORMAT OUTPUT AS JSON:
     const settingsResult = await c.env.DB.prepare(
       "SELECT key, value FROM settings WHERE key IN ('openai_api_key', 'claude_api_key', 'dataforseo_username', 'dataforseo_api_key', 'chatgpt_model', 'claude_model')"
     ).all();
-    
+
     const dbSettings: Record<string, any> = {};
     settingsResult.results?.forEach((setting: any) => {
       try {
@@ -91,9 +91,9 @@ FORMAT OUTPUT AS JSON:
         dbSettings[setting.key] = setting.value;
       }
     });
-    
+
     const apiKeys = getAPIKeys(c.env, dbSettings);
-    
+
     let response: string;
     let tokensUsed = 0;
     let costCents = 0;
@@ -152,8 +152,8 @@ FORMAT OUTPUT AS JSON:
 
     } catch (error) {
       console.error('Content generation error:', error);
-      return c.json<APIResponse>({ 
-        success: false, 
+      return c.json<APIResponse>({
+        success: false,
         error: error instanceof Error ? error.message : 'Content generation failed'
       }, 500);
     }
@@ -177,7 +177,7 @@ FORMAT OUTPUT AS JSON:
       };
     }
 
-    // Create draft post in database
+    // Create draft post in database with blocks stored as JSON in posts.content
     const postResult = await c.env.DB.prepare(`
       INSERT INTO posts (
         slug, title, content, excerpt, status, post_type, persona, category_id,
@@ -198,22 +198,6 @@ FORMAT OUTPUT AS JSON:
 
     const postId = postResult.meta.last_row_id;
 
-    // Save content blocks
-    if (contentData.content_blocks && Array.isArray(contentData.content_blocks)) {
-      for (let i = 0; i < contentData.content_blocks.length; i++) {
-        const block = contentData.content_blocks[i];
-        await c.env.DB.prepare(`
-          INSERT INTO content_blocks (post_id, block_type, block_order, content, created_at)
-          VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-        `).bind(
-          postId,
-          block.type,
-          i,
-          JSON.stringify(block)
-        ).run();
-      }
-    }
-
     // Save post tags
     if (tag_ids && Array.isArray(tag_ids) && tag_ids.length > 0) {
       for (const tagId of tag_ids) {
@@ -227,7 +211,7 @@ FORMAT OUTPUT AS JSON:
     // Log AI generation
     await c.env.DB.prepare(`
       INSERT INTO ai_generations (
-        post_id, model_used, prompt, response, tokens_used, 
+        post_id, model_used, prompt, response, tokens_used,
         cost_cents, generation_time_ms, created_at
       ) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
     `).bind(
@@ -257,9 +241,9 @@ FORMAT OUTPUT AS JSON:
 
   } catch (error) {
     console.error("Content generation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to generate content" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to generate content"
     }, 500);
   }
 });
@@ -270,9 +254,9 @@ createRoutes.put("/posts/:id", async (c) => {
     const postId = c.req.param("id");
     const { title, excerpt, content_blocks, keywords, status, category_id, tag_ids } = await c.req.json();
 
-    // Update post
+    // Update post with blocks stored as JSON in posts.content
     await c.env.DB.prepare(`
-      UPDATE posts 
+      UPDATE posts
       SET title = ?, excerpt = ?, content = ?, keywords = ?, category_id = ?,
           status = COALESCE(?, status), updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
@@ -286,31 +270,10 @@ createRoutes.put("/posts/:id", async (c) => {
       postId
     ).run();
 
-    // Delete existing content blocks
-    await c.env.DB.prepare(
-      "DELETE FROM content_blocks WHERE post_id = ?"
-    ).bind(postId).run();
-
-    // Insert updated content blocks
-    if (content_blocks && Array.isArray(content_blocks)) {
-      for (let i = 0; i < content_blocks.length; i++) {
-        const block = content_blocks[i];
-        await c.env.DB.prepare(`
-          INSERT INTO content_blocks (post_id, block_type, block_order, content, created_at)
-          VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-        `).bind(
-          postId,
-          block.type,
-          i,
-          JSON.stringify(block)
-        ).run();
-      }
-    }
-
     // Update post tags
     // First delete existing tags
     await c.env.DB.prepare("DELETE FROM post_tags WHERE post_id = ?").bind(postId).run();
-    
+
     // Insert new tags
     if (tag_ids && Array.isArray(tag_ids) && tag_ids.length > 0) {
       for (const tagId of tag_ids) {
@@ -328,9 +291,9 @@ createRoutes.put("/posts/:id", async (c) => {
 
   } catch (error) {
     console.error("Post update error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to update post" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update post"
     }, 500);
   }
 });
@@ -343,8 +306,8 @@ createRoutes.get("/posts", async (c) => {
 
     // Build query based on whether status filter is provided
     let query = `
-      SELECT 
-        p.*, 
+      SELECT
+        p.*,
         u.name as author_name,
         c.name as category_name,
         c.slug as category_slug,
@@ -354,19 +317,19 @@ createRoutes.get("/posts", async (c) => {
       LEFT JOIN users u ON p.author_id = u.id
       LEFT JOIN categories c ON p.category_id = c.id
     `;
-    
-    let bindings = [];
-    
+
+    const bindings = [];
+
     if (status) {
       query += ` WHERE p.status = ?`;
       bindings.push(status);
     }
-    
+
     query += ` ORDER BY p.updated_at DESC LIMIT ?`;
     bindings.push(limit);
-    
+
     const posts = await c.env.DB.prepare(query).bind(...bindings).all();
-    
+
     // Get tags for each post
     const postsWithTags = [];
     for (const post of posts.results || []) {
@@ -399,9 +362,9 @@ createRoutes.get("/posts", async (c) => {
 
   } catch (error) {
     console.error("Posts fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch posts" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch posts"
     }, 500);
   }
 });
@@ -420,22 +383,20 @@ createRoutes.get("/posts/:id", async (c) => {
     `).bind(postId).first();
 
     if (!post) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Post not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Post not found"
       }, 404);
     }
 
-    // Get content blocks
-    const blocks = await c.env.DB.prepare(
-      "SELECT * FROM content_blocks WHERE post_id = ? ORDER BY block_order"
-    ).bind(postId).all();
+    // Parse content blocks from posts.content JSON field
+    const content_blocks = post.content ? JSON.parse(post.content) : [];
 
     return c.json<APIResponse<any>>({
       success: true,
       data: {
         ...post,
-        content_blocks: blocks.results || [],
+        content_blocks: content_blocks,
         keywords: post.keywords ? JSON.parse(post.keywords) : [],
         tags: post.tags ? JSON.parse(post.tags) : []
       }
@@ -443,9 +404,9 @@ createRoutes.get("/posts/:id", async (c) => {
 
   } catch (error) {
     console.error("Post fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch post" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch post"
     }, 500);
   }
 });
@@ -458,21 +419,21 @@ createRoutes.get("/stats", async (c) => {
     // Get post counts by status
     const statusCounts = await c.env.DB.prepare(`
       SELECT status, COUNT(*) as count
-      FROM posts 
+      FROM posts
       GROUP BY status
     `).all();
 
     // Initialize counts with default values
     const counts = {
       draft: 0,
-      approved: 0, 
+      approved: 0,
       scheduled: 0,
       published: 0,
       total: 0
     };
 
     let totalCount = 0;
-    
+
     // Update counts from database results
     statusCounts.results.forEach((row: any) => {
       totalCount += row.count;
@@ -480,7 +441,7 @@ createRoutes.get("/stats", async (c) => {
         counts[row.status as keyof typeof counts] = row.count;
       }
     });
-    
+
     counts.total = totalCount;
 
     return c.json<APIResponse<any>>({
@@ -490,9 +451,9 @@ createRoutes.get("/stats", async (c) => {
 
   } catch (error) {
     console.error("Stats fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch statistics" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch statistics"
     }, 500);
   }
 });
@@ -509,24 +470,21 @@ createRoutes.delete("/posts/:id", async (c) => {
     ).bind(postId).first();
 
     if (!post) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Post not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Post not found"
       }, 404);
     }
 
     // Only allow deletion by admin or post author
     if (user.role !== 'admin' && post.author_id !== user.id) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "You don't have permission to delete this post" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "You don't have permission to delete this post"
       }, 403);
     }
 
-    // Delete related content blocks first
-    await c.env.DB.prepare("DELETE FROM content_blocks WHERE post_id = ?").bind(postId).run();
-    
-    // Delete post
+    // Delete post (content_blocks are stored as JSON in posts.content, no separate table cleanup needed)
     await c.env.DB.prepare("DELETE FROM posts WHERE id = ?").bind(postId).run();
 
     return c.json<APIResponse>({
@@ -536,9 +494,9 @@ createRoutes.delete("/posts/:id", async (c) => {
 
   } catch (error) {
     console.error("Post deletion error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to delete post" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to delete post"
     }, 500);
   }
 });
@@ -555,24 +513,24 @@ createRoutes.patch("/posts/:id/unpublish", async (c) => {
     ).bind(postId).first();
 
     if (!post) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Post not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Post not found"
       }, 404);
     }
 
     if (post.status !== 'published') {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Can only unpublish published posts" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Can only unpublish published posts"
       }, 400);
     }
 
     // Only allow unpublishing by admin or post author
     if (user.role !== 'admin' && post.author_id !== user.id) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "You don't have permission to unpublish this post" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "You don't have permission to unpublish this post"
       }, 403);
     }
 
@@ -583,8 +541,8 @@ createRoutes.patch("/posts/:id/unpublish", async (c) => {
 
     // Get updated post data
     const updatedPost = await c.env.DB.prepare(`
-      SELECT 
-        p.*, 
+      SELECT
+        p.*,
         u.name as author_name,
         c.name as category_name,
         c.slug as category_slug,
@@ -626,9 +584,9 @@ createRoutes.patch("/posts/:id/unpublish", async (c) => {
 
   } catch (error) {
     console.error("Unpublish post error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to unpublish post" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to unpublish post"
     }, 500);
   }
 });
@@ -638,7 +596,7 @@ createRoutes.get("/categories", async (c) => {
   try {
     const categories = await c.env.DB.prepare(`
       SELECT category, COUNT(*) as count
-      FROM posts 
+      FROM posts
       WHERE status != 'draft'
       GROUP BY category
       ORDER BY count DESC
@@ -651,9 +609,9 @@ createRoutes.get("/categories", async (c) => {
 
   } catch (error) {
     console.error("Categories fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch categories" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch categories"
     }, 500);
   }
 });
@@ -688,9 +646,9 @@ createRoutes.get("/posts/category/:category", async (c) => {
 
   } catch (error) {
     console.error("Category posts fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch category posts" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch category posts"
     }, 500);
   }
 });
@@ -699,10 +657,10 @@ createRoutes.get("/posts/category/:category", async (c) => {
 createRoutes.get("/stats", async (c) => {
   try {
     const counts = await c.env.DB.prepare(`
-      SELECT 
+      SELECT
         status,
         COUNT(*) as count
-      FROM posts 
+      FROM posts
       GROUP BY status
     `).all();
 
@@ -728,9 +686,9 @@ createRoutes.get("/stats", async (c) => {
 
   } catch (error) {
     console.error("Stats fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch stats" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch stats"
     }, 500);
   }
 });
@@ -740,7 +698,7 @@ createRoutes.get("/categories", async (c) => {
   try {
     const categories = await c.env.DB.prepare(`
       SELECT id, name, slug, description, color, icon, post_count, active
-      FROM categories 
+      FROM categories
       WHERE active = 1
       ORDER BY name
     `).all();
@@ -752,9 +710,9 @@ createRoutes.get("/categories", async (c) => {
 
   } catch (error) {
     console.error("Categories fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch categories" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch categories"
     }, 500);
   }
 });
@@ -764,7 +722,7 @@ createRoutes.get("/tags", async (c) => {
   try {
     const tags = await c.env.DB.prepare(`
       SELECT id, name, slug, description, color, post_count, active
-      FROM tags 
+      FROM tags
       WHERE active = 1
       ORDER BY post_count DESC, name
     `).all();
@@ -776,9 +734,9 @@ createRoutes.get("/tags", async (c) => {
 
   } catch (error) {
     console.error("Tags fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch tags" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch tags"
     }, 500);
   }
 });

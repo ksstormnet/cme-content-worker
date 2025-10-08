@@ -633,3 +633,21 @@
     padding: 1rem;
   }
 }
+
+/* Full-width layout for Gutenberg-style editor */
+.post-editor-content.full-width {
+  display: block;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.post-editor-content.full-width .editor-main {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Remove preview panel in full-width mode */
+.post-editor-content.full-width .editor-preview {
+  display: none;
+}

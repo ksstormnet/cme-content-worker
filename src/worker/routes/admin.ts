@@ -161,7 +161,7 @@ adminRoutes.post("/posts", async (c) => {
     }
 
     // Generate slug from title
-    let slug = generateSlug(title);
+    const slug = generateSlug(title);
 
     // Ensure slug is unique
     let slugSuffix = 1;
