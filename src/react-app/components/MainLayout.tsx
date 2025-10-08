@@ -95,8 +95,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ user, children }) => {
                 </Link>
                 
                 <Link
-                  to="/admin/new"
-                  className={`nav-link ${location.pathname === '/admin/new' ? 'active' : ''}`}
+                  to="/admin/editor"
+                  className={`nav-link ${location.pathname === '/admin/editor' ? 'active' : ''}`}
                   title="New Post"
                 >
                   <span className="link-icon">✍️</span>
