@@ -13,6 +13,23 @@ const hashPassword = async (password: string): Promise<string> => {
     .join('');
 };
 
+// Generate URL-safe slug from title
+const generateSlug = (title: string): string => {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
+// Generate next sequential post_id
+const getNextPostId = async (db: D1Database): Promise<number> => {
+  const result = await db.prepare("SELECT MAX(post_id) as max_id FROM posts").first();
+  const maxId = result?.max_id as number || 999;
+  return maxId + 1;
+};
+
 export const adminRoutes = new Hono<{ Bindings: Env }>();
 
 // Apply auth middleware to all admin routes
@@ -25,18 +42,18 @@ adminRoutes.get("/posts", async (c) => {
     const per_page = parseInt(c.req.query("per_page") || "20");
     const status = c.req.query("status"); // draft, approved, scheduled, published
     const post_type = c.req.query("post_type"); // monday, wednesday, friday, saturday, newsletter
-    
+
     const offset = (page - 1) * per_page;
-    
+
     // Build WHERE clause
     let whereClause = "";
     const bindings: any[] = [];
-    
+
     if (status) {
       whereClause += " WHERE status = ?";
       bindings.push(status);
     }
-    
+
     if (post_type) {
       whereClause += whereClause ? " AND post_type = ?" : " WHERE post_type = ?";
       bindings.push(post_type);
@@ -46,16 +63,18 @@ adminRoutes.get("/posts", async (c) => {
     const countQuery = await c.env.DB.prepare(
       `SELECT COUNT(*) as total FROM posts${whereClause}`
     ).bind(...bindings).first();
-    
+
     const total = countQuery?.total || 0;
 
-    // Get posts
+    // Get posts (only fields needed for list view - no content)
     const posts = await c.env.DB.prepare(
-      `SELECT p.*, u.name as author_name 
-       FROM posts p 
+      `SELECT p.id, p.slug, p.title, p.excerpt, p.status, p.post_type,
+              p.category, p.scheduled_date, p.published_date, p.created_at, p.updated_at,
+              u.name as author_name
+       FROM posts p
        LEFT JOIN users u ON p.author_id = u.id
        ${whereClause}
-       ORDER BY p.created_at DESC 
+       ORDER BY p.created_at DESC
        LIMIT ? OFFSET ?`
     ).bind(...bindings, per_page, offset).all();
 
@@ -72,9 +91,9 @@ adminRoutes.get("/posts", async (c) => {
 
   } catch (error) {
     console.error("Admin posts error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch posts" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch posts"
     }, 500);
   }
 });
@@ -83,39 +102,209 @@ adminRoutes.get("/posts", async (c) => {
 adminRoutes.get("/posts/:id", async (c) => {
   try {
     const id = c.req.param("id");
-    
+
     const post = await c.env.DB.prepare(
-      `SELECT p.*, u.name as author_name 
-       FROM posts p 
+      `SELECT p.*, u.name as author_name
+       FROM posts p
        LEFT JOIN users u ON p.author_id = u.id
        WHERE p.id = ?`
     ).bind(id).first();
 
     if (!post) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Post not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Post not found"
       }, 404);
     }
 
-    // Get content blocks
-    const blocks = await c.env.DB.prepare(
-      "SELECT * FROM content_blocks WHERE post_id = ? ORDER BY block_order"
-    ).bind(id).all();
+    // Parse content blocks from posts.content JSON field
+    const content_blocks = post.content ? JSON.parse(post.content) : [];
 
     return c.json<APIResponse<any>>({
       success: true,
       data: {
         ...post,
-        content_blocks: blocks.results || []
+        content_blocks: content_blocks
       }
     });
 
   } catch (error) {
     console.error("Admin post fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch post" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch post"
+    }, 500);
+  }
+});
+
+// POST /api/admin/posts - Create new post
+adminRoutes.post("/posts", async (c) => {
+  try {
+    const user = c.get("user");
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      tags,
+      status,
+      post_type,
+      persona,
+      author_id
+    } = await c.req.json();
+
+    if (!title) {
+      return c.json<APIResponse>({
+        success: false,
+        error: "Title is required"
+      }, 400);
+    }
+
+    // Generate slug from title
+    let slug = generateSlug(title);
+
+    // Ensure slug is unique
+    let slugSuffix = 1;
+    let uniqueSlug = slug;
+    while (true) {
+      const existing = await c.env.DB.prepare(
+        "SELECT id FROM posts WHERE slug = ?"
+      ).bind(uniqueSlug).first();
+
+      if (!existing) break;
+
+      uniqueSlug = `${slug}-${slugSuffix}`;
+      slugSuffix++;
+    }
+
+    // Get next post_id
+    const post_id = await getNextPostId(c.env.DB);
+
+    // Create post
+    const result = await c.env.DB.prepare(`
+      INSERT INTO posts (
+        post_id, slug, title, content, excerpt, status, post_type, persona,
+        author_id, category, tags, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now', 'America/Chicago'), datetime('now', 'America/Chicago'))
+    `).bind(
+      post_id,
+      uniqueSlug,
+      title,
+      content || JSON.stringify([]),
+      excerpt || null,
+      status || 'draft',
+      post_type || 'monday',
+      persona || null,
+      author_id || user.id,
+      category || 'general',
+      tags || JSON.stringify([])
+    ).run();
+
+    const newPostId = result.meta.last_row_id;
+
+    // Fetch the created post
+    const newPost = await c.env.DB.prepare(
+      "SELECT * FROM posts WHERE id = ?"
+    ).bind(newPostId).first();
+
+    return c.json<APIResponse<Post>>({
+      success: true,
+      data: newPost as Post,
+      message: "Post created successfully"
+    });
+
+  } catch (error) {
+    console.error("Admin post creation error:", error);
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to create post"
+    }, 500);
+  }
+});
+
+// PUT /api/admin/posts/:id - Update full post
+adminRoutes.put("/posts/:id", async (c) => {
+  try {
+    const id = c.req.param("id");
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      tags,
+      status,
+      post_type,
+      persona
+    } = await c.req.json();
+
+    if (!title) {
+      return c.json<APIResponse>({
+        success: false,
+        error: "Title is required"
+      }, 400);
+    }
+
+    // Update slug if title changed
+    const currentPost = await c.env.DB.prepare(
+      "SELECT title, slug FROM posts WHERE id = ?"
+    ).bind(id).first();
+
+    let slug = currentPost?.slug;
+    if (currentPost && currentPost.title !== title) {
+      slug = generateSlug(title);
+
+      // Ensure slug is unique (excluding current post)
+      let slugSuffix = 1;
+      let uniqueSlug = slug;
+      while (true) {
+        const existing = await c.env.DB.prepare(
+          "SELECT id FROM posts WHERE slug = ? AND id != ?"
+        ).bind(uniqueSlug, id).first();
+
+        if (!existing) break;
+
+        uniqueSlug = `${slug}-${slugSuffix}`;
+        slugSuffix++;
+      }
+      slug = uniqueSlug;
+    }
+
+    // Update post
+    await c.env.DB.prepare(`
+      UPDATE posts
+      SET slug = ?, title = ?, content = ?, excerpt = ?, status = ?,
+          post_type = ?, persona = ?, category = ?, tags = ?,
+          updated_at = datetime('now', 'America/Chicago')
+      WHERE id = ?
+    `).bind(
+      slug,
+      title,
+      content,
+      excerpt,
+      status,
+      post_type,
+      persona,
+      category,
+      tags,
+      id
+    ).run();
+
+    // Fetch updated post
+    const updatedPost = await c.env.DB.prepare(
+      "SELECT * FROM posts WHERE id = ?"
+    ).bind(id).first();
+
+    return c.json<APIResponse<Post>>({
+      success: true,
+      data: updatedPost as Post,
+      message: "Post updated successfully"
+    });
+
+  } catch (error) {
+    console.error("Admin post update error:", error);
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update post"
     }, 500);
   }
 });
@@ -125,39 +314,39 @@ adminRoutes.put("/posts/:id/status", async (c) => {
   try {
     const id = c.req.param("id");
     const { status, scheduled_date } = await c.req.json();
-    
+
     if (!["draft", "approved", "scheduled", "published"].includes(status)) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Invalid status" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Invalid status"
       }, 400);
     }
 
     // Update post status
     const bindings = [status, new Date().toISOString(), id];
     let query = "UPDATE posts SET status = ?, updated_at = ? WHERE id = ?";
-    
+
     if (status === "scheduled" && scheduled_date) {
       query = "UPDATE posts SET status = ?, scheduled_date = ?, updated_at = ? WHERE id = ?";
       bindings.splice(1, 0, scheduled_date);
     }
-    
+
     if (status === "published") {
       query = "UPDATE posts SET status = ?, published_date = ?, updated_at = ? WHERE id = ?";
     }
 
     await c.env.DB.prepare(query).bind(...bindings).run();
 
-    return c.json<APIResponse>({ 
-      success: true, 
-      message: `Post ${status} successfully` 
+    return c.json<APIResponse>({
+      success: true,
+      message: `Post ${status} successfully`
     });
 
   } catch (error) {
     console.error("Admin status update error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to update post status" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update post status"
     }, 500);
   }
 });
@@ -220,9 +409,9 @@ adminRoutes.get("/settings", async (c) => {
 
   } catch (error) {
     console.error("Admin settings fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch settings" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch settings"
     }, 500);
   }
 });
@@ -231,12 +420,12 @@ adminRoutes.get("/settings", async (c) => {
 adminRoutes.put("/settings", async (c) => {
   try {
     const settings = await c.req.json();
-    
+
     // Separate API keys from other settings
     const apiKeys = ['openai_api_key', 'claude_api_key', 'dataforseo_username', 'dataforseo_api_key'];
     const regularSettings: Record<string, any> = {};
     const keyUpdates: Record<string, string> = {};
-    
+
     for (const [key, value] of Object.entries(settings)) {
       if (apiKeys.includes(key) && value && typeof value === 'string' && value.trim() !== '') {
         // Store API keys securely (in production, these would be Cloudflare Worker secrets)
@@ -246,16 +435,16 @@ adminRoutes.put("/settings", async (c) => {
         regularSettings[key] = value;
       }
     }
-    
+
     // Update regular settings in database
     for (const [key, value] of Object.entries(regularSettings)) {
       const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
-      
+
       await c.env.DB.prepare(`
-        INSERT INTO settings (key, value, updated_at) 
+        INSERT INTO settings (key, value, updated_at)
         VALUES (?, ?, CURRENT_TIMESTAMP)
-        ON CONFLICT(key) DO UPDATE SET 
-          value = excluded.value, 
+        ON CONFLICT(key) DO UPDATE SET
+          value = excluded.value,
           updated_at = excluded.updated_at
       `).bind(key, stringValue).run();
     }
@@ -265,10 +454,10 @@ adminRoutes.put("/settings", async (c) => {
     for (const [key, value] of Object.entries(keyUpdates)) {
       try {
         await c.env.DB.prepare(`
-          INSERT INTO settings (key, value, updated_at, is_sensitive) 
+          INSERT INTO settings (key, value, updated_at, is_sensitive)
           VALUES (?, ?, CURRENT_TIMESTAMP, 1)
-          ON CONFLICT(key) DO UPDATE SET 
-            value = excluded.value, 
+          ON CONFLICT(key) DO UPDATE SET
+            value = excluded.value,
             updated_at = excluded.updated_at,
             is_sensitive = 1
         `).bind(key, value).run();
@@ -276,25 +465,25 @@ adminRoutes.put("/settings", async (c) => {
         // Fallback for databases without is_sensitive column
         console.warn('Fallback to basic settings insert for:', key);
         await c.env.DB.prepare(`
-          INSERT INTO settings (key, value, updated_at) 
+          INSERT INTO settings (key, value, updated_at)
           VALUES (?, ?, CURRENT_TIMESTAMP)
-          ON CONFLICT(key) DO UPDATE SET 
-            value = excluded.value, 
+          ON CONFLICT(key) DO UPDATE SET
+            value = excluded.value,
             updated_at = excluded.updated_at
         `).bind(key, value).run();
       }
     }
 
-    return c.json<APIResponse>({ 
-      success: true, 
-      message: "Settings and API keys updated successfully. In production, API keys should be stored as Cloudflare Worker secrets." 
+    return c.json<APIResponse>({
+      success: true,
+      message: "Settings and API keys updated successfully. In production, API keys should be stored as Cloudflare Worker secrets."
     });
 
   } catch (error) {
     console.error("Admin settings update error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to update settings" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update settings"
     }, 500);
   }
 });
@@ -304,27 +493,27 @@ adminRoutes.get("/stats", async (c) => {
   try {
     // Get post counts by status
     const statusCounts = await c.env.DB.prepare(`
-      SELECT status, COUNT(*) as count 
-      FROM posts 
+      SELECT status, COUNT(*) as count
+      FROM posts
       GROUP BY status
     `).all();
 
     // Get recent posts
     const recentPosts = await c.env.DB.prepare(`
       SELECT id, title, status, post_type, created_at
-      FROM posts 
-      ORDER BY created_at DESC 
+      FROM posts
+      ORDER BY created_at DESC
       LIMIT 5
     `).all();
 
     // Get AI usage stats
     const aiStats = await c.env.DB.prepare(`
-      SELECT 
+      SELECT
         model_used,
         COUNT(*) as usage_count,
         SUM(cost_cents) as total_cost_cents,
         AVG(generation_time_ms) as avg_time_ms
-      FROM ai_generations 
+      FROM ai_generations
       WHERE created_at >= date('now', '-30 days')
       GROUP BY model_used
     `).all();
@@ -340,9 +529,9 @@ adminRoutes.get("/stats", async (c) => {
 
   } catch (error) {
     console.error("Admin stats error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch statistics" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch statistics"
     }, 500);
   }
 });
@@ -352,7 +541,7 @@ adminRoutes.get("/users", async (c) => {
   try {
     const users = await c.env.DB.prepare(`
       SELECT id, email, name, role, created_at, last_login, active
-      FROM users 
+      FROM users
       ORDER BY created_at DESC
     `).all();
 
@@ -363,9 +552,9 @@ adminRoutes.get("/users", async (c) => {
 
   } catch (error) {
     console.error("Admin users fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch users" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch users"
     }, 500);
   }
 });
@@ -374,20 +563,20 @@ adminRoutes.get("/users", async (c) => {
 adminRoutes.post("/users", async (c) => {
   try {
     const { email, name, role, password } = await c.req.json();
-    
+
     // Validate required fields
     if (!email || !name || !role || !password) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "All fields are required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "All fields are required"
       }, 400);
     }
 
     // Validate role
     if (!["admin", "editor", "viewer"].includes(role)) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Invalid role" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Invalid role"
       }, 400);
     }
 
@@ -397,9 +586,9 @@ adminRoutes.post("/users", async (c) => {
     ).bind(email).first();
 
     if (existingUser) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "User with this email already exists" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "User with this email already exists"
       }, 400);
     }
 
@@ -412,17 +601,17 @@ adminRoutes.post("/users", async (c) => {
       VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 1)
     `).bind(email, name, role, passwordHash).run();
 
-    return c.json<APIResponse>({ 
-      success: true, 
+    return c.json<APIResponse>({
+      success: true,
       message: "User created successfully",
       data: { id: result.meta.last_row_id }
     });
 
   } catch (error) {
     console.error("Admin user creation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to create user" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to create user"
     }, 500);
   }
 });
@@ -432,20 +621,20 @@ adminRoutes.put("/users/:id", async (c) => {
   try {
     const id = c.req.param("id");
     const { email, name, role, password } = await c.req.json();
-    
+
     // Validate required fields (password is optional for updates)
     if (!email || !name || !role) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Email, name, and role are required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Email, name, and role are required"
       }, 400);
     }
 
     // Validate role
     if (!["admin", "editor", "viewer"].includes(role)) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Invalid role" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Invalid role"
       }, 400);
     }
 
@@ -455,9 +644,9 @@ adminRoutes.put("/users/:id", async (c) => {
     ).bind(id).first();
 
     if (!existingUser) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "User not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "User not found"
       }, 404);
     }
 
@@ -467,15 +656,15 @@ adminRoutes.put("/users/:id", async (c) => {
     ).bind(email, id).first();
 
     if (emailCheck) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Email is already taken by another user" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Email is already taken by another user"
       }, 400);
     }
 
     // Update user
     let query = `
-      UPDATE users 
+      UPDATE users
       SET email = ?, name = ?, role = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `;
@@ -485,7 +674,7 @@ adminRoutes.put("/users/:id", async (c) => {
     if (password) {
       const passwordHash = await hashPassword(password);
       query = `
-        UPDATE users 
+        UPDATE users
         SET email = ?, name = ?, role = ?, password_hash = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
       `;
@@ -494,16 +683,16 @@ adminRoutes.put("/users/:id", async (c) => {
 
     await c.env.DB.prepare(query).bind(...bindings).run();
 
-    return c.json<APIResponse>({ 
-      success: true, 
-      message: "User updated successfully" 
+    return c.json<APIResponse>({
+      success: true,
+      message: "User updated successfully"
     });
 
   } catch (error) {
     console.error("Admin user update error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to update user" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update user"
     }, 500);
   }
 });
@@ -513,12 +702,12 @@ adminRoutes.delete("/users/:id", async (c) => {
   try {
     const id = c.req.param("id");
     const currentUser = c.get('user');
-    
+
     // Prevent self-deletion
     if (currentUser.id === parseInt(id)) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Cannot delete your own account" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Cannot delete your own account"
       }, 400);
     }
 
@@ -528,9 +717,9 @@ adminRoutes.delete("/users/:id", async (c) => {
     ).bind(id).first();
 
     if (!existingUser) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "User not found" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "User not found"
       }, 404);
     }
 
@@ -539,32 +728,32 @@ adminRoutes.delete("/users/:id", async (c) => {
       const adminCount = await c.env.DB.prepare(
         "SELECT COUNT(*) as count FROM users WHERE role = 'admin' AND active = 1"
       ).first();
-      
+
       if (adminCount && adminCount.count <= 1) {
-        return c.json<APIResponse>({ 
-          success: false, 
-          error: "Cannot delete the last admin user" 
+        return c.json<APIResponse>({
+          success: false,
+          error: "Cannot delete the last admin user"
         }, 400);
       }
     }
 
     // Soft delete - set active to false
     await c.env.DB.prepare(`
-      UPDATE users 
-      SET active = 0, updated_at = CURRENT_TIMESTAMP 
+      UPDATE users
+      SET active = 0, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).bind(id).run();
 
-    return c.json<APIResponse>({ 
-      success: true, 
-      message: "User deleted successfully" 
+    return c.json<APIResponse>({
+      success: true,
+      message: "User deleted successfully"
     });
 
   } catch (error) {
     console.error("Admin user deletion error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to delete user" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to delete user"
     }, 500);
   }
 });
@@ -575,7 +764,7 @@ adminRoutes.delete("/users/:id", async (c) => {
 adminRoutes.get("/categories", async (c) => {
   try {
     const categories = await c.env.DB.prepare(`
-      SELECT * FROM categories 
+      SELECT * FROM categories
       ORDER BY post_count DESC, name
     `).all();
 
@@ -586,9 +775,9 @@ adminRoutes.get("/categories", async (c) => {
 
   } catch (error) {
     console.error("Admin categories fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch categories" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch categories"
     }, 500);
   }
 });
@@ -597,11 +786,11 @@ adminRoutes.get("/categories", async (c) => {
 adminRoutes.post("/categories", async (c) => {
   try {
     const { name, description, color, icon, priority } = await c.req.json();
-    
+
     if (!name) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Category name is required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Category name is required"
       }, 400);
     }
 
@@ -626,7 +815,7 @@ adminRoutes.post("/categories", async (c) => {
     ).run();
 
     const categoryId = result.meta.last_row_id;
-    
+
     // Get the created category
     const category = await c.env.DB.prepare(
       "SELECT * FROM categories WHERE id = ?"
@@ -640,9 +829,9 @@ adminRoutes.post("/categories", async (c) => {
 
   } catch (error) {
     console.error("Admin category creation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to create category" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to create category"
     }, 500);
   }
 });
@@ -652,11 +841,11 @@ adminRoutes.put("/categories/:id", async (c) => {
   try {
     const categoryId = c.req.param("id");
     const { name, description, color, icon, active, priority } = await c.req.json();
-    
+
     if (!name) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Category name is required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Category name is required"
       }, 400);
     }
 
@@ -669,7 +858,7 @@ adminRoutes.put("/categories/:id", async (c) => {
       .replace(/^-|-$/g, '');
 
     await c.env.DB.prepare(`
-      UPDATE categories 
+      UPDATE categories
       SET name = ?, slug = ?, description = ?, color = ?, icon = ?, active = ?, priority = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
@@ -697,9 +886,9 @@ adminRoutes.put("/categories/:id", async (c) => {
 
   } catch (error) {
     console.error("Admin category update error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to update category" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update category"
     }, 500);
   }
 });
@@ -708,16 +897,16 @@ adminRoutes.put("/categories/:id", async (c) => {
 adminRoutes.delete("/categories/:id", async (c) => {
   try {
     const categoryId = c.req.param("id");
-    
+
     // Check if category has posts
     const postCount = await c.env.DB.prepare(
       "SELECT COUNT(*) as count FROM posts WHERE category_id = ?"
     ).bind(categoryId).first();
 
     if (postCount && postCount.count > 0) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: `Cannot delete category - it has ${postCount.count} posts. Move posts to another category first.` 
+      return c.json<APIResponse>({
+        success: false,
+        error: `Cannot delete category - it has ${postCount.count} posts. Move posts to another category first.`
       }, 400);
     }
 
@@ -730,9 +919,9 @@ adminRoutes.delete("/categories/:id", async (c) => {
 
   } catch (error) {
     console.error("Admin category deletion error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to delete category" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to delete category"
     }, 500);
   }
 });
@@ -743,7 +932,7 @@ adminRoutes.delete("/categories/:id", async (c) => {
 adminRoutes.get("/tags", async (c) => {
   try {
     const tags = await c.env.DB.prepare(`
-      SELECT * FROM tags 
+      SELECT * FROM tags
       ORDER BY post_count DESC, name
     `).all();
 
@@ -754,9 +943,9 @@ adminRoutes.get("/tags", async (c) => {
 
   } catch (error) {
     console.error("Admin tags fetch error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to fetch tags" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to fetch tags"
     }, 500);
   }
 });
@@ -765,11 +954,11 @@ adminRoutes.get("/tags", async (c) => {
 adminRoutes.post("/tags", async (c) => {
   try {
     const { name, description, color } = await c.req.json();
-    
+
     if (!name) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Tag name is required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Tag name is required"
       }, 400);
     }
 
@@ -792,7 +981,7 @@ adminRoutes.post("/tags", async (c) => {
     ).run();
 
     const tagId = result.meta.last_row_id;
-    
+
     // Get the created tag
     const tag = await c.env.DB.prepare(
       "SELECT * FROM tags WHERE id = ?"
@@ -806,9 +995,9 @@ adminRoutes.post("/tags", async (c) => {
 
   } catch (error) {
     console.error("Admin tag creation error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to create tag" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to create tag"
     }, 500);
   }
 });
@@ -818,11 +1007,11 @@ adminRoutes.put("/tags/:id", async (c) => {
   try {
     const tagId = c.req.param("id");
     const { name, description, color, active } = await c.req.json();
-    
+
     if (!name) {
-      return c.json<APIResponse>({ 
-        success: false, 
-        error: "Tag name is required" 
+      return c.json<APIResponse>({
+        success: false,
+        error: "Tag name is required"
       }, 400);
     }
 
@@ -835,8 +1024,8 @@ adminRoutes.put("/tags/:id", async (c) => {
       .replace(/^-|-$/g, '');
 
     await c.env.DB.prepare(`
-      UPDATE tags 
-      SET name = ?, slug = ?, description = ?, color = ?, active = ?, 
+      UPDATE tags
+      SET name = ?, slug = ?, description = ?, color = ?, active = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).bind(
@@ -861,9 +1050,9 @@ adminRoutes.put("/tags/:id", async (c) => {
 
   } catch (error) {
     console.error("Admin tag update error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to update tag" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to update tag"
     }, 500);
   }
 });
@@ -872,10 +1061,10 @@ adminRoutes.put("/tags/:id", async (c) => {
 adminRoutes.delete("/tags/:id", async (c) => {
   try {
     const tagId = c.req.param("id");
-    
+
     // Delete tag relationships first
     await c.env.DB.prepare("DELETE FROM post_tags WHERE tag_id = ?").bind(tagId).run();
-    
+
     // Delete the tag
     await c.env.DB.prepare("DELETE FROM tags WHERE id = ?").bind(tagId).run();
 
@@ -886,9 +1075,9 @@ adminRoutes.delete("/tags/:id", async (c) => {
 
   } catch (error) {
     console.error("Admin tag deletion error:", error);
-    return c.json<APIResponse>({ 
-      success: false, 
-      error: "Failed to delete tag" 
+    return c.json<APIResponse>({
+      success: false,
+      error: "Failed to delete tag"
     }, 500);
   }
 });
