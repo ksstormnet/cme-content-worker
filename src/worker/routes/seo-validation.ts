@@ -10,39 +10,37 @@ app.get('/post/:category/:slug', async (c) => {
   try {
     const category = c.req.param('category')
     const slug = c.req.param('slug')
-    
-    // Get post data
+
+    // Get post data with content from JSON field (no content_blocks JOIN)
     const postResult = await c.env.DB.prepare(`
-      SELECT 
-        p.id, p.title, p.slug, p.excerpt, p.category, p.featured_image_id,
+      SELECT
+        p.id, p.title, p.slug, p.excerpt, p.category, p.featured_image_url,
         p.published_date, p.updated_at, p.meta_description, p.author_id,
-        u.name as author_name,
-        GROUP_CONCAT(
-          json_object(
-            'id', cb.id,
-            'block_type', cb.block_type,
-            'content', cb.content,
-            'block_order', cb.block_order
-          )
-        ) as content_blocks_json
+        p.content,
+        u.name as author_name
       FROM posts p
       LEFT JOIN users u ON p.author_id = u.id
-      LEFT JOIN content_blocks cb ON p.id = cb.post_id
       WHERE p.category = ? AND p.slug = ? AND p.status = 'published'
-      GROUP BY p.id
       LIMIT 1
     `).bind(category, slug).first()
-    
+
     if (!postResult) {
       return c.json({ error: 'Post not found' }, 404)
     }
-    
-    // Parse content blocks
-    const contentBlocks = postResult.content_blocks_json
-      ? JSON.parse(`[${(postResult.content_blocks_json as string).replace(/},{/g, '},{')}]`)
-        .filter((block: any) => block.id !== null)
-      : []
-    
+
+    // Parse content blocks from JSON field
+    let contentBlocks = []
+    try {
+      if (postResult.content) {
+        const contentData = JSON.parse(postResult.content as string)
+        // Support both {"blocks": [...]} and direct [...] formats
+        contentBlocks = Array.isArray(contentData) ? contentData : (contentData.blocks || [])
+      }
+    } catch (parseError) {
+      console.error('Error parsing content JSON:', parseError)
+      contentBlocks = []
+    }
+
     const postData = {
       id: String(postResult.id),
       title: postResult.title as string,
@@ -50,22 +48,22 @@ app.get('/post/:category/:slug', async (c) => {
       excerpt: postResult.excerpt as string || '',
       content_blocks: contentBlocks,
       category: postResult.category as string,
-      featured_image_id: postResult.featured_image_id as string,
+      featured_image_id: postResult.featured_image_url as string,
       published_date: postResult.published_date as string,
       updated_at: postResult.updated_at as string,
       meta_description: postResult.meta_description as string,
       author_name: postResult.author_name as string
     }
-    
+
     // Generate template variables
     const variables = await generatePostVariables(postData, c.env)
-    
+
     // Validate SEO
     const validation = validateSEOMetadata(variables)
-    
+
     // Check format query parameter
     const format = c.req.query('format') || 'json'
-    
+
     if (format === 'html') {
       const report = generateSEOReport(validation)
       return c.html(`
@@ -108,7 +106,7 @@ app.get('/post/:category/:slug', async (c) => {
         </html>
       `)
     }
-    
+
     return c.json({
       success: true,
       post: {
@@ -120,7 +118,7 @@ app.get('/post/:category/:slug', async (c) => {
       seo: validation,
       quickCheck: quickSEOCheck(variables)
     })
-    
+
   } catch (error) {
     console.error('SEO validation error:', error)
     return c.json({
@@ -135,24 +133,24 @@ app.get('/post/:category/:slug', async (c) => {
 app.get('/category/:slug', async (c) => {
   try {
     const categorySlug = c.req.param('slug')
-    
+
     // Get category info
     const categoryResult = await c.env.DB.prepare(`
       SELECT name, slug FROM categories WHERE slug = ? LIMIT 1
     `).bind(categorySlug).first()
-    
+
     if (!categoryResult) {
       return c.json({ error: 'Category not found' }, 404)
     }
-    
+
     // Generate template variables for category page
-    const variables = await generateBlogListingVariables(categorySlug, categoryResult.name as string)
-    
+    const variables = await generateBlogListingVariables(categorySlug, categoryResult.name as string, c.env)
+
     // Validate SEO
     const validation = validateSEOMetadata(variables)
-    
+
     const format = c.req.query('format') || 'json'
-    
+
     if (format === 'html') {
       const report = generateSEOReport(validation)
       return c.html(`
@@ -195,7 +193,7 @@ app.get('/category/:slug', async (c) => {
         </html>
       `)
     }
-    
+
     return c.json({
       success: true,
       category: {
@@ -206,7 +204,7 @@ app.get('/category/:slug', async (c) => {
       seo: validation,
       quickCheck: quickSEOCheck(variables)
     })
-    
+
   } catch (error) {
     console.error('Category SEO validation error:', error)
     return c.json({
@@ -221,13 +219,13 @@ app.get('/category/:slug', async (c) => {
 app.get('/homepage', async (c) => {
   try {
     // Generate template variables for homepage
-    const variables = await generateBlogListingVariables()
-    
+    const variables = await generateBlogListingVariables(undefined, undefined, c.env)
+
     // Validate SEO
     const validation = validateSEOMetadata(variables)
-    
+
     const format = c.req.query('format') || 'json'
-    
+
     if (format === 'html') {
       const report = generateSEOReport(validation)
       return c.html(`
@@ -270,7 +268,7 @@ app.get('/homepage', async (c) => {
         </html>
       `)
     }
-    
+
     return c.json({
       success: true,
       page: {
@@ -280,7 +278,7 @@ app.get('/homepage', async (c) => {
       seo: validation,
       quickCheck: quickSEOCheck(variables)
     })
-    
+
   } catch (error) {
     console.error('Homepage SEO validation error:', error)
     return c.json({
@@ -296,26 +294,26 @@ app.get('/bulk', async (c) => {
   try {
     const limit = parseInt(c.req.query('limit') || '10')
     const category = c.req.query('category')
-    
+
     let postsQuery = `
-      SELECT id, title, slug, category, meta_description, featured_image_id, published_date, updated_at
-      FROM posts 
+      SELECT id, title, slug, category, meta_description, featured_image_url, published_date, updated_at
+      FROM posts
       WHERE status = 'published'
     `
     const params: any[] = []
-    
+
     if (category) {
       postsQuery += ' AND category = ?'
       params.push(category)
     }
-    
+
     postsQuery += ' ORDER BY published_date DESC LIMIT ?'
     params.push(limit)
-    
+
     const postsResult = await c.env.DB.prepare(postsQuery).bind(...params).all()
-    
+
     const results = []
-    
+
     for (const post of (postsResult.results || [])) {
       const postData = {
         id: String(post.id),
@@ -324,17 +322,17 @@ app.get('/bulk', async (c) => {
         excerpt: '',
         content_blocks: [],
         category: post.category as string,
-        featured_image_id: post.featured_image_id as string,
+        featured_image_id: post.featured_image_url as string,
         published_date: post.published_date as string,
         updated_at: post.updated_at as string,
         meta_description: post.meta_description as string,
         author_name: 'Cruise Made EASY'
       }
-      
+
       try {
         const variables = await generatePostVariables(postData, c.env)
         const validation = validateSEOMetadata(variables)
-        
+
         results.push({
           post: {
             title: postData.title,
@@ -370,13 +368,13 @@ app.get('/bulk', async (c) => {
         })
       }
     }
-    
+
     // Calculate summary stats
     const validPosts = results.filter(r => r.seo.isValid).length
     const averageScore = results.reduce((sum, r) => sum + r.seo.score, 0) / results.length
     const totalErrors = results.reduce((sum, r) => sum + r.seo.errorCount, 0)
     const totalWarnings = results.reduce((sum, r) => sum + r.seo.warningCount, 0)
-    
+
     return c.json({
       success: true,
       summary: {
@@ -388,7 +386,7 @@ app.get('/bulk', async (c) => {
       },
       posts: results
     })
-    
+
   } catch (error) {
     console.error('Bulk SEO analysis error:', error)
     return c.json({
