@@ -216,10 +216,6 @@ app.get("/assets/index.css", async (c) => {
   }
 });
 
-// Context Window 4: Template rendering system - MUST come after API routes and assets but before admin routes
-console.log('🎨 Initializing template rendering system');
-app.route("/", templateRenderRoutes);
-
 // Admin HTML template - serve React app with cache-busting version parameter
 const ASSET_VERSION = "20251008-081000"; // Update this on each deploy to bust cache
 const adminHtml = `<!doctype html>
@@ -239,19 +235,23 @@ const adminHtml = `<!doctype html>
   </body>
 </html>`;
 
-// Admin login page - serve React app in both dev and production
+// Admin login page - serve React app in both dev and production (MUST come before wildcard template routes)
 app.get("/blogin", (c) => {
   return new Response(adminHtml, {
     headers: { 'Content-Type': 'text/html; charset=utf-8' }
   });
 });
 
-// Admin interface routes - serve React app in both dev and production
+// Admin interface routes - serve React app in both dev and production (MUST come before wildcard template routes)
 app.get("/admin/*", (c) => {
   return new Response(adminHtml, {
     headers: { 'Content-Type': 'text/html; charset=utf-8' }
   });
 });
+
+// Context Window 4: Template rendering system - MUST come after specific routes (API, assets, admin) - wildcards LAST
+console.log('🎨 Initializing template rendering system');
+app.route("/", templateRenderRoutes);
 
 export default {
   fetch: app.fetch
