@@ -174,11 +174,14 @@ app.get("/favicon.svg", (c) => {
 // Proxy CDN assets with CORS headers and cache-busting
 app.get("/assets/index.js", async (c) => {
   try {
-    const response = await fetch('https://cdn.cruisemadeeasy.com/built-js/latest/index.js');
-    const content = await response.text();
-
     // Use version parameter for cache control
     const version = c.req.query('v') || 'default';
+
+    // Add cache-busting to CDN fetch to ensure fresh content
+    const response = await fetch(`https://cdn.cruisemadeeasy.com/built-js/latest/index.js?cb=${version}`, {
+      cf: { cacheTtl: 0 } // Bypass Cloudflare cache
+    });
+    const content = await response.text();
 
     return new Response(content, {
       headers: {
@@ -217,7 +220,7 @@ app.get("/assets/index.css", async (c) => {
 });
 
 // Admin HTML template - serve React app with cache-busting version parameter
-const ASSET_VERSION = "20251008-083350"; // Update this on each deploy to bust cache
+const ASSET_VERSION = "20251008-083902"; // Update this on each deploy to bust cache
 const adminHtml = `<!doctype html>
 <html lang="en">
   <head>
