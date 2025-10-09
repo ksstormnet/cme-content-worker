@@ -48,15 +48,15 @@
 		"typescript": "5.8.3",
 		"typescript-eslint": "8.35.0",
 		"vite": "^6.0.0",
-		"wrangler": "^4.38.0"
+		"wrangler": "^4.42.2"
 	},
 	"scripts": {
 		"build": "npm run build:templates && vite build && npm run build:upload-assets",
 		"build:templates": "node build/template-compiler.js",
 		"build:upload-assets": "node scripts/upload-assets-to-r2.js",
-		"build:worker": "npm run build:templates && wrangler deploy",
+		"build:worker": "npm run build:templates && wrangler deploy --env=\"\"",
 		"cf-typegen": "wrangler types",
-		"check": "tsc && npm run build && wrangler deploy --dry-run",
+		"check": "tsc && npm run build && wrangler deploy --env=\"\" --dry-run",
 		"deploy": "npm run build:worker",
 		"prebuild": "npm run build:templates",
 		"dev": "echo 'DEPRECATED: Use background sessions - npm run dev:frontend (bg) + npm run dev:worker (bg)'",
