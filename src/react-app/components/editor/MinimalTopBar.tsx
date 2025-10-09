@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import './MinimalTopBar.css';
 
@@ -26,14 +27,10 @@ export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
   const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   return (
-    <div className={`minimal-top-bar ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-      <button
-        className="back-button"
-        onClick={onBack}
-        title="Back to Admin"
-      >
-        ← Back
-      </button>
+    <div className="minimal-top-bar">
+      <Link to="/admin" className="logo-home-button" title="Back to Dashboard">
+        <img src="/favicon.svg" alt="CME" className="logo-icon" />
+      </Link>
 
       {isEditingTitle ? (
         <input
