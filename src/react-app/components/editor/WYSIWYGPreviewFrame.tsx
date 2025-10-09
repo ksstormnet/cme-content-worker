@@ -9,6 +9,7 @@ interface WYSIWYGPreviewFrameProps {
   category: string;
   author: string;
   publishedDate: string;
+  sidebarCollapsed: boolean;
 }
 
 export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
@@ -16,7 +17,8 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
   title,
   category,
   author,
-  publishedDate
+  publishedDate,
+  sidebarCollapsed
 }) => {
   const frameRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +68,7 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
   };
 
   return (
-    <div className="wysiwyg-preview-frame" ref={frameRef}>
+    <div className={`wysiwyg-preview-frame ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`} ref={frameRef}>
       {/* Blog Header */}
       <div
         className="blog-header-preview"

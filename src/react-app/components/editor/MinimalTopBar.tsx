@@ -10,6 +10,7 @@ interface MinimalTopBarProps {
   isDirty: boolean;
   onBack: () => void;
   onOpenSettings: () => void;
+  sidebarCollapsed: boolean;
 }
 
 export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
@@ -19,12 +20,13 @@ export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
   lastSaved,
   isDirty,
   onBack,
-  onOpenSettings
+  onOpenSettings,
+  sidebarCollapsed
 }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   return (
-    <div className="minimal-top-bar">
+    <div className={`minimal-top-bar ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       <button
         className="back-button"
         onClick={onBack}

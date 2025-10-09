@@ -16,6 +16,7 @@ import { ImagePlaceholderExtension } from './editor/extensions/ImagePlaceholderE
 
 // Editor components
 import MinimalTopBar from './editor/MinimalTopBar';
+import EditorSidebar from './editor/EditorSidebar';
 import WYSIWYGPreviewFrame from './editor/WYSIWYGPreviewFrame';
 import FloatingToolbar from './editor/FloatingToolbar';
 import MetadataDrawer from './editor/MetadataDrawer';
@@ -85,6 +86,9 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
 
   // Metadata drawer state
   const [metadataDrawerOpen, setMetadataDrawerOpen] = useState(false);
+
+  // Sidebar state
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Initialize with generated content if coming from ContentGenerator
   useEffect(() => {
@@ -441,6 +445,13 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         isDirty={isDirty}
         onBack={handleCancel}
         onOpenSettings={() => setMetadataDrawerOpen(true)}
+        sidebarCollapsed={sidebarCollapsed}
+      />
+
+      {/* Left Sidebar */}
+      <EditorSidebar
+        isCollapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
 
       {/* Error Display */}
@@ -458,6 +469,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         category={category}
         author={user.name}
         publishedDate={new Date().toLocaleDateString()}
+        sidebarCollapsed={sidebarCollapsed}
       />
 
       {/* Floating Toolbar */}

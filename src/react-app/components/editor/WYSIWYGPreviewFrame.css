@@ -1,11 +1,22 @@
 .wysiwyg-preview-frame {
   position: fixed;
   top: 40px;
-  left: 0;
+  left: 250px;
   right: 0;
   bottom: 0;
   overflow-y: auto;
   background: #ffffff;
+  transition: left 0.3s ease;
+}
+
+.wysiwyg-preview-frame.sidebar-collapsed {
+  left: 60px;
+}
+
+@media (max-width: 768px) {
+  .wysiwyg-preview-frame {
+    left: 0;
+  }
 }
 
 /* Content wrapper styling to match blog layout */

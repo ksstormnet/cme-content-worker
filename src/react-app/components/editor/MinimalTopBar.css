@@ -1,7 +1,7 @@
 .minimal-top-bar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 250px;
   right: 0;
   height: 40px;
   background: rgba(255, 255, 255, 0.95);
@@ -13,6 +13,17 @@
   gap: 1rem;
   z-index: 1000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+}
+
+.minimal-top-bar.sidebar-collapsed {
+  left: 60px;
+}
+
+@media (max-width: 768px) {
+  .minimal-top-bar {
+    left: 0;
+  }
 }
 
 .back-button {
