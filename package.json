@@ -51,14 +51,14 @@
 		"wrangler": "^4.42.2"
 	},
 	"scripts": {
-		"build": "npm run build:templates && vite build && npm run build:upload-assets",
+		"build": "npm run update-version && npm run build:templates && vite build && npm run build:upload-assets",
 		"build:templates": "node build/template-compiler.js",
 		"build:upload-assets": "node scripts/upload-assets-to-r2.js",
-		"build:worker": "npm run update-version && npm run build:templates && wrangler deploy --env=\"\"",
+		"build:worker": "npm run build:templates && wrangler deploy --env=\"\"",
 		"update-version": "node scripts/update-asset-version.js",
 		"cf-typegen": "wrangler types",
 		"check": "tsc && npm run build && wrangler deploy --env=\"\" --dry-run",
-		"deploy": "npm run build:worker",
+		"deploy": "npm run build && npm run build:worker",
 		"prebuild": "npm run build:templates",
 		"dev": "echo 'DEPRECATED: Use background sessions - npm run dev:frontend (bg) + npm run dev:worker (bg)'",
 		"dev:start": "echo 'DEPRECATED: Use background sessions via Claude Bash tool'",
