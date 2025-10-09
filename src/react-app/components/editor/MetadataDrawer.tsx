@@ -16,6 +16,9 @@ interface MetadataDrawerProps {
   onStatusChange: (value: 'draft' | 'scheduled' | 'published') => void;
   onPostTypeChange: (value: 'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter') => void;
   onPersonaChange: (value: 'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer' | null) => void;
+  onSave: () => void;
+  isSaving: boolean;
+  isDirty: boolean;
 }
 
 export const MetadataDrawer: React.FC<MetadataDrawerProps> = ({
@@ -32,7 +35,10 @@ export const MetadataDrawer: React.FC<MetadataDrawerProps> = ({
   onTagsChange,
   onStatusChange,
   onPostTypeChange,
-  onPersonaChange
+  onPersonaChange,
+  onSave,
+  isSaving,
+  isDirty
 }) => {
   return (
     <>
@@ -115,6 +121,16 @@ export const MetadataDrawer: React.FC<MetadataDrawerProps> = ({
               <option value="luxe_seafarer">Luxe Seafarer</option>
             </select>
           </div>
+        </div>
+
+        <div className="drawer-footer">
+          <button
+            className="save-button-drawer"
+            onClick={onSave}
+            disabled={isSaving || !isDirty}
+          >
+            {isSaving ? 'Saving...' : 'Save Post'}
+          </button>
         </div>
       </div>
     </>

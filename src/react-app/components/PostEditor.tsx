@@ -481,6 +481,9 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         onStatusChange={setStatus}
         onPostTypeChange={setPostType}
         onPersonaChange={setPersona}
+        onSave={handleManualSave}
+        isSaving={saving}
+        isDirty={isDirty}
       />
 
       {/* Block Browser Modal */}
