@@ -223,7 +223,7 @@ app.get("/assets/index.css", async (c) => {
 });
 
 // Admin HTML template - serve React app with cache-busting version parameter
-const ASSET_VERSION = "20251009-132100"; // Update this on each deploy to bust cache
+const ASSET_VERSION = "20251009-183726"; // Update this on each deploy to bust cache
 const adminHtml = `<!doctype html>
 <html lang="en">
   <head>
