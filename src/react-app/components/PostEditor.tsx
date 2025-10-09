@@ -376,9 +376,14 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
     }
   };
 
-  // Auto-save with debounce
+  // Auto-save with debounce (NEVER auto-save published posts)
   const debouncedSave = useMemo(
     () => debounce(() => {
+      // DATA GUARD: Published posts require explicit save action
+      if (status === 'published') {
+        return; // Do not auto-save published posts
+      }
+
       if (isDirty && title.trim()) {
         savePost();
       }
@@ -388,13 +393,14 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
   );
 
   useEffect(() => {
-    if (isDirty) {
+    // Only auto-save drafts and scheduled posts
+    if (isDirty && status !== 'published') {
       debouncedSave();
     }
     return () => {
       debouncedSave.cancel();
     };
-  }, [isDirty, debouncedSave]);
+  }, [isDirty, debouncedSave, status]);
 
   // Warn on unsaved changes
   useEffect(() => {
@@ -439,6 +445,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         isSaving={saving}
         lastSaved={lastSaved}
         isDirty={isDirty}
+        status={status}
         onBack={handleCancel}
         onOpenSettings={() => setMetadataDrawerOpen(true)}
         sidebarCollapsed={false}

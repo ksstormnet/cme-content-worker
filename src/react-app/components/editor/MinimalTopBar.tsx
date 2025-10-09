@@ -9,6 +9,7 @@ interface MinimalTopBarProps {
   isSaving: boolean;
   lastSaved: Date | null;
   isDirty: boolean;
+  status: 'draft' | 'scheduled' | 'published';
   onBack: () => void;
   onOpenSettings: () => void;
   sidebarCollapsed: boolean;
@@ -20,6 +21,7 @@ export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
   isSaving,
   lastSaved,
   isDirty,
+  status,
   onBack,
   onOpenSettings,
   sidebarCollapsed
@@ -63,6 +65,7 @@ export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
           isSaving={isSaving}
           lastSaved={lastSaved}
           isDirty={isDirty}
+          status={status}
         />
         <button
           className="settings-button"

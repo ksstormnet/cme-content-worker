@@ -643,6 +643,11 @@
   color: var(--warning-text);
 }
 
+.save-status.unsaved-published {
+  color: var(--error-text);
+  font-weight: 600;
+}
+
 .spinner {
   width: 0.875rem;
   height: 0.875rem;

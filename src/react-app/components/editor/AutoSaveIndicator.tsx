@@ -4,12 +4,14 @@ interface AutoSaveIndicatorProps {
   isSaving: boolean;
   lastSaved: Date | null;
   isDirty: boolean;
+  status?: 'draft' | 'scheduled' | 'published';
 }
 
 const AutoSaveIndicator: React.FC<AutoSaveIndicatorProps> = ({
   isSaving,
   lastSaved,
-  isDirty
+  isDirty,
+  status
 }) => {
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
@@ -32,9 +34,14 @@ const AutoSaveIndicator: React.FC<AutoSaveIndicatorProps> = ({
           ✓ Saved at {formatTime(lastSaved)}
         </span>
       )}
-      {!isSaving && isDirty && (
+      {!isSaving && isDirty && status === 'published' && (
+        <span className="save-status unsaved-published">
+          ⚠ Published - Manual save required
+        </span>
+      )}
+      {!isSaving && isDirty && status !== 'published' && (
         <span className="save-status unsaved">
-          • Unsaved changes
+          • Auto-saving...
         </span>
       )}
     </div>
