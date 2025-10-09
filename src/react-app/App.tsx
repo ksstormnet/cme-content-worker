@@ -6,6 +6,7 @@ import './App.css';
 import LoginPage from './components/LoginPage';
 import CreateDashboard from './components/CreateDashboard';
 import AdminDashboard from './components/AdminDashboard';
+import PostEditor from './components/PostEditor';
 import LoadingSpinner from './components/LoadingSpinner';
 import ChangePassword from './components/ChangePassword';
 import ContentCalendar from './components/ContentCalendar';
@@ -257,37 +258,56 @@ function App() {
             />
 
             {/* Protected admin routes - require authentication */}
-            <Route 
-              path="/admin/calendar" 
+
+            {/* PostEditor routes - bypass MainLayout for full WYSIWYG */}
+            <Route
+              path="/admin/editor"
               element={
-                auth.user ? 
+                auth.user ?
+                <PostEditor user={auth.user} /> :
+                <Navigate to="/blogin" replace />
+              }
+            />
+            <Route
+              path="/admin/editor/:id"
+              element={
+                auth.user ?
+                <PostEditor user={auth.user} /> :
+                <Navigate to="/blogin" replace />
+              }
+            />
+
+            <Route
+              path="/admin/calendar"
+              element={
+                auth.user ?
                 <MainLayout user={auth.user}>
                   <ContentCalendar user={auth.user} />
-                </MainLayout> : 
+                </MainLayout> :
                 <Navigate to="/blogin" replace />
-              } 
+              }
             />
 
-            <Route 
-              path="/admin/settings/*" 
+            <Route
+              path="/admin/settings/*"
               element={
-                auth.user && auth.user.role === 'admin' ? 
+                auth.user && auth.user.role === 'admin' ?
                 <MainLayout user={auth.user}>
                   <AdminDashboard user={auth.user} />
-                </MainLayout> : 
+                </MainLayout> :
                 <Navigate to="/admin" replace />
-              } 
+              }
             />
 
-            <Route 
-              path="/admin/*" 
+            <Route
+              path="/admin/*"
               element={
-                auth.user ? 
+                auth.user ?
                 <MainLayout user={auth.user}>
                   <CreateDashboard user={auth.user} />
-                </MainLayout> : 
+                </MainLayout> :
                 <Navigate to="/blogin" replace />
-              } 
+              }
             />
 
             {/* Login page - redirect to admin if already authenticated */}
