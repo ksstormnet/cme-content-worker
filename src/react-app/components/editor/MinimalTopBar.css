@@ -76,13 +76,21 @@
 .settings-button {
   background: none;
   border: none;
-  font-size: 1.25rem;
   cursor: pointer;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 0.25rem;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
 }
 
 .settings-button:hover {
   background: #f3f4f6;
+  color: #111827;
+}
+
+.settings-button svg {
+  display: block;
 }
