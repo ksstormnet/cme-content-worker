@@ -30,9 +30,9 @@
 }
 
 .logo-home-button .logo-icon {
-  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
   display: block;
-  line-height: 1;
 }
 
 .post-title-display {
