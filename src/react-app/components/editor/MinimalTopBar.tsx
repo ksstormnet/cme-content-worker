@@ -29,7 +29,7 @@ export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
   return (
     <div className="minimal-top-bar">
       <Link to="/admin" className="logo-home-button" title="Back to Dashboard">
-        <img src="/favicon.svg" alt="CME" className="logo-icon" />
+        <span className="logo-icon">🚢</span>
       </Link>
 
       {isEditingTitle ? (
