@@ -15,11 +15,12 @@ import { CTAExtension } from './editor/extensions/CTAExtension';
 import { ImagePlaceholderExtension } from './editor/extensions/ImagePlaceholderExtension';
 
 // Editor components
-import EditorCanvas from './editor/EditorCanvas';
-import CollapsibleMetadata from './editor/CollapsibleMetadata';
+import MinimalTopBar from './editor/MinimalTopBar';
+import WYSIWYGPreviewFrame from './editor/WYSIWYGPreviewFrame';
+import FloatingToolbar from './editor/FloatingToolbar';
+import MetadataDrawer from './editor/MetadataDrawer';
 import BlockBrowser, { BlockType } from './editor/BlockBrowser';
 import BlockSettingsSidebar from './editor/BlockSettingsSidebar';
-import AutoSaveIndicator from './editor/AutoSaveIndicator';
 import LoadingSpinner from './LoadingSpinner';
 import MediaPicker, { SelectedImage } from './media/MediaPicker';
 
@@ -81,6 +82,9 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
 
   // Media picker state
   const [showMediaPicker, setShowMediaPicker] = useState(false);
+
+  // Metadata drawer state
+  const [metadataDrawerOpen, setMetadataDrawerOpen] = useState(false);
 
   // Initialize with generated content if coming from ContentGenerator
   useEffect(() => {
@@ -427,71 +431,55 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
   }
 
   return (
-    <div className="post-editor">
-      <div className="post-editor-header">
-        <div className="header-left">
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="btn-secondary"
-          >
-            ← Back
-          </button>
-          <h2>{id ? 'Edit Post' : 'New Post'}</h2>
-        </div>
-        <div className="header-right">
-          <AutoSaveIndicator
-            isSaving={saving}
-            lastSaved={lastSaved}
-            isDirty={isDirty}
-          />
-          <button
-            type="button"
-            onClick={handleManualSave}
-            disabled={saving || !isDirty}
-            className="btn-primary"
-          >
-            {saving ? 'Saving...' : 'Save'}
-          </button>
-          <button
-            type="button"
-            onClick={() => setSettingsSidebarOpen(!settingsSidebarOpen)}
-            className="btn-secondary"
-            title="Block Settings"
-          >
-            ⚙️
-          </button>
-        </div>
-      </div>
+    <div className="post-editor-wysiwyg">
+      {/* Minimal Top Bar */}
+      <MinimalTopBar
+        title={title}
+        onTitleChange={setTitle}
+        isSaving={saving}
+        lastSaved={lastSaved}
+        isDirty={isDirty}
+        onBack={handleCancel}
+        onOpenSettings={() => setMetadataDrawerOpen(true)}
+      />
 
+      {/* Error Display */}
       {error && (
-        <div className="post-editor-error">
+        <div className="post-editor-error-toast">
           {error}
           <button onClick={() => setError(null)}>×</button>
         </div>
       )}
 
-      <div className="post-editor-content full-width">
-        <div className="editor-main">
-          <CollapsibleMetadata
-            title={title}
-            excerpt={excerpt}
-            category={category}
-            tags={tags}
-            status={status}
-            postType={postType}
-            persona={persona}
-            onTitleChange={setTitle}
-            onExcerptChange={setExcerpt}
-            onCategoryChange={setCategory}
-            onTagsChange={setTags}
-            onStatusChange={setStatus}
-            onPostTypeChange={setPostType}
-            onPersonaChange={setPersona}
-          />
-          <EditorCanvas editor={editor} user={user} />
-        </div>
-      </div>
+      {/* WYSIWYG Preview Frame */}
+      <WYSIWYGPreviewFrame
+        editor={editor}
+        title={title}
+        category={category}
+        author={user.name}
+        publishedDate={new Date().toLocaleDateString()}
+      />
+
+      {/* Floating Toolbar */}
+      {editor && <FloatingToolbar editor={editor} />}
+
+      {/* Metadata Drawer */}
+      <MetadataDrawer
+        isOpen={metadataDrawerOpen}
+        onClose={() => setMetadataDrawerOpen(false)}
+        excerpt={excerpt}
+        category={category}
+        tags={tags}
+        status={status}
+        postType={postType}
+        persona={persona}
+        onExcerptChange={setExcerpt}
+        onCategoryChange={setCategory}
+        onTagsChange={setTags}
+        onStatusChange={setStatus}
+        onPostTypeChange={setPostType}
+        onPersonaChange={setPersona}
+      />
 
       {/* Block Browser Modal */}
       <BlockBrowser

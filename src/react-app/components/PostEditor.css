@@ -1,10 +1,57 @@
-/* PostEditor Styles */
+/* PostEditor Styles - WYSIWYG Mode */
 
-.post-editor {
+.post-editor-wysiwyg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* Error toast for WYSIWYG mode */
+.post-editor-error-toast {
+  position: fixed;
+  top: 50px;
+  right: 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 0.375rem;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: var(--bg-primary);
+  align-items: center;
+  gap: 1rem;
+  z-index: 1050;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.post-editor-error-toast button {
+  background: none;
+  border: none;
+  color: #991b1b;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Legacy post-editor styles (hidden in WYSIWYG mode) */
+.post-editor {
+  display: none;
 }
 
 .post-editor-header {
