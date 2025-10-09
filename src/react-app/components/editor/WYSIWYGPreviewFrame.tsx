@@ -69,12 +69,6 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
 
   return (
     <div className={`wysiwyg-preview-frame ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`} ref={frameRef}>
-      {/* Blog Header */}
-      <div
-        className="blog-header-preview"
-        dangerouslySetInnerHTML={{ __html: COMPILED_TEMPLATES.HEADER }}
-      />
-
       {/* Blog Hero */}
       <div
         className="blog-hero-preview"
@@ -92,12 +86,6 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
       <div
         className="blog-cta-preview"
         dangerouslySetInnerHTML={{ __html: COMPILED_TEMPLATES.BLOG_CTA }}
-      />
-
-      {/* Blog Footer */}
-      <div
-        className="blog-footer-preview"
-        dangerouslySetInnerHTML={{ __html: COMPILED_TEMPLATES.FOOTER }}
       />
     </div>
   );

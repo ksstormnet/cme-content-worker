@@ -114,36 +114,36 @@
   height: 0;
 }
 
-/* Header/Hero/Footer preview areas - make non-interactive but visible */
-.blog-header-preview,
+/* Override any fixed/absolute positioning from blog CSS */
+.wysiwyg-preview-frame * {
+  position: static !important;
+}
+
+.wysiwyg-preview-frame .blog-hero-preview,
+.wysiwyg-preview-frame .blog-content-area,
+.wysiwyg-preview-frame .blog-cta-preview {
+  position: relative !important;
+}
+
+/* Hero/CTA preview areas - make non-interactive but visible */
 .blog-hero-preview,
-.blog-cta-preview,
-.blog-footer-preview {
-  position: relative;
+.blog-cta-preview {
   pointer-events: none;
   user-select: none;
+  position: relative;
 }
 
-/* Add subtle overlay to indicate non-editable sections */
-.blog-header-preview::after,
-.blog-hero-preview::after,
-.blog-cta-preview::after,
-.blog-footer-preview::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.05);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
+/* Add subtle tint to indicate non-editable sections */
+.blog-hero-preview {
+  opacity: 0.85;
 }
 
-.blog-header-preview:hover::after,
-.blog-hero-preview:hover::after,
-.blog-cta-preview:hover::after,
-.blog-footer-preview:hover::after {
+.blog-cta-preview {
+  opacity: 0.85;
+}
+
+/* Hover effect */
+.blog-hero-preview:hover,
+.blog-cta-preview:hover {
   opacity: 1;
 }
