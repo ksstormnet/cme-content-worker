@@ -59,12 +59,21 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
     };
   }, []);
 
+  // Convert category slug to human-readable format
+  const formatCategory = (slug: string): string => {
+    if (!slug) return 'Uncategorized';
+    return slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
   // Replace placeholders in hero template
   const renderHero = () => {
     let heroHtml = COMPILED_TEMPLATES.HERO;
     heroHtml = heroHtml.replace('{{POST_TITLE}}', title || 'Untitled Post');
     heroHtml = heroHtml.replace('{{POST_AUTHOR}}', author || 'Cruise Made EASY');
-    heroHtml = heroHtml.replace('{{POST_CATEGORY}}', category || 'Uncategorized');
+    heroHtml = heroHtml.replace('{{POST_CATEGORY}}', formatCategory(category));
     heroHtml = heroHtml.replace('{{POST_DATE}}', publishedDate || new Date().toLocaleDateString());
     return heroHtml;
   };
@@ -73,9 +82,9 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
     <div className={`wysiwyg-preview-frame ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`} ref={frameRef}>
       {/* Blog Hero with Featured Image */}
       <div className="blog-hero-preview" style={featuredImageUrl ? {
-        backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.75), rgba(30, 58, 138, 0.75)), url(${featuredImageUrl})`,
+        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) 70%, transparent), linear-gradient(to left, rgba(12, 29, 61, 0.77) 0%, rgba(12, 29, 61, 0.77) 100%), url(${featuredImageUrl})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center center',
         minHeight: '400px',
         display: 'flex',
         alignItems: 'flex-end',
