@@ -62,6 +62,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
   const [status, setStatus] = useState<'draft' | 'scheduled' | 'published'>('draft');
   const [postType, setPostType] = useState<'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter'>('monday');
   const [persona, setPersona] = useState<'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer' | null>(null);
+  const [featuredImageUrl, setFeaturedImageUrl] = useState<string>('');
 
   // Editor state
   const [contentBlocks, setContentBlocks] = useState<ContentBlock[]>([]);
@@ -82,6 +83,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
 
   // Media picker state
   const [showMediaPicker, setShowMediaPicker] = useState(false);
+  const [mediaPickerMode, setMediaPickerMode] = useState<'content' | 'featured'>('content');
 
   // Metadata drawer state
   const [metadataDrawerOpen, setMetadataDrawerOpen] = useState(false);
@@ -195,6 +197,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         setStatus(post.status || 'draft');
         setPostType(post.post_type || 'monday');
         setPersona(post.persona);
+        setFeaturedImageUrl(post.featured_image_url || '');
 
         // Load content blocks
         const blocks = post.content_blocks || [];
@@ -264,6 +267,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         editor.chain().focus().setParagraph().run();
         break;
       case 'image':
+        setMediaPickerMode('content');
         setShowMediaPicker(true);
         break;
       case 'accent_tip':
@@ -294,17 +298,35 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
   };
 
   const handleImageSelect = (image: SelectedImage) => {
-    if (!editor) return;
+    if (mediaPickerMode === 'featured') {
+      // Set featured image
+      setFeaturedImageUrl(image.url);
+      setIsDirty(true);
+      setShowMediaPicker(false);
+    } else {
+      // Insert content image block
+      if (!editor) return;
 
-    editor.commands.setImage({
-      src: image.url,
-      alt: image.alt,
-      caption: image.caption,
-      alignment: image.alignment,
-      size: image.size,
-    });
+      editor.commands.setImage({
+        src: image.url,
+        alt: image.alt,
+        caption: image.caption,
+        alignment: image.alignment,
+        size: image.size,
+      });
 
-    setShowMediaPicker(false);
+      setShowMediaPicker(false);
+    }
+  };
+
+  const handleSelectFeaturedImage = () => {
+    setMediaPickerMode('featured');
+    setShowMediaPicker(true);
+  };
+
+  const handleRemoveFeaturedImage = () => {
+    setFeaturedImageUrl('');
+    setIsDirty(true);
   };
 
   const savePost = async () => {
@@ -321,6 +343,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         status,
         post_type: postType,
         persona,
+        featured_image_url: featuredImageUrl,
         author_id: user.id,
       };
 
@@ -466,6 +489,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         category={category}
         author={user.name}
         publishedDate={new Date().toLocaleDateString()}
+        featuredImageUrl={featuredImageUrl}
         sidebarCollapsed={false}
       />
 
@@ -482,12 +506,15 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
         status={status}
         postType={postType}
         persona={persona}
+        featuredImageUrl={featuredImageUrl}
         onExcerptChange={setExcerpt}
         onCategoryChange={setCategory}
         onTagsChange={setTags}
         onStatusChange={setStatus}
         onPostTypeChange={setPostType}
         onPersonaChange={setPersona}
+        onSelectFeaturedImage={handleSelectFeaturedImage}
+        onRemoveFeaturedImage={handleRemoveFeaturedImage}
         onSave={handleManualSave}
         isSaving={saving}
         isDirty={isDirty}

@@ -9,6 +9,7 @@ interface WYSIWYGPreviewFrameProps {
   category: string;
   author: string;
   publishedDate: string;
+  featuredImageUrl: string;
   sidebarCollapsed: boolean;
 }
 
@@ -18,6 +19,7 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
   category,
   author,
   publishedDate,
+  featuredImageUrl,
   sidebarCollapsed
 }) => {
   const frameRef = useRef<HTMLDivElement>(null);
@@ -69,11 +71,18 @@ export const WYSIWYGPreviewFrame: React.FC<WYSIWYGPreviewFrameProps> = ({
 
   return (
     <div className={`wysiwyg-preview-frame ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`} ref={frameRef}>
-      {/* Blog Hero */}
-      <div
-        className="blog-hero-preview"
-        dangerouslySetInnerHTML={{ __html: renderHero() }}
-      />
+      {/* Blog Hero with Featured Image */}
+      <div className="blog-hero-preview" style={featuredImageUrl ? {
+        backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.75), rgba(30, 58, 138, 0.75)), url(${featuredImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '400px',
+        display: 'flex',
+        alignItems: 'flex-end',
+        padding: '2rem'
+      } : {}}>
+        <div dangerouslySetInnerHTML={{ __html: renderHero() }} style={featuredImageUrl ? { color: 'white' } : {}} />
+      </div>
 
       {/* Editable Content Area */}
       <div className="blog-content-area">

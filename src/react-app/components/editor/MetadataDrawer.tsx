@@ -10,12 +10,15 @@ interface MetadataDrawerProps {
   status: 'draft' | 'scheduled' | 'published';
   postType: 'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter';
   persona: 'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer' | null;
+  featuredImageUrl: string;
   onExcerptChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
   onTagsChange: (value: string[]) => void;
   onStatusChange: (value: 'draft' | 'scheduled' | 'published') => void;
   onPostTypeChange: (value: 'monday' | 'wednesday' | 'friday' | 'saturday' | 'newsletter') => void;
   onPersonaChange: (value: 'easy_breezy' | 'thrill_seeker' | 'luxe_seafarer' | null) => void;
+  onSelectFeaturedImage: () => void;
+  onRemoveFeaturedImage: () => void;
   onSave: () => void;
   isSaving: boolean;
   isDirty: boolean;
@@ -30,12 +33,15 @@ export const MetadataDrawer: React.FC<MetadataDrawerProps> = ({
   status,
   postType,
   persona,
+  featuredImageUrl,
   onExcerptChange,
   onCategoryChange,
   onTagsChange,
   onStatusChange,
   onPostTypeChange,
   onPersonaChange,
+  onSelectFeaturedImage,
+  onRemoveFeaturedImage,
   onSave,
   isSaving,
   isDirty
@@ -55,6 +61,39 @@ export const MetadataDrawer: React.FC<MetadataDrawerProps> = ({
         </div>
 
         <div className="drawer-content">
+          <div className="drawer-section">
+            <label>Featured Image</label>
+            {featuredImageUrl ? (
+              <div className="featured-image-preview">
+                <img src={featuredImageUrl} alt="Featured" />
+                <div className="image-actions">
+                  <button
+                    type="button"
+                    className="change-image-btn"
+                    onClick={onSelectFeaturedImage}
+                  >
+                    Change Image
+                  </button>
+                  <button
+                    type="button"
+                    className="remove-image-btn"
+                    onClick={onRemoveFeaturedImage}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="select-featured-image-btn"
+                onClick={onSelectFeaturedImage}
+              >
+                + Select Featured Image
+              </button>
+            )}
+          </div>
+
           <div className="drawer-section">
             <label>Excerpt</label>
             <textarea
