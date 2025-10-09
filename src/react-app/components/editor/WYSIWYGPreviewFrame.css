@@ -122,6 +122,13 @@
   position: relative;
 }
 
+/* Hero title styling to match live site */
+.blog-hero-preview h1 {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
 /* Add subtle tint to indicate non-editable sections */
 .blog-hero-preview {
   opacity: 0.85;
