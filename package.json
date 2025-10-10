@@ -50,10 +50,11 @@
 		"wrangler": "^4.42.2"
 	},
 	"scripts": {
-		"build": "npm run update-version && npm run build:templates && vite build && npm run build:upload-assets",
+		"build": "npm run update-version && npm run build:templates && vite build && npm run build:upload-css && npm run build:upload-assets",
 		"build:templates": "node build/template-compiler.js",
 		"build:upload-assets": "node scripts/upload-assets-to-r2.js",
-		"build:worker": "npm run build:templates && wrangler deploy --env=\"\"",
+		"build:upload-css": "node scripts/upload-template-css-to-r2.js",
+		"build:worker": "npm run build:templates && npm run build:upload-css && wrangler deploy --env=\"\"",
 		"update-version": "node scripts/update-asset-version.js",
 		"cf-typegen": "wrangler types",
 		"check": "tsc && npm run build && wrangler deploy --env=\"\" --dry-run",
