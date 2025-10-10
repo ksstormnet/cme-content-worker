@@ -1,10 +1,10 @@
-import { 
-  ContentBlock, 
+import {
+  ContentBlock,
   HeadingBlockContent,
-  ParagraphBlockContent, 
-  ImageBlockContent, 
-  AccentTipBlockContent, 
-  QuoteBlockContent, 
+  ParagraphBlockContent,
+  ImageBlockContent,
+  AccentTipBlockContent,
+  QuoteBlockContent,
   CTABlockContent,
   ListBlockContent,
   TableBlockContent,
@@ -49,13 +49,13 @@ export class BlockRenderer {
 
     // Sort blocks by order
     const sortedBlocks = blocks.sort((a, b) => a.block_order - b.block_order);
-    
+
     const renderedBlocks = sortedBlocks.map(block => this.renderBlock(block));
-    
+
     if (this.options.includeWrappers) {
       return `<div class="content-blocks" role="main" aria-label="Article content">\n${renderedBlocks.join('\n')}\n</div>`;
     }
-    
+
     return renderedBlocks.join('\n');
   }
 
@@ -64,8 +64,8 @@ export class BlockRenderer {
    */
   renderBlock(block: ContentBlock): string {
     try {
-      const content = typeof block.content === 'string' 
-        ? JSON.parse(block.content) 
+      const content = typeof block.content === 'string'
+        ? JSON.parse(block.content)
         : block.content;
 
       switch (block.block_type) {
@@ -116,7 +116,7 @@ export class BlockRenderer {
     const level = Math.max(1, Math.min(6, content.level || 2));
     const id = content.anchor || `heading-${blockId}`;
     const alignment = content.alignment ? ` style="text-align: ${content.alignment}"` : '';
-    
+
     return `<h${level} id="${this.escapeHtml(id)}" class="content-heading"${alignment} aria-label="Heading: ${this.escapeHtml(content.text)}">
   ${this.escapeHtml(content.text)}
 </h${level}>`;
@@ -128,7 +128,7 @@ export class BlockRenderer {
   private renderParagraph(content: ParagraphBlockContent, blockId: number): string {
     const alignment = content.alignment ? ` style="text-align: ${content.alignment}"` : '';
     const summary = this.generateTextSummary(content.text);
-    
+
     return `<p class="content-paragraph"${alignment} aria-label="${this.escapeHtml(summary)}">
   ${this.processTextFormatting(content.text)}
 </p>`;
@@ -190,7 +190,7 @@ export class BlockRenderer {
     };
     const role = roleMap[type] || 'note';
     const icon = this.getAccentTipIcon(type);
-    
+
     return `<aside role="${role}" class="accent-tip accent-tip--${type}" aria-label="${type}: ${this.generateTextSummary(content.text)}">
   <div class="accent-tip__icon" aria-hidden="true">${icon}</div>
   <div class="accent-tip__content">
@@ -206,13 +206,13 @@ export class BlockRenderer {
     const alignment = content.alignment ? ` style="text-align: ${content.alignment}"` : '';
     let html = `<blockquote class="content-quote"${alignment} aria-label="Quote: ${this.generateTextSummary(content.text)}">
   <p class="quote-text">${this.processTextFormatting(content.text)}</p>`;
-    
+
     if (content.citation) {
       html += `\n  <cite class="quote-citation">— ${this.escapeHtml(content.citation)}</cite>`;
     }
-    
+
     html += '\n</blockquote>';
-    
+
     return html;
   }
 
@@ -224,10 +224,10 @@ export class BlockRenderer {
     const text = this.escapeHtml(content.text);
     const style = content.style || 'primary';
     const target = content.external ? ' target="_blank" rel="noopener noreferrer"' : '';
-    const ariaLabel = content.external 
+    const ariaLabel = content.external
       ? `${text} (opens in new window)`
       : text;
-    
+
     return `<div class="content-cta" style="text-align: center">
   <a href="${url}" class="cta-button cta-button--${style}" aria-label="${ariaLabel}"${target}>
     ${text}
@@ -247,10 +247,10 @@ export class BlockRenderer {
    */
   private renderList(content: ListBlockContent, blockId: number): string {
     const listType = content.ordered ? 'ol' : 'ul';
-    const items = content.items.map(item => 
+    const items = content.items.map(item =>
       `  <li>${this.processTextFormatting(item)}</li>`
     ).join('\n');
-    
+
     return `<${listType} class="content-list" aria-label="${content.ordered ? 'Ordered' : 'Unordered'} list with ${content.items.length} items">
 ${items}
 </${listType}>`;
@@ -264,17 +264,17 @@ ${items}
       return '<!-- Empty table -->';
     }
 
-    const caption = content.caption 
-      ? `\n  <caption>${this.escapeHtml(content.caption)}</caption>` 
+    const caption = content.caption
+      ? `\n  <caption>${this.escapeHtml(content.caption)}</caption>`
       : '';
-    
+
     let html = `<div class="table-wrapper" role="region" tabindex="0" aria-label="Data table">
   <table class="content-table"${caption ? ` aria-describedby="table-caption-${blockId}"` : ''}>`;
-    
+
     if (caption) {
       html += `\n    <caption id="table-caption-${blockId}">${this.escapeHtml(content.caption!)}</caption>`;
     }
-    
+
     // Render header if present
     if (content.hasHeader && content.rows.length > 0) {
       html += '\n    <thead>\n      <tr>';
@@ -283,11 +283,11 @@ ${items}
       });
       html += '\n      </tr>\n    </thead>';
     }
-    
+
     // Render body rows
     html += '\n    <tbody>';
     const startIndex = (content.hasHeader && content.rows.length > 0) ? 1 : 0;
-    
+
     for (let i = startIndex; i < content.rows.length; i++) {
       html += '\n      <tr>';
       content.rows[i].forEach((cell, cellIndex) => {
@@ -297,44 +297,76 @@ ${items}
       });
       html += '\n      </tr>';
     }
-    
+
     html += '\n    </tbody>\n  </table>\n</div>';
-    
+
     return html;
   }
 
   /**
-   * Render multi-column layout
+   * Render multi-column layout with nested column blocks
    */
   private renderColumns(content: ColumnsBlockContent, blockId: number): string {
     const alignment = content.alignment || 'left';
-    return `<div class="wp-block-columns is-layout-flex" style="justify-content: ${alignment}">
-  <!-- Columns content will be rendered by individual column blocks -->
+    const gap = content.gap || 'medium';
+    const gapClass = `columns-gap-${gap}`;
+
+    // Render nested column blocks
+    const childrenHtml = this.renderNestedBlocks(content.children || []);
+
+    return `<div class="wp-block-columns is-layout-flex ${gapClass}" style="justify-content: ${alignment}">
+${childrenHtml}
 </div>`;
   }
 
   /**
-   * Render individual column
+   * Render individual column with nested content blocks
    */
   private renderColumn(content: ColumnBlockContent, blockId: number): string {
     const width = content.width || 'auto';
-    return `<div class="wp-block-column" style="flex-basis: ${width}">
-  <!-- Column content rendered separately -->
+    const widthStyle = width !== 'auto' ? ` style="flex-basis: ${width}"` : '';
+
+    // Render nested content blocks
+    const childrenHtml = this.renderNestedBlocks(content.children || []);
+
+    return `<div class="wp-block-column"${widthStyle}>
+${childrenHtml}
 </div>`;
   }
 
   /**
-   * Render GeneratePress section
+   * Render GeneratePress section with nested content blocks
    */
   private renderSection(content: SectionBlockContent, blockId: number): string {
     const style = content.style || 'default';
-    const bgColor = content.backgroundColor ? ` style="background-color: ${content.backgroundColor}"` : '';
-    
-    let html = `<div class="gbp-section gbp-section--${style}"${bgColor} role="region" aria-label="Content section">
+
+    // Build inline styles
+    const styles = [];
+    if (content.backgroundColor) {
+      styles.push(`background-color: ${content.backgroundColor}`);
+    }
+    if (content.textColor) {
+      styles.push(`color: ${content.textColor}`);
+    }
+    if (content.padding) {
+      styles.push(`padding: ${content.padding}`);
+    }
+    const styleAttr = styles.length > 0 ? ` style="${styles.join('; ')}"` : '';
+
+    // Apply fullWidth class if specified
+    const fullWidthClass = content.fullWidth ? ' gbp-section--full-width' : '';
+
+    let html = `<div class="gbp-section gbp-section--${style}${fullWidthClass}"${styleAttr} role="region" aria-label="Content section">
   <div class="gbp-section__inner">`;
 
     if (content.headline) {
       html += `\n    <h2 class="gbp-section__headline">${this.escapeHtml(content.headline)}</h2>`;
+    }
+
+    // Render nested content blocks
+    const childrenHtml = this.renderNestedBlocks(content.children || []);
+    if (childrenHtml) {
+      html += '\n' + childrenHtml;
     }
 
     html += '\n  </div>\n</div>';
@@ -361,16 +393,16 @@ ${items}
     const alignment = content.alignment || 'center';
     const justification = {
       'left': 'flex-start',
-      'center': 'center', 
+      'center': 'center',
       'right': 'flex-end'
     }[alignment];
 
     const buttons = content.buttons.map((button, index) => {
       const target = button.external ? ' target="_blank" rel="noopener noreferrer"' : '';
-      const ariaLabel = button.external 
+      const ariaLabel = button.external
         ? `${button.text} (opens in new window)`
         : button.text;
-      
+
       return `  <div class="wp-block-button">
     <a href="${this.escapeHtml(button.url)}" class="wp-block-button__link cta-button--${button.type}" aria-label="${ariaLabel}"${target}>
       ${this.escapeHtml(button.text)}
@@ -390,29 +422,47 @@ ${buttons}
     const alignment = content.alignment || 'center';
     const size = content.size || 'large';
     const image = content.image;
-    
+
     const url = this.resolveImageUrl(image.url);
     const alt = this.escapeHtml(image.alt || '');
     const captionId = image.caption ? `caption-${blockId}` : undefined;
-    
+
     const lazyLoading = this.options.enableLazyLoading ? ' loading="lazy"' : '';
-    
+
     let html = `<figure class="wp-block-image size-${size} align${alignment}">
   <img src="${url}" alt="${alt}"${lazyLoading} class="wp-image-${blockId}"`;
-    
+
     if (captionId) {
       html += ` aria-describedby="${captionId}"`;
     }
-    
+
     html += ' />';
-    
+
     if (image.caption) {
       html += `\n  <figcaption id="${captionId}">${this.escapeHtml(image.caption)}</figcaption>`;
     }
-    
+
     html += '\n</figure>';
-    
+
     return html;
+  }
+
+  /**
+   * Recursively render nested content blocks with proper indentation
+   */
+  private renderNestedBlocks(blocks: ContentBlock[]): string {
+    if (!blocks || blocks.length === 0) {
+      return '    <!-- Empty container -->';
+    }
+
+    return blocks
+      .sort((a, b) => (a.block_order || 0) - (b.block_order || 0))
+      .map(block => {
+        const rendered = this.renderBlock(block);
+        // Indent nested content for readability (4 spaces per level)
+        return rendered.split('\n').map(line => `    ${line}`).join('\n');
+      })
+      .join('\n');
   }
 
   /**
@@ -433,7 +483,7 @@ ${buttons}
   private generateTextSummary(text: string, maxLength: number = 100): string {
     if (!text) return '';
     const plainText = text.replace(/<[^>]*>/g, '');
-    return plainText.length > maxLength 
+    return plainText.length > maxLength
       ? plainText.substring(0, maxLength) + '...'
       : plainText;
   }

@@ -29,6 +29,17 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
   // Callout settings state
   const [calloutType, setCalloutType] = useState<string>('tip');
 
+  // Section settings state
+  const [sectionBackgroundColor, setSectionBackgroundColor] = useState<string>('');
+  const [sectionTextColor, setSectionTextColor] = useState<string>('');
+  const [sectionPadding, setSectionPadding] = useState<string>('medium');
+  const [sectionStyle, setSectionStyle] = useState<string>('default');
+  const [sectionFullWidth, setSectionFullWidth] = useState<boolean>(false);
+
+  // Columns settings state
+  const [columnsCount, setColumnsCount] = useState<number>(2);
+  const [columnsGap, setColumnsGap] = useState<string>('medium');
+
   // Sync state when editor selection changes
   useEffect(() => {
     if (!editor) return;
@@ -44,6 +55,19 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
 
     if (node && node.type.name === 'accentTip') {
       setCalloutType(node.attrs.type || 'tip');
+    }
+
+    if (node && node.type.name === 'section') {
+      setSectionBackgroundColor(node.attrs.backgroundColor || '');
+      setSectionTextColor(node.attrs.textColor || '');
+      setSectionPadding(node.attrs.padding || 'medium');
+      setSectionStyle(node.attrs.style || 'default');
+      setSectionFullWidth(node.attrs.fullWidth || false);
+    }
+
+    if (node && node.type.name === 'columns') {
+      setColumnsCount(node.attrs.columnCount || 2);
+      setColumnsGap(node.attrs.gap || 'medium');
     }
   }, [editor, editor?.state.selection]);
 
@@ -66,6 +90,41 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
   const handleCalloutTypeChange = (type: 'tip' | 'warning' | 'alert' | 'info' | 'success') => {
     setCalloutType(type);
     editor?.chain().focus().updateAttributes('accentTip', { type }).run();
+  };
+
+  const handleSectionBackgroundColorChange = (value: string) => {
+    setSectionBackgroundColor(value);
+    editor?.chain().focus().updateAttributes('section', { backgroundColor: value || null }).run();
+  };
+
+  const handleSectionTextColorChange = (value: string) => {
+    setSectionTextColor(value);
+    editor?.chain().focus().updateAttributes('section', { textColor: value || null }).run();
+  };
+
+  const handleSectionPaddingChange = (padding: 'none' | 'small' | 'medium' | 'large') => {
+    setSectionPadding(padding);
+    editor?.chain().focus().updateAttributes('section', { padding }).run();
+  };
+
+  const handleSectionStyleChange = (style: 'default' | 'accent' | 'highlight') => {
+    setSectionStyle(style);
+    editor?.chain().focus().updateAttributes('section', { style }).run();
+  };
+
+  const handleSectionFullWidthChange = (fullWidth: boolean) => {
+    setSectionFullWidth(fullWidth);
+    editor?.chain().focus().updateAttributes('section', { fullWidth }).run();
+  };
+
+  const handleColumnsCountChange = (count: 2 | 3 | 4) => {
+    setColumnsCount(count);
+    editor?.chain().focus().updateAttributes('columns', { columnCount: count }).run();
+  };
+
+  const handleColumnsGapChange = (gap: 'none' | 'small' | 'medium' | 'large') => {
+    setColumnsGap(gap);
+    editor?.chain().focus().updateAttributes('columns', { gap }).run();
   };
 
   // ===== RENDER GUARDS =====
@@ -249,6 +308,181 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
     );
   };
 
+  const renderSectionSettings = () => {
+    return (
+      <div className="settings-content">
+        <h4 className="settings-title">Section Settings</h4>
+
+        <div className="setting-group">
+          <label className="setting-label">Background Color</label>
+          <input
+            type="text"
+            className="setting-input"
+            placeholder="#ffffff or rgba(255, 255, 255, 0.5)"
+            value={sectionBackgroundColor}
+            onChange={(e) => handleSectionBackgroundColorChange(e.target.value)}
+          />
+          <p className="setting-help">
+            Use hex colors (#ffffff) or rgba values
+          </p>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-label">Text Color</label>
+          <input
+            type="text"
+            className="setting-input"
+            placeholder="#000000 or rgba(0, 0, 0, 1)"
+            value={sectionTextColor}
+            onChange={(e) => handleSectionTextColorChange(e.target.value)}
+          />
+          <p className="setting-help">
+            Color for all text within this section
+          </p>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-label">Padding</label>
+          <div className="button-group">
+            <button
+              className={`btn-setting ${sectionPadding === 'none' ? 'active' : ''}`}
+              onClick={() => handleSectionPaddingChange('none')}
+            >
+              None
+            </button>
+            <button
+              className={`btn-setting ${sectionPadding === 'small' ? 'active' : ''}`}
+              onClick={() => handleSectionPaddingChange('small')}
+            >
+              Small
+            </button>
+            <button
+              className={`btn-setting ${sectionPadding === 'medium' ? 'active' : ''}`}
+              onClick={() => handleSectionPaddingChange('medium')}
+            >
+              Medium
+            </button>
+            <button
+              className={`btn-setting ${sectionPadding === 'large' ? 'active' : ''}`}
+              onClick={() => handleSectionPaddingChange('large')}
+            >
+              Large
+            </button>
+          </div>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-label">Style Preset</label>
+          <div className="button-group">
+            <button
+              className={`btn-setting ${sectionStyle === 'default' ? 'active' : ''}`}
+              onClick={() => handleSectionStyleChange('default')}
+            >
+              Default
+            </button>
+            <button
+              className={`btn-setting ${sectionStyle === 'accent' ? 'active' : ''}`}
+              onClick={() => handleSectionStyleChange('accent')}
+            >
+              Accent
+            </button>
+            <button
+              className={`btn-setting ${sectionStyle === 'highlight' ? 'active' : ''}`}
+              onClick={() => handleSectionStyleChange('highlight')}
+            >
+              Highlight
+            </button>
+          </div>
+          <p className="setting-help">
+            Applies predefined styling to the section
+          </p>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-checkbox">
+            <input
+              type="checkbox"
+              checked={sectionFullWidth}
+              onChange={(e) => handleSectionFullWidthChange(e.target.checked)}
+            />
+            <span>Full Width</span>
+          </label>
+          <p className="setting-help">
+            Expand section to full page width
+          </p>
+        </div>
+      </div>
+    );
+  };
+
+  const renderColumnsSettings = () => {
+    return (
+      <div className="settings-content">
+        <h4 className="settings-title">Columns Settings</h4>
+
+        <div className="setting-group">
+          <label className="setting-label">Column Count</label>
+          <div className="button-group">
+            <button
+              className={`btn-setting ${columnsCount === 2 ? 'active' : ''}`}
+              onClick={() => handleColumnsCountChange(2)}
+            >
+              2 Columns
+            </button>
+            <button
+              className={`btn-setting ${columnsCount === 3 ? 'active' : ''}`}
+              onClick={() => handleColumnsCountChange(3)}
+            >
+              3 Columns
+            </button>
+            <button
+              className={`btn-setting ${columnsCount === 4 ? 'active' : ''}`}
+              onClick={() => handleColumnsCountChange(4)}
+            >
+              4 Columns
+            </button>
+          </div>
+          <p className="setting-help">
+            Number of columns in the layout
+          </p>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-label">Gap Size</label>
+          <div className="button-group">
+            <button
+              className={`btn-setting ${columnsGap === 'none' ? 'active' : ''}`}
+              onClick={() => handleColumnsGapChange('none')}
+            >
+              None
+            </button>
+            <button
+              className={`btn-setting ${columnsGap === 'small' ? 'active' : ''}`}
+              onClick={() => handleColumnsGapChange('small')}
+            >
+              Small
+            </button>
+            <button
+              className={`btn-setting ${columnsGap === 'medium' ? 'active' : ''}`}
+              onClick={() => handleColumnsGapChange('medium')}
+            >
+              Medium
+            </button>
+            <button
+              className={`btn-setting ${columnsGap === 'large' ? 'active' : ''}`}
+              onClick={() => handleColumnsGapChange('large')}
+            >
+              Large
+            </button>
+          </div>
+          <p className="setting-help">
+            Space between columns
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   const renderQuoteSettings = () => (
     <div className="settings-content">
       <h4 className="settings-title">Quote Settings</h4>
@@ -363,6 +597,10 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
         return renderAccentTipSettings();
       case 'image':
         return renderImageSettings();
+      case 'section':
+        return renderSectionSettings();
+      case 'columns':
+        return renderColumnsSettings();
       case 'blockquote':
         return renderQuoteSettings();
       case 'cta':

@@ -14,7 +14,11 @@ export type BlockType =
   | 'divider'
   | 'list'
   | 'bulletList'
-  | 'orderedList';
+  | 'orderedList'
+  | 'section'
+  | 'columns_2'
+  | 'columns_3'
+  | 'columns_4';
 
 interface BlockDefinition {
   type: BlockType;
@@ -89,6 +93,38 @@ const blockTypes: BlockDefinition[] = [
     hotkey: 'I',
     category: 'media',
     description: 'Insert from media library'
+  },
+  {
+    type: 'section',
+    icon: '📦',
+    label: 'Section',
+    hotkey: 'S',
+    category: 'layout',
+    description: 'Container for grouped content with background and padding'
+  },
+  {
+    type: 'columns_2',
+    icon: '▯▯',
+    label: '2 Columns',
+    hotkey: '2',
+    category: 'layout',
+    description: 'Two-column layout'
+  },
+  {
+    type: 'columns_3',
+    icon: '▯▯▯',
+    label: '3 Columns',
+    hotkey: '3',
+    category: 'layout',
+    description: 'Three-column layout'
+  },
+  {
+    type: 'columns_4',
+    icon: '▯▯▯▯',
+    label: '4 Columns',
+    hotkey: '4',
+    category: 'layout',
+    description: 'Four-column layout'
   },
   {
     type: 'cta',
@@ -197,6 +233,36 @@ const BlockBrowser: React.FC<BlockBrowserProps> = ({
         );
       case 'image':
         return <div className="preview-image">🖼️</div>;
+      case 'section':
+        return (
+          <div className="preview-section">
+            <div className="preview-section-content">Section container</div>
+          </div>
+        );
+      case 'columns_2':
+        return (
+          <div className="preview-columns">
+            <div className="preview-column">Col 1</div>
+            <div className="preview-column">Col 2</div>
+          </div>
+        );
+      case 'columns_3':
+        return (
+          <div className="preview-columns">
+            <div className="preview-column">Col 1</div>
+            <div className="preview-column">Col 2</div>
+            <div className="preview-column">Col 3</div>
+          </div>
+        );
+      case 'columns_4':
+        return (
+          <div className="preview-columns">
+            <div className="preview-column">1</div>
+            <div className="preview-column">2</div>
+            <div className="preview-column">3</div>
+            <div className="preview-column">4</div>
+          </div>
+        );
       case 'cta':
         return <div className="preview-cta">Button</div>;
       case 'divider':

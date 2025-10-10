@@ -726,3 +726,190 @@
 .post-editor-content.full-width .editor-preview {
   display: none;
 }
+
+/* ============================================
+   SECTION BLOCK STYLES
+   ============================================ */
+
+/* TipTap Editor Section Rendering */
+.tiptap-editor .content-section {
+  width: 100%;
+  position: relative;
+  margin: 1.5rem 0;
+  border: 2px dashed var(--border-secondary);
+  border-radius: 0.375rem;
+  transition: border-color 0.2s;
+}
+
+.tiptap-editor .content-section:hover {
+  border-color: var(--accent-primary);
+}
+
+.tiptap-editor .gbp-section__inner {
+  padding: 1rem;
+}
+
+.tiptap-editor .gbp-section__headline {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+/* Section Padding Variants */
+.tiptap-editor .section-padding--none {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.tiptap-editor .section-padding--small {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.tiptap-editor .section-padding--medium {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.tiptap-editor .section-padding--large {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Section Style Variants */
+.tiptap-editor .section-style--default {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tiptap-editor .section-style--accent {
+  background-color: #f8f9fa;
+}
+
+.tiptap-editor .section-style--highlight {
+  background-color: #fffbeb;
+  border-left-color: #fbbf24;
+  border-right-color: #fbbf24;
+}
+
+/* Preview Panel Section Styles */
+.preview-blocks .content-section {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.preview-blocks .gbp-section__inner {
+  padding: 1rem;
+}
+
+.preview-blocks .section-padding--small {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.preview-blocks .section-padding--medium {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.preview-blocks .section-padding--large {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.preview-blocks .section-style--accent {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.preview-blocks .section-style--highlight {
+  background-color: #fffbeb;
+  border-left: 3px solid #fbbf24;
+}
+
+/* ============================================
+   COLUMN BLOCK STYLES
+   ============================================ */
+
+/* TipTap Editor Column Rendering */
+.tiptap-editor .wp-block-columns {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 0.5rem;
+  border: 2px dashed var(--border-secondary);
+  border-radius: 0.375rem;
+  transition: border-color 0.2s;
+}
+
+.tiptap-editor .wp-block-columns:hover {
+  border-color: var(--accent-primary);
+}
+
+.tiptap-editor .wp-block-column {
+  flex-grow: 1;
+  flex-shrink: 0;
+  min-width: 0;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+.tiptap-editor .wp-block-column:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--primary-alpha);
+}
+
+/* Column Gap Variants */
+.tiptap-editor .columns-gap--none { gap: 0; }
+.tiptap-editor .columns-gap--small { gap: 1rem; }
+.tiptap-editor .columns-gap--medium { gap: 2rem; }
+.tiptap-editor .columns-gap--large { gap: 3rem; }
+
+/* Column Count Variants */
+.tiptap-editor .columns-count--2 .wp-block-column {
+  flex-basis: calc(50% - 1rem);
+}
+
+.tiptap-editor .columns-count--3 .wp-block-column {
+  flex-basis: calc(33.333% - 1.334rem);
+}
+
+.tiptap-editor .columns-count--4 .wp-block-column {
+  flex-basis: calc(25% - 1.5rem);
+}
+
+/* Preview Panel Column Styles */
+.preview-blocks .wp-block-columns {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.preview-blocks .wp-block-column {
+  flex-grow: 1;
+  padding: 0.75rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 0.25rem;
+}
+
+.preview-blocks .columns-gap--small { gap: 0.5rem; }
+.preview-blocks .columns-gap--medium { gap: 1rem; }
+.preview-blocks .columns-gap--large { gap: 1.5rem; }
+
+/* Responsive Column Stacking (Mobile < 768px) */
+@media (max-width: 768px) {
+  .wp-block-columns {
+    flex-direction: column;
+    gap: 1rem !important;
+  }
+
+  .wp-block-column {
+    flex-basis: 100% !important;
+    width: 100%;
+  }
+}

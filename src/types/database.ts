@@ -76,7 +76,7 @@ export interface ContentPlan {
   week_year: number;
   week_number: number;
   main_themes: string; // JSON array
-  secondary_themes: string; // JSON array  
+  secondary_themes: string; // JSON array
   tertiary_themes: string; // JSON array
   seasonal_hooks: string | null; // JSON array
   milestone_intersections: string | null; // JSON array
@@ -88,6 +88,7 @@ export interface HeadingBlockContent {
   level: 1 | 2 | 3 | 4 | 5 | 6;
   text: string;
   anchor?: string;
+  alignment?: 'left' | 'center' | 'right' | 'justify';
 }
 
 export interface ParagraphBlockContent {
@@ -134,19 +135,25 @@ export interface TableBlockContent {
 }
 
 export interface ColumnsBlockContent {
-  columns: number;
+  columnCount: 2 | 3 | 4; // Number of columns
+  gap?: 'none' | 'small' | 'medium' | 'large'; // Gap between columns
   alignment?: 'left' | 'center' | 'right';
+  children?: ContentBlock[]; // Array of column ContentBlocks (block_type: 'column')
 }
 
 export interface ColumnBlockContent {
-  width?: string;
-  content: ContentBlock[];
+  width?: string; // flex-basis width (e.g., '50%', '33.33%')
+  children?: ContentBlock[]; // Nested blocks inside this column
 }
 
 export interface SectionBlockContent {
   headline?: string;
   style?: 'default' | 'accent' | 'highlight';
   backgroundColor?: string;
+  textColor?: string; // Text color override
+  padding?: 'none' | 'small' | 'medium' | 'large' | string; // Padding size or custom value
+  fullWidth?: boolean; // Break out of content max-width
+  children?: ContentBlock[]; // Nested blocks inside this section
 }
 
 export interface ContainerBlockContent {
@@ -170,12 +177,12 @@ export interface FigureBlockContent {
 export interface Env {
   DB: D1Database;
   IMAGES: R2Bucket;
-  
+
   // Environment variables
   ENVIRONMENT: string;
   SESSION_SECRET: string;
   ADMIN_EMAIL: string;
-  
+
   // Secrets
   OPENAI_API_KEY: string;
   CLAUDE_API_KEY: string;

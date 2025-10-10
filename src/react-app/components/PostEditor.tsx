@@ -13,6 +13,9 @@ import { tiptapToBlocks, blocksToTiptap } from '../utils/block-converter';
 import { AccentTipExtension } from './editor/extensions/AccentTipExtension';
 import { CTAExtension } from './editor/extensions/CTAExtension';
 import { ImagePlaceholderExtension } from './editor/extensions/ImagePlaceholderExtension';
+import { SectionExtension } from './editor/extensions/SectionExtension';
+import { ColumnsExtension } from './editor/extensions/ColumnsExtension';
+import { ColumnExtension } from './editor/extensions/ColumnExtension';
 
 // Editor components
 import MinimalTopBar from './editor/MinimalTopBar';
@@ -122,6 +125,9 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
       AccentTipExtension,
       CTAExtension,
       ImagePlaceholderExtension,
+      SectionExtension,
+      ColumnsExtension,
+      ColumnExtension,
     ],
     content: contentBlocks.length > 0 ? blocksToTiptap(contentBlocks) : '',
     onUpdate: ({ editor }) => {
