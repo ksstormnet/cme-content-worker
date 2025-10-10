@@ -20,10 +20,60 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
   blockType,
   onClose,
 }) => {
+  // ===== ALL HOOKS AT COMPONENT LEVEL =====
+  // Image settings state
+  const [imageCaption, setImageCaption] = useState<string>('');
+  const [imageAlignment, setImageAlignment] = useState<string>('center');
+  const [imageSize, setImageSize] = useState<string>('large');
+
+  // Callout settings state
+  const [calloutType, setCalloutType] = useState<string>('tip');
+
+  // Sync state when editor selection changes
+  useEffect(() => {
+    if (!editor) return;
+
+    const { $from } = editor.state.selection;
+    const node = $from.node($from.depth);
+
+    if (node && node.type.name === 'image') {
+      setImageCaption(node.attrs.caption || '');
+      setImageAlignment(node.attrs.alignment || 'center');
+      setImageSize(node.attrs.size || 'large');
+    }
+
+    if (node && node.type.name === 'accentTip') {
+      setCalloutType(node.attrs.type || 'tip');
+    }
+  }, [editor, editor?.state.selection]);
+
+  // ===== HANDLERS =====
+  const handleImageCaptionChange = (value: string) => {
+    setImageCaption(value);
+    editor?.chain().focus().setImageCaption(value || null).run();
+  };
+
+  const handleImageAlignmentChange = (newAlignment: 'left' | 'center' | 'right') => {
+    setImageAlignment(newAlignment);
+    editor?.chain().focus().setImageAlignment(newAlignment).run();
+  };
+
+  const handleImageSizeChange = (newSize: 'thumbnail' | 'medium' | 'large' | 'full') => {
+    setImageSize(newSize);
+    editor?.chain().focus().setImageSize(newSize).run();
+  };
+
+  const handleCalloutTypeChange = (type: 'tip' | 'warning' | 'alert' | 'info' | 'success') => {
+    setCalloutType(type);
+    editor?.chain().focus().updateAttributes('accentTip', { type }).run();
+  };
+
+  // ===== RENDER GUARDS =====
   if (!editor || !isOpen || !blockType) {
     return null;
   }
 
+  // ===== RENDER FUNCTIONS =====
   const renderHeadingSettings = () => (
     <div className="settings-content">
       <h4 className="settings-title">Heading Settings</h4>
@@ -88,28 +138,6 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
   );
 
   const renderAccentTipSettings = () => {
-    // Get current callout type from editor
-    const { $from } = editor.state.selection;
-    const node = $from.node($from.depth);
-    const currentType = node?.attrs?.type || 'tip';
-
-    const [calloutType, setCalloutType] = useState<string>(currentType);
-
-    // Sync state when selection changes
-    useEffect(() => {
-      const { $from } = editor.state.selection;
-      const node = $from.node($from.depth);
-      if (node && node.type.name === 'accentTip') {
-        setCalloutType(node.attrs.type || 'tip');
-      }
-    }, [editor.state.selection]);
-
-    const handleTypeChange = (type: 'tip' | 'warning' | 'alert' | 'info' | 'success') => {
-      setCalloutType(type);
-      // Use updateAttributes instead of setAccentTip to change type of existing block
-      editor.chain().focus().updateAttributes('accentTip', { type }).run();
-    };
-
     return (
       <div className="settings-content">
         <h4 className="settings-title">Callout Settings</h4>
@@ -119,35 +147,35 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
           <div className="callout-types">
             <button
               className={`callout-type-btn tip ${calloutType === 'tip' ? 'active' : ''}`}
-              onClick={() => handleTypeChange('tip')}
+              onClick={() => handleCalloutTypeChange('tip')}
             >
               <span className="callout-icon">💡</span>
               <span>Tip</span>
             </button>
             <button
               className={`callout-type-btn warning ${calloutType === 'warning' ? 'active' : ''}`}
-              onClick={() => handleTypeChange('warning')}
+              onClick={() => handleCalloutTypeChange('warning')}
             >
               <span className="callout-icon">⚠️</span>
               <span>Warning</span>
             </button>
             <button
               className={`callout-type-btn alert ${calloutType === 'alert' ? 'active' : ''}`}
-              onClick={() => handleTypeChange('alert')}
+              onClick={() => handleCalloutTypeChange('alert')}
             >
               <span className="callout-icon">🚨</span>
               <span>Alert</span>
             </button>
             <button
               className={`callout-type-btn info ${calloutType === 'info' ? 'active' : ''}`}
-              onClick={() => handleTypeChange('info')}
+              onClick={() => handleCalloutTypeChange('info')}
             >
               <span className="callout-icon">ℹ️</span>
               <span>Info</span>
             </button>
             <button
               className={`callout-type-btn success ${calloutType === 'success' ? 'active' : ''}`}
-              onClick={() => handleTypeChange('success')}
+              onClick={() => handleCalloutTypeChange('success')}
             >
               <span className="callout-icon">✅</span>
               <span>Success</span>
@@ -162,41 +190,6 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
   };
 
   const renderImageSettings = () => {
-    // Get current image attributes from editor
-    const { $from } = editor.state.selection;
-    const node = $from.node($from.depth);
-    const attrs = node?.attrs || {};
-
-    const [caption, setCaption] = useState<string>(attrs.caption || '');
-    const [alignment, setAlignment] = useState<string>(attrs.alignment || 'center');
-    const [size, setSize] = useState<string>(attrs.size || 'large');
-
-    // Sync state when selection changes
-    useEffect(() => {
-      const { $from } = editor.state.selection;
-      const node = $from.node($from.depth);
-      if (node && node.type.name === 'image') {
-        setCaption(node.attrs.caption || '');
-        setAlignment(node.attrs.alignment || 'center');
-        setSize(node.attrs.size || 'large');
-      }
-    }, [editor.state.selection]);
-
-    const handleCaptionChange = (value: string) => {
-      setCaption(value);
-      editor.chain().focus().setImageCaption(value || null).run();
-    };
-
-    const handleAlignmentChange = (newAlignment: 'left' | 'center' | 'right') => {
-      setAlignment(newAlignment);
-      editor.chain().focus().setImageAlignment(newAlignment).run();
-    };
-
-    const handleSizeChange = (newSize: 'thumbnail' | 'medium' | 'large' | 'full') => {
-      setSize(newSize);
-      editor.chain().focus().setImageSize(newSize).run();
-    };
-
     return (
       <div className="settings-content">
         <h4 className="settings-title">Image Settings</h4>
@@ -205,20 +198,20 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
           <label className="setting-label">Alignment</label>
           <div className="button-group">
             <button
-              className={`btn-setting ${alignment === 'left' ? 'active' : ''}`}
-              onClick={() => handleAlignmentChange('left')}
+              className={`btn-setting ${imageAlignment === 'left' ? 'active' : ''}`}
+              onClick={() => handleImageAlignmentChange('left')}
             >
               Left
             </button>
             <button
-              className={`btn-setting ${alignment === 'center' ? 'active' : ''}`}
-              onClick={() => handleAlignmentChange('center')}
+              className={`btn-setting ${imageAlignment === 'center' ? 'active' : ''}`}
+              onClick={() => handleImageAlignmentChange('center')}
             >
               Center
             </button>
             <button
-              className={`btn-setting ${alignment === 'right' ? 'active' : ''}`}
-              onClick={() => handleAlignmentChange('right')}
+              className={`btn-setting ${imageAlignment === 'right' ? 'active' : ''}`}
+              onClick={() => handleImageAlignmentChange('right')}
             >
               Right
             </button>
@@ -229,8 +222,8 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
           <label className="setting-label">Size</label>
           <select
             className="setting-select"
-            value={size}
-            onChange={(e) => handleSizeChange(e.target.value as any)}
+            value={imageSize}
+            onChange={(e) => handleImageSizeChange(e.target.value as any)}
           >
             <option value="thumbnail">Thumbnail</option>
             <option value="medium">Medium</option>
@@ -245,8 +238,8 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
             className="setting-textarea"
             placeholder="Add a caption to provide context..."
             rows={3}
-            value={caption}
-            onChange={(e) => handleCaptionChange(e.target.value)}
+            value={imageCaption}
+            onChange={(e) => handleImageCaptionChange(e.target.value)}
           />
           <p className="setting-help">
             Helps with accessibility and provides context for readers
