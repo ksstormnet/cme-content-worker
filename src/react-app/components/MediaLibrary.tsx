@@ -555,114 +555,167 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({
 
         {!loading && !error && (
           <>
-            {viewMode === 'grid' ? (
-              <div className="media-grid">
-                {paginatedFiles.map(file => (
-                  <MediaThumbnail
-                    key={file.id}
-                    file={file}
-                    onClick={() => handleMediaSelect(file)}
-                    onSelect={handleThumbnailSelect}
-                    onDoubleClick={onMediaDoubleClick}
-                    isSelected={selectedFiles.includes(file.id)}
-                    showSelection={selectionMode}
-                    className="media-thumbnail-item"
-                  />
-                ))}
+            {/* Empty State - Show when no media exists */}
+            {allMediaFiles.length === 0 && categories.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-state-icon">
+                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="30" width="80" height="60" rx="4" stroke="currentColor" strokeWidth="3" fill="none"/>
+                    <path d="M30 50L50 70L70 50L90 70" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="75" cy="45" r="5" fill="currentColor"/>
+                    <path d="M60 60L90 90H30L60 60Z" fill="currentColor" opacity="0.2"/>
+                  </svg>
+                </div>
+
+                <h3 className="empty-state-title">Your Media Library is Empty</h3>
+
+                <p className="empty-state-description">
+                  Get started by creating categories to organize your images, or jump right in and upload your first media file.
+                </p>
+
+                <div className="empty-state-actions">
+                  <button
+                    className="empty-state-btn primary"
+                    onClick={() => setShowUpload(true)}
+                  >
+                    <span className="btn-icon">📤</span>
+                    Upload Your First Image
+                  </button>
+
+                  <button
+                    className="empty-state-btn secondary"
+                    onClick={() => {
+                      const categorySelect = document.querySelector('.control-group select');
+                      categorySelect?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }}
+                  >
+                    <span className="btn-icon">📁</span>
+                    Create Category
+                  </button>
+                </div>
+
+                <div className="empty-state-suggestions">
+                  <p className="suggestions-label">Suggested Categories:</p>
+                  <div className="suggestion-tags">
+                    <span className="suggestion-tag">Featured Images</span>
+                    <span className="suggestion-tag">Content Images</span>
+                    <span className="suggestion-tag">Social Media</span>
+                    <span className="suggestion-tag">Blog Headers</span>
+                  </div>
+                </div>
+              </div>
+            ) : paginatedFiles.length === 0 ? (
+              /* Filtered Empty State - Show when filters return no results */
+              <div className="no-files">
+                {searchTerm || selectedCategory !== 'all'
+                  ? 'No files match your filters.'
+                  : 'No files uploaded yet.'}
               </div>
             ) : (
-              <div className="media-list">
-                {paginatedFiles.map(file => (
-                  <div 
-                    key={file.id} 
-                    className={`media-list-item ${selectedFiles.includes(file.id) ? 'selected' : ''}`}
-                    onClick={() => handleMediaSelect(file)}
-                  >
-                    <div className="list-thumbnail">
+              /* Media Grid/List - Show when files exist */
+              <>
+                {viewMode === 'grid' ? (
+                  <div className="media-grid">
+                    {paginatedFiles.map(file => (
                       <MediaThumbnail
+                        key={file.id}
                         file={file}
                         onClick={() => handleMediaSelect(file)}
                         onSelect={handleThumbnailSelect}
                         onDoubleClick={onMediaDoubleClick}
                         isSelected={selectedFiles.includes(file.id)}
                         showSelection={selectionMode}
-                        className="media-thumbnail-compact"
+                        className="media-thumbnail-item"
                       />
-                    </div>
-                    
-                    <div className="list-info">
-                      <div className="list-title" title={file.title}>
-                        {file.title}
-                      </div>
-                      <div className="list-meta">
-                        <span>{formatFileSize(file.file_size)}</span>
-                        <span>•</span>
-                        <span>{formatDate(file.upload_date)}</span>
-                        {file.width && file.height && (
-                          <>
-                            <span>•</span>
-                            <span>{file.width} × {file.height}px</span>
-                          </>
-                        )}
-                      </div>
-                      {file.category_name && (
-                        <div className="list-category">
-                          <span 
-                            className="category-badge"
-                            style={{ backgroundColor: file.category_color }}
-                          >
-                            {file.category_name}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="list-actions">
-                      <button 
-                        className="btn-edit"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setEditingFile(file);
-                        }}
-                        title="Edit file details"
-                      >
-                        ✏️
-                      </button>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
+                ) : (
+                  <div className="media-list">
+                    {paginatedFiles.map(file => (
+                      <div
+                        key={file.id}
+                        className={`media-list-item ${selectedFiles.includes(file.id) ? 'selected' : ''}`}
+                        onClick={() => handleMediaSelect(file)}
+                      >
+                        <div className="list-thumbnail">
+                          <MediaThumbnail
+                            file={file}
+                            onClick={() => handleMediaSelect(file)}
+                            onSelect={handleThumbnailSelect}
+                            onDoubleClick={onMediaDoubleClick}
+                            isSelected={selectedFiles.includes(file.id)}
+                            showSelection={selectionMode}
+                            className="media-thumbnail-compact"
+                          />
+                        </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="pagination">
-                <button 
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  ← Previous
-                </button>
-                
-                <span className="page-info">
-                  Page {currentPage} of {totalPages}
-                </span>
-                
-                <button 
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  Next →
-                </button>
-              </div>
-            )}
+                        <div className="list-info">
+                          <div className="list-title" title={file.title}>
+                            {file.title}
+                          </div>
+                          <div className="list-meta">
+                            <span>{formatFileSize(file.file_size)}</span>
+                            <span>•</span>
+                            <span>{formatDate(file.upload_date)}</span>
+                            {file.width && file.height && (
+                              <>
+                                <span>•</span>
+                                <span>{file.width} × {file.height}px</span>
+                              </>
+                            )}
+                          </div>
+                          {file.category_name && (
+                            <div className="list-category">
+                              <span
+                                className="category-badge"
+                                style={{ backgroundColor: file.category_color }}
+                              >
+                                {file.category_name}
+                              </span>
+                            </div>
+                          )}
+                        </div>
 
-            {paginatedFiles.length === 0 && (
-              <div className="no-files">
-                {searchTerm || selectedCategory !== 'all' 
-                  ? 'No files match your filters.' 
-                  : 'No files uploaded yet.'}
-              </div>
+                        <div className="list-actions">
+                          <button
+                            className="btn-edit"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setEditingFile(file);
+                            }}
+                            title="Edit file details"
+                          >
+                            ✏️
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="pagination">
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => setCurrentPage(currentPage - 1)}
+                    >
+                      ← Previous
+                    </button>
+
+                    <span className="page-info">
+                      Page {currentPage} of {totalPages}
+                    </span>
+
+                    <button
+                      disabled={currentPage === totalPages}
+                      onClick={() => setCurrentPage(currentPage + 1)}
+                    >
+                      Next →
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </>
         )}
