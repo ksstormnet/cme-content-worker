@@ -21,7 +21,6 @@
 		"@tiptap/starter-kit": "^3.6.5",
 		"hono": "4.8.2",
 		"lodash-es": "^4.17.21",
-		"mcp-remote": "^0.1.29",
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
 		"react-dropzone": "^14.3.8",
@@ -76,8 +75,7 @@
 		"test:playwright": "playwright test",
 		"test:headed": "playwright test --headed",
 		"test:ui": "playwright test --ui",
-		"wp:discover": "node --loader ts-node/esm scripts/wp-api-discovery.ts",
-		"cf:setup": "node scripts/setup-cloudflare-account.js"
+		"wp:discover": "node --loader ts-node/esm scripts/wp-api-discovery.ts"
 	},
 	"type": "module"
 }

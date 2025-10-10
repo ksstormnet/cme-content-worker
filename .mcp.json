@@ -1,25 +1,5 @@
 {
   "mcpServers": {
-    "cloudflare-observability": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://observability.mcp.cloudflare.com/sse"]
-    },
-    "cloudflare-bindings": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://bindings.mcp.cloudflare.com/sse"]
-    },
-    "cloudflare-browser": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://browser.mcp.cloudflare.com/sse"]
-    },
-    "cloudflare-docs": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://docs.mcp.cloudflare.com/sse"]
-    },
-    "cloudflare-radar": {
-      "command": "npx",
-      "args": ["mcp-remote", "https://radar.mcp.cloudflare.com/sse"]
-    },
     "code-understanding": {
       "command": "/home/scott/.local/bin/code-understanding-mcp-server",
       "args": []

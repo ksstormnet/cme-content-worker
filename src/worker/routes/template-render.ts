@@ -1,15 +1,15 @@
 import { Hono } from 'hono'
 import { Env } from '../../types/database'
-import { templateRenderer } from '../../utils/template-renderer'
+import { renderPage, renderErrorPage, getAvailableTemplates } from '../../utils/template-renderer'
 import { generatePostVariables, generateBlogListingVariables } from '../../utils/template-variable-generator'
-import { performanceMonitor, addPerformanceHeaders } from '../../utils/performance-monitor'
+import { createPerformanceTracker, addPerformanceHeaders } from '../../utils/performance-monitor'
 import { edgeCaseHandler } from '../../utils/edge-case-handler'
 
 const app = new Hono<{ Bindings: Env }>()
 
 // Homepage route - render blog listing
 app.get('/', async (c) => {
-  const tracker = performanceMonitor.startTracking('/')
+  const tracker = createPerformanceTracker('/')
 
   try {
     console.log('🏠 Rendering homepage with template system')
@@ -26,7 +26,7 @@ app.get('/', async (c) => {
 
     // Render complete HTML page
     tracker.incrementTemplateCount()
-    const html = templateRenderer.renderPage(enhancedVariables)
+    const html = renderPage(enhancedVariables)
 
     // Create response with performance headers
     const response = new Response(html, {
@@ -59,7 +59,7 @@ app.get('/', async (c) => {
     }
 
     // Return enhanced error page
-    return new Response(templateRenderer.renderErrorPage(error as Error, errorContext), {
+    return new Response(renderErrorPage(error as Error, errorContext), {
       status: statusCode,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
@@ -96,7 +96,7 @@ app.get('/category/:categorySlug', async (c) => {
     }
 
     // Render complete HTML page
-    const html = templateRenderer.renderPage(enhancedVariables)
+    const html = renderPage(enhancedVariables)
 
     return new Response(html, {
       headers: {
@@ -109,7 +109,7 @@ app.get('/category/:categorySlug', async (c) => {
 
   } catch (error) {
     console.error('Category page rendering error:', error)
-    return new Response(templateRenderer.renderErrorPage(error as Error, 'category page'), {
+    return new Response(renderErrorPage(error as Error, 'category page'), {
       status: 500,
       headers: { 'Content-Type': 'text/html; charset=utf-8' }
     })
@@ -128,7 +128,7 @@ app.get('/:category/:slug/', async (c) => {
 app.get('/:category/:slug', async (c) => {
   const category = c.req.param('category')
   const slug = c.req.param('slug')
-  const tracker = performanceMonitor.startTracking(`/${category}/${slug}`)
+  const tracker = createPerformanceTracker(`/${category}/${slug}`)
 
   try {
     console.log('📄 Rendering post:', category, '/', slug)
@@ -137,7 +137,7 @@ app.get('/:category/:slug', async (c) => {
     tracker.startDbQuery()
     const postResult = await c.env.DB.prepare(`
       SELECT
-        p.id, p.title, p.slug, p.excerpt, p.featured_image_id, p.content,
+        p.id, p.title, p.slug, p.excerpt, p.featured_image_url, p.content,
         p.published_date, p.updated_at, p.meta_description, p.author_id,
         c.slug as category_slug,
         u.name as author_name
@@ -184,7 +184,7 @@ app.get('/:category/:slug', async (c) => {
       excerpt: postResult.excerpt as string || '',
       content_blocks: contentBlocks,
       category: postResult.category_slug as string,
-      featured_image_id: postResult.featured_image_id as string,
+      featured_image_url: postResult.featured_image_url as string,
       published_date: postResult.published_date as string,
       updated_at: postResult.updated_at as string,
       meta_description: postResult.meta_description as string,
@@ -192,13 +192,13 @@ app.get('/:category/:slug', async (c) => {
     }
 
     // Generate comprehensive template variables
-    if (postData.featured_image_id) {
+    if (postData.featured_image_url) {
       tracker.startImageProcessing()
     }
 
     const variables = await generatePostVariables(postData, c.env)
 
-    if (postData.featured_image_id) {
+    if (postData.featured_image_url) {
       tracker.endImageProcessing()
     }
 
@@ -212,7 +212,7 @@ app.get('/:category/:slug', async (c) => {
 
     // Render complete HTML page
     tracker.incrementTemplateCount()
-    const html = templateRenderer.renderPage(enhancedVariables)
+    const html = renderPage(enhancedVariables)
 
     const response = new Response(html, {
       headers: {
@@ -230,7 +230,7 @@ app.get('/:category/:slug', async (c) => {
     console.error('Post rendering error:', error)
     tracker.finish(false, error instanceof Error ? error.message : 'Unknown error')
 
-    return new Response(templateRenderer.renderErrorPage(error as Error, 'post page'), {
+    return new Response(renderErrorPage(error as Error, 'post page'), {
       status: 500,
       headers: { 'Content-Type': 'text/html; charset=utf-8' }
     })
@@ -240,7 +240,7 @@ app.get('/:category/:slug', async (c) => {
 // Health check endpoint for template system
 app.get('/api/template/health', async (c) => {
   try {
-    const availableTemplates = templateRenderer.getAvailableTemplates()
+    const availableTemplates = getAvailableTemplates()
 
     return c.json({
       success: true,

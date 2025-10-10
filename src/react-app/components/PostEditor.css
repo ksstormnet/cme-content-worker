@@ -412,6 +412,12 @@
   border: 1px solid var(--warning-border);
 }
 
+.tiptap-editor .accent-tip--alert {
+  background: #ffebee;
+  border: 1px solid #f44336;
+  color: #b71c1c;
+}
+
 .tiptap-editor .accent-tip--info {
   background: var(--info-bg);
   border: 1px solid var(--info-border);
@@ -522,6 +528,12 @@
 .preview-blocks .accent-tip--warning {
   background: var(--warning-bg);
   border: 1px solid var(--warning-border);
+}
+
+.preview-blocks .accent-tip--alert {
+  background: #ffebee;
+  border: 1px solid #f44336;
+  color: #b71c1c;
 }
 
 .preview-blocks .accent-tip--info {

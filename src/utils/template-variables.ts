@@ -260,7 +260,7 @@ function renderPostCard(post: PostData): string {
       ` : ''}
       <div class="post-content">
         <h3><a href="/${post.category}/${post.slug}">${escapeHtml(post.title)}</a></h3>
-        <p class="post-excerpt">${escapeHtml(post.excerpt.slice(0, 150))}...</p>
+        <p class="post-excerpt">${post.excerpt.slice(0, 150)}...</p>
         <div class="post-meta">
           <span class="category">${escapeHtml(post.category)}</span>
           ${post.published_date ? `<time datetime="${post.published_date}">${new Date(post.published_date).toLocaleDateString()}</time>` : ''}

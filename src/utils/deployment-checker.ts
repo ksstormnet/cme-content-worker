@@ -199,10 +199,10 @@ async function checkR2Storage(env: Env, checks: DeploymentCheck[]): Promise<void
 // Template system validation
 async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise<void> {
   try {
-    const { templateRenderer } = await import('../utils/template-renderer')
+    const { getAvailableTemplates } = await import('../utils/template-renderer')
 
     // Check if templates are loaded
-    const availableTemplates = templateRenderer.getAvailableTemplates()
+    const availableTemplates = getAvailableTemplates()
 
     const requiredTemplates = ['PAGE_FRAME', 'SEO_META_TEMPLATE', 'HEADER', 'FOOTER', 'POST_NAVIGATION']
     const missingTemplates = requiredTemplates.filter(t => !availableTemplates.includes(t))
@@ -251,7 +251,8 @@ async function checkTemplateSystem(env: Env, checks: DeploymentCheck[]): Promise
         TWITTER_IMAGE_URL: ''
       }
 
-      const html = templateRenderer.renderPage(sampleVariables)
+      const { renderPage } = await import('../utils/template-renderer')
+      const html = renderPage(sampleVariables)
 
       if (html.includes('<!DOCTYPE html>') && html.includes('<title>Deployment Test</title>')) {
         checks.push({
@@ -419,10 +420,10 @@ async function checkPerformanceBaselines(env: Env, checks: DeploymentCheck[]): P
     const start = performance.now()
 
     const { generateBlogListingVariables } = await import('../utils/template-variable-generator')
-    const { templateRenderer } = await import('../utils/template-renderer')
+    const { renderPage } = await import('../utils/template-renderer')
 
     const variables = await generateBlogListingVariables()
-    const html = templateRenderer.renderPage(variables)
+    const html = renderPage(variables)
 
     const renderTime = performance.now() - start
 

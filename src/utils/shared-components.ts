@@ -81,15 +81,15 @@ export class SharedComponents {
   static generateFooter(): string {
     return `
 <div class="site-footer">
-  <div class="gb-element-8850b7bc alignwide">
+  <div class="site-footer__container alignwide">
     <div>
-      <div class="gb-element-c56a38e3"></div>
-      
+      <div class="site-footer__pattern-overlay"></div>
+
       <div>
-        <div class="gb-element-299e3421">
-          
+        <div class="story-grid">
+
           <!-- Logo and tagline -->
-          <div class="gb-element-99528bfa">
+          <div class="footer-section--logo">
             <div class="gb-element-e458cc94">
               <div class="wp-block-image">
                 <figure class="aligncenter size-full is-resized">
@@ -107,7 +107,7 @@ export class SharedComponents {
           </div>
 
           <!-- Legal Links -->
-          <div class="gb-element-02d88715">
+          <div class="footer-section--legal">
             <h4 class="gb-text gb-text-1e906952">Legal</h4>
             <nav class="is-vertical wp-block-navigation is-layout-flex" aria-label="Navigation">
               <ul class="wp-block-navigation__container is-vertical wp-block-navigation">
@@ -131,7 +131,7 @@ export class SharedComponents {
           </div>
 
           <!-- Social Links -->
-          <div class="gb-element-73c7971f">
+          <div class="footer-section--social">
             <h4 class="gb-text gb-text-64a2c0e9">Social</h4>
             <ul class="wp-block-social-links has-icon-color is-style-logos-only is-layout-flex">
               <li class="wp-social-link wp-social-link-facebook has-base-3-color wp-block-social-link">
@@ -218,7 +218,7 @@ export class SharedComponents {
 
 <style>
 /* Gray text area controls height - image adjusts to fit */
-.generate-columns-container {
+.story-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 30px;
@@ -227,12 +227,12 @@ export class SharedComponents {
   align-items: start; /* Allow items to size naturally */
 }
 
-.generate-columns-container article {
+.story-grid article {
   display: block; /* Let content flow naturally */
 }
 
 /* Background image container adjusts to content */
-.generate-columns-container article .gb-element-947acc35 {
+.story-grid article .story-card__image-container {
   display: block;
   position: relative;
   background-size: cover;
@@ -242,7 +242,7 @@ export class SharedComponents {
 }
 
 /* Gray text area has equal heights and controls overall card size */
-.generate-columns-container article .gb-element-ca29c3cc {
+.story-grid article .story-card__content-overlay {
   /* This will be set to equal heights by JavaScript */
   display: flex;
   flex-direction: column;
@@ -256,25 +256,25 @@ export class SharedComponents {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .generate-columns-container {
+  .story-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 0 20px;
     grid-gap: 20px;
   }
-  
-  .generate-columns-container article .gb-element-ca29c3cc {
+
+  .story-grid article .story-card__content-overlay {
     width: 90%;
   }
 }
 
 @media (max-width: 480px) {
-  .generate-columns-container {
+  .story-grid {
     grid-template-columns: 1fr;
     margin: 0 15px;
     grid-gap: 15px;
   }
-  
-  .generate-columns-container article .gb-element-ca29c3cc {
+
+  .story-grid article .story-card__content-overlay {
     width: 100%;
   }
 }
@@ -376,7 +376,7 @@ export class SharedComponents {
   padding: 0 30px;
 }
 
-.gb-element-8babdb99 {
+.post-nav__grid {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -384,28 +384,28 @@ export class SharedComponents {
   margin: 0 auto;
 }
 
-.gb-element-2245e1ea,
-.gb-element-3a7edbd3 {
+.post-nav__item--prev,
+.post-nav__item--next {
   display: flex;
   align-items: center;
   max-width: 45%;
 }
 
-.gb-element-2245e1ea img,
-.gb-element-3a7edbd3 img {
+.post-nav__item--prev img,
+.post-nav__item--next img {
   border-radius: 8px;
   margin: 0 15px;
 }
 
-.gb-element-2245e1ea a,
-.gb-element-3a7edbd3 a {
+.post-nav__item--prev a,
+.post-nav__item--next a {
   color: var(--accent);
   text-decoration: none;
   font-weight: 600;
 }
 
-.gb-element-2245e1ea a:hover,
-.gb-element-3a7edbd3 a:hover {
+.post-nav__item--prev a:hover,
+.post-nav__item--next a:hover {
   text-decoration: underline;
 }
 
@@ -437,65 +437,65 @@ export class SharedComponents {
 </style>
 
 <script>
-// Equalize gray text area heights - they control the overall card size
+// Equalize story card content overlay heights - they control the overall card size
 (function() {
-  function equalizeGrayTextAreas() {
-    console.log('Equalizing gray text areas...');
-    
-    const textAreas = document.querySelectorAll('.generate-columns-container .gb-element-ca29c3cc');
-    console.log('Found gray text areas:', textAreas.length);
-    
-    if (textAreas.length === 0) return;
-    
+  function equalizeCardOverlays() {
+    console.log('Equalizing story card overlays...');
+
+    const overlays = document.querySelectorAll('.story-grid .story-card__content-overlay');
+    console.log('Found card overlays:', overlays.length);
+
+    if (overlays.length === 0) return;
+
     // Reset heights first
-    textAreas.forEach(area => {
-      area.style.height = '';
-      area.style.minHeight = '';
+    overlays.forEach(overlay => {
+      overlay.style.height = '';
+      overlay.style.minHeight = '';
     });
-    
+
     // Force layout recalculation
     document.body.offsetHeight;
-    
+
     // Wait a moment, then measure and equalize
     setTimeout(() => {
       let maxHeight = 0;
       const heights = [];
-      
-      textAreas.forEach((area, index) => {
-        const height = area.offsetHeight;
+
+      overlays.forEach((overlay, index) => {
+        const height = overlay.offsetHeight;
         heights.push(height);
-        console.log('Gray text area', index, 'height:', height);
+        console.log('Card overlay', index, 'height:', height);
         if (height > maxHeight) {
           maxHeight = height;
         }
       });
-      
-      console.log('Max gray area height found:', maxHeight);
-      console.log('All gray area heights:', heights);
-      
+
+      console.log('Max overlay height found:', maxHeight);
+      console.log('All overlay heights:', heights);
+
       if (maxHeight > 0) {
-        textAreas.forEach((area, index) => {
-          area.style.height = maxHeight + 'px';
-          console.log('Set gray area', index, 'to height:', maxHeight);
+        overlays.forEach((overlay, index) => {
+          overlay.style.height = maxHeight + 'px';
+          console.log('Set overlay', index, 'to height:', maxHeight);
         });
-        console.log('Equal gray text area heights applied!');
+        console.log('Equal card overlay heights applied!');
       }
     }, 100);
   }
-  
+
   // Run after DOM and images load
   if (document.readyState === 'complete') {
-    equalizeGrayTextAreas();
+    equalizeCardOverlays();
   } else {
-    window.addEventListener('load', equalizeGrayTextAreas);
+    window.addEventListener('load', equalizeCardOverlays);
   }
-  
+
   // Also run after a delay
-  setTimeout(equalizeGrayTextAreas, 1500);
-  
+  setTimeout(equalizeCardOverlays, 1500);
+
   // Handle resize
   window.addEventListener('resize', function() {
-    setTimeout(equalizeGrayTextAreas, 200);
+    setTimeout(equalizeCardOverlays, 200);
   });
 })();
 </script>

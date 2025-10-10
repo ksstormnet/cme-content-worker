@@ -2,7 +2,7 @@
  * Block Settings Sidebar - Slides in when block is focused
  * Shows block-type-specific settings
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Editor } from '@tiptap/react';
 import './BlockSettingsSidebar.css';
 
@@ -87,94 +87,174 @@ const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({
     </div>
   );
 
-  const renderAccentTipSettings = () => (
-    <div className="settings-content">
-      <h4 className="settings-title">Callout Settings</h4>
+  const renderAccentTipSettings = () => {
+    // Get current callout type from editor
+    const { $from } = editor.state.selection;
+    const node = $from.node($from.depth);
+    const currentType = node?.attrs?.type || 'tip';
 
-      <div className="setting-group">
-        <label className="setting-label">Callout Type</label>
-        <div className="callout-types">
-          <button
-            className={`callout-type-btn tip ${editor.isActive('accentTip', { type: 'tip' }) ? 'active' : ''}`}
-            onClick={() => editor.commands.setAccentTip('tip')}
-          >
-            <span className="callout-icon">💡</span>
-            <span>Tip</span>
-          </button>
-          <button
-            className={`callout-type-btn warning ${editor.isActive('accentTip', { type: 'warning' }) ? 'active' : ''}`}
-            onClick={() => editor.commands.setAccentTip('warning')}
-          >
-            <span className="callout-icon">⚠️</span>
-            <span>Warning</span>
-          </button>
-          <button
-            className={`callout-type-btn info ${editor.isActive('accentTip', { type: 'info' }) ? 'active' : ''}`}
-            onClick={() => editor.commands.setAccentTip('info')}
-          >
-            <span className="callout-icon">ℹ️</span>
-            <span>Info</span>
-          </button>
-          <button
-            className={`callout-type-btn success ${editor.isActive('accentTip', { type: 'success' }) ? 'active' : ''}`}
-            onClick={() => editor.commands.setAccentTip('success')}
-          >
-            <span className="callout-icon">✅</span>
-            <span>Success</span>
-          </button>
+    const [calloutType, setCalloutType] = useState<string>(currentType);
+
+    // Sync state when selection changes
+    useEffect(() => {
+      const { $from } = editor.state.selection;
+      const node = $from.node($from.depth);
+      if (node && node.type.name === 'accentTip') {
+        setCalloutType(node.attrs.type || 'tip');
+      }
+    }, [editor.state.selection]);
+
+    const handleTypeChange = (type: 'tip' | 'warning' | 'alert' | 'info' | 'success') => {
+      setCalloutType(type);
+      // Use updateAttributes instead of setAccentTip to change type of existing block
+      editor.chain().focus().updateAttributes('accentTip', { type }).run();
+    };
+
+    return (
+      <div className="settings-content">
+        <h4 className="settings-title">Callout Settings</h4>
+
+        <div className="setting-group">
+          <label className="setting-label">Callout Type</label>
+          <div className="callout-types">
+            <button
+              className={`callout-type-btn tip ${calloutType === 'tip' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('tip')}
+            >
+              <span className="callout-icon">💡</span>
+              <span>Tip</span>
+            </button>
+            <button
+              className={`callout-type-btn warning ${calloutType === 'warning' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('warning')}
+            >
+              <span className="callout-icon">⚠️</span>
+              <span>Warning</span>
+            </button>
+            <button
+              className={`callout-type-btn alert ${calloutType === 'alert' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('alert')}
+            >
+              <span className="callout-icon">🚨</span>
+              <span>Alert</span>
+            </button>
+            <button
+              className={`callout-type-btn info ${calloutType === 'info' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('info')}
+            >
+              <span className="callout-icon">ℹ️</span>
+              <span>Info</span>
+            </button>
+            <button
+              className={`callout-type-btn success ${calloutType === 'success' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('success')}
+            >
+              <span className="callout-icon">✅</span>
+              <span>Success</span>
+            </button>
+          </div>
+          <p className="setting-help">
+            Choose the semantic meaning of this callout
+          </p>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
-  const renderImageSettings = () => (
-    <div className="settings-content">
-      <h4 className="settings-title">Image Settings</h4>
+  const renderImageSettings = () => {
+    // Get current image attributes from editor
+    const { $from } = editor.state.selection;
+    const node = $from.node($from.depth);
+    const attrs = node?.attrs || {};
 
-      <div className="setting-group">
-        <label className="setting-label">Alignment</label>
-        <div className="button-group">
-          <button className="btn-setting">
-            Left
-          </button>
-          <button className="btn-setting">
-            Center
-          </button>
-          <button className="btn-setting">
-            Right
-          </button>
+    const [caption, setCaption] = useState<string>(attrs.caption || '');
+    const [alignment, setAlignment] = useState<string>(attrs.alignment || 'center');
+    const [size, setSize] = useState<string>(attrs.size || 'large');
+
+    // Sync state when selection changes
+    useEffect(() => {
+      const { $from } = editor.state.selection;
+      const node = $from.node($from.depth);
+      if (node && node.type.name === 'image') {
+        setCaption(node.attrs.caption || '');
+        setAlignment(node.attrs.alignment || 'center');
+        setSize(node.attrs.size || 'large');
+      }
+    }, [editor.state.selection]);
+
+    const handleCaptionChange = (value: string) => {
+      setCaption(value);
+      editor.chain().focus().setImageCaption(value || null).run();
+    };
+
+    const handleAlignmentChange = (newAlignment: 'left' | 'center' | 'right') => {
+      setAlignment(newAlignment);
+      editor.chain().focus().setImageAlignment(newAlignment).run();
+    };
+
+    const handleSizeChange = (newSize: 'thumbnail' | 'medium' | 'large' | 'full') => {
+      setSize(newSize);
+      editor.chain().focus().setImageSize(newSize).run();
+    };
+
+    return (
+      <div className="settings-content">
+        <h4 className="settings-title">Image Settings</h4>
+
+        <div className="setting-group">
+          <label className="setting-label">Alignment</label>
+          <div className="button-group">
+            <button
+              className={`btn-setting ${alignment === 'left' ? 'active' : ''}`}
+              onClick={() => handleAlignmentChange('left')}
+            >
+              Left
+            </button>
+            <button
+              className={`btn-setting ${alignment === 'center' ? 'active' : ''}`}
+              onClick={() => handleAlignmentChange('center')}
+            >
+              Center
+            </button>
+            <button
+              className={`btn-setting ${alignment === 'right' ? 'active' : ''}`}
+              onClick={() => handleAlignmentChange('right')}
+            >
+              Right
+            </button>
+          </div>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-label">Size</label>
+          <select
+            className="setting-select"
+            value={size}
+            onChange={(e) => handleSizeChange(e.target.value as any)}
+          >
+            <option value="thumbnail">Thumbnail</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="full">Full Width</option>
+          </select>
+        </div>
+
+        <div className="setting-group">
+          <label className="setting-label">Caption (Optional)</label>
+          <textarea
+            className="setting-textarea"
+            placeholder="Add a caption to provide context..."
+            rows={3}
+            value={caption}
+            onChange={(e) => handleCaptionChange(e.target.value)}
+          />
+          <p className="setting-help">
+            Helps with accessibility and provides context for readers
+          </p>
         </div>
       </div>
-
-      <div className="setting-group">
-        <label className="setting-label">Size</label>
-        <select className="setting-select">
-          <option value="thumbnail">Thumbnail</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-          <option value="full">Full Width</option>
-        </select>
-      </div>
-
-      <div className="setting-group">
-        <label className="setting-label">Alt Text</label>
-        <input
-          type="text"
-          className="setting-input"
-          placeholder="Describe the image..."
-        />
-      </div>
-
-      <div className="setting-group">
-        <label className="setting-label">Caption</label>
-        <textarea
-          className="setting-textarea"
-          placeholder="Optional caption..."
-          rows={2}
-        />
-      </div>
-    </div>
-  );
+    );
+  };
 
   const renderQuoteSettings = () => (
     <div className="settings-content">

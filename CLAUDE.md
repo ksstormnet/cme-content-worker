@@ -77,77 +77,15 @@
 - **Evidence-Based Decisions**: All technical choices must be justified with performance, security, or maintainability evidence
 - **Critical Review**: Actively challenge and improve all proposed solutions
 
-## Mandatory MCP Server Integration
+## Available MCP Servers
 
-**CRITICAL REQUIREMENT**: This project MUST utilize the official Cloudflare MCP servers for all Cloudflare service interactions.
-
-### MCP Server Configuration
-
-#### **Setup Complete**
-- **MCP Configuration**: `.mcp.json` file configured with Cloudflare MCP servers
-- **Remote Access**: `mcp-remote` package installed for server connectivity
-- **Auto-Enable**: `enableAllProjectMcpServers: true` in `.claude/settings.local.json`
-- **Repository**: Cloudflare MCP server cloned to `mcp-servers/mcp-server-cloudflare/`
-
-### Available MCP Servers
-
-#### **Codebase Intelligence** (MANDATORY Usage)
+### **Codebase Intelligence** (MANDATORY Usage)
 - **code-understanding** (Local Python-based MCP server)
   - Analyze local codebase structure and dependencies
-  - Generate repository maps with function signatures and class definitions  
+  - Generate repository maps with function signatures and class definitions
   - Identify critical files based on complexity metrics
   - Provide intelligent context for AI coding assistance
   - **Usage**: REQUIRED for all codebase analysis, architecture understanding, and complex refactoring tasks
-
-#### **Core Development Servers** (MANDATORY Usage)
-- **cloudflare-observability** (`https://observability.mcp.cloudflare.com/sse`)
-  - Debug and get insights into Worker logs and analytics
-  - **Usage**: REQUIRED for all debugging, monitoring, and performance analysis
-  
-- **cloudflare-bindings** (`https://bindings.mcp.cloudflare.com/sse`)
-  - Build Workers applications with storage, AI, and compute primitives
-  - **Usage**: REQUIRED for D1 database and R2 storage management
-  
-- **cloudflare-browser** (`https://browser.mcp.cloudflare.com/sse`)
-  - Fetch web pages, convert to markdown, take screenshots
-  - **Usage**: REQUIRED for content preview and template testing
-
-#### **Supporting Servers** (Available)
-- **cloudflare-docs** (`https://docs.mcp.cloudflare.com/sse`)
-  - Get up-to-date reference information on Cloudflare APIs
-  - **Usage**: For API documentation and troubleshooting
-  
-- **cloudflare-radar** (`https://radar.mcp.cloudflare.com/sse`)
-  - Get global Internet traffic insights and trends
-  - **Usage**: For analytics and performance insights
-
-### MCP Enforcement Protocol
-
-**Integration Requirements**:
-- **Codebase Analysis**: MANDATORY use of code-understanding for all architectural analysis, dependency mapping, and complex refactoring
-- **All Cloudflare Operations**: MUST use appropriate MCP servers when available
-- **Database Operations**: Use cloudflare-bindings for D1 database management
-- **Media Management**: Use cloudflare-bindings for R2 bucket operations  
-- **Debugging**: MANDATORY use of cloudflare-observability for Worker debugging
-- **Content Testing**: Use cloudflare-browser for template and content validation
-
-**Usage Priority**:
-1. **Codebase Intelligence**: FIRST choice for architectural analysis, dependency mapping, and code understanding
-2. **MCP Servers**: FIRST choice for all Cloudflare service interactions
-3. **Direct APIs**: Only when MCP server capabilities are insufficient
-4. **Documentation**: Always reference via cloudflare-docs MCP server
-
-**Authentication Protocol**:
-- **OAuth2 Required**: Cloudflare MCP servers require OAuth2 authentication each session
-- **Active Account**: ALWAYS set to Sky + Sea, LLC (`54919652c0ba9b83cb0ae04cb5ea90f3`) after authentication
-- **Session Setup**: Run `npm run cf:setup` for account configuration instructions
-- **Account Selection**: Use `mcp__cloudflare-radar__set_active_account` with Sky + Sea account ID
-
-**Performance Notes**:
-- Keep queries concise to avoid context-length limits
-- Break complex operations into smaller MCP tool calls
-- Some features may require paid Cloudflare Workers plan
-- OAuth authentication required once per Claude Code session
 
 ## Critical Module System Guardrails
 

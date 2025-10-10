@@ -30,6 +30,7 @@ interface MediaThumbnailProps {
   file: MediaFile;
   onClick?: () => void;
   onSelect?: (file: MediaFile) => void;
+  onDoubleClick?: (file: MediaFile) => void;
   isSelected?: boolean;
   showSelection?: boolean;
   className?: string;
@@ -39,6 +40,7 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
   file,
   onClick,
   onSelect,
+  onDoubleClick,
   isSelected = false,
   showSelection = false,
   className = ""
@@ -109,15 +111,8 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
     return imageTypes.includes(mimeType) && !imageError;
   };
 
-  const getProxyUrl = (originalUrl: string): string => {
-    // Convert CDN URL to proxy URL to bypass CORS issues
-    // Example: https://cdn.cruisemadeeasy.com/2025/02/file.jpg -> /api/media/proxy/2025/02/file.jpg
-    if (originalUrl.includes('cdn.cruisemadeeasy.com/')) {
-      const path = originalUrl.split('cdn.cruisemadeeasy.com/')[1];
-      return `/api/media/proxy/${path}`;
-    }
-    return originalUrl;
-  };
+  // Images load directly from CDN - no proxy needed
+  const getImageUrl = (url: string): string => url;
 
   const renderThumbnailContent = () => {
     if (canShowImageThumbnail(file.mime_type)) {
@@ -129,7 +124,7 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
             </div>
           )}
           <img
-            src={getProxyUrl(file.thumbnails?.thumbnail || file.file_url)}
+            src={getImageUrl(file.thumbnails?.thumbnail || file.file_url)}
             alt={file.alt_text || file.title}
             className={`w-full h-full object-cover transition-opacity duration-200 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
@@ -167,6 +162,12 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
     }
   };
 
+  const handleDoubleClick = () => {
+    if (onDoubleClick) {
+      onDoubleClick(file);
+    }
+  };
+
   const handleSelectionClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (onSelect) {
@@ -188,15 +189,16 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
   };
 
   return (
-    <div 
+    <div
       className={`
         bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700
-        hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 
+        hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600
         transition-all duration-200 cursor-pointer
         ${isSelected ? 'ring-2 ring-blue-500 border-blue-500' : ''}
         ${className}
       `}
       onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       draggable
       onDragStart={handleDragStart}
     >

@@ -59,6 +59,7 @@ interface User {
 interface MediaLibraryProps {
   user: User;
   onMediaSelect?: (media: MediaFile) => void;
+  onMediaDoubleClick?: (media: MediaFile) => void;
   selectionMode?: boolean;
   allowMultiple?: boolean;
 }
@@ -66,6 +67,7 @@ interface MediaLibraryProps {
 const MediaLibrary: React.FC<MediaLibraryProps> = ({
   user,
   onMediaSelect,
+  onMediaDoubleClick,
   selectionMode = false,
   allowMultiple = false
 }) => {
@@ -561,6 +563,7 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({
                     file={file}
                     onClick={() => handleMediaSelect(file)}
                     onSelect={handleThumbnailSelect}
+                    onDoubleClick={onMediaDoubleClick}
                     isSelected={selectedFiles.includes(file.id)}
                     showSelection={selectionMode}
                     className="media-thumbnail-item"
@@ -580,6 +583,7 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({
                         file={file}
                         onClick={() => handleMediaSelect(file)}
                         onSelect={handleThumbnailSelect}
+                        onDoubleClick={onMediaDoubleClick}
                         isSelected={selectedFiles.includes(file.id)}
                         showSelection={selectionMode}
                         className="media-thumbnail-compact"

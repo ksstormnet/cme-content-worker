@@ -64,8 +64,8 @@ app.get('/health', async (c) => {
 
     // Test template system
     try {
-      const { templateRenderer } = await import('../../utils/template-renderer')
-      const templates = templateRenderer.getAvailableTemplates()
+      const { getAvailableTemplates } = await import('../../utils/template-renderer')
+      const templates = getAvailableTemplates()
       healthStatus.services.templates = templates.length > 0 ? 'healthy' : 'unhealthy'
 
       if (templates.length === 0) {
@@ -94,8 +94,7 @@ app.get('/health', async (c) => {
 app.get('/info', async (c) => {
   try {
     // Get system information
-    const { templateRenderer } = await import('../../utils/template-renderer')
-    const { performanceMonitor } = await import('../../utils/performance-monitor')
+    const { getAvailableTemplates } = await import('../../utils/template-renderer')
 
     // Get database stats
     let dbStats = {}
@@ -111,24 +110,15 @@ app.get('/info', async (c) => {
       dbStats = { error: 'Unable to fetch database statistics' }
     }
 
-    // Get performance stats
-    const perfReport = performanceMonitor.getPerformanceReport()
-
     const systemInfo = {
       timestamp: new Date().toISOString(),
       environment: c.env.ENVIRONMENT || 'unknown',
       version: '1.0.0',
       templates: {
-        available: templateRenderer.getAvailableTemplates().length,
-        names: templateRenderer.getAvailableTemplates()
+        available: getAvailableTemplates().length,
+        names: getAvailableTemplates()
       },
       database: dbStats,
-      performance: {
-        totalRoutes: perfReport.summary.totalRoutes,
-        totalRequests: perfReport.summary.totalRequests,
-        averageResponseTime: perfReport.summary.averageResponseTime,
-        failureRate: perfReport.summary.overallFailureRate
-      },
       features: {
         seoValidation: true,
         performanceMonitoring: true,

@@ -135,34 +135,44 @@ export class BlockRenderer {
   }
 
   /**
-   * Render image with accessibility features
+   * Render image with accessibility features and Cloudflare Image Resizing
    */
   private renderImage(content: ImageBlockContent, blockId: number): string {
-    const url = this.resolveImageUrl(content.url);
-    const alt = this.escapeHtml(content.alt || '');
     const alignment = content.alignment || 'center';
-    const sizeClass = content.size ? `image-${content.size}` : 'image-medium';
+    const size = content.size || 'medium';
+    const sizeClass = `image-${size}`;
     const captionId = content.caption ? `caption-${blockId}` : undefined;
-    
+
+    // Map size to pixel width for Cloudflare Image Resizing
+    const sizeWidthMap = {
+      thumbnail: 150,
+      medium: 768,
+      large: 1200,
+      full: 1920
+    };
+    const width = sizeWidthMap[size] || 768;
+
+    const url = this.resolveImageUrl(content.url, width);
+    const alt = this.escapeHtml(content.alt || '');
     const lazyLoading = this.options.enableLazyLoading ? ' loading="lazy"' : '';
-    
+
     let html = `<figure class="content-image ${sizeClass}" style="text-align: ${alignment}">
   <img src="${url}" alt="${alt}"${lazyLoading} class="responsive-image"`;
-    
+
     if (captionId) {
       html += ` aria-describedby="${captionId}"`;
     }
-    
+
     html += ' />';
-    
+
     if (content.caption) {
       html += `\n  <figcaption id="${captionId}" class="image-caption">
     ${this.escapeHtml(content.caption)}
   </figcaption>`;
     }
-    
+
     html += '\n</figure>';
-    
+
     return html;
   }
 
@@ -174,6 +184,7 @@ export class BlockRenderer {
     const roleMap = {
       tip: 'note',
       warning: 'alert',
+      alert: 'alert',
       info: 'note',
       success: 'status'
     };
@@ -437,17 +448,25 @@ ${buttons}
       .replace(/`(.*?)`/g, '<code>$1</code>');
   }
 
-  private resolveImageUrl(url: string): string {
-    if (url.startsWith('http')) {
-      return url;
+  private resolveImageUrl(url: string, width?: number): string {
+    let resolvedUrl = url;
+    if (!url.startsWith('http')) {
+      resolvedUrl = this.options.baseUrl + url;
     }
-    return this.options.baseUrl + url;
+
+    // Apply Cloudflare Image Resizing if width specified and using CDN
+    if (width && resolvedUrl.includes('cdn.cruisemadeeasy.com')) {
+      return `${resolvedUrl}/cdn-cgi/image/width=${width},quality=85,format=auto`;
+    }
+
+    return resolvedUrl;
   }
 
   private getAccentTipIcon(type: string): string {
     const icons = {
       tip: '💡',
       warning: '⚠️',
+      alert: '🚨',
       info: 'ℹ️',
       success: '✅'
     };

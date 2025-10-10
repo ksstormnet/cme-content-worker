@@ -19,6 +19,9 @@ declare module '@tiptap/core' {
         alignment?: 'left' | 'center' | 'right';
         size?: 'thumbnail' | 'medium' | 'large' | 'full';
       }) => ReturnType;
+      setImageCaption: (caption: string | null) => ReturnType;
+      setImageAlignment: (alignment: 'left' | 'center' | 'right') => ReturnType;
+      setImageSize: (size: 'thumbnail' | 'medium' | 'large' | 'full') => ReturnType;
     };
   }
 }
@@ -131,6 +134,21 @@ export const ImagePlaceholderExtension = Node.create<ImageOptions>({
             type: this.name,
             attrs: options,
           });
+        },
+      setImageCaption:
+        caption =>
+        ({ commands }) => {
+          return commands.updateAttributes(this.name, { caption });
+        },
+      setImageAlignment:
+        alignment =>
+        ({ commands }) => {
+          return commands.updateAttributes(this.name, { alignment });
+        },
+      setImageSize:
+        size =>
+        ({ commands }) => {
+          return commands.updateAttributes(this.name, { size });
         },
     };
   },

@@ -412,7 +412,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ user, onPostCreated, onPostUpda
       }
     }, 2000),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDirty, title, contentBlocks, excerpt, category, tags, status, postType, persona]
+    [isDirty, title, contentBlocks, excerpt, category, tags, status, postType, persona, featuredImageUrl]
   );
 
   useEffect(() => {

@@ -72,10 +72,28 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
     setCaption(media.caption || '');
   };
 
+  const handleMediaDoubleClick = (media: MediaFile) => {
+    // Auto-insert with default settings on double-click
+    const imageUrl = media.file_url;
+
+    onSelect({
+      id: media.id,
+      url: imageUrl,
+      alt: media.alt_text || media.title,
+      caption: media.caption,
+      alignment: 'center', // default
+      size: 'large' // default
+    });
+
+    // Close modal after insertion
+    onClose();
+  };
+
   const handleInsert = () => {
     if (!selectedMedia) return;
 
-    const imageUrl = selectedMedia.file_url || selectedMedia.file_url;
+    // Use direct CDN URL - no proxy needed
+    const imageUrl = selectedMedia.file_url;
 
     onSelect({
       id: selectedMedia.id,
@@ -123,6 +141,7 @@ const MediaPicker: React.FC<MediaPickerProps> = ({
             <MediaLibrary
               user={user}
               onMediaSelect={handleMediaSelect}
+              onMediaDoubleClick={handleMediaDoubleClick}
               selectionMode={true}
               allowMultiple={allowMultiple}
             />

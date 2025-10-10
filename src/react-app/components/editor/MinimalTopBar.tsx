@@ -32,7 +32,7 @@ export const MinimalTopBar: React.FC<MinimalTopBarProps> = ({
     <div className="minimal-top-bar">
       <Link to="/admin" className="logo-home-button" title="Back to Dashboard">
         <img
-          src="https://cdn.cruisemadeeasy.com/admin/4-color-icon-transparent.png"
+          src="/api/media/proxy/admin/4-color-icon-transparent.png"
           alt="CME"
           className="logo-icon"
         />

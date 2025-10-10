@@ -17,10 +17,19 @@ export async function generatePostVariables(
   // Generate content from content blocks
   const postContent = await renderContentBlocks(post.content_blocks || [])
   
-  // Get featured image variants (if available)
-  const imageVariants = post.featured_image_id 
-    ? await getImageVariants(post.featured_image_id, env)
-    : null
+  // Use featured_image_url with Cloudflare Image Resizing
+  const featuredImageUrl = post.featured_image_url || ''
+
+  // Generate optimized variants using Cloudflare Image Resizing
+  const heroImageUrl = featuredImageUrl
+    ? `${featuredImageUrl}/cdn-cgi/image/width=1920,quality=85,format=auto`
+    : ''
+  const socialImageUrl = featuredImageUrl
+    ? `${featuredImageUrl}/cdn-cgi/image/width=1200,height=630,fit=cover,quality=85,format=auto`
+    : ''
+  const thumbnailUrl = featuredImageUrl
+    ? `${featuredImageUrl}/cdn-cgi/image/width=150,height=150,fit=cover,quality=85,format=auto`
+    : ''
 
   // Generate category display name
   const categoryDisplayName = post.category
@@ -42,7 +51,7 @@ export async function generatePostVariables(
     
     // Content areas
     POST_CONTENT: postContent,
-    HERO_CONTENT: renderHeroSection(post, categoryDisplayName, publishedDate),
+    HERO_CONTENT: renderHeroSection(post, heroImageUrl, categoryDisplayName, publishedDate),
     BLOG_CTA_CONTENT: renderBlogCTA(),
     POST_NAVIGATION_CONTENT: await renderPostNavigation(post, env),
     
@@ -55,27 +64,29 @@ export async function generatePostVariables(
     TWITTER_TITLE: post.title,
     TWITTER_DESCRIPTION: post.meta_description || post.excerpt || `${post.title} - Cruise Made Easy`,
     
-    // Featured image handling with full variant support
-    FEATURED_IMAGE_URL: imageVariants?.original || '',
-    FEATURED_IMAGE_THUMBNAIL: imageVariants?.thumbnail || '',
-    FEATURED_IMAGE_SOCIAL: imageVariants?.social || '',
-    FEATURED_IMAGE_ALT: imageVariants?.alt_text || post.title,
-    FEATURED_IMAGE_WIDTH: String(imageVariants?.width || '1200'),
-    FEATURED_IMAGE_HEIGHT: String(imageVariants?.height || '630'),
-    
-    // Additional image variants for responsive design
-    FEATURED_IMAGE_SMALL: imageVariants?.responsive?.small || imageVariants?.original || '',
-    FEATURED_IMAGE_MEDIUM: imageVariants?.responsive?.medium || imageVariants?.original || '',
-    FEATURED_IMAGE_LARGE: imageVariants?.responsive?.large || imageVariants?.original || '',
-    
-    // WebP variants for modern browsers
-    FEATURED_IMAGE_WEBP: imageVariants?.webp?.original || '',
-    FEATURED_IMAGE_WEBP_THUMBNAIL: imageVariants?.webp?.thumbnail || '',
-    FEATURED_IMAGE_WEBP_SOCIAL: imageVariants?.webp?.social || '',
-    
-    // Responsive srcset attributes
-    FEATURED_IMAGE_SRCSET: generateSrcSet(imageVariants),
-    FEATURED_IMAGE_SRCSET_WEBP: generateWebPSrcSet(imageVariants),
+    // Featured image with Cloudflare Image Resizing for optimal performance
+    FEATURED_IMAGE_URL: heroImageUrl,
+    FEATURED_IMAGE_THUMBNAIL: thumbnailUrl,
+    FEATURED_IMAGE_SOCIAL: socialImageUrl,
+    FEATURED_IMAGE_ALT: post.title,
+    FEATURED_IMAGE_WIDTH: '1200',
+    FEATURED_IMAGE_HEIGHT: '630',
+
+    // Responsive sizes using Cloudflare Image Resizing
+    FEATURED_IMAGE_SMALL: featuredImageUrl ? `${featuredImageUrl}/cdn-cgi/image/width=320,quality=85,format=auto` : '',
+    FEATURED_IMAGE_MEDIUM: featuredImageUrl ? `${featuredImageUrl}/cdn-cgi/image/width=768,quality=85,format=auto` : '',
+    FEATURED_IMAGE_LARGE: heroImageUrl,
+
+    // WebP variants (format=auto handles this)
+    FEATURED_IMAGE_WEBP: heroImageUrl,
+    FEATURED_IMAGE_WEBP_THUMBNAIL: thumbnailUrl,
+    FEATURED_IMAGE_WEBP_SOCIAL: socialImageUrl,
+
+    // Responsive srcset with multiple sizes
+    FEATURED_IMAGE_SRCSET: featuredImageUrl
+      ? `${featuredImageUrl}/cdn-cgi/image/width=320,quality=85,format=auto 320w, ${featuredImageUrl}/cdn-cgi/image/width=768,quality=85,format=auto 768w, ${featuredImageUrl}/cdn-cgi/image/width=1200,quality=85,format=auto 1200w, ${featuredImageUrl}/cdn-cgi/image/width=1920,quality=85,format=auto 1920w`
+      : '',
+    FEATURED_IMAGE_SRCSET_WEBP: '',  // format=auto handles WebP automatically
     
     // Date formatting
     PUBLISHED_DATE: publishedDate.toLocaleDateString('en-US', {
@@ -92,16 +103,16 @@ export async function generatePostVariables(
     ARTICLE_HEADLINE: post.title,
     SCHEMA_DESCRIPTION: post.meta_description || post.excerpt || `${post.title} - Cruise Made Easy`,
     
-    // Twitter-specific
-    TWITTER_IMAGE_URL: imageVariants?.social || imageVariants?.original || '',
-    
+    // Twitter-specific (optimized for social sharing)
+    TWITTER_IMAGE_URL: socialImageUrl,
+
     // Template conditional flags
     IS_ARTICLE: true,
-    HAS_FEATURED_IMAGE: !!imageVariants?.original,
-    HAS_TWITTER_IMAGE: !!imageVariants?.social || !!imageVariants?.original,
-    
-    // Schema.org JSON-LD
-    SCHEMA_JSON: generateSchemaJSON(post, imageVariants, baseUrl),
+    HAS_FEATURED_IMAGE: !!featuredImageUrl,
+    HAS_TWITTER_IMAGE: !!featuredImageUrl,
+
+    // Schema.org JSON-LD (use social-optimized image)
+    SCHEMA_JSON: generateSchemaJSON(post, socialImageUrl || featuredImageUrl, baseUrl),
     BREADCRUMBS_JSON: generateBreadcrumbsJSON(post, categoryDisplayName, baseUrl),
     
     // Breadcrumb template variables
@@ -296,25 +307,31 @@ async function renderBlock(block: any): Promise<string> {
 }
 
 // Render hero section for individual posts
-function renderHeroSection(post: PostData, categoryDisplayName: string, publishedDate: Date): string {
+function renderHeroSection(post: PostData, heroImageUrl: string, categoryDisplayName: string, publishedDate: Date): string {
+  // Use optimized hero image URL (1920px wide, compressed)
+  // Include critical inline styles to prevent layout shift during CSS load
+  const heroStyle = heroImageUrl
+    ? `style="--hero-bg-image: url('${heroImageUrl}'); min-height: 280px;"`
+    : 'style="min-height: 280px;"';
+
   return `
-    <div class="hero-container">
-      <div class="gb-element-65aa24d4">
-        <h1 class="gb-text gb-text-74f92ea1">${escapeHtml(post.title)}</h1>
-        <div class="gb-element-c208d8e1">
-          <p class="gb-text-cd6c9335">
+    <div class="hero-container" ${heroStyle}>
+      <div class="hero__content-wrapper">
+        <h1 class="gb-text hero__title">${escapeHtml(post.title)}</h1>
+        <div class="hero__metadata-group">
+          <p class="hero__metadata-item--author">
             <span class="gb-shape">
               <svg viewBox="0 0 3 36.7" xmlns="https://www.w3.org/2000/svg"><path d="M0 0h3v36.7H0z"></path></svg>
             </span>
             <span class="gb-text">${escapeHtml(post.author_name || 'Cruise Made EASY')}</span>
           </p>
-          <p class="gb-text-42e4a7df">
+          <p class="hero__metadata-item--category">
             <span class="gb-shape">
               <svg viewBox="0 0 3 36.7" xmlns="https://www.w3.org/2000/svg"><path d="M0 0h3v36.7H0z"></path></svg>
             </span>
             <span class="gb-text"><span>${escapeHtml(categoryDisplayName)}</span></span>
           </p>
-          <p class="gb-text-12f7e1fd">
+          <p class="hero__metadata-item--date">
             <span class="gb-shape">
               <svg viewBox="0 0 3 36.7" xmlns="https://www.w3.org/2000/svg"><path d="M0 0h3v36.7H0z"></path></svg>
             </span>
@@ -336,8 +353,8 @@ function renderBlogHero(categoryName?: string): string {
     
   return `
     <div class="hero-container" style="--hero-bg-image: url('${heroBackgroundImage}');">
-      <div class="gb-element-65aa24d4">
-        <h1 class="gb-text gb-text-74f92ea1">${escapeHtml(title)}</h1>
+      <div class="hero__content-wrapper">
+        <h1 class="gb-text hero__title">${escapeHtml(title)}</h1>
       </div>
     </div>
   `
@@ -346,9 +363,9 @@ function renderBlogHero(categoryName?: string): string {
 // Render blog CTA section
 function renderBlogCTA(): string {
   return `
-    <div class="gb-element-718de565">
-      <div class="gb-element-c26bb9ef">
-        <h3 class="gb-text gb-text-301a7e52">How Can I Help Plan Your Perfect NCL Cruise?</h3>
+    <div class="blog-cta__container">
+      <div class="blog-cta__content">
+        <h3 class="gb-text blog-cta__heading">How Can I Help Plan Your Perfect NCL Cruise?</h3>
         <div class="wp-block-buttons alignwide has-custom-font-size has-medium-font-size is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-16018d1d wp-block-buttons-is-layout-flex">
           <div class="wp-block-button">
             <a class="wp-block-button__link has-medium-font-size has-custom-font-size wp-element-button" href="https://a.gocme.link/widget/bookings/talk-cruises" style="border-radius:26px">
@@ -430,7 +447,7 @@ async function renderPostNavigation(post: PostData, env: Env): Promise<string> {
 
 
 // Generate Schema.org JSON-LD
-function generateSchemaJSON(post: PostData, imageVariants: any, baseUrl: string): string {
+function generateSchemaJSON(post: PostData, featuredImageUrl: string, baseUrl: string): string {
   const schema = {
     '@context': 'https://schema.org/',
     '@type': 'BlogPosting',
@@ -468,8 +485,8 @@ function generateSchemaJSON(post: PostData, imageVariants: any, baseUrl: string)
     'description': post.meta_description || post.excerpt || post.title
   }
   
-  if (imageVariants?.original) {
-    schema['image'] = imageVariants.original
+  if (featuredImageUrl) {
+    schema['image'] = featuredImageUrl
   }
   
   return JSON.stringify(schema)
@@ -683,23 +700,23 @@ async function generateServerSideBlogCards(env: Env, categorySlug?: string): Pro
       const postUrl = `/${category}/${post.slug}/`
       
       return `
-        <article 
+        <article
           id="post-${post.id}"
           class="dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${category} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding"
         >
-          <div class="gb-element-947acc35" style="background-image: url('${featuredImageUrl}');">
-            <div class="gb-element-ca29c3cc">
-              <p class="gb-text gb-text-44279aaa dynamic-term-class">
+          <div class="story-card__image-container" style="background-image: url('${featuredImageUrl}');">
+            <div class="story-card__content-overlay">
+              <p class="gb-text story-card__category-badge dynamic-term-class">
                 <span>${escapeHtml(categoryTitle)}</span>
               </p>
-              
-              <h2 class="gb-text gb-text-4c89c85f">
+
+              <h2 class="gb-text story-card__title">
                 <a href="${postUrl}">${escapeHtml(post.title)}</a>
               </h2>
-              
-              <p class="gb-text gb-text-663e6423">${publishedDate}</p>
-              
-              <a class="gb-text gb-text-674a334b button" href="${postUrl}">
+
+              <p class="gb-text story-card__date">${publishedDate}</p>
+
+              <a class="gb-text story-card__cta-button button" href="${postUrl}">
                 View Article
               </a>
             </div>
@@ -709,7 +726,7 @@ async function generateServerSideBlogCards(env: Env, categorySlug?: string): Pro
     }).join('\n')
     
     return `
-      <div class="blog-listing-container generate-columns-container">
+      <div class="blog-listing-container story-grid">
         ${cards}
       </div>
     `

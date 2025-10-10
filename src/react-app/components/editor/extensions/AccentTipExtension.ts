@@ -4,14 +4,14 @@
 import { Node, mergeAttributes } from '@tiptap/core';
 
 export interface AccentTipOptions {
-  types: Array<'tip' | 'warning' | 'info' | 'success'>;
+  types: Array<'tip' | 'warning' | 'alert' | 'info' | 'success'>;
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     accentTip: {
-      setAccentTip: (type?: 'tip' | 'warning' | 'info' | 'success') => ReturnType;
-      toggleAccentTip: (type?: 'tip' | 'warning' | 'info' | 'success') => ReturnType;
+      setAccentTip: (type?: 'tip' | 'warning' | 'alert' | 'info' | 'success') => ReturnType;
+      toggleAccentTip: (type?: 'tip' | 'warning' | 'alert' | 'info' | 'success') => ReturnType;
     };
   }
 }
@@ -27,7 +27,7 @@ export const AccentTipExtension = Node.create<AccentTipOptions>({
 
   addOptions() {
     return {
-      types: ['tip', 'warning', 'info', 'success'],
+      types: ['tip', 'warning', 'alert', 'info', 'success'],
     };
   },
 
@@ -85,8 +85,11 @@ export const AccentTipExtension = Node.create<AccentTipOptions>({
 
   addKeyboardShortcuts() {
     return {
-      'Mod-Shift-i': () => this.editor.commands.toggleAccentTip('info'),
+      'Mod-Shift-t': () => this.editor.commands.toggleAccentTip('tip'),
       'Mod-Shift-w': () => this.editor.commands.toggleAccentTip('warning'),
+      'Mod-Shift-a': () => this.editor.commands.toggleAccentTip('alert'),
+      'Mod-Shift-i': () => this.editor.commands.toggleAccentTip('info'),
+      'Mod-Shift-s': () => this.editor.commands.toggleAccentTip('success'),
     };
   },
 });

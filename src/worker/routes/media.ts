@@ -113,17 +113,18 @@ media.get('/', async (c) => {
 
     const images = await c.env.DB.prepare(mediaQuery).bind(...params).all();
 
-    // Transform results to include both variants (new) and thumbnails (MediaLibrary compat)
+    // Transform results with Cloudflare Image Resizing URLs
     const files = (images.results || []).map(image => {
-      const variants = image.variants_json ? JSON.parse(image.variants_json) : {};
+      const baseUrl = image.file_url;
+
       return {
         ...image,
-        // MediaLibrary expects thumbnails object
+        // Use Cloudflare Image Resizing for optimized delivery
         thumbnails: {
-          thumbnail: variants.thumbnail || image.file_url,
-          medium: variants.responsive?.medium || image.file_url,
-          large: variants.responsive?.large || image.file_url,
-          full: variants.original || image.file_url,
+          thumbnail: `${baseUrl}/cdn-cgi/image/width=150,height=150,fit=cover,quality=85`,
+          medium: `${baseUrl}/cdn-cgi/image/width=768,quality=85`,
+          large: `${baseUrl}/cdn-cgi/image/width=1200,quality=85`,
+          full: baseUrl,
         }
       };
     });

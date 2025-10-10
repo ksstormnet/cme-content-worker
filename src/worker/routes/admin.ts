@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { Env, Post, Setting, User, APIResponse, PaginatedResponse } from "../../types/database";
 import { requireAuth } from "./auth";
+import { stripHtml } from "../../utils/text-utils";
 
 // Password hashing utility (same as auth.ts)
 const hashPassword = async (password: string): Promise<string> => {
@@ -180,6 +181,9 @@ adminRoutes.post("/posts", async (c) => {
     // Get next post_id
     const post_id = await getNextPostId(c.env.DB);
 
+    // Strip HTML from excerpt to prevent display issues
+    const cleanExcerpt = excerpt ? stripHtml(excerpt) : null;
+
     // Create post
     const result = await c.env.DB.prepare(`
       INSERT INTO posts (
@@ -191,7 +195,7 @@ adminRoutes.post("/posts", async (c) => {
       uniqueSlug,
       title,
       content || JSON.stringify([]),
-      excerpt || null,
+      cleanExcerpt,
       status || 'draft',
       post_type || 'monday',
       persona || null,
@@ -234,7 +238,8 @@ adminRoutes.put("/posts/:id", async (c) => {
       tags,
       status,
       post_type,
-      persona
+      persona,
+      featured_image_url
     } = await c.req.json();
 
     if (!title) {
@@ -269,23 +274,28 @@ adminRoutes.put("/posts/:id", async (c) => {
       slug = uniqueSlug;
     }
 
+    // Strip HTML from excerpt to prevent display issues
+    const cleanExcerpt = excerpt ? stripHtml(excerpt) : excerpt;
+
     // Update post
     await c.env.DB.prepare(`
       UPDATE posts
       SET slug = ?, title = ?, content = ?, excerpt = ?, status = ?,
           post_type = ?, persona = ?, category = ?, tags = ?,
+          featured_image_url = ?,
           updated_at = datetime('now', 'America/Chicago')
       WHERE id = ?
     `).bind(
       slug,
       title,
       content,
-      excerpt,
+      cleanExcerpt,
       status,
       post_type,
       persona,
       category,
       tags,
+      featured_image_url,
       id
     ).run();
 

@@ -18,8 +18,6 @@ import { media } from "./routes/media";
 import templateRenderRoutes from "./routes/template-render";
 // Context Window 5: SEO validation system
 import seoValidationRoutes from "./routes/seo-validation";
-// Context Window 5: Performance monitoring system
-import performanceRoutes from "./routes/performance";
 // Context Window 5: Deployment readiness system
 import deploymentRoutes from "./routes/deployment";
 import { renderContentBlocks } from "../utils/block-renderer";
@@ -55,7 +53,6 @@ app.route("/api/content-advanced", contentAdvancedRoutes);
 app.route("/api/import", importRoutes);
 app.route("/api/media", media);
 app.route("/api/seo", seoValidationRoutes);
-app.route("/api/performance", performanceRoutes);
 app.route("/api/deployment", deploymentRoutes);
 
 
@@ -223,7 +220,7 @@ app.get("/assets/index.css", async (c) => {
 });
 
 // Admin HTML template - serve React app with cache-busting version parameter
-const ASSET_VERSION = "20251009-201532"; // Update this on each deploy to bust cache
+const ASSET_VERSION = "20251010-221913"; // Update this on each deploy to bust cache
 const adminHtml = `<!doctype html>
 <html lang="en">
   <head>

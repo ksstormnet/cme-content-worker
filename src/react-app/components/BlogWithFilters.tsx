@@ -102,7 +102,7 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
     if (displayPosts.length > 0 && !loading) {
       // Wait for DOM to update, then measure and apply uniform height
       const timer = setTimeout(() => {
-        const cardElements = document.querySelectorAll('.gb-element-947acc35');
+        const cardElements = document.querySelectorAll('.story-card__image-container');
         
         if (cardElements.length > 0) {
           // Measure natural heights
@@ -121,7 +121,7 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
           }
           
           styleElement.textContent = `
-            .gb-element-947acc35 {
+            .story-card__image-container {
               height: ${maxHeight}px !important;
               min-height: ${maxHeight}px !important;
             }
@@ -324,19 +324,19 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
         id={`post-${post.id}`}
         className={`dynamic-content-template post-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-${post.category || 'general'} generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-50 no-featured-image-padding`}
       >
-        <div className="gb-element-947acc35" style={{backgroundImage: `url(${post.featured_image_url || ''})`}}>
-          <div className="gb-element-ca29c3cc">
-            <p className="gb-text gb-text-44279aaa dynamic-term-class">
+        <div className="story-card__image-container" style={{'--inline-bg-image': `url(${post.featured_image_url || ''})`} as React.CSSProperties}>
+          <div className="story-card__content-overlay">
+            <p className="story-card__category-badge">
               <span>{categoryTitle}</span>
             </p>
-            
-            <h2 className="gb-text gb-text-4c89c85f">
+
+            <h2 className="story-card__title">
               <a href={`/${post.category || 'general'}/${post.slug}/`}>{post.title}</a>
             </h2>
-            
-            <p className="gb-text gb-text-663e6423">{publishedDate}</p>
-            
-            <a className="gb-text gb-text-674a334b button" href={`/${post.category || 'general'}/${post.slug}/`}>
+
+            <p className="story-card__date">{publishedDate}</p>
+
+            <a className="story-card__cta-button" href={`/${post.category || 'general'}/${post.slug}/`}>
               View Article
             </a>
           </div>
@@ -481,7 +481,7 @@ const BlogWithFilters: React.FC<BlogWithFiltersProps> = ({ category }) => {
       )}
 
       {/* Main content grid */}
-      <div className="gb-element-299e3421">
+      <div className="story-grid">
         {displayPosts.length > 0 ? (
           displayPosts.map(post => generatePostCard(post))
         ) : (

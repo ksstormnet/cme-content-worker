@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { Env, Post, ContentBlock, AIGeneration, APIResponse } from "../../types/database";
 import { requireAuth } from "./auth";
 import { generateComprehensiveContent, getAPIKeys, TaskType } from "../../utils/ai-models";
+import { stripHtml } from "../../utils/text-utils";
 
 export const createRoutes = new Hono<{ Bindings: Env }>();
 
@@ -177,6 +178,9 @@ FORMAT OUTPUT AS JSON:
       };
     }
 
+    // Strip HTML from excerpt to prevent display issues
+    const cleanExcerpt = contentData.excerpt ? stripHtml(contentData.excerpt) : null;
+
     // Create draft post in database with blocks stored as JSON in posts.content
     const postResult = await c.env.DB.prepare(`
       INSERT INTO posts (
@@ -187,7 +191,7 @@ FORMAT OUTPUT AS JSON:
       contentData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       contentData.title,
       JSON.stringify(contentData.content_blocks),
-      contentData.excerpt,
+      cleanExcerpt,
       'draft',
       post_type || 'monday',
       persona || null,
@@ -254,6 +258,9 @@ createRoutes.put("/posts/:id", async (c) => {
     const postId = c.req.param("id");
     const { title, excerpt, content_blocks, keywords, status, category_id, tag_ids } = await c.req.json();
 
+    // Strip HTML from excerpt to prevent display issues
+    const cleanExcerpt = excerpt ? stripHtml(excerpt) : null;
+
     // Update post with blocks stored as JSON in posts.content
     await c.env.DB.prepare(`
       UPDATE posts
@@ -262,7 +269,7 @@ createRoutes.put("/posts/:id", async (c) => {
       WHERE id = ?
     `).bind(
       title,
-      excerpt || null,
+      cleanExcerpt,
       JSON.stringify(content_blocks),
       JSON.stringify(keywords || []),
       category_id || 1,
